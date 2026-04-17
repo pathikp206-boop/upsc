@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC Revision Hub — Civil Services Study Material</title>
+<meta name="description" content="Comprehensive UPSC Civil Services revision notes covering History, Geography, Polity, Economy, Environment, Science & Art-Culture.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Crimson+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF9933;
+    --white: #FFFFFF;
+    --green: #138808;
+    --navy: #0b1628;
+    --navy-mid: #141f35;
+    --navy-light: #1c2d4a;
+    --cream: #FDF8F2;
+    --gold: #D4AF37;
+    --muted: rgba(253,248,242,0.55);
+    --border: rgba(255,153,51,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 120% 80% at 50% -10%, rgba(255,153,51,0.12) 0%, transparent 65%),
+                linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%);
+  }
+
+  /* Decorative circles */
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::before {
+    width: 600px; height: 600px;
+    border: 1px solid rgba(255,153,51,0.06);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .hero::after {
+    width: 900px; height: 900px;
+    border: 1px solid rgba(255,153,51,0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(255,153,51,0.1);
+    border: 1px solid rgba(255,153,51,0.35);
+    padding: 0.35rem 1.1rem;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    color: var(--saffron);
+    margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+  .eyebrow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--saffron);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+    position: relative; z-index: 1;
+  }
+  .hero-title .word-upsc {
+    color: var(--saffron);
+    font-style: italic;
+  }
+
+  .tricolor-bar {
+    width: 120px; height: 4px;
+    border-radius: 2px;
+    margin: 1.5rem auto;
+    background: linear-gradient(to right, var(--saffron) 33%, var(--white) 33% 66%, var(--green) 66%);
+    position: relative; z-index: 1;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto 3rem;
+    position: relative; z-index: 1;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: flex; gap: 3rem;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+    position: relative; z-index: 1;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--saffron);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── SUBJECT GRID ── */
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .subject-card {
+    display: block;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.8rem;
+    text-decoration: none;
+    color: var(--cream);
+    transition: all 0.25s ease;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--card-accent, var(--saffron));
+    border-radius: 10px 10px 0 0;
+  }
+  .subject-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,153,51,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,153,51,0.1);
+  }
+
+  .card-paper-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+  .card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.6rem;
+    display: block;
+    line-height: 1;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+  .card-topics {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .topic-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(253,248,242,0.7);
+    font-size: 0.78rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    font-family: 'Crimson Pro', serif;
+  }
+  .card-link-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .card-arrow {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,153,51,0.35);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--saffron);
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .subject-card:hover .card-arrow {
+    background: var(--saffron);
+    color: var(--navy);
+    border-color: var(--saffron);
+  }
+
+  /* Colors per subject */
+  .card-history { --card-accent: #FF9933; }
+  .card-geography { --card-accent: #0f9b8e; }
+  .card-polity { --card-accent: #7c3aed; }
+  .card-economy { --card-accent: #059669; }
+  .card-environment { --card-accent: #16a34a; }
+  .card-science { --card-accent: #0891b2; }
+  .card-artculture { --card-accent: #e11d48; }
+
+  /* ── URL TABLE SECTION ── */
+  .url-section {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    padding: 5rem 2rem;
+  }
+  .url-inner { max-width: 800px; margin: 0 auto; }
+  .url-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .url-sub { color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; }
+
+  .url-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .url-item {
+    display: flex; align-items: center;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem 1.2rem;
+    transition: border-color 0.2s;
+    gap: 1rem;
+  }
+  .url-item:hover { border-color: rgba(255,153,51,0.4); }
+  .url-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .url-name {
+    font-weight: 600;
+    color: var(--cream);
+    font-size: 0.95rem;
+    min-width: 160px;
+  }
+  .url-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--saffron);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    word-break: break-all;
+  }
+  .url-link:hover { opacity: 1; text-decoration: underline; }
+
+  /* ── HOW TO DEPLOY ── */
+  .deploy-section {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .deploy-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  .steps { display: flex; flex-direction: column; gap: 1rem; }
+  .step {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--saffron);
+    background: rgba(255,153,51,0.1);
+    border: 1px solid rgba(255,153,51,0.3);
+    border-radius: 4px;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+  .step-content { flex: 1; }
+  .step-title { font-weight: 600; color: var(--cream); margin-bottom: 0.2rem; }
+  .step-desc { font-size: 0.9rem; color: var(--muted); }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: rgba(255,153,51,0.1);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    color: var(--saffron);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: rgba(253,248,242,0.3);
+  }
+  .footer-tricolor {
+    width: 60px; height: 2px;
+    background: linear-gradient(to right, var(--saffron) 33%, var(--white) 33% 66%, var(--green) 66%);
+    margin: 0 auto 1rem;
+    border-radius: 1px;
+  }
+
+  @media (max-width: 640px) {
+    .stats-row { gap: 1.5rem; }
+    .subject-grid { grid-template-columns: 1fr; }
+    .url-name { min-width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="eyebrow-dot"></span>
+    CIVIL SERVICES EXAMINATION PREPARATION
+  </div>
+
+  <h1 class="hero-title">
+    <span class="word-upsc">UPSC</span><br>Revision Hub
+  </h1>
+
+  <div class="tricolor-bar"></div>
+
+  <p class="hero-subtitle">
+    7 comprehensive subject modules covering the entire UPSC syllabus — Prelims, Mains GS I · II · III · IV, and Essay Paper
+  </p>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Subject Modules</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Key Topics</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">GS Papers Covered</div>
+    </div>
+  </div>
+
+  <!-- SUBJECT CARDS -->
+  <div class="subject-grid">
+
+    <a href="history.html" class="subject-card card-history">
+      <div class="card-paper-tag">GS PAPER — I</div>
+      <span class="card-icon">🏛️</span>
+      <div class="card-title">Indian History</div>
+      <div class="card-desc">Ancient civilizations to the independence movement — dynasties, battles, acts, and personalities.</div>
+      <div class="card-topics">
+        <span class="topic-pill">Ancient India</span>
+        <span class="topic-pill">Medieval</span>
+        <span class="topic-pill">Mughal Empire</span>
+        <span class="topic-pill">Freedom Struggle</span>
+        <span class="topic-pill">British Acts</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">history.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="geography.html" class="subject-card card-geography">
+      <div class="card-paper-tag">GS PAPER — I</div>
+      <span class="card-icon">🗺️</span>
+      <div class="card-title">Geography</div>
+      <div class="card-desc">Physical, Indian, and world geography — rivers, soils, climate, minerals, and agriculture.</div>
+      <div class="card-topics">
+        <span class="topic-pill">Physiography</span>
+        <span class="topic-pill">Monsoon</span>
+        <span class="topic-pill">Soils & Vegetation</span>
+        <span class="topic-pill">World Geography</span>
+        <span class="topic-pill">Agriculture</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">geography.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="polity.html" class="subject-card card-polity">
+      <div class="card-paper-tag">GS PAPER — II</div>
+      <span class="card-icon">⚖️</span>
+      <div class="card-title">Indian Polity</div>
+      <div class="card-desc">Constitution, fundamental rights, DPSP, Parliament, President, Judiciary, and amendments.</div>
+      <div class="card-topics">
+        <span class="topic-pill">Preamble</span>
+        <span class="topic-pill">Fundamental Rights</span>
+        <span class="topic-pill">Amendments</span>
+        <span class="topic-pill">Parliament</span>
+        <span class="topic-pill">Election Commission</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">polity.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="economy.html" class="subject-card card-economy">
+      <div class="card-paper-tag">GS PAPER — III</div>
+      <span class="card-icon">📈</span>
+      <div class="card-title">Indian Economy</div>
+      <div class="card-desc">National income, banking, sectors, schemes, trade, and key economic institutions.</div>
+      <div class="card-topics">
+        <span class="topic-pill">GDP & NNP</span>
+        <span class="topic-pill">RBI & Banking</span>
+        <span class="topic-pill">Planning</span>
+        <span class="topic-pill">Key Schemes</span>
+        <span class="topic-pill">Trade Policy</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">economy.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="environment.html" class="subject-card card-environment">
+      <div class="card-paper-tag">GS PAPER — III</div>
+      <span class="card-icon">🌿</span>
+      <div class="card-title">Environment & Ecology</div>
+      <div class="card-desc">Ecosystems, biodiversity hotspots, climate agreements, protected areas, and environmental laws.</div>
+      <div class="card-topics">
+        <span class="topic-pill">Biodiversity</span>
+        <span class="topic-pill">Climate Change</span>
+        <span class="topic-pill">Conventions</span>
+        <span class="topic-pill">National Parks</span>
+        <span class="topic-pill">Green Laws</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">environment.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="science.html" class="subject-card card-science">
+      <div class="card-paper-tag">GS PAPER — III</div>
+      <span class="card-icon">🚀</span>
+      <div class="card-title">Science & Technology</div>
+      <div class="card-desc">ISRO missions, nuclear programme, defence, biotech, AI, renewable energy, and digital India.</div>
+      <div class="card-topics">
+        <span class="topic-pill">ISRO</span>
+        <span class="topic-pill">Nuclear</span>
+        <span class="topic-pill">Missiles</span>
+        <span class="topic-pill">AI & Biotech</span>
+        <span class="topic-pill">Renewable Energy</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">science.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="art-culture.html" class="subject-card card-artculture">
+      <div class="card-paper-tag">GS PAPER — I</div>
+      <span class="card-icon">🎭</span>
+      <div class="card-title">Art & Culture</div>
+      <div class="card-desc">Architecture, painting, dance forms, music traditions, puppetry, and UNESCO heritage sites.</div>
+      <div class="card-topics">
+        <span class="topic-pill">Temple Architecture</span>
+        <span class="topic-pill">Classical Dance</span>
+        <span class="topic-pill">Painting Schools</span>
+        <span class="topic-pill">UNESCO Sites</span>
+        <span class="topic-pill">Folk Art</span>
+      </div>
+      <div class="card-link-row">
+        <span class="card-url">art-culture.html</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── URL TABLE ── -->
+<section class="url-section">
+  <div class="url-inner">
+    <h2 class="url-heading">All Pages — URL Reference</h2>
+    <p class="url-sub">Replace <code>YOUR-USERNAME</code> and <code>REPO-NAME</code> with your GitHub details after deploying.</p>
+
+    <ul class="url-list">
+      <li class="url-item">
+        <span class="url-dot" style="background:#FF9933"></span>
+        <span class="url-name">🏠 Index / Hub</span>
+        <a href="index.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/index.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#FF9933"></span>
+        <span class="url-name">🏛️ History</span>
+        <a href="history.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/history.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#0f9b8e"></span>
+        <span class="url-name">🗺️ Geography</span>
+        <a href="geography.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/geography.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#7c3aed"></span>
+        <span class="url-name">⚖️ Polity</span>
+        <a href="polity.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/polity.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#059669"></span>
+        <span class="url-name">📈 Economy</span>
+        <a href="economy.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/economy.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#16a34a"></span>
+        <span class="url-name">🌿 Environment</span>
+        <a href="environment.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/environment.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#0891b2"></span>
+        <span class="url-name">🚀 Science & Tech</span>
+        <a href="science.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/science.html</a>
+      </li>
+      <li class="url-item">
+        <span class="url-dot" style="background:#e11d48"></span>
+        <span class="url-name">🎭 Art & Culture</span>
+        <a href="art-culture.html" class="url-link">https://YOUR-USERNAME.github.io/REPO-NAME/art-culture.html</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── HOW TO DEPLOY ── -->
+<section class="deploy-section">
+  <h2 class="deploy-heading">How to Deploy on GitHub Pages</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Create a GitHub Repository</div>
+        <div class="step-desc">Go to github.com → New repository. Name it something like <code>upsc-revision</code>. Keep it public.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">Upload All HTML Files</div>
+        <div class="step-desc">Upload all 8 files: <code>index.html</code>, <code>history.html</code>, <code>geography.html</code>, <code>polity.html</code>, <code>economy.html</code>, <code>environment.html</code>, <code>science.html</code>, <code>art-culture.html</code> to the root of your repo.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">Enable GitHub Pages</div>
+        <div class="step-desc">Go to your repo → <code>Settings</code> → <code>Pages</code> → Source: <code>Deploy from branch</code> → Branch: <code>main</code> → folder: <code>/ (root)</code> → Save.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Access Your Site</div>
+        <div class="step-desc">Your site will be live at <code>https://YOUR-USERNAME.github.io/upsc-revision/</code> within a few minutes. Share this URL for revision!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-tricolor"></div>
+  UPSC Revision Hub · 7 Subject Modules · Built for Civil Services Aspirants<br>
+  <span style="opacity:0.5; font-size:0.8rem;">History · Geography · Polity · Economy · Environment · Science · Art & Culture</span>
+</footer>
+
+</body>
+</html>
