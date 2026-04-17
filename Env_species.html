@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC Biology Master Notes — Cornell Revision</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f13;
+  --bg2: #14161e;
+  --bg3: #1c1f2e;
+  --bg4: #242840;
+  --card: #1a1d2b;
+  --border: #2a2f4a;
+  --gold: #e8b84b;
+  --gold2: #f5d07a;
+  --saffron: #ff7043;
+  --green: #4caf82;
+  --blue: #5b9cf6;
+  --purple: #9b7fe8;
+  --red: #e85b5b;
+  --text: #e8e9f0;
+  --text2: #a8aac0;
+  --text3: #6b6e8a;
+  --trap: #ff4757;
+  --trap-bg: rgba(255,71,87,0.08);
+  --tip: #4caf82;
+  --tip-bg: rgba(76,175,130,0.08);
+  --warn: #e8b84b;
+  --warn-bg: rgba(232,184,75,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #0e0f13 0%, #1a1520 50%, #0e1520 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(232,184,75,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 30%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(91,156,246,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.header-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(232,184,75,0.1);
+  border: 1px solid rgba(232,184,75,0.3);
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  margin-bottom: 0.7rem;
+  display: inline-block;
+}
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+}
+h1 span { color: var(--gold); }
+.header-meta {
+  font-size: 0.85rem;
+  color: var(--text3);
+  margin-top: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.chapter-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.pill {
+  font-size: 0.72rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.pill:hover { transform: translateY(-1px); }
+.pill-gold { background: rgba(232,184,75,0.15); color: var(--gold); border-color: rgba(232,184,75,0.3); }
+.pill-blue { background: rgba(91,156,246,0.15); color: var(--blue); border-color: rgba(91,156,246,0.3); }
+.pill-green { background: rgba(76,175,130,0.15); color: var(--green); border-color: rgba(76,175,130,0.3); }
+.pill-purple { background: rgba(155,127,232,0.15); color: var(--purple); border-color: rgba(155,127,232,0.3); }
+.pill-red { background: rgba(232,91,91,0.15); color: var(--red); border-color: rgba(232,91,91,0.3); }
+.pill-saffron { background: rgba(255,112,67,0.15); color: var(--saffron); border-color: rgba(255,112,67,0.3); }
+
+/* ── SEARCH BAR ── */
+.search-wrap {
+  padding: 1rem 3rem;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.search-input {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--gold); }
+.search-input::placeholder { color: var(--text3); }
+.nav-pills-wrap {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.nav-pill {
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.03em;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  white-space: nowrap;
+}
+.nav-pill.active, .nav-pill:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+
+/* ── LAYOUT ── */
+.main-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+/* ── SECTIONS ── */
+.section {
+  margin-bottom: 3rem;
+  animation: fadeIn 0.4s ease both;
+}
+@keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--text);
+}
+h2 .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text3);
+  margin-right: 0.4rem;
+  font-weight: 400;
+}
+h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 1.5rem 0 0.8rem;
+}
+h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: 'JetBrains Mono', monospace;
+  margin: 1.2rem 0 0.6rem;
+}
+
+/* ── CORNELL LAYOUT ── */
+.cornell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--card);
+  margin-bottom: 1.5rem;
+}
+.cornell-cue {
+  background: var(--bg3);
+  padding: 1.2rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cue-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 0.3rem;
+}
+.cue-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--gold2);
+  line-height: 1.4;
+}
+.cue-keyword {
+  display: inline-block;
+  font-size: 0.72rem;
+  background: rgba(232,184,75,0.12);
+  color: var(--gold);
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  margin: 0.1rem 0;
+}
+.cornell-notes {
+  padding: 1.2rem 1.5rem;
+}
+.cornell-summary {
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  padding: 0.8rem 1.5rem;
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--text2);
+  font-style: italic;
+}
+
+/* ── TABLES ── */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 1rem 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+thead tr {
+  background: var(--bg3);
+}
+thead th {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+tbody tr:hover { background: rgba(232,184,75,0.04); }
+tbody tr:last-child { border-bottom: none; }
+td {
+  padding: 0.65rem 1rem;
+  vertical-align: top;
+  color: var(--text2);
+  line-height: 1.5;
+}
+td:first-child { color: var(--text); font-weight: 500; }
+td strong { color: var(--text); }
+td em { color: var(--text3); font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  border-radius: 6px;
+  padding: 0.9rem 1.2rem;
+  margin: 0.8rem 0;
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.callout-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+.callout.trap {
+  background: var(--trap-bg);
+  border-left: 3px solid var(--trap);
+}
+.callout.trap .callout-title { color: var(--trap); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace; }
+.callout.tip {
+  background: var(--tip-bg);
+  border-left: 3px solid var(--tip);
+}
+.callout.tip .callout-title { color: var(--tip); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace; }
+.callout.warn {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn);
+}
+.callout.warn .callout-title { color: var(--warn); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace; }
+.callout-body { color: var(--text2); }
+.callout-body strong { color: var(--text); }
+
+/* ── GRID CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.card-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.card-body { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+.card-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  margin-top: 0.6rem;
+  font-weight: 500;
+}
+
+/* ── TRAPS MASTER TABLE ── */
+.traps-table tbody tr:hover { background: rgba(255,71,87,0.06); }
+.traps-table td:first-child { color: var(--red); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+.traps-table td:last-child { color: var(--green); }
+.cross { color: var(--red); font-weight: 700; }
+.check { color: var(--green); font-weight: 700; }
+
+/* ── KEY-VALUE ROW ── */
+.kv-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.05);
+  font-size: 0.84rem;
+}
+.kv-key {
+  min-width: 160px;
+  font-weight: 600;
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  flex-shrink: 0;
+}
+.kv-val { color: var(--text2); line-height: 1.5; }
+.kv-val strong { color: var(--text); }
+
+/* ── PROCESS STEPS ── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1rem 0;
+}
+.step {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 1.2rem;
+}
+.step:last-child { padding-bottom: 0; }
+.step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  z-index: 1;
+}
+.step-line {
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.step-content { padding-top: 0.25rem; font-size: 0.84rem; color: var(--text2); line-height: 1.6; }
+.step-content strong { color: var(--text); }
+
+/* ── TWO COL ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+@media (max-width: 800px) {
+  .two-col { grid-template-columns: 1fr; }
+  .cornell { grid-template-columns: 1fr; }
+  .cornell-cue { border-right: none; border-bottom: 1px solid var(--border); }
+  header { padding: 1.5rem; }
+  .main-wrap { padding: 1rem 1.2rem; }
+  .search-wrap { padding: 0.8rem 1.2rem; flex-wrap: wrap; }
+  h1 { font-size: 1.8rem; }
+  .nav-pills-wrap { display: none; }
+}
+
+/* ── MINI BADGE ── */
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 0.3rem;
+}
+.badge-red { background: rgba(255,71,87,0.15); color: var(--red); border: 1px solid rgba(255,71,87,0.3); }
+.badge-green { background: rgba(76,175,130,0.15); color: var(--green); border: 1px solid rgba(76,175,130,0.3); }
+.badge-gold { background: rgba(232,184,75,0.15); color: var(--gold); border: 1px solid rgba(232,184,75,0.3); }
+.badge-blue { background: rgba(91,156,246,0.15); color: var(--blue); border: 1px solid rgba(91,156,246,0.3); }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 2rem 0;
+}
+
+/* ── QUICK REV BOX ── */
+.quick-rev {
+  background: linear-gradient(135deg, rgba(232,184,75,0.08), rgba(91,156,246,0.05));
+  border: 1px solid rgba(232,184,75,0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.quick-rev-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.quick-rev-title::before {
+  content: '★';
+  font-size: 0.9rem;
+}
+
+/* ── CLASSIFICATION TREE ── */
+.tree { margin: 1rem 0; }
+.tree-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  font-size: 0.84rem;
+}
+.tree-item .indent { display: inline-block; width: 20px; height: 1px; background: var(--border); }
+.tree-item .tree-name { color: var(--text); font-weight: 500; }
+.tree-item .tree-desc { color: var(--text3); font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; }
+
+/* ── STICKY TOC ── */
+#toc { display: none; }
+
+/* ── PYQ HIGHLIGHT ── */
+.pyq-box {
+  background: rgba(155,127,232,0.08);
+  border: 1px solid rgba(155,127,232,0.25);
+  border-radius: 6px;
+  padding: 0.9rem 1.2rem;
+  margin: 0.8rem 0;
+  font-size: 0.84rem;
+  color: var(--text2);
+}
+.pyq-box .pyq-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--purple);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+/* ── HIDDEN FOR SEARCH ── */
+.hidden { display: none !important; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── FOCUS HIGHLIGHT ── */
+mark {
+  background: rgba(232,184,75,0.3);
+  color: var(--text);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+p { font-size: 0.87rem; color: var(--text2); line-height: 1.8; margin: 0.4rem 0; }
+li { font-size: 0.85rem; color: var(--text2); line-height: 1.7; margin-left: 1.2rem; }
+li strong { color: var(--text); }
+ul, ol { margin: 0.5rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <div class="header-badge">UPSC Prelims · Biology & Ecology · Cornell Notes</div>
+      <h1>Master Revision Notes<br><span>Plant Kingdom & Zoology</span></h1>
+      <div class="header-meta">// Fungi · Lichen · Bryophytes · Pteridophytes · Gymnosperms · Legumes · Algae · Animal Phyla</div>
+    </div>
+  </div>
+  <div class="chapter-pills">
+    <span class="pill pill-gold" onclick="scrollTo('fungi')">🍄 Fungi</span>
+    <span class="pill pill-blue" onclick="scrollTo('lichen')">🌿 Lichen</span>
+    <span class="pill pill-green" onclick="scrollTo('bryophytes')">🌱 Bryophytes</span>
+    <span class="pill pill-purple" onclick="scrollTo('pterido')">🌿 Pteridophytes</span>
+    <span class="pill pill-gold" onclick="scrollTo('gymno')">🌲 Gymnosperms</span>
+    <span class="pill pill-saffron" onclick="scrollTo('legumes')">🫘 Legumes</span>
+    <span class="pill pill-blue" onclick="scrollTo('algae')">🌊 Algae</span>
+    <span class="pill pill-red" onclick="scrollTo('plants-eco')">🌵 Plant Ecology</span>
+    <span class="pill pill-purple" onclick="scrollTo('animals')">🦎 Animal Phyla</span>
+    <span class="pill pill-red" onclick="scrollTo('traps')">⚠️ UPSC Traps</span>
+  </div>
+</header>
+
+<div class="search-wrap">
+  <input class="search-input" id="searchInput" type="text" placeholder="🔍 Search topics, examples, traps..." oninput="doSearch(this.value)">
+  <div class="nav-pills-wrap">
+    <span class="nav-pill active" onclick="showAll(this)">All</span>
+    <span class="nav-pill" onclick="filterSection('fungi', this)">Fungi</span>
+    <span class="nav-pill" onclick="filterSection('lichen', this)">Lichen</span>
+    <span class="nav-pill" onclick="filterSection('bryophytes', this)">Bryophytes</span>
+    <span class="nav-pill" onclick="filterSection('legumes', this)">Legumes/N-fix</span>
+    <span class="nav-pill" onclick="filterSection('algae', this)">Algae</span>
+    <span class="nav-pill" onclick="filterSection('plants-eco', this)">Plant Ecology</span>
+    <span class="nav-pill" onclick="filterSection('animals', this)">Zoology</span>
+    <span class="nav-pill" onclick="filterSection('traps', this)">⚠️ Traps</span>
+  </div>
+</div>
+
+<div class="main-wrap">
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: FIVE KINGDOM -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-overview">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(232,184,75,0.12)">🔬</div>
+    <div>
+      <h2><span class="num">01 //</span>Five Kingdom Classification</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Key Question</div>
+      <div class="cue-text">Where does each organism fit in the 5-kingdom system?</div>
+      <div class="cue-keyword">Monera</div>
+      <div class="cue-keyword">Protista</div>
+      <div class="cue-keyword">Fungi</div>
+      <div class="cue-keyword">Plantae</div>
+      <div class="cue-keyword">Animalia</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kingdom</th><th>Key Feature</th><th>Cell Wall</th><th>Examples</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Monera</strong></td><td>Prokaryote, no nuclear membrane</td><td>Peptidoglycan</td><td>Bacteria, Cyanobacteria (BGA), Mycoplasma</td></tr>
+            <tr><td><strong>Protista</strong></td><td>Unicellular eukaryote</td><td>Varies/absent</td><td>Amoeba, Paramecium, Euglena, Diatoms, Slime molds</td></tr>
+            <tr><td><strong>Fungi</strong></td><td>Heterotrophic eukaryote</td><td><strong>Chitin</strong> ⚠️</td><td>Mushroom, Yeast, Penicillium, Aspergillus</td></tr>
+            <tr><td><strong>Plantae</strong></td><td>Photosynthetic eukaryote</td><td>Cellulose</td><td>Algae, Bryophytes, Pteridophytes, Gymnosperms, Angiosperms</td></tr>
+            <tr><td><strong>Animalia</strong></td><td>Heterotrophic, no cell wall</td><td>Absent</td><td>All animals</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout trap">
+        <div class="callout-icon">🚨</div>
+        <div>
+          <div class="callout-title">Critical Trap</div>
+          <div class="callout-body"><strong>Lichen & Mycorrhiza</strong> are NOT in any single kingdom — they are symbiotic associations between two kingdoms.<br><strong>Cyanobacteria = Blue-Green Algae (BGA) = Monera</strong>, NOT Algae/Plantae.</div>
+        </div>
+      </div>
+    </div>
+    <div class="cornell-summary">📌 Summary: Fungi cell wall = CHITIN (not cellulose). Cyanobacteria = Monera. Lichen/Mycorrhiza = cross-kingdom symbiosis.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: FUNGI -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-fungi" data-section="fungi">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(232,184,75,0.12)">🍄</div>
+    <div>
+      <h2><span class="num">02 //</span>Fungi</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Core Concepts</div>
+      <div class="cue-text">Heterotrophic kingdom with chitin cell walls</div>
+      <div class="cue-keyword">Hyphae/Mycelium</div>
+      <div class="cue-keyword">Chitin Wall</div>
+      <div class="cue-keyword">Saprophytic</div>
+      <div class="cue-keyword">Spore Reprod.</div>
+    </div>
+    <div class="cornell-notes">
+      <h4>Core Properties</h4>
+      <div class="kv-row"><span class="kv-key">Nutrition</span><span class="kv-val">Heterotrophic — cannot photosynthesize; absorb external organic matter</span></div>
+      <div class="kv-row"><span class="kv-key">Cell Wall</span><span class="kv-val"><strong>Chitin</strong> (NOT cellulose like plants)</span></div>
+      <div class="kv-row"><span class="kv-key">Body Structure</span><span class="kv-val">Mycelium = network of thread-like hyphae</span></div>
+      <div class="kv-row"><span class="kv-key">Reproduction</span><span class="kv-val">Spores (sexual and asexual)</span></div>
+
+      <h4>Classes of Fungi — PYQ Direct</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>Common Name</th><th>Spore Type</th><th>Examples</th><th>UPSC Key</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Phycomycetes</strong></td><td>Algae-like fungi</td><td>Sporangiospores / Zoospores</td><td><em>Mucor, Rhizopus, Albugo, Phytophthora</em></td><td>Potato late blight = <em>Phytophthora infestans</em></td></tr>
+            <tr><td><strong>Ascomycetes</strong></td><td>Sac fungi</td><td>Ascospores (in ascus)</td><td><em>Yeast, Penicillium, Aspergillus, Neurospora, Claviceps, Morels</em></td><td>Penicillin from <em>P. notatum</em>; Ergot from <em>Claviceps</em></td></tr>
+            <tr><td><strong>Basidiomycetes</strong></td><td>Club fungi</td><td>Basidiospores (on basidium)</td><td><em>Agaricus</em> (Mushroom), Puffballs, <em>Puccinia</em>, <em>Ustilago</em></td><td>Rust & Smut crop diseases</td></tr>
+            <tr><td><strong>Deuteromycetes</strong></td><td>Imperfect fungi</td><td>No sexual reprod. known</td><td><em>Alternaria, Colletotrichum, Trichoderma</em></td><td>Called "Fungi Imperfecti"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h3>Mycorrhiza — Fungus + Plant Root <span class="badge badge-red">High PYQ</span></h3>
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Symbiosis Type</div>
+      <div class="cue-text">Mutualistic — NOT parasitic!</div>
+      <div class="cue-keyword">Ectomycorrhiza</div>
+      <div class="cue-keyword">Endomycorrhiza</div>
+      <div class="cue-keyword">Arbuscules</div>
+      <div class="cue-keyword">Phosphorus</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-icon">🌲</div>
+          <div class="card-title">Ectomycorrhiza</div>
+          <div class="card-body">Fungi forms sheath <strong>OUTSIDE</strong> root; does NOT penetrate cells. Found in Pine, Oak, Eucalyptus.</div>
+          <span class="card-tag badge badge-blue">External Mantle</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌾</div>
+          <div class="card-title">Endomycorrhiza (AM Fungi)</div>
+          <div class="card-body">Fungi <strong>penetrates root cell walls</strong>; forms arbuscules inside cells. Found in most crop plants and Orchids.</div>
+          <span class="card-tag badge badge-green">Inside Root Cells</span>
+        </div>
+      </div>
+      <h4>Benefits to the Plant</h4>
+      <ul>
+        <li>Increases <strong>surface area</strong> for water and mineral (especially <strong>Phosphorus</strong>) absorption</li>
+        <li>Provides <strong>drought resistance</strong></li>
+        <li>Enhances plant health and soil structure</li>
+        <li>Plant gives fungi <strong>carbohydrates (sugar)</strong> in return</li>
+      </ul>
+      <div class="callout trap">
+        <div class="callout-icon">🚨</div>
+        <div>
+          <div class="callout-title">UPSC Trap</div>
+          <div class="callout-body">Mycorrhiza is <strong>mutualistic</strong>, NOT parasitic. Orchids have a specific mycorrhizal relationship — cannot germinate without their fungal partner.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Important Fungi — News & Applications</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Fungus</th><th>Disease / Use</th><th>Host</th><th>Key Fact</th></tr></thead>
+      <tbody>
+        <tr><td><em>Aspergillus flavus</em></td><td>Produces <strong>Aflatoxin</strong> (carcinogen)</td><td>Stored grains, groundnuts</td><td>Major food safety concern</td></tr>
+        <tr><td><em>Penicillium notatum</em></td><td>Source of <strong>Penicillin</strong></td><td>—</td><td>Discovered by Alexander Fleming 1928</td></tr>
+        <tr><td><em>Puccinia graminis</em></td><td><strong>Black/Stem Rust of Wheat</strong></td><td>Wheat, Barberry</td><td>Major crop disease; Basidiomycetes</td></tr>
+        <tr><td><em>Phytophthora infestans</em></td><td><strong>Late Blight of Potato</strong></td><td>Potato</td><td>Caused Irish Famine 1840s; Phycomycetes</td></tr>
+        <tr><td><em>Claviceps purpurea</em></td><td><strong>Ergot of Rye</strong></td><td>Rye, Wheat</td><td>Alkaloids → "St. Anthony's Fire"; Ascomycetes</td></tr>
+        <tr><td><em>Candida albicans</em></td><td><strong>Candidiasis</strong></td><td>Humans</td><td>Opportunistic infection; Ascomycetes</td></tr>
+        <tr><td><em>Ophiocordyceps sinensis</em></td><td><strong>Yarsagumba / Caterpillar Fungus</strong></td><td>Insect larvae</td><td>High altitude Himalayas; medicinally valued</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: LICHEN -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-lichen" data-section="lichen">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(91,156,246,0.12)">🌿</div>
+    <div>
+      <h2><span class="num">03 //</span>Lichen</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">What is it?</div>
+      <div class="cue-text">Fungus + Alga/Cyanobacterium symbiosis</div>
+      <div class="cue-keyword">Mycobiont = Fungus</div>
+      <div class="cue-keyword">Photobiont = Alga</div>
+      <div class="cue-keyword">Bioindicator</div>
+      <div class="cue-keyword">Pioneer Species</div>
+      <div class="cue-keyword">SO₂ Sensitive</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="two-col">
+        <div>
+          <h4>Fungal Partner (Mycobiont) Provides</h4>
+          <ul>
+            <li>Structure and shelter</li>
+            <li>Moisture retention</li>
+            <li>Minerals</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Algal Partner (Photobiont) Provides</h4>
+          <ul>
+            <li>Food via photosynthesis</li>
+            <li>Carbohydrates for the fungus</li>
+          </ul>
+        </div>
+      </div>
+      <h4>Key Features</h4>
+      <div class="kv-row"><span class="kv-key">Habitat</span><span class="kv-val">Survives <strong>without soil</strong> — rocks, bark, walls, glass, metal, polar ice</span></div>
+      <div class="kv-row"><span class="kv-key">Pioneer Species</span><span class="kv-val">First colonizer of bare rock in primary succession; produces acids to break rock into soil</span></div>
+      <div class="kv-row"><span class="kv-key">Air Quality</span><span class="kv-val">Sensitive to SO₂ — <strong>absent near industries = polluted air</strong>; present = clean air</span></div>
+      <div class="kv-row"><span class="kv-key">Growth Rate</span><span class="kv-val"><strong>1–2 mm per year</strong> (extremely slow)</span></div>
+      <div class="kv-row"><span class="kv-key">Tundra</span><span class="kv-val">Dominant flora of Tundra biome along with mosses</span></div>
+    </div>
+  </div>
+
+  <h3>Three Lichen Types — Based on Form <span class="badge badge-red">PYQ Direct</span></h3>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🪨</div>
+      <div class="card-title">Crustose</div>
+      <div class="card-body">Crust-like; <strong>completely attached</strong> to surface. Cannot be removed without damage.<br><br>Examples: <em>Graphis, Verrucaria</em><br>Most common type; found on bare rocks.</div>
+      <span class="card-tag badge badge-gold">Most Common</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🍃</div>
+      <div class="card-title">Foliose</div>
+      <div class="card-body">Leaf-like; lobed; two distinct surfaces. <strong>Loosely attached</strong>; can be peeled off.<br><br>Examples: <em>Parmelia, Lobaria</em><br>Largest body; prefers wet environments.</div>
+      <span class="card-tag badge badge-blue">Leaf-like</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <div class="card-title">Fruticose</div>
+      <div class="card-body">Shrub-like or hair-like; 3D structure. Attached at base only; hangs freely.<br><br>Examples: <em>Usnea</em> (Old Man's Beard), <em>Cladonia</em> (Reindeer Moss)<br>Most complex form.</div>
+      <span class="card-tag badge badge-green">Most Complex</span>
+    </div>
+  </div>
+
+  <div class="callout trap">
+    <div class="callout-icon">🚨</div>
+    <div>
+      <div class="callout-title">Classic UPSC Traps — Lichen</div>
+      <div class="callout-body">
+        <strong>"Reindeer Moss"</strong> ≠ Moss → It is a <strong>fruticose lichen</strong> (<em>Cladonia rangiferina</em>)<br>
+        <strong>"Iceland Moss"</strong> ≠ Moss → It is a <strong>lichen</strong> (<em>Cetraria islandica</em>)<br>
+        Lichen absent = polluted; Lichen present = <strong>clean air</strong> (bioindicator)<br>
+        <strong>Litmus</strong> comes from <em>Rocella tinctoria</em> — a lichen, NOT a plant
+      </div>
+    </div>
+  </div>
+
+  <h4>Economic / Ecological Uses</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Use</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Litmus (acid-base)</strong></td><td><em>Rocella tinctoria</em> lichen</td></tr>
+        <tr><td><strong>Perfumery</strong></td><td><em>Evernia prunastri</em> (Oak moss)</td></tr>
+        <tr><td><strong>Food</strong></td><td><em>Cetraria</em> eaten; Reindeer graze on <em>Cladonia</em></td></tr>
+        <tr><td><strong>Soil formation</strong></td><td>Pioneer colonizers of bare rock in primary succession</td></tr>
+        <tr><td><strong>Medicine</strong></td><td><em>Usnea</em> has antibacterial properties</td></tr>
+        <tr><td><strong>Dye</strong></td><td><em>Rocella</em> (Orchil) — purple dye; used historically</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: BRYOPHYTES -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-bryophytes" data-section="bryophytes">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(76,175,130,0.12)">🌱</div>
+    <div>
+      <h2><span class="num">04 //</span>Bryophytes (Mosses, Liverworts, Hornworts)</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Identity</div>
+      <div class="cue-text">"Amphibians of Plant Kingdom"</div>
+      <div class="cue-keyword">Non-vascular</div>
+      <div class="cue-keyword">Rhizoids (no roots)</div>
+      <div class="cue-keyword">Gametophyte dominant</div>
+      <div class="cue-keyword">Needs water for reprod.</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="two-col">
+        <div>
+          <h4>What They Have</h4>
+          <ul>
+            <li>Rhizoids (anchoring only, NOT absorbing)</li>
+            <li>Leaf-like and stem-like structures</li>
+            <li>Alternation of generations</li>
+            <li>Spores for reproduction</li>
+          </ul>
+        </div>
+        <div>
+          <h4>What They Lack</h4>
+          <ul>
+            <li>True roots, stems, leaves</li>
+            <li>Vascular tissue (xylem/phloem)</li>
+            <li>Seeds and flowers</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <div class="callout-title">Alternation of Generations</div>
+          <div class="callout-body"><strong>Gametophyte (dominant, haploid)</strong> → produces gametes → <strong>Sporophyte (dependent on gametophyte)</strong>. In Pteridophytes: Sporophyte is dominant (opposite!)</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Group</th><th>Division</th><th>Body</th><th>Key Feature</th><th>Examples</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Mosses</strong></td><td>Bryophyta</td><td>Stem-like + leaf-like</td><td>Dominant group; spore capsule on stalk</td><td><em>Sphagnum, Funaria, Polytrichum</em></td></tr>
+            <tr><td><strong>Liverworts</strong></td><td>Marchantiophyta</td><td>Flattened, lobed thallus</td><td>Thallus body; dispersal via elaters</td><td><em>Marchantia, Riccia, Pellia</em></td></tr>
+            <tr><td><strong>Hornworts</strong></td><td>Anthocerotophyta</td><td>Flat thallus + horn-like sporophytes</td><td>Dispersal via pseudoelaters</td><td><em>Anthoceros, Notothylas</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h3>Sphagnum Moss (Peat Moss) <span class="badge badge-red">Ultra High-Yield</span></h3>
+  <div class="quick-rev">
+    <div class="quick-rev-title">Sphagnum Key Facts</div>
+    <div class="kv-row"><span class="kv-key">Also Called</span><span class="kv-val">Peat Moss / Bog Moss</span></div>
+    <div class="kv-row"><span class="kv-key">Water Absorption</span><span class="kv-val">Up to <strong>20× its dry weight</strong></span></div>
+    <div class="kv-row"><span class="kv-key">Decomposition</span><span class="kv-val">Very slow → forms peat over thousands of years</span></div>
+    <div class="kv-row"><span class="kv-key">pH Effect</span><span class="kv-val">Makes surrounding water highly <strong>acidic</strong> (releases H⁺ ions)</span></div>
+    <div class="kv-row"><span class="kv-key">Carbon Storage</span><span class="kv-val">Stores <strong>more carbon than all forests combined globally</strong></span></div>
+    <div class="kv-row"><span class="kv-key">Climate Risk</span><span class="kv-val">Permafrost thaw → Sphagnum peat releases <strong>methane (CH₄)</strong> → powerful GHG feedback loop</span></div>
+    <div class="kv-row"><span class="kv-key">Uses</span><span class="kv-val">Horticulture (soil conditioner); surgical dressing (WWI); fuel in Ireland/Scotland</span></div>
+    <div class="callout trap" style="margin-top:0.8rem">
+      <div class="callout-icon">🚨</div>
+      <div>
+        <div class="callout-title">Trap</div>
+        <div class="callout-body">Disturbed/drained Sphagnum peat releases methane → becomes a <strong>carbon SOURCE</strong>, NOT a sink when mined/burned.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: PTERIDOPHYTES -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-pterido" data-section="pterido">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(155,127,232,0.12)">🌿</div>
+    <div>
+      <h2><span class="num">05 //</span>Pteridophytes (Ferns & Allies)</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Identity</div>
+      <div class="cue-text">First vascular plants — no seeds, no flowers</div>
+      <div class="cue-keyword">Xylem + Phloem</div>
+      <div class="cue-keyword">Spore reproduction</div>
+      <div class="cue-keyword">Sporophyte dominant</div>
+      <div class="cue-keyword">Cryptogams</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sub-group</th><th>Examples</th><th>Key Feature</th></tr></thead>
+          <tbody>
+            <tr><td><strong>True Ferns</strong></td><td><em>Pteris, Adiantum, Dryopteris, Marsilea</em></td><td>Leaf = frond; baby leaf = fiddlehead</td></tr>
+            <tr><td><strong>Club Mosses</strong> (NOT true mosses!)</td><td><em>Lycopodium, Selaginella</em></td><td>Primitive; spores in strobili (cones)</td></tr>
+            <tr><td><strong>Horsetails</strong></td><td><em>Equisetum</em></td><td>Jointed hollow stems; living fossil</td></tr>
+            <tr><td><strong>Water Ferns</strong></td><td><em>Azolla, Salvinia</em></td><td>Aquatic; <em>Azolla</em> fixes N₂ via <em>Anabaena</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <div class="callout-icon">🌾</div>
+        <div>
+          <div class="callout-title">Azolla — Biofertilizer Key</div>
+          <div class="callout-body"><strong>Azolla</strong> (water fern) + <em>Anabaena azollae</em> (cyanobacterium) = symbiosis that fixes nitrogen → used as <strong>biofertilizer in rice paddies</strong>.<br>⚠️ Azolla itself CANNOT fix N₂ — it's <em>Anabaena</em> (the cyanobacterium partner) that does it.</div>
+        </div>
+      </div>
+      <div class="callout trap">
+        <div class="callout-icon">🚨</div>
+        <div>
+          <div class="callout-title">Common Confusions</div>
+          <div class="callout-body">
+            <strong>Marsilea</strong> = water fern (Pteridophyte) that looks like a four-leaf clover<br>
+            <strong>Club Moss</strong> = Pteridophyte, NOT Bryophyte<br>
+            Ancient pteridophytes formed <strong>coal deposits</strong> (Carboniferous era)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: GYMNOSPERMS -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-gymno" data-section="gymno">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(232,184,75,0.12)">🌲</div>
+    <div>
+      <h2><span class="num">06 //</span>Gymnosperms</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Identity</div>
+      <div class="cue-text">"Naked seed" plants — Gymno = naked, Sperma = seed</div>
+      <div class="cue-keyword">No flowers/fruits</div>
+      <div class="cue-keyword">Cones (strobili)</div>
+      <div class="cue-keyword">Softwood</div>
+      <div class="cue-keyword">Sporophyte dominant</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Group</th><th>Examples</th><th>UPSC Key Fact</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cycadales</strong></td><td><em>Cycas</em> (Sago Palm)</td><td>NOT a true palm; <em>Cycas circinalis</em> (Kerala) = possibly oldest tree in India; leaves eaten in Kerala but toxic if unprocessed</td></tr>
+            <tr><td><strong>Coniferales</strong></td><td><em>Pinus, Abies, Cedrus</em> (Deodar), <em>Juniperus</em></td><td>Deodar = State tree of Himachal Pradesh; major resin source</td></tr>
+            <tr><td><strong>Ginkgoales</strong></td><td><em>Ginkgo biloba</em></td><td><strong>"Living fossil"</strong>; only species in group; medicinal use (memory); highly ancient</td></tr>
+            <tr><td><strong>Gnetales</strong></td><td><em>Gnetum, Ephedra, Welwitschia</em></td><td><em>Ephedra</em> = source of <strong>ephedrine</strong>; <em>Welwitschia</em> has only 2 leaves in entire life</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <div class="callout-title">Quick Identifiers</div>
+          <div class="callout-body">
+            <strong>Deodar</strong> (<em>Cedrus deodara</em>) = State tree of HP (Himachal Pradesh)<br>
+            <strong>Ginkgo biloba</strong> = "Living fossil" (plant equivalent of Horseshoe Crab)<br>
+            <strong>Cycas</strong> = Gymnosperm, NOT a palm (Angiosperm)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: LEGUMES -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-legumes" data-section="legumes">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(255,112,67,0.12)">🫘</div>
+    <div>
+      <h2><span class="num">07 //</span>Legumes & Nitrogen Fixation</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">Key Concept</div>
+      <div class="cue-text">Fabaceae family + Rhizobium symbiosis → N₂ fixation</div>
+      <div class="cue-keyword">Fabaceae</div>
+      <div class="cue-keyword">Root Nodules</div>
+      <div class="cue-keyword">Nitrogenase</div>
+      <div class="cue-keyword">Leghaemoglobin</div>
+    </div>
+    <div class="cornell-notes">
+      <h4>Nitrogen Fixation — Step by Step</h4>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+          <div class="step-content"><em>Rhizobium</em> in soil detects <strong>flavonoids</strong> released by legume roots</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+          <div class="step-content">Bacteria attach to root hair → enter root cells</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+          <div class="step-content">Root forms <strong>root nodules</strong> (swellings) to house bacteria</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+          <div class="step-content"><em>Rhizobium</em> converts atmospheric <strong>N₂ → NH₃ (ammonia)</strong> using enzyme <strong>nitrogenase</strong></div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-line"></div>
+          <div class="step-content">Plant gets <strong>fixed nitrogen</strong> for amino acids, proteins, chlorophyll</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-line"></div>
+          <div class="step-content">Bacteria get <strong>carbohydrates</strong> from plant in return</div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <div class="callout-title">Critical Biochemistry</div>
+          <div class="callout-body">
+            <strong>Nitrogenase</strong> requires <strong>anaerobic (O₂-free)</strong> conditions → root nodules have <strong>leghaemoglobin</strong> (pink pigment) that binds excess O₂ to protect nitrogenase.<br>
+            When soil N is already high → <strong>FUN factor</strong> shuts down nodule formation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Rhizobium Specificity</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Legume</th><th>Rhizobium Species</th></tr></thead>
+      <tbody>
+        <tr><td>Soybean</td><td><em>Bradyrhizobium japonicum</em></td></tr>
+        <tr><td>Groundnut</td><td><em>Bradyrhizobium</em> sp.</td></tr>
+        <tr><td>Pea, Lentil, Chickpea</td><td><em>Rhizobium leguminosarum</em></td></tr>
+        <tr><td>Clover</td><td><em>Rhizobium trifolii</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Non-Legume Nitrogen Fixers <span class="badge badge-red">UPSC Trap Area</span></h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Organism</th><th>Type</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Azolla + Anabaena</strong></td><td>Fern + Cyanobacterium symbiosis</td><td>Biofertilizer in rice fields</td></tr>
+        <tr><td><strong>Nostoc</strong></td><td>Free-living cyanobacterium</td><td>Fixes N₂ in soil; found in lichens too</td></tr>
+        <tr><td><strong>Azotobacter</strong></td><td>Free-living soil bacterium</td><td>Non-symbiotic; fixes N₂ freely in soil</td></tr>
+        <tr><td><strong>Clostridium</strong></td><td>Anaerobic soil bacterium</td><td>Free-living; anaerobic N₂ fixer</td></tr>
+        <tr><td><strong>Frankia</strong></td><td>Actinomycete bacterium</td><td>Symbiotic with non-legume Alder trees</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout trap">
+    <div class="callout-icon">🚨</div>
+    <div>
+      <div class="callout-title">Critical Distinction</div>
+      <div class="callout-body">
+        <strong>Rhizobium</strong> fixes N₂ ONLY in symbiosis with legumes — CANNOT fix freely in soil.<br>
+        <strong>Azotobacter</strong> fixes N₂ FREELY in soil (no plant partner needed).<br>
+        <strong>Azolla</strong> itself cannot fix N₂ — it's the <em>Anabaena</em> symbiont that does it.
+      </div>
+    </div>
+  </div>
+
+  <h3>Important Legume Crops</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Legume</th><th>Hindi</th><th>Scientific Name</th><th>Special Feature</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Chickpea / Bengal Gram</strong></td><td>Chana</td><td><em>Cicer arietinum</em></td><td>Winter Rabi crop</td></tr>
+        <tr><td><strong>Pigeon Pea</strong></td><td>Arhar/Tur</td><td><em>Cajanus cajan</em></td><td>Kharif + Rabi</td></tr>
+        <tr><td><strong>Soybean</strong></td><td>Soya</td><td><em>Glycine max</em></td><td>Highest protein content (40%) among food crops</td></tr>
+        <tr><td><strong>Groundnut/Peanut</strong></td><td>Mungfali</td><td><em>Arachis hypogaea</em></td><td>NOT a nut; fruit develops underground</td></tr>
+        <tr><td><strong>Alfalfa / Lucerne</strong></td><td>—</td><td><em>Medicago sativa</em></td><td>Green manure, fodder; fixes 250–500 lb N/acre</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: ALGAE -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-algae" data-section="algae">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(91,156,246,0.12)">🌊</div>
+    <div>
+      <h2><span class="num">08 //</span>Algae</h2>
+    </div>
+  </div>
+
+  <div class="cornell">
+    <div class="cornell-cue">
+      <div class="cue-label">What are Algae?</div>
+      <div class="cue-text">Photosynthetic, non-vascular; body = thallus</div>
+      <div class="cue-keyword">No true roots/stems/leaves</div>
+      <div class="cue-keyword">Thallus body</div>
+      <div class="cue-keyword">BGA ≠ Algae</div>
+    </div>
+    <div class="cornell-notes">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Division</th><th>Pigment</th><th>Habitat</th><th>Examples</th><th>Key Feature</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Chlorophyta</strong> (Green)</td><td>Chlorophyll a+b</td><td>Freshwater mostly</td><td><em>Chlamydomonas, Volvox, Spirogyra, Ulva</em></td><td>Evolutionary ancestor of land plants</td></tr>
+            <tr><td><strong>Phaeophyta</strong> (Brown)</td><td>Fucoxanthin (brown/golden)</td><td>Marine (cold waters)</td><td><em>Laminaria, Fucus, Sargassum, Ectocarpus</em></td><td>Largest algae (Kelp forests)</td></tr>
+            <tr><td><strong>Rhodophyta</strong> (Red)</td><td>Phycoerythrin (red)</td><td>Marine (deep water)</td><td><em>Porphyra, Gelidium, Gracilaria</em></td><td>Source of <strong>Agar</strong> and Carrageenan</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>Economically Important Algae</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Alga</th><th>Product</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td><em>Gelidium, Gracilaria</em> (Red)</td><td><strong>Agar-Agar</strong></td><td>Bacterial culture medium; food (jelly)</td></tr>
+            <tr><td><em>Chlorella</em> (Green)</td><td>Food supplement</td><td>High protein; space food research</td></tr>
+            <tr><td><em>Spirulina</em> (Cyanobacterium)</td><td><strong>Protein supplement</strong></td><td>FAO-approved superfood — but it's Monera, NOT algae!</td></tr>
+            <tr><td><em>Laminaria</em> (Brown — Kelp)</td><td><strong>Iodine + Alginates</strong></td><td>Source of dietary iodine; forms kelp forests</td></tr>
+            <tr><td>Diatoms (Protista)</td><td><strong>Diatomite</strong></td><td>Filters, insulation, abrasives</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout trap">
+        <div class="callout-icon">🚨</div>
+        <div>
+          <div class="callout-title">Critical Traps</div>
+          <div class="callout-body">
+            <strong>Diatoms</strong> = Protista, NOT algae; shells form diatomite deposits<br>
+            <strong>Spirulina</strong> = Cyanobacterium (Monera), NOT a true alga<br>
+            <strong>Agar</strong> comes from <em>Red Algae</em>, NOT green algae<br>
+            <strong>Cyanobacteria ≠ Algae</strong> despite being called "Blue-Green Algae"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">🌊</div>
+    <div>
+      <div class="callout-title">Algal Bloom — Current Affairs</div>
+      <div class="callout-body">
+        <strong>Cause:</strong> Eutrophication — excess N + P from agriculture runoff<br>
+        <strong>Harmful Algal Bloom (HAB):</strong> Produces toxins (e.g., microcystin from <em>Microcystis</em>)<br>
+        <strong>Effects:</strong> Hypoxia (O₂ depletion) → fish kills; blocks sunlight for submerged plants<br>
+        <strong>Red Tide</strong> = algal bloom by red dinoflagellates (<em>Noctiluca, Gymnodinium</em>) — causes massive fish kills
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: PLANT ECOLOGY -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-plants-eco" data-section="plants-eco">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(232,91,91,0.12)">🌵</div>
+    <div>
+      <h2><span class="num">09 //</span>Ecological Classification of Plants</h2>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">💧</div>
+      <div class="card-title">Hydrophytes</div>
+      <div class="card-body">Aquatic/waterlogged plants. <strong>Aerenchyma</strong> for buoyancy. Stomata on upper surface only.<br><br>
+        <strong>Free-floating:</strong> Water Hyacinth, Pistia, Lemna<br>
+        <strong>Rooted floating:</strong> Lotus, Water Lily<br>
+        <strong>Submerged:</strong> Hydrilla, Vallisneria</div>
+      <span class="card-tag badge badge-blue">Aerenchyma</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌵</div>
+      <div class="card-title">Xerophytes</div>
+      <div class="card-body">Dry/desert plants. Deep roots, waxy cuticle, succulent tissues, reduced leaves → spines, <strong>CAM photosynthesis</strong> (stomata open at night).<br><br>
+        Cacti, Aloe, Agave, Acacia, <em>Prosopis</em> (Khejri), Calotropis</div>
+      <span class="card-tag badge badge-gold">CAM Photosynthesis</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <div class="card-title">Mesophytes</div>
+      <div class="card-body">Moderate moisture — most common plant type. Normal stomata on lower leaf surface.<br><br>Mango, Neem, Wheat, Rice, Teak, Sal, most garden plants</div>
+      <span class="card-tag badge badge-green">Most Common</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌊</div>
+      <div class="card-title">Halophytes</div>
+      <div class="card-body">High-salinity environments. <strong>Pneumatophores</strong> for O₂. <strong>Viviparous germination</strong> in mangroves.<br><br>
+        <em>Rhizophora, Avicennia, Sonneratia</em> (Sundarbans)</div>
+      <span class="card-tag badge badge-purple">Viviparous</span>
+    </div>
+  </div>
+
+  <h3>Special Ecological Plant Types <span class="badge badge-red">PYQ Frequent</span></h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Type</th><th>Definition</th><th>Examples</th><th>UPSC Relevance</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Epiphyte</strong></td><td>Grows ON another plant for support ONLY — NOT parasitic; nutrients from air/rain</td><td>Orchids, Mosses, Lichens, Bromeliads, Vanda</td><td>Western Ghats; Vanda = WPA Schedule VI</td></tr>
+        <tr><td><strong>Parasite</strong></td><td>Derives nutrients FROM host</td><td><em>Cuscuta</em> (stem), Loranthus (branch), Rafflesia (root)</td><td>Rafflesia = no chlorophyll; largest flower</td></tr>
+        <tr><td><strong>Hemiparasite</strong></td><td>Partially parasitic; has own chlorophyll but steals water/minerals</td><td>Mistletoe, <strong>Sandalwood</strong></td><td>Sandalwood = root hemiparasite</td></tr>
+        <tr><td><strong>Lithophyte</strong></td><td>Grows on rocks/rocky surfaces</td><td>Lichens, Rock Orchids, some ferns</td><td>Pioneer species in ecological succession</td></tr>
+        <tr><td><strong>Saprophyte</strong></td><td>Feeds on dead organic matter; no chlorophyll</td><td>Monotropa, some fungi, Neottia orchid</td><td>Nutrient cycling in forests</td></tr>
+        <tr><td><strong>Insectivorous</strong></td><td>Traps insects to supplement nutrition (nutrient-poor soils)</td><td>Pitcher Plant, Sundew, Venus Fly Trap, Bladderwort</td><td>Pitcher Plant = WPA Schedule VI</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Stem Modifications <span class="badge badge-gold">PYQ High</span></h3>
+  <div class="two-col">
+    <div>
+      <h4>Underground Stems</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Examples</th><th>Key ID</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Rhizome</strong></td><td>Ginger, Turmeric, Lotus, Ferns</td><td>Horizontal; nodes + scale leaves</td></tr>
+            <tr><td><strong>Tuber</strong></td><td>Potato</td><td>Swollen stem tip; has <strong>eyes (buds)</strong></td></tr>
+            <tr><td><strong>Corm</strong></td><td>Taro (Arbi), Colocasia, Crocus</td><td>Solid, upright; scale leaves</td></tr>
+            <tr><td><strong>Bulb</strong></td><td>Onion, Garlic, Tulip, Lily</td><td>Fleshy leaf-based (NOT stem-based)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h4>Aerial Stems</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Examples</th><th>Function</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Phylloclade</strong></td><td>Opuntia (cactus)</td><td>Photosynthesis + water storage; indefinite growth</td></tr>
+            <tr><td><strong>Thorn</strong></td><td>Citrus, Bougainvillea</td><td>Defence</td></tr>
+            <tr><td><strong>Tendril</strong></td><td>Cucumber, Passion flower</td><td>Climbing support</td></tr>
+            <tr><td><strong>Stolon/Runner</strong></td><td>Strawberry, Grass, Mint</td><td>Vegetative propagation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="callout trap">
+    <div class="callout-icon">🚨</div>
+    <div>
+      <div class="callout-title">Stem Modification Traps</div>
+      <div class="callout-body">
+        In Opuntia (cactus): flat green pads = <strong>phylloclades (stem)</strong>; spines = <strong>modified leaves</strong> (NOT the reverse)<br>
+        <strong>Potato = stem tuber</strong> (has nodes/eyes = buds); NOT a root<br>
+        <strong>Ginger = rhizome</strong> (stem); NOT a root<br>
+        <strong>Onion = bulb</strong> — mainly modified leaves on a disc stem<br>
+        <strong>Banana</strong> = herbaceous perennial with <strong>pseudostem</strong> (tightly packed leaf sheaths) — NOT a tree
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: ANIMALS -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-animals" data-section="animals">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(155,127,232,0.12)">🦎</div>
+    <div>
+      <h2><span class="num">10 //</span>Zoological Classification & Habitat Types</h2>
+    </div>
+  </div>
+
+  <h3>Habitat-Based Animal Classification</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🌲</div>
+      <div class="card-title">Arboreal (Tree-Dwelling)</div>
+      <div class="card-body">Prehensile tail, adhesive toe pads, lightweight body, elongated limbs for brachiation.<br><br>
+        Lion-tailed Macaque, Hoolock Gibbon (India's only ape), Slow Loris (only venomous primate), Clouded Leopard, Malabar Giant Squirrel</div>
+      <span class="card-tag badge badge-green">WG + NE India</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🕳️</div>
+      <div class="card-title">Fossorial (Burrowing)</div>
+      <div class="card-body">Powerful forelimbs, small/absent eyes, compact body.<br><br>
+        Indian Pangolin (most trafficked mammal), Indian Porcupine, Mugger Crocodile (aestivation), Spadefoot Toad</div>
+      <span class="card-tag badge badge-gold">Underground</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌊</div>
+      <div class="card-title">Aquatic</div>
+      <div class="card-body">
+        <strong>Marine:</strong> Dugong (Gulf of Mannar), Blue Whale, Leatherback Turtle, Whale Shark (largest fish!), Seahorse<br><br>
+        <strong>Freshwater:</strong> Gangetic Dolphin (National Aquatic Animal), Gharial (Chambal), Mahseer
+      </div>
+      <span class="card-tag badge badge-blue">Marine + Freshwater</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌍</div>
+      <div class="card-title">Terrestrial</div>
+      <div class="card-body">
+        <strong>Cursorial (running):</strong> Cheetah, Blackbuck, Wild Ass<br>
+        <strong>Graviportal (heavy):</strong> Elephant, Rhinoceros<br>
+        <strong>Saltatorial (jumping):</strong> Kangaroo, Hare<br><br>
+        GIB, Indian Peafowl (National Bird)
+      </div>
+      <span class="card-tag badge badge-purple">Land-Based</span>
+    </div>
+  </div>
+
+  <h3>Arthropoda — Largest Phylum <span class="badge badge-red">Most Tested</span></h3>
+  <div class="quick-rev">
+    <div class="quick-rev-title">Arthropod Class Identifiers</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>Legs</th><th>Antennae</th><th>Respiration</th><th>Body</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Insecta</strong></td><td>6 (3 pairs)</td><td>1 pair</td><td>Trachea</td><td>Head+Thorax+Abdomen</td><td>Bee, Butterfly, Ant, Mosquito</td></tr>
+          <tr><td><strong>Arachnida</strong></td><td>8 (4 pairs)</td><td><strong>ABSENT</strong></td><td>Book lungs</td><td>Cephalothorax+Abdomen</td><td>Spider, Scorpion, Mite, Tick</td></tr>
+          <tr><td><strong>Crustacea</strong></td><td>10 (Decapods)</td><td><strong>2 pairs</strong></td><td>Gills</td><td>Cephalothorax+Abdomen</td><td>Crab, Lobster, Prawn, Krill</td></tr>
+          <tr><td><strong>Myriapoda</strong></td><td>Many</td><td>1 pair</td><td>Trachea</td><td>Head+Many segments</td><td>Centipede, Millipede</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>Important UPSC Species in Arthropoda</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Species</th><th>Class</th><th>Location</th><th>Key Facts</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gooty / Peacock Tarantula</strong><br><em>Poecilotheria metallica</em></td><td>Arachnida <span class="badge badge-red">NOT Crustacea</span></td><td>Andhra Pradesh forests</td><td>Iridescent blue; arboreal; Critically Endangered; NOT omnivorous crustacean!</td></tr>
+        <tr><td><strong>Horseshoe Crab</strong></td><td>Chelicerata <span class="badge badge-red">NOT Crustacea</span></td><td>Odisha coast</td><td>Living fossil; blue blood used in medical tests; closer to spiders than crabs</td></tr>
+        <tr><td><strong>Kani maranjandu</strong></td><td>Crustacea (True Crab)</td><td>Western Ghats, Kerala</td><td>Only arboreal freshwater crab in India; lives in tree hollows at 30ft; discovered 2017; named by Kani tribe</td></tr>
+        <tr><td><strong>Robber Crab / Coconut Crab</strong></td><td>Crustacea</td><td>Andaman & Nicobar Islands</td><td>World's largest land arthropod; climbs coconut trees</td></tr>
+        <tr><td><strong>Varroa Mite</strong></td><td>Arachnida</td><td>Global</td><td>Destroying honeybee colonies; major pollinator threat</td></tr>
+        <tr><td><strong>Hard Tick</strong></td><td>Arachnida</td><td>Forests</td><td>Vector of Kyasanur Forest Disease (KFD), Lyme disease</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Other Key Phyla</h3>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-icon">🦑</div>
+      <div class="card-title">Mollusca</div>
+      <div class="card-body">Mantle secretes CaCO₃ shell; Radula (file-like feeding organ); soft unsegmented body.<br><br>
+        <strong>Gastropoda:</strong> Snails, Slugs<br>
+        <strong>Bivalvia:</strong> Mussels, Oysters, Pearl Mussel<br>
+        <strong>Cephalopoda:</strong> Octopus, Squid, Nautilus (living fossil)</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⭐</div>
+      <div class="card-title">Echinodermata</div>
+      <div class="card-body">Exclusively marine; spiny skin; water vascular system. Adults = radially symmetric; Larvae = bilateral.<br><br>
+        Starfish, Sea Urchin, Sea Cucumber (<em>Holothurians</em>), Sea Lily (Crinoid)<br><br>
+        ⚠️ Sea cucumber heavily trafficked from Tamil Nadu and A&N Islands</div>
+    </div>
+  </div>
+  <div class="callout warn" style="margin-top:1rem">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <div class="callout-title">Cnidaria Key Facts</div>
+      <div class="callout-body">
+        Cnidoblasts/Nematocysts = stinging cells. Two body forms: <strong>Polyp</strong> (sessile, e.g., coral) and <strong>Medusa</strong> (free-swimming, e.g., jellyfish).<br>
+        <strong>Coral bleaching</strong> = loss of zooxanthellae symbiotic algae under heat stress.
+      </div>
+    </div>
+  </div>
+
+  <h3>Special Species Notes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Species</th><th>Location</th><th>Trap / Key Fact</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gangetic Dolphin</strong></td><td>Ganga-Brahmaputra</td><td>National Aquatic Animal; nearly blind; uses echolocation; Schedule I</td></tr>
+        <tr><td><strong>Irrawaddy Dolphin</strong></td><td>Chilika Lake, Odisha <span class="badge badge-red">NOT Chambal</span></td><td>Common PYQ trap — NOT in Chambal river</td></tr>
+        <tr><td><strong>Purple Frog / Pig-nosed Frog</strong></td><td>Western Ghats</td><td>Living fossil; underground for 11 months; surfaces only to breed; NOT invasive</td></tr>
+        <tr><td><strong>Slow Loris</strong></td><td>NE India</td><td>Only venomous primate in the world; nocturnal; Critically Endangered</td></tr>
+        <tr><td><strong>Whale Shark</strong></td><td>Western India coast</td><td>Largest fish (NOT mammal); filter feeder; Schedule I</td></tr>
+        <tr><td><strong>Dugong</strong></td><td>Gulf of Mannar, Palk Bay, A&N</td><td>Only herbivorous marine mammal; feeds on seagrass; "Sea Cow"; Schedule I</td></tr>
+        <tr><td><strong>Bar-headed Goose</strong></td><td>Himalayan migration</td><td>Highest altitude migration of any bird — flies over the Himalayas</td></tr>
+        <tr><td><strong>Amur Falcon</strong></td><td>E. Asia → Africa via Nagaland</td><td>Longest migration route of any bird of prey; Nagaland stopover</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION: MASTER TRAPS -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section" id="s-traps" data-section="traps">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(255,71,87,0.12)">⚠️</div>
+    <div>
+      <h2><span class="num">11 //</span>Complete UPSC Traps Master List</h2>
+    </div>
+  </div>
+
+  <h3>Biology / Botany Traps</h3>
+  <div class="table-wrap traps-table">
+    <table>
+      <thead><tr><th>Common Misconception</th><th>Correct Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Lichen = a plant</td><td><span class="check">✓</span> Lichen = <strong>symbiosis</strong> of Fungus + Alga/Cyanobacterium; NOT a single kingdom</td></tr>
+        <tr><td>"Reindeer Moss" = moss</td><td><span class="check">✓</span> It is a <strong>fruticose lichen</strong> (<em>Cladonia rangiferina</em>)</td></tr>
+        <tr><td>"Iceland Moss" = moss</td><td><span class="check">✓</span> It is a <strong>lichen</strong> (<em>Cetraria islandica</em>)</td></tr>
+        <tr><td>Lichen grows fast</td><td><span class="check">✓</span> Extremely slow — <strong>1–2 mm per year</strong></td></tr>
+        <tr><td>Lichen present = polluted air</td><td><span class="check">✓</span> Lichen <strong>ABSENT</strong> = polluted; <strong>PRESENT</strong> = clean air</td></tr>
+        <tr><td>Litmus comes from a plant</td><td><span class="check">✓</span> Litmus comes from <strong>Rocella</strong> (a lichen)</td></tr>
+        <tr><td>Moss has true roots</td><td><span class="check">✓</span> Mosses have <strong>rhizoids</strong> (anchoring only); NO true roots</td></tr>
+        <tr><td>Fern is a Bryophyte</td><td><span class="check">✓</span> Fern = <strong>Pteridophyte</strong> (vascular); Bryophytes = non-vascular</td></tr>
+        <tr><td>Club Moss is a bryophyte</td><td><span class="check">✓</span> Club Moss (<em>Lycopodium</em>) is a <strong>Pteridophyte</strong></td></tr>
+        <tr><td>Cycas is a palm</td><td><span class="check">✓</span> Cycas = <strong>Gymnosperm</strong>, NOT a palm (Angiosperm)</td></tr>
+        <tr><td>Cyanobacteria = Algae</td><td><span class="check">✓</span> Cyanobacteria = <strong>Monera (Prokaryote)</strong>; true algae = Protista/Plantae</td></tr>
+        <tr><td>Spirulina is an alga</td><td><span class="check">✓</span> Spirulina = <strong>Cyanobacterium (Monera)</strong></td></tr>
+        <tr><td>Agar comes from green algae</td><td><span class="check">✓</span> Agar from <strong>Red Algae</strong> (<em>Gelidium, Gracilaria</em>)</td></tr>
+        <tr><td>Diatoms are algae</td><td><span class="check">✓</span> Diatoms = <strong>Protista</strong>; silica shells form diatomite</td></tr>
+        <tr><td>Fungi are plants</td><td><span class="check">✓</span> Fungi = separate kingdom; cell wall = <strong>Chitin</strong>, NOT cellulose</td></tr>
+        <tr><td>Mycorrhiza is parasitic</td><td><span class="check">✓</span> Mycorrhiza is <strong>mutualistic</strong> — fungus HELPS the plant</td></tr>
+        <tr><td>Rhizobium fixes N₂ freely in soil</td><td><span class="check">✓</span> Rhizobium needs a <strong>legume host</strong> to fix N₂</td></tr>
+        <tr><td>Azolla directly fixes N₂</td><td><span class="check">✓</span> Azolla's symbiont <strong>Anabaena</strong> (cyanobacterium) fixes N₂</td></tr>
+        <tr><td>Sphagnum is always a carbon sink</td><td><span class="check">✓</span> Disturbed/drained Sphagnum peat releases <strong>methane</strong> → carbon source</td></tr>
+        <tr><td>Banana is a tree</td><td><span class="check">✓</span> Banana = <strong>herbaceous perennial</strong> with a <strong>pseudostem</strong></td></tr>
+        <tr><td>Potato is a root modification</td><td><span class="check">✓</span> Potato = <strong>stem tuber</strong> (has nodes/eyes = buds)</td></tr>
+        <tr><td>Ginger is a root</td><td><span class="check">✓</span> Ginger = <strong>rhizome (stem modification)</strong></td></tr>
+        <tr><td>Cactus spines = stems</td><td><span class="check">✓</span> Spines = <strong>modified leaves</strong>; green pads = <strong>phylloclades (stem)</strong></td></tr>
+        <tr><td>Sandalwood is fully parasitic</td><td><span class="check">✓</span> Sandalwood = <strong>root hemiparasite</strong> (has own chlorophyll)</td></tr>
+        <tr><td>Epiphyte = parasite</td><td><span class="check">✓</span> Epiphyte uses host for <strong>physical support ONLY</strong> — does NOT extract nutrients</td></tr>
+        <tr><td>Water Hyacinth is native to India</td><td><span class="check">✓</span> Water Hyacinth = <strong>invasive species from South America</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Zoology Traps</h3>
+  <div class="table-wrap traps-table">
+    <table>
+      <thead><tr><th>Common Misconception</th><th>Correct Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Gooty Tarantula is a crustacean</td><td><span class="check">✓</span> It's an <strong>Arachnid</strong> — 8 legs, no antennae, book lungs</td></tr>
+        <tr><td>Horseshoe Crab is a crustacean</td><td><span class="check">✓</span> It's a <strong>Chelicerate</strong> (Arachnid relative)</td></tr>
+        <tr><td>Sea cucumber is a crustacean</td><td><span class="check">✓</span> It's <strong>Echinodermata</strong></td></tr>
+        <tr><td>Octopus is Arthropoda</td><td><span class="check">✓</span> Octopus is <strong>Mollusca</strong></td></tr>
+        <tr><td>Whale Shark is a mammal</td><td><span class="check">✓</span> Whale Shark = <strong>fish (Pisces)</strong> — largest fish, NOT mammal</td></tr>
+        <tr><td>Irrawaddy Dolphin is in Chambal</td><td><span class="check">✓</span> It's in <strong>Chilika Lake</strong></td></tr>
+        <tr><td>Kani maranjandu is a spider</td><td><span class="check">✓</span> It's a fully <strong>arboreal crab (Crustacean)</strong> from Western Ghats</td></tr>
+        <tr><td>Crustaceans have one pair of antennae</td><td><span class="check">✓</span> Crustaceans have <strong>two pairs</strong> (insects = one pair)</td></tr>
+        <tr><td>Arachnids have antennae</td><td><span class="check">✓</span> <strong>No antennae</strong> in Arachnids</td></tr>
+        <tr><td>Adult echinoderms are bilaterally symmetric</td><td><span class="check">✓</span> Adults = <strong>radially symmetric</strong>; only larvae = bilateral</td></tr>
+        <tr><td>Slow Loris is non-venomous</td><td><span class="check">✓</span> <strong>Only venomous primate</strong> in the world</td></tr>
+        <tr><td>Purple Frog is an invasive species</td><td><span class="check">✓</span> It's a <strong>native living fossil</strong> of Western Ghats</td></tr>
+        <tr><td>All chordates are vertebrates</td><td><span class="check">✓</span> Protochordates (Amphioxus, Ascidia) are Chordates but <strong>NOT vertebrates</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- FOOTER QUICK SUMMARY -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="divider"></div>
+<div class="quick-rev" style="margin-bottom:2rem">
+  <div class="quick-rev-title">Ultimate 1-Page Quick Revision Summary</div>
+  <div class="two-col">
+    <div>
+      <h4>Kingdom Identifiers</h4>
+      <div class="kv-row"><span class="kv-key">Fungi cell wall</span><span class="kv-val">Chitin (NOT cellulose)</span></div>
+      <div class="kv-row"><span class="kv-key">Cyanobacteria kingdom</span><span class="kv-val">Monera (NOT Algae/Plantae)</span></div>
+      <div class="kv-row"><span class="kv-key">Diatoms kingdom</span><span class="kv-val">Protista (NOT Algae)</span></div>
+      <div class="kv-row"><span class="kv-key">Spirulina kingdom</span><span class="kv-val">Monera (NOT Algae)</span></div>
+      <div class="kv-row"><span class="kv-key">Agar source</span><span class="kv-val">Red Algae (Gelidium/Gracilaria)</span></div>
+      <div class="kv-row"><span class="kv-key">Litmus source</span><span class="kv-val">Lichen (Rocella tinctoria)</span></div>
+
+      <h4 style="margin-top:1.2rem">N₂ Fixers</h4>
+      <div class="kv-row"><span class="kv-key">Symbiotic</span><span class="kv-val">Rhizobium (legumes only), Anabaena (Azolla), Frankia (Alder)</span></div>
+      <div class="kv-row"><span class="kv-key">Free-living</span><span class="kv-val">Azotobacter, Clostridium, Nostoc</span></div>
+      <div class="kv-row"><span class="kv-key">Key enzyme</span><span class="kv-val">Nitrogenase (anaerobic); protected by Leghaemoglobin</span></div>
+    </div>
+    <div>
+      <h4>Arthropod Quick ID</h4>
+      <div class="kv-row"><span class="kv-key">6 legs + 1 antenna pair</span><span class="kv-val">= Insect</span></div>
+      <div class="kv-row"><span class="kv-key">8 legs + NO antennae</span><span class="kv-val">= Arachnid</span></div>
+      <div class="kv-row"><span class="kv-key">10 legs + 2 antenna pairs</span><span class="kv-val">= Crustacean</span></div>
+
+      <h4 style="margin-top:1.2rem">Living Fossils</h4>
+      <div class="kv-row"><span class="kv-key">Plant</span><span class="kv-val">Ginkgo biloba, Equisetum (Horsetail), Cycas</span></div>
+      <div class="kv-row"><span class="kv-key">Animal</span><span class="kv-val">Horseshoe Crab, Nautilus, Purple Frog (WG)</span></div>
+
+      <h4 style="margin-top:1.2rem">WPA Schedules — Plants</h4>
+      <div class="kv-row"><span class="kv-key">Schedule VI</span><span class="kv-val">Pitcher Plant, Vanda (Blue Vanda), Red Vanda, Kuth</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main-wrap -->
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById('s-' + id);
+  if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterSection(section, pill) {
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => {
+    if(s.dataset.section === section) {
+      s.classList.remove('hidden');
+      s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if(s.dataset.section) {
+      s.classList.add('hidden');
+    }
+  });
+}
+
+function showAll(pill) {
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('hidden'));
+}
+
+function doSearch(query) {
+  if(!query.trim()) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('hidden'));
+    clearHighlights();
+    return;
+  }
+  const q = query.toLowerCase();
+  document.querySelectorAll('.section').forEach(s => {
+    const text = s.textContent.toLowerCase();
+    s.classList.toggle('hidden', !text.includes(q));
+  });
+}
+
+function clearHighlights() {
+  document.querySelectorAll('mark').forEach(m => {
+    m.replaceWith(m.textContent);
+  });
+}
+
+// Animate sections on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.style.animationDelay = '0s';
+      e.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

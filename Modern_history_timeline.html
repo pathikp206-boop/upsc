@@ -1,0 +1,255 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0e0c;--surface:#1a1915;--surface2:#242320;--border:#2e2d28;
+  --gold:#c9a84c;--gold2:#e8c97a;--text:#e8e4d9;--muted:#9a9588;--faint:#4a4840;
+  --war:#c0392b;--reform:#1a6b3c;--social:#1a4a7a;--political:#6b1a6b;--economy:#7a4a1a;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:0 0 2rem}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:1.25rem 1.5rem;position:sticky;top:0;z-index:100}
+.header-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.75rem}
+.title{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);letter-spacing:.02em}
+.subtitle{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:.75rem}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.era-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:4px 10px;border-radius:2px;border:0.5px solid var(--faint);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
+.era-btn:hover{border-color:var(--gold);color:var(--gold2)}
+.era-btn.active{background:var(--gold);border-color:var(--gold);color:#0f0e0c;font-weight:500}
+.star-filter{display:flex;gap:4px;margin-left:auto}
+.sf-btn{font-size:11px;padding:4px 8px;border-radius:2px;border:0.5px solid var(--faint);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
+.sf-btn:hover,.sf-btn.active{border-color:var(--gold);color:var(--gold2)}
+.search{background:var(--surface2);border:0.5px solid var(--border);border-radius:2px;padding:5px 10px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;width:160px;outline:none}
+.search:focus{border-color:var(--gold)}
+.era-section{padding:0 1.5rem}
+.era-header{display:flex;align-items:center;gap:10px;padding:1.25rem 0 .5rem;border-bottom:1px solid var(--border);margin-bottom:.75rem}
+.era-label{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold2)}
+.era-range{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.era-count{font-size:11px;background:var(--surface2);color:var(--muted);padding:2px 7px;border-radius:10px;border:0.5px solid var(--border);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;margin-bottom:.5rem}
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:2px;padding:10px 12px;border-left:2px solid var(--faint);transition:.15s;position:relative}
+.card:hover{border-color:var(--border);background:var(--surface2)}
+.card.t-war{border-left-color:var(--war)}
+.card.t-reform{border-left-color:var(--reform)}
+.card.t-social{border-left-color:var(--social)}
+.card.t-political{border-left-color:var(--political)}
+.card.t-economy{border-left-color:var(--economy)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
+.year{font-size:11px;font-weight:500;color:var(--gold);letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
+.stars{font-size:10px;color:var(--gold);letter-spacing:1px;flex-shrink:0}
+.event{font-size:12.5px;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:4px}
+.people{font-size:11px;color:var(--gold2);opacity:.8;margin-bottom:3px}
+.facts{font-size:11px;color:var(--muted);line-height:1.4}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:2px;margin-right:4px;font-weight:500}
+.tag-war{background:rgba(192,57,43,.15);color:#e07060;border:0.5px solid rgba(192,57,43,.3)}
+.tag-reform{background:rgba(26,107,60,.15);color:#5dba85;border:0.5px solid rgba(26,107,60,.3)}
+.tag-social{background:rgba(26,74,122,.15);color:#5a9fd4;border:0.5px solid rgba(26,74,122,.3)}
+.tag-political{background:rgba(107,26,107,.15);color:#c07ac0;border:0.5px solid rgba(107,26,107,.3)}
+.tag-economy{background:rgba(122,74,26,.15);color:#d4935a;border:0.5px solid rgba(122,74,26,.3)}
+.hidden{display:none!important}
+.empty-state{grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);font-size:13px}
+.pyq-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:500;padding:1px 5px;border-radius:2px;background:rgba(201,168,76,.12);color:var(--gold);border:0.5px solid rgba(201,168,76,.3);letter-spacing:.04em}
+</style>
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Indian History Timeline — Complete revision guide from 1600 to 1947</h2>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="title">Indian History Timeline — 1600 to 1947</div>
+      <div class="subtitle">PYQ-weighted revision guide · 100+ events</div>
+    </div>
+    <input class="search" type="text" id="srch" placeholder="Search events, people…" oninput="filterAll()">
+  </div>
+  <div class="legend">
+    <span class="leg"><span class="dot" style="background:var(--war)"></span>War / Military</span>
+    <span class="leg"><span class="dot" style="background:var(--political)"></span>Political / Admin</span>
+    <span class="leg"><span class="dot" style="background:var(--social)"></span>Social Reform</span>
+    <span class="leg"><span class="dot" style="background:var(--reform)"></span>Legislation / Acts</span>
+    <span class="leg"><span class="dot" style="background:var(--economy)"></span>Economy / Trade</span>
+    <span class="leg" style="margin-left:auto;font-size:11px;color:var(--gold)">★★★ = High PYQ priority</span>
+  </div>
+  <div class="filters">
+    <button class="era-btn active" onclick="setEra('all',this)">All eras</button>
+    <button class="era-btn" onclick="setEra('early',this)">Early EIC</button>
+    <button class="era-btn" onclick="setEra('expansion',this)">Expansion</button>
+    <button class="era-btn" onclick="setEra('crown',this)">Crown Rule</button>
+    <button class="era-btn" onclick="setEra('nationalism',this)">Nationalism</button>
+    <button class="era-btn" onclick="setEra('gandhi',this)">Gandhi Era</button>
+    <button class="era-btn" onclick="setEra('freedom',this)">Freedom</button>
+    <div class="star-filter">
+      <button class="sf-btn" id="sf3" onclick="toggleStar(3)">★★★ only</button>
+      <button class="sf-btn" id="sf2" onclick="toggleStar(2)">★★+</button>
+    </div>
+  </div>
+</div>
+
+<div id="timeline"></div>
+
+<script>
+const EVENTS = [
+  {y:"1600",e:"EIC Charter Granted",p:"Queen Elizabeth I",f:"Monopoly from Cape of Good Hope to Magellan Strait; purely a trading body",s:3,t:"economy",era:"early"},
+  {y:"1608",e:"Hawkins Arrives at Surat",p:"William Hawkins",f:"Failed to obtain Mughal trading rights from Jahangir",s:2,t:"political",era:"early"},
+  {y:"1612",e:"Battle of Swally",p:"EIC vs Portuguese",f:"First British naval victory in India; secured the Surat foothold",s:2,t:"war",era:"early"},
+  {y:"1615–19",e:"Roe at Mughal Court",p:"Sir Thomas Roe",f:"Obtained farman for trading rights; succeeded where Hawkins had failed",s:3,t:"political",era:"early"},
+  {y:"1639",e:"Fort St. George Founded",p:"Francis Day",f:"First fortified English settlement in India; present-day Madras (Chennai)",s:2,t:"political",era:"early"},
+  {y:"1668",e:"Bombay Leased to EIC",p:"Charles II → EIC",f:"Leased for £10/year; originally received by Charles II as Portuguese dowry",s:2,t:"economy",era:"early"},
+  {y:"1690",e:"Calcutta Founded",p:"Job Charnock",f:"Started as factory at Sutanuti; Fort William built later",s:2,t:"political",era:"early"},
+  {y:"1717",e:"Farman of Farukh Siyar",p:"Surman Embassy",f:"Duty-free trade granted in Bengal; called 'Magna Carta of EIC' — very high PYQ",s:3,t:"economy",era:"early"},
+  {y:"1744–48",e:"1st Carnatic War",p:"La Bourdonnais, EIC",f:"Madras captured by French in 1746; returned by treaty (Treaty of Aix-la-Chapelle)",s:2,t:"war",era:"expansion"},
+  {y:"1749–54",e:"2nd Carnatic War",p:"Robert Clive, Dupleix",f:"Clive's daring capture of Arcot (1751) turned the tide; Dupleix recalled to France",s:3,t:"war",era:"expansion"},
+  {y:"1757",e:"Battle of Plassey",p:"Clive vs Siraj-ud-Daula",f:"Mir Jafar's betrayal decisive; EIC got jagir of 24 Parganas — start of British political power in India",s:3,t:"war",era:"expansion"},
+  {y:"1758–63",e:"3rd Carnatic War",p:"Eyre Coote vs Lally",f:"Battle of Wandiwash (1760) permanently eliminated French power from India",s:3,t:"war",era:"expansion"},
+  {y:"1760",e:"Battle of Wandiwash",p:"Eyre Coote",f:"Decisive British victory over French; France never recovered influence in India",s:3,t:"war",era:"expansion"},
+  {y:"1764",e:"Battle of Buxar",p:"Munro vs Mir Qasim + Shuja-ud-Daula + Shah Alam II",f:"More significant than Plassey — EIC fought three combined powers simultaneously",s:3,t:"war",era:"expansion"},
+  {y:"1765",e:"Treaty of Allahabad",p:"Clive, Shah Alam II",f:"Diwani rights (revenue collection) over Bengal, Bihar, Orissa granted; Dual Government system established",s:3,t:"political",era:"expansion"},
+  {y:"1769–70",e:"Great Bengal Famine",p:"—",f:"One-third of Bengal's population died; direct result of Dual Government exploitation by EIC",s:2,t:"economy",era:"expansion"},
+  {y:"1773",e:"Regulating Act",p:"Warren Hastings",f:"First parliamentary control over EIC; Hastings = Governor-General of Bengal; Supreme Court established at Calcutta",s:3,t:"reform",era:"expansion"},
+  {y:"1775–82",e:"1st Anglo-Maratha War",p:"—",f:"Treaty of Salbai (1782); status quo ante maintained; EIC gained little territory",s:2,t:"war",era:"expansion"},
+  {y:"1780–84",e:"2nd Anglo-Mysore War",p:"Hyder Ali, Tipu Sultan",f:"Hyder Ali died 1782; Treaty of Mangalore 1784 — EIC returned all conquered territories to Tipu",s:2,t:"war",era:"expansion"},
+  {y:"1784",e:"Pitt's India Act",p:"William Pitt",f:"Dual control system — Board of Control (political) + Court of Directors (commercial); reduced EIC autonomy",s:3,t:"reform",era:"expansion"},
+  {y:"1790–92",e:"3rd Anglo-Mysore War",p:"Cornwallis, Tipu Sultan",f:"Treaty of Seringapatnam; Tipu surrendered half territory + two sons sent as hostages",s:2,t:"war",era:"expansion"},
+  {y:"1793",e:"Permanent Settlement",p:"Lord Cornwallis",f:"Zamindars made permanent landowners; fixed revenue to EIC regardless of harvest; exploited ryots",s:3,t:"economy",era:"expansion"},
+  {y:"1799",e:"Fall of Seringapatnam",p:"Arthur Wellesley, Tipu Sultan",f:"4th Anglo-Mysore War; Tipu Sultan died defending the fort; Mysore power destroyed",s:3,t:"war",era:"expansion"},
+  {y:"1802",e:"Treaty of Bassein",p:"Baji Rao II, EIC",f:"Peshwa accepted British supremacy through subsidiary alliance; directly triggered 2nd Anglo-Maratha War",s:2,t:"political",era:"expansion"},
+  {y:"1813",e:"Charter Act 1813",p:"—",f:"EIC trade monopoly over India ended; ₹1 lakh earmarked for education; Christian missionaries allowed entry",s:3,t:"reform",era:"expansion"},
+  {y:"1817–18",e:"3rd Anglo-Maratha War",p:"Hastings",f:"Combined Pindari War + Maratha War; Peshwaship abolished; British became supreme power in India",s:2,t:"war",era:"expansion"},
+  {y:"1828",e:"Brahmo Samaj Founded",p:"Raja Ram Mohan Roy",f:"Opposed sati and idolatry; promoted rational monotheism and women's rights — 'Father of Indian Renaissance'",s:3,t:"social",era:"expansion"},
+  {y:"1829",e:"Sati Regulation Act",p:"Lord Bentinck, Ram Mohan Roy",f:"Sati declared illegal in Bengal; later extended to Bombay & Madras Presidencies",s:3,t:"social",era:"expansion"},
+  {y:"1833",e:"Charter Act 1833",p:"Lord Macaulay",f:"EIC ceased trading entirely; 'Governor-General of India' created (Bentinck = 1st); Law Member added to council",s:3,t:"reform",era:"expansion"},
+  {y:"1835",e:"Macaulay's Minute",p:"Lord Macaulay, Bentinck",f:"English declared medium of instruction; Anglicists defeated Orientalists — shaped modern Indian education",s:3,t:"social",era:"expansion"},
+  {y:"1845–46",e:"1st Anglo-Sikh War",p:"—",f:"Treaty of Lahore; Punjab partially controlled by EIC; Sikh army reduced",s:2,t:"war",era:"expansion"},
+  {y:"1848",e:"Doctrine of Lapse",p:"Lord Dalhousie",f:"Annexed: Satara (1848), Jaitpur & Sambalpur (1849), Udaipur (1852), Jhansi (1853), Nagpur (1854)",s:3,t:"political",era:"expansion"},
+  {y:"1848–49",e:"2nd Anglo-Sikh War",p:"Lord Dalhousie",f:"Punjab formally annexed; Koh-i-Noor diamond taken to Britain; Sikh state dissolved",s:2,t:"war",era:"expansion"},
+  {y:"1853",e:"Charter Act 1853",p:"—",f:"ICS opened to competitive exam; 1st railway Bombay–Thane; 1st telegraph Calcutta–Agra laid",s:3,t:"reform",era:"expansion"},
+  {y:"1856",e:"Hindu Widow Remarriage Act",p:"Ishwar Chandra Vidyasagar, Dalhousie",f:"Widows legally allowed to remarry; landmark social reform against centuries of oppression",s:3,t:"social",era:"expansion"},
+  {y:"1856",e:"Annexation of Awadh",p:"Lord Dalhousie",f:"Annexed on grounds of 'misgovernance' — NOT Doctrine of Lapse; key distinction often tested in PYQ",s:3,t:"political",era:"expansion"},
+  {y:"1857",e:"Revolt of 1857",p:"Mangal Pandey, Rani Lakshmibai, Nana Sahib, Tatya Tope, Bahadur Shah Zafar",f:"Started 10 May at Meerut; Enfield rifle greased cartridge as immediate trigger; called '1st War of Independence' by V.D. Savarkar",s:3,t:"war",era:"crown"},
+  {y:"1858",e:"GOI Act 1858",p:"Queen Victoria, Lord Canning",f:"Crown takes over from EIC; Canning = 1st Viceroy; Secretary of State for India created with India Council",s:3,t:"reform",era:"crown"},
+  {y:"1858",e:"Queen's Proclamation",p:"Queen Victoria",f:"Doctrine of Lapse withdrawn; religious non-interference promised; equality before law declared",s:3,t:"political",era:"crown"},
+  {y:"1861",e:"Indian Councils Act",p:"Lord Canning",f:"Legislative councils expanded; non-official Indians added to councils; High Courts established",s:2,t:"reform",era:"crown"},
+  {y:"1875",e:"Arya Samaj Founded",p:"Dayananda Saraswati",f:"'Back to Vedas' philosophy; Shuddhi movement for reconversion; opposed caste discrimination and child marriage",s:3,t:"social",era:"crown"},
+  {y:"1878",e:"Vernacular Press Act",p:"Lord Lytton",f:"Curbed Indian-language press; called 'Gagging Act'; repealed by Lord Ripon in 1882",s:3,t:"political",era:"crown"},
+  {y:"1882",e:"Hunter Education Commission",p:"W.W. Hunter",f:"Reviewed state of Indian education; recommended expansion of primary education in rural areas",s:2,t:"social",era:"crown"},
+  {y:"1883",e:"Ilbert Bill Controversy",p:"Lord Ripon, Ilbert",f:"Sought to allow Indian judges to try Europeans; massive white backlash forced severe dilution of the bill",s:3,t:"political",era:"crown"},
+  {y:"1885",e:"INC Founded",p:"A.O. Hume, W.C. Bonnerjee",f:"28 Dec 1885 at Gokuldas Tejpal College, Bombay; 72 delegates; Safety Valve Theory — British hoped to redirect discontent",s:3,t:"political",era:"crown"},
+  {y:"1892",e:"Indian Councils Act 1892",p:"—",f:"Enlarged legislative councils; introduced indirect elections; discussion of budget items allowed",s:2,t:"reform",era:"crown"},
+  {y:"1897",e:"Ramakrishna Mission",p:"Swami Vivekananda",f:"Founded on Vedanta philosophy + practical social service; established after landmark Chicago Parliament speech (1893)",s:3,t:"social",era:"crown"},
+  {y:"1905",e:"Partition of Bengal",p:"Lord Curzon",f:"16 Oct 1905 — classic Divide and Rule; triggered the Swadeshi Movement; Lal-Bal-Pal led the agitation",s:3,t:"political",era:"nationalism"},
+  {y:"1906",e:"INC Calcutta Session",p:"Dadabhai Naoroji",f:"The word 'Swaraj' used for the first time as INC's official goal by Dadabhai Naoroji",s:3,t:"political",era:"nationalism"},
+  {y:"1906",e:"Muslim League Founded",p:"Nawab Salimullah, Aga Khan",f:"30 Dec 1906 at Dhaka; demanded separate electorates for Muslims; Aga Khan = 1st President",s:3,t:"political",era:"nationalism"},
+  {y:"1907",e:"Surat Split",p:"Tilak vs Gokhale",f:"Extremists vs Moderates split over method of agitation; INC fractured; reunited only in 1916 (Lucknow)",s:3,t:"political",era:"nationalism"},
+  {y:"1909",e:"Morley-Minto Reforms",p:"Morley, Minto",f:"Separate electorates for Muslims formally introduced; S.P. Sinha = 1st Indian in Viceroy's Executive Council",s:3,t:"reform",era:"nationalism"},
+  {y:"1911",e:"Partition of Bengal Annulled",p:"Lord Hardinge",f:"Annulled at Delhi Durbar 1911; simultaneously capital shifted from Calcutta to Delhi",s:3,t:"political",era:"nationalism"},
+  {y:"1913",e:"Ghadar Party Founded",p:"Lala Har Dayal",f:"Founded in San Francisco, USA; targeted overseas Indian soldiers; aimed at armed uprising against British",s:2,t:"political",era:"nationalism"},
+  {y:"1915",e:"Gandhi Returns to India",p:"Mahatma Gandhi",f:"Returns from South Africa after 21 years; mentored by Gokhale; observes India before acting",s:3,t:"political",era:"gandhi"},
+  {y:"1916",e:"Home Rule Leagues",p:"Tilak (April, Belgaum), Annie Besant (Sept, Madras)",f:"Two separate leagues covering different territories; demanded Home Rule within British Empire",s:3,t:"political",era:"gandhi"},
+  {y:"1916",e:"Lucknow Pact",p:"Tilak, Jinnah",f:"Congress accepted separate Muslim electorates; ML supported self-government demand; significant Hindu-Muslim unity",s:3,t:"political",era:"gandhi"},
+  {y:"1917",e:"Champaran Satyagraha",p:"Gandhi",f:"Gandhi's 1st Satyagraha in India; against Tinkathia system forcing indigo cultivation; Bihar — and it succeeded",s:3,t:"social",era:"gandhi"},
+  {y:"1918",e:"Kheda Satyagraha",p:"Gandhi, Sardar Patel",f:"No-tax campaign after crop failure; Sardar Patel's first major public role alongside Gandhi",s:3,t:"social",era:"gandhi"},
+  {y:"1919",e:"Rowlatt Act",p:"—",f:"'No vakil, no daleel, no appeal' — Black Act allowed detention without trial; triggered the Rowlatt Satyagraha",s:3,t:"reform",era:"gandhi"},
+  {y:"13 Apr 1919",e:"Jallianwala Bagh Massacre",p:"Gen. Dyer",f:"379 officially killed (thousands wounded); Tagore returned Knighthood in protest; Hunter Commission formed",s:3,t:"war",era:"gandhi"},
+  {y:"1919",e:"Montagu-Chelmsford Reforms",p:"Montagu, Chelmsford",f:"Dyarchy introduced in provinces; bicameral central legislature created; separate electorates extended to Sikhs",s:3,t:"reform",era:"gandhi"},
+  {y:"1920",e:"Non-Cooperation Movement",p:"Gandhi",f:"Launched 1 Aug 1920 at Nagpur Session; merged with Khilafat Movement; boycott of councils, courts, schools",s:3,t:"political",era:"gandhi"},
+  {y:"5 Feb 1922",e:"Chauri Chaura Incident",p:"—",f:"Mob burned a police station killing 22 policemen; Gandhi abruptly called off the entire NCM — controversial decision",s:3,t:"political",era:"gandhi"},
+  {y:"1923",e:"Swaraj Party",p:"C.R. Das, Motilal Nehru",f:"Formed after NCM withdrawal; strategy to enter legislative councils to obstruct from within",s:2,t:"political",era:"gandhi"},
+  {y:"1925",e:"Kakori Conspiracy",p:"Ramprasad Bismil, Ashfaqullah Khan",f:"HRA (Hindustan Republican Association) looted train; 4 hanged including Bismil and Ashfaqullah; galvanised youth",s:3,t:"political",era:"gandhi"},
+  {y:"1927",e:"Simon Commission",p:"Sir John Simon",f:"All-white commission — Indians excluded; mass protests with 'Simon Go Back'; Lajpat Rai lathi-charged, died Nov 1928",s:3,t:"political",era:"gandhi"},
+  {y:"1928",e:"Nehru Report",p:"Motilal Nehru",f:"India's first indigenous constitutional blueprint; demanded Dominion Status; rejected separate electorates for Muslims",s:2,t:"political",era:"gandhi"},
+  {y:"1929",e:"Jinnah's 14 Points",p:"M.A. Jinnah",f:"Counter to Nehru Report; demanded continuation of separate electorates and greater provincial autonomy for Muslims",s:2,t:"political",era:"gandhi"},
+  {y:"Dec 1929",e:"Lahore Session / Poorna Swaraj",p:"Jawaharlal Nehru (President)",f:"Poorna Swaraj (Complete Independence) resolution passed; 26 Jan 1930 declared Independence Day — hence Republic Day 1950",s:3,t:"political",era:"gandhi"},
+  {y:"12 Mar 1930",e:"Dandi March / Salt Satyagraha",p:"Gandhi + 78 followers",f:"Sabarmati → Dandi (385 km, 24 days); salt made on 6 April; over 60,000 people arrested across India",s:3,t:"political",era:"gandhi"},
+  {y:"Nov 1930",e:"1st Round Table Conference",p:"—",f:"Congress boycotted entirely; only minorities participated; inconclusive with no agreement on constitutional future",s:3,t:"political",era:"gandhi"},
+  {y:"Mar 1931",e:"Gandhi-Irwin Pact",p:"Gandhi, Lord Irwin",f:"Civil Disobedience suspended; political prisoners released; Gandhi agreed to attend 2nd RTC as sole Congress rep",s:3,t:"political",era:"gandhi"},
+  {y:"23 Mar 1931",e:"Bhagat Singh Hanged",p:"Bhagat Singh, Rajguru, Sukhdev",f:"Hanged at Lahore Central Jail; Gandhi heavily criticised for not pressuring British sufficiently to save them",s:3,t:"political",era:"gandhi"},
+  {y:"Sep 1931",e:"2nd Round Table Conference",p:"Gandhi (sole Congress rep)",f:"Communal award issue could not be resolved; Gandhi returned empty-handed; CDM relaunched",s:3,t:"political",era:"gandhi"},
+  {y:"1932",e:"Communal Award",p:"Ramsay MacDonald",f:"Separate electorates granted to Depressed Classes (Dalits); Gandhi announced fast-unto-death in protest",s:3,t:"political",era:"gandhi"},
+  {y:"24 Sep 1932",e:"Poona Pact",p:"Gandhi, B.R. Ambedkar",f:"Separate electorates dropped; reserved seats in general constituencies increased from 71 to 147 — key compromise",s:3,t:"political",era:"gandhi"},
+  {y:"Nov 1932",e:"3rd Round Table Conference",p:"—",f:"Congress boycotted again; discussions led to White Paper which formed basis of GOI Act 1935",s:2,t:"political",era:"gandhi"},
+  {y:"1935",e:"GOI Act 1935",p:"—",f:"Provincial autonomy granted; Federal Court established; RBI established; forms the structural basis of Indian Constitution 1950",s:3,t:"reform",era:"gandhi"},
+  {y:"1939",e:"WW2 — Congress Ministries Resign",p:"Viceroy Linlithgow",f:"Linlithgow declared India at war without consulting Indian leaders; all Congress ministries resigned in protest",s:3,t:"political",era:"freedom"},
+  {y:"23 Mar 1940",e:"Pakistan / Lahore Resolution",p:"Fazlul Haq (moved), Jinnah",f:"Demanded separate Muslim states in NW and Eastern India; notably 'Pakistan' not explicitly mentioned in the text",s:3,t:"political",era:"freedom"},
+  {y:"1940",e:"August Offer",p:"Lord Linlithgow",f:"Offered Dominion Status after war + expanded Viceroy's Council; Congress rejected; Muslim League supported",s:2,t:"political",era:"freedom"},
+  {y:"1942",e:"Cripps Mission",p:"Sir Stafford Cripps",f:"Offered Dominion Status post-war + right of provinces to opt out; Gandhi called it 'post-dated cheque on a failing bank'",s:3,t:"political",era:"freedom"},
+  {y:"8 Aug 1942",e:"Quit India Movement",p:"Gandhi",f:"'Do or Die' resolution at Gowalia Tank, Bombay; all top leaders arrested next morning (9 Aug); Aruna Asaf Ali hoisted flag at Gowalia Tank",s:3,t:"political",era:"freedom"},
+  {y:"1942–45",e:"Parallel Governments (QIM)",p:"Chittu Pandey, JP Narayan",f:"Ballia UP, Tamluk WB (Jatiya Sarkar), Satara MH (Prati Sarkar — longest lasting); heroic underground resistance",s:3,t:"political",era:"freedom"},
+  {y:"1943",e:"Bengal Famine",p:"—",f:"2–3 million dead; Churchill's wartime export policies widely blamed; Amartya Sen later argued famines are fundamentally political",s:3,t:"economy",era:"freedom"},
+  {y:"1945",e:"INA Trials at Red Fort",p:"Shah Nawaz Khan, P.K. Sehgal, G.S. Dhillon",f:"Defended brilliantly by Bhulabhai Desai + Nehru; trials spectacularly backfired — made INA officers national heroes",s:3,t:"political",era:"freedom"},
+  {y:"18 Feb 1946",e:"Royal Indian Navy Mutiny",p:"Naval ratings",f:"78 ships + 20 shore establishments mutinied; showed British could no longer trust Indian armed forces — decisive signal",s:3,t:"war",era:"freedom"},
+  {y:"1946",e:"Cabinet Mission Plan",p:"Cripps, Pethick-Lawrence, A.V. Alexander",f:"Proposed united India with 3-tier federal structure; Congress partly accepted; ML rejected → plan collapsed",s:3,t:"political",era:"freedom"},
+  {y:"16 Aug 1946",e:"Direct Action Day",p:"Muslim League",f:"'Great Calcutta Killings'; ~4,000–5,000 dead; triggered chain of communal riots across Bengal and Bihar",s:3,t:"war",era:"freedom"},
+  {y:"9 Dec 1946",e:"Constituent Assembly 1st Session",p:"Dr. Sachchidananda Sinha (temp. president)",f:"Oldest member presided as temporary chair; Dr. Rajendra Prasad later elected permanent president; Muslim League boycotted",s:3,t:"political",era:"freedom"},
+  {y:"3 Jun 1947",e:"Mountbatten Plan",p:"Lord Mountbatten",f:"Partition formally announced; India + Pakistan as two separate dominions; transfer of power on 15 Aug 1947",s:3,t:"political",era:"freedom"},
+  {y:"14–15 Aug 1947",e:"Independence",p:"Nehru, Jinnah",f:"Pakistan (14 Aug); India (15 Aug); Radcliffe Line drawn in 5 weeks; 10–15 million displaced in largest migration in history",s:3,t:"political",era:"freedom"},
+];
+const ERAS=[
+  {id:"early",label:"Early EIC",range:"1600–1757",color:"#c9a84c"},
+  {id:"expansion",label:"EIC Expansion",range:"1757–1857",color:"#5dba85"},
+  {id:"crown",label:"Crown Rule",range:"1857–1905",color:"#5a9fd4"},
+  {id:"nationalism",label:"Early Nationalism",range:"1905–1915",color:"#c07ac0"},
+  {id:"gandhi",label:"Gandhi Era",range:"1915–1939",color:"#d4935a"},
+  {id:"freedom",label:"Freedom Struggle",range:"1939–1947",color:"#e07060"},
+];
+let currentEra='all', minStars=0, query='';
+function stars(n){return '★'.repeat(n)+'☆'.repeat(3-n)}
+function filterAll(){
+  query=document.getElementById('srch').value.toLowerCase();
+  renderAll();
+}
+function setEra(e,btn){
+  currentEra=e;
+  document.querySelectorAll('.era-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+function toggleStar(n){
+  if(minStars===n){minStars=0;document.getElementById('sf2').classList.remove('active');document.getElementById('sf3').classList.remove('active');}
+  else{minStars=n;document.getElementById('sf2').classList.toggle('active',n<=2);document.getElementById('sf3').classList.toggle('active',n===3);if(n===3)document.getElementById('sf2').classList.remove('active');}
+  renderAll();
+}
+function renderAll(){
+  const tl=document.getElementById('timeline');
+  tl.innerHTML='';
+  const erasToShow=currentEra==='all'?ERAS:ERAS.filter(e=>e.id===currentEra);
+  erasToShow.forEach(era=>{
+    const events=EVENTS.filter(ev=>{
+      if(ev.era!==era.id)return false;
+      if(ev.s<minStars)return false;
+      if(query&&!`${ev.y} ${ev.e} ${ev.p} ${ev.f}`.toLowerCase().includes(query))return false;
+      return true;
+    });
+    const sec=document.createElement('div');
+    sec.className='era-section';
+    const hdr=document.createElement('div');
+    hdr.className='era-header';
+    hdr.innerHTML=`<span class="era-label" style="color:${era.color}">${era.label}</span><span class="era-range">${era.range}</span><span class="era-count">${events.length} events</span>`;
+    sec.appendChild(hdr);
+    const grid=document.createElement('div');
+    grid.className='grid';
+    if(events.length===0){
+      grid.innerHTML='<div class="empty-state">No events match this filter</div>';
+    } else {
+      events.forEach(ev=>{
+        const card=document.createElement('div');
+        card.className=`card t-${ev.t}`;
+        const tagLabel={war:'War',reform:'Act/Reform',social:'Social',political:'Political',economy:'Economy'}[ev.t];
+        card.innerHTML=`
+          <div class="card-top">
+            <span class="year">${ev.y}</span>
+            <span class="stars">${stars(ev.s)}</span>
+          </div>
+          <div class="event">${ev.e}</div>
+          ${ev.p&&ev.p!=='—'?`<div class="people">${ev.p}</div>`:''}
+          <div class="facts">${ev.f}</div>
+          <div style="margin-top:6px"><span class="tag tag-${ev.t}">${tagLabel}</span></div>`;
+        grid.appendChild(card);
+      });
+    }
+    sec.appendChild(grid);
+    tl.appendChild(sec);
+  });
+}
+renderAll();
+</script>

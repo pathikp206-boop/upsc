@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC National Parks & Ramsar Sites — Cornell Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,600;1,8..60,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:   #0f2918;
+    --canopy:   #1a3d25;
+    --moss:     #2e5c3a;
+    --fern:     #3d7a4e;
+    --leaf:     #5a9e6b;
+    --sage:     #8cbb94;
+    --cream:    #f2edd8;
+    --ivory:    #ede5c8;
+    --bark:     #c8b07a;
+    --earth:    #8b6a3e;
+    --amber:    #d4940a;
+    --water:    #1e5c7a;
+    --sky:      #2e7ea8;
+    --river:    #4a9fc0;
+    --flame:    #c04020;
+    --rust:     #8b3010;
+    --ink:      #1a1a12;
+    --rule:     rgba(200,176,122,0.4);
+    --highlight:rgba(90,158,107,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0b1e12;
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 18px;
+    background-image:
+      radial-gradient(ellipse at 10% 30%, rgba(30,90,40,0.3) 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 70%, rgba(14,40,20,0.4) 0%, transparent 50%);
+  }
+
+  /* ── PRINT ── */
+  .print-bar { text-align:center; margin-bottom:16px; }
+  .print-btn {
+    background: var(--moss); color: var(--cream); border: none;
+    font-family: 'Source Serif 4', serif; font-size: .95rem;
+    padding: 8px 30px; cursor: pointer; letter-spacing: .05em;
+    border-radius: 2px; transition: background .2s;
+  }
+  .print-btn:hover { background: var(--fern); }
+
+  /* ── PAGE ── */
+  .page {
+    background: var(--cream);
+    max-width: 1080px; margin: 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 10px 60px rgba(0,0,0,.6), 0 2px 10px rgba(0,0,0,.3);
+    overflow: hidden;
+    background-image:
+      repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(200,176,122,.25) 31px,rgba(200,176,122,.25) 32px);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--forest);
+    border-bottom: 3px solid var(--amber);
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 10px; align-items: end; padding: 20px 32px 16px;
+  }
+  .header-title {
+    font-family: 'Libre Baskerville', serif; font-size: 1.5rem;
+    font-weight: 700; color: var(--amber); line-height: 1.25;
+  }
+  .header-sub { font-size: .88rem; color: var(--sage); font-style: italic; margin-top: 3px; }
+  .header-meta {
+    text-align: right; font-family: 'JetBrains Mono', monospace;
+    font-size: .74rem; color: var(--bark); line-height: 1.9;
+  }
+
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    background: var(--canopy); border-bottom: 1px solid rgba(200,176,122,.3);
+    display: flex; flex-wrap: wrap; gap: 0; padding: 0;
+  }
+  .stat-item {
+    flex: 1; min-width: 150px; padding: 9px 18px;
+    border-right: 1px solid rgba(200,176,122,.2); text-align: center;
+    font-size: .78rem; color: var(--sage);
+  }
+  .stat-item strong { display: block; font-size: 1.1rem; color: var(--amber); }
+
+  /* ── TABS ── */
+  .tab-nav {
+    background: var(--forest); display: flex; flex-wrap: wrap;
+    border-bottom: 2px solid var(--amber);
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--bark);
+    font-family: 'Source Serif 4', serif; font-size: .83rem; font-weight: 600;
+    padding: 9px 16px; cursor: pointer; letter-spacing: .05em;
+    border-right: 1px solid rgba(200,176,122,.15); text-transform: uppercase;
+    transition: all .18s;
+  }
+  .tab-btn:hover { color: var(--amber); background: rgba(212,148,10,.08); }
+  .tab-btn.active { background: var(--cream); color: var(--forest); border-bottom: 2px solid var(--cream); margin-bottom: -2px; font-weight: 700; }
+
+  /* ── SECTIONS ── */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── CORNELL LAYOUT ── */
+  .cornell {
+    display: grid; grid-template-columns: 230px 1fr;
+    grid-template-rows: auto auto; min-height: 560px;
+  }
+  .cue-col {
+    border-right: 2px solid var(--bark);
+    padding: 18px 14px; background: rgba(90,158,107,.06);
+  }
+  .notes-col { padding: 18px 22px; }
+  .summary-row {
+    grid-column: 1/-1; border-top: 2px solid var(--bark);
+    background: rgba(90,158,107,.09); padding: 14px 26px;
+  }
+
+  /* ── CUE BLOCKS ── */
+  .cue-block { margin-bottom: 20px; }
+  .cue-label {
+    font-family: 'Libre Baskerville', serif; font-size: .72rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--moss); margin-bottom: 3px;
+  }
+  .cue-q { font-size: .86rem; color: #3a3020; font-style: italic; line-height: 1.5; }
+  .cue-kw {
+    font-family: 'JetBrains Mono', monospace; font-size: .73rem;
+    background: rgba(42,94,58,.1); border-left: 2px solid var(--fern);
+    padding: 3px 7px; margin-top: 5px; color: var(--ink); display: block; line-height: 1.5;
+  }
+  .cue-trap {
+    font-size: .74rem; color: var(--rust); font-weight: 600;
+    margin-top: 4px; padding: 2px 6px;
+    border: 1px dashed var(--rust); background: rgba(139,48,16,.06);
+  }
+  .cue-mnemonic {
+    font-size: .78rem; color: var(--water); font-style: italic;
+    margin-top: 4px; padding: 3px 7px;
+    background: rgba(30,92,122,.08); border-left: 2px solid var(--river);
+  }
+
+  /* ── NOTE HEADINGS ── */
+  .nh {
+    font-family: 'Libre Baskerville', serif; font-size: 1.08rem; font-weight: 700;
+    color: var(--canopy); border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px; margin: 12px 0 10px;
+  }
+  .nh:first-child { margin-top: 0; }
+  .nsh {
+    font-family: 'Libre Baskerville', serif; font-size: .9rem; font-weight: 700;
+    color: var(--earth); margin: 12px 0 6px;
+  }
+
+  /* ── TABLES ── */
+  .nt { width: 100%; border-collapse: collapse; font-size: .81rem; margin: 8px 0 14px; }
+  .nt th {
+    background: var(--forest); color: var(--amber);
+    font-family: 'Source Serif 4', serif; font-weight: 600;
+    text-align: left; padding: 6px 9px; letter-spacing: .04em;
+  }
+  .nt td {
+    padding: 5px 9px; border-bottom: 1px solid rgba(200,176,122,.28);
+    vertical-align: top; color: #2a2010; line-height: 1.55;
+  }
+  .nt tr:nth-child(even) td { background: rgba(90,158,107,.07); }
+  .nt tr:hover td { background: rgba(212,148,10,.08); }
+
+  /* ── BADGES ── */
+  .b {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: .67rem; padding: 1px 6px; border-radius: 2px; vertical-align: middle;
+  }
+  .b-g  { background:#1a3d25; color:#90c890; }
+  .b-b  { background:#0e2e40; color:#80c0e0; }
+  .b-r  { background:#3d1000; color:#f09070; }
+  .b-a  { background:#3d2800; color:#d4a050; }
+  .b-p  { background:#2a103a; color:#c090e0; }
+  .b-t  { background:#002828; color:#60c8b0; }
+
+  /* ── HIGHLIGHT BOXES ── */
+  .hb {
+    border-left: 3px solid var(--amber); background: rgba(212,148,10,.08);
+    padding: 7px 11px; margin: 8px 0; font-size: .86rem; line-height: 1.6;
+  }
+  .hb.trap  { border-color: var(--rust); background: rgba(139,48,16,.07); }
+  .hb.water { border-color: var(--water); background: rgba(30,92,122,.07); }
+  .hb.green { border-color: var(--fern); background: rgba(61,122,78,.07); }
+  .hb strong { color: var(--rust); }
+  .hb.water strong { color: var(--sky); }
+  .hb.green strong { color: var(--moss); }
+
+  /* ── SUMMARY ── */
+  .sum-label {
+    font-family: 'Libre Baskerville', serif; font-size: .72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .12em; color: var(--rust); margin-bottom: 8px;
+  }
+  .sum-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 7px;
+  }
+  .sum-item {
+    font-size: .82rem; color: #2a2010; padding: 5px 10px;
+    border-left: 2px solid var(--amber); background: rgba(212,148,10,.06); line-height: 1.5;
+  }
+  .sum-item strong { color: var(--ink); }
+
+  /* ── MNEMONIC CARD ── */
+  .mcard {
+    background: rgba(30,61,37,.07); border: 1px solid rgba(90,158,107,.3);
+    padding: 8px 12px; margin: 6px 0; font-size: .84rem; line-height: 1.6;
+  }
+  .mcard .mkey { color: var(--water); font-weight: 700; font-style: italic; }
+  .mcard .mexp { color: #3a3020; font-size: .79rem; margin-top: 2px; }
+
+  /* ── TWO-COL ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0; }
+  .two-box {
+    background: rgba(90,158,107,.06); border: 1px solid rgba(200,176,122,.35);
+    padding: 9px 12px; font-size: .82rem;
+  }
+  .two-box h4 { font-family: 'Libre Baskerville', serif; font-size: .85rem; margin-bottom: 5px; }
+  .two-box ul { padding-left: 15px; color: #3a3020; line-height: 1.7; }
+
+  /* ── PILL GRID ── */
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+  .pill {
+    font-size: .76rem; font-style: italic;
+    padding: 2px 10px; border-radius: 2px; border: 1px solid;
+  }
+  .pill-g { border-color: var(--moss); color: var(--moss); background: rgba(46,92,58,.07); }
+  .pill-b { border-color: var(--water); color: var(--water); background: rgba(30,92,122,.07); }
+  .pill-r { border-color: var(--rust); color: var(--rust); background: rgba(139,48,16,.07); }
+  .pill-a { border-color: var(--earth); color: var(--earth); background: rgba(139,106,62,.07); }
+
+  .hr { border: none; border-top: 1px dashed rgba(200,176,122,.4); margin: 12px 0; }
+
+  @media(max-width:680px) {
+    .cornell { grid-template-columns:1fr; }
+    .cue-col { border-right:none; border-bottom:2px solid var(--bark); }
+    .two { grid-template-columns:1fr; }
+    .header { grid-template-columns:1fr; }
+    .stat-item { min-width:120px; }
+  }
+  @media print {
+    body { background:white; padding:0; }
+    .print-bar, .tab-nav { display:none; }
+    .page { box-shadow:none; }
+    .section { display:block !important; page-break-before:always; }
+    .section:first-child { page-break-before:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <button class="print-btn" onclick="window.print()">🖨 Print / Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-title">🏞️ National Parks, Wildlife &amp; Ramsar Sites</div>
+      <div class="header-sub">UPSC Cornell Revision Notes — State-wise with Mnemonics &amp; Traps</div>
+    </div>
+    <div class="header-meta">
+      <span>Total NPs: 107</span>
+      <span>Ramsar Sites: 98 (2026)</span>
+      <span>Format: Cornell Notes</span>
+    </div>
+  </div>
+
+  <!-- STAT STRIP -->
+  <div class="stat-strip">
+    <div class="stat-item"><strong>1st NP</strong>Jim Corbett (1936)</div>
+    <div class="stat-item"><strong>Largest NP</strong>Hemis, Ladakh</div>
+    <div class="stat-item"><strong>Smallest NP</strong>S.Button Island, A&N</div>
+    <div class="stat-item"><strong>Only Floating NP</strong>Keibul Lamjao, Manipur</div>
+    <div class="stat-item"><strong>Most Ramsar (State)</strong>Uttar Pradesh — 10</div>
+    <div class="stat-item"><strong>Oldest Ramsar</strong>Chilika + Keoladeo (1981)</div>
+  </div>
+
+  <!-- TAB NAV -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('north')">🏔 North India</button>
+    <button class="tab-btn" onclick="showTab('ne')">🌿 North-East</button>
+    <button class="tab-btn" onclick="showTab('central')">🌳 Central India</button>
+    <button class="tab-btn" onclick="showTab('east')">🌊 East &amp; West</button>
+    <button class="tab-btn" onclick="showTab('south')">🐘 South India</button>
+    <button class="tab-btn" onclick="showTab('ramsar')">💧 Ramsar Sites</button>
+    <button class="tab-btn" onclick="showTab('mnemonics')">🧠 Mnemonics</button>
+    <button class="tab-btn" onclick="showTab('traps')">🎯 UPSC Traps</button>
+  </div>
+
+  <!-- ═══════════════════════════════
+       1. NORTH INDIA
+  ═══════════════════════════════ -->
+  <div class="section active" id="sec-north">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Uttarakhand (6)</div>
+          <div class="cue-mnemonic">"Corbett's Rangers Go Near Gangotri's Valley"</div>
+          <span class="cue-kw">Corbett · Rajaji · Gangotri<br>Nanda Devi · Govind · Valley of Flowers</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which river flows through Corbett?</div>
+          <span class="cue-kw">Ramganga River (main)</span>
+          <div class="cue-trap">⚠ India's 1st NP (1936) = Corbett, NOT Gir</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Valley of Flowers + Nanda Devi UNESCO?</div>
+          <span class="cue-kw">COMBINED single UNESCO WH Site</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Himachal (5)</div>
+          <div class="cue-mnemonic">"Great Indian Kings Play Sitar"</div>
+          <span class="cue-kw">Great Himalayan · Inderkilla<br>Khirganga · Pin Valley · Simbalbara</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">J&K (4)</div>
+          <div class="cue-mnemonic">"Dachshund Kittens Can Swim"</div>
+          <span class="cue-kw">Dachigam · Kishtwar<br>City Forest(Salim Ali) · Kazinag</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Ladakh (1)</div>
+          <div class="cue-q">What is special about Hemis NP?</div>
+          <span class="cue-kw">LARGEST NP in India by area; Snow Leopard (highest density)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Rajasthan (5)</div>
+          <div class="cue-mnemonic">"Ranthambore's Desert Safari Keeps Memories"</div>
+          <span class="cue-kw">Ranthambore · Desert · Sariska<br>Keoladeo · Mukundra Hills</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Keoladeo double tag?</div>
+          <span class="cue-kw">UNESCO WH + Ramsar + Montreux Record</span>
+          <div class="cue-trap">⚠ Sariska crisis → led to NTCA formation (2006)</div>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🏔 Uttarakhand — 6 National Parks</div>
+        <table class="nt">
+          <tr><th>National Park</th><th>River(s)</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Jim Corbett NP</strong></td><td>Ramganga, Sonanadi, Kosi</td><td>Tiger, Elephant, Leopard, Gharial, King Cobra</td><td><span class="b b-a">1st NP 1936</span> <span class="b b-g">1st Tiger Reserve</span></td></tr>
+          <tr><td><strong>Rajaji NP</strong></td><td>Ganges, Yamuna, Song</td><td>Elephant, Tiger, Leopard, King Cobra</td><td>Shivalik Hills</td></tr>
+          <tr><td><strong>Gangotri NP</strong></td><td>Bhagirathi (origin of Ganga)</td><td>Snow Leopard, Musk Deer, Brown Bear, Himalayan Tahr</td><td>Source of Ganga</td></tr>
+          <tr><td><strong>Nanda Devi NP</strong></td><td>Rishi Ganga, Dhauli Ganga, Alaknanda</td><td>Snow Leopard, Himalayan Brown Bear, Musk Deer</td><td><span class="b b-p">UNESCO WH</span> <span class="b b-g">Biosphere Reserve</span></td></tr>
+          <tr><td><strong>Valley of Flowers NP</strong></td><td>Pushpawati; Bhyundar Valley</td><td>Himalayan Blue Poppy, Brahma Kamal, Snow Leopard</td><td><span class="b b-p">UNESCO WH</span> (with Nanda Devi)</td></tr>
+          <tr><td><strong>Govind Pashu Vihar</strong></td><td>Tons River, Supin</td><td>Snow Leopard, Western Tragopan, Himalayan Monal</td><td>Near Har-ki-Dun</td></tr>
+        </table>
+        <div class="hb trap">⚠ <strong>Valley of Flowers + Nanda Devi together = ONE combined UNESCO WH Site</strong></div>
+
+        <hr class="hr">
+        <div class="nh">🏔 Himachal Pradesh — 5 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Facts</th></tr>
+          <tr><td><strong>Great Himalayan NP</strong></td><td>Parvati, Beas, Tirthan, Sainj</td><td>UNESCO WH Site; Western Tragopan, Snow Leopard, Blue Sheep</td></tr>
+          <tr><td><strong>Pin Valley NP</strong></td><td>Pin R. (Spiti tributary)</td><td>Cold desert; Snow Leopard; Spiti Valley</td></tr>
+          <tr><td><strong>Khirganga NP</strong></td><td>Parvati River</td><td>Hot springs; Himalayan Brown Bear</td></tr>
+          <tr><td><strong>Inderkilla NP</strong></td><td>Beas River</td><td>Kullu Valley; Himalayan species</td></tr>
+          <tr><td><strong>Simbalbara NP</strong></td><td>Markanda</td><td>Shivalik Hills; Tiger, Sambar</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🏔 J&K — 4 NPs &nbsp;|&nbsp; Ladakh — 1 NP</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River/Lake</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Dachigam NP</strong></td><td>Dachigam stream</td><td><strong>Kashmir Stag (Hangul)</strong> — only habitat; near Srinagar</td><td><span class="b b-r">Only Hangul habitat</span></td></tr>
+          <tr><td><strong>Kishtwar NP</strong></td><td>Marusudar, Chenab</td><td>Snow Leopard, Brown Bear, Musk Deer</td><td>—</td></tr>
+          <tr><td><strong>Salim Ali NP</strong></td><td>Dal Lake</td><td>Migratory birds; named after ornithologist</td><td>Urban NP, Srinagar</td></tr>
+          <tr><td><strong>Kazinag NP</strong></td><td>Jhelum River</td><td>Himalayan species; western J&K</td><td>—</td></tr>
+          <tr><td><strong>Hemis NP (Ladakh)</strong></td><td>Indus basin</td><td>Snow Leopard (highest density), Bharal, Tibetan Wolf</td><td><span class="b b-a">Largest NP in India</span></td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌾 Haryana (2) &nbsp;|&nbsp; Uttar Pradesh (1)</div>
+        <table class="nt">
+          <tr><th>State / NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td>Haryana — <strong>Sultanpur NP</strong></td><td>Sahibi R., Sultanpur Jheel</td><td>Migratory birds (Siberian in winter)</td><td><span class="b b-b">Ramsar Site</span></td></tr>
+          <tr><td>Haryana — <strong>Kalesar NP</strong></td><td>Yamuna</td><td>Elephant corridor with Corbett; Sambar, Leopard</td><td>—</td></tr>
+          <tr><td>UP — <strong>Dudhwa NP</strong></td><td>Suheli, Mohana (Sharda trib.)</td><td>Tiger, Rhino (reintroduced), Barasingha, Hispid Hare</td><td>Terai ecosystem</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌾 Rajasthan — 5 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Ranthambore NP</strong></td><td>Banas, Chambal</td><td>Tiger (best sighted), Leopard, Marsh Croc, Sloth Bear</td><td>Most-photographed tigers</td></tr>
+          <tr><td><strong>Desert NP</strong></td><td>Luni River</td><td><strong>Great Indian Bustard</strong>, Chinkara, Desert Fox</td><td>Largest NP in Rajasthan</td></tr>
+          <tr><td><strong>Sariska NP</strong></td><td>Ruparel River</td><td>Tiger (restocked), Leopard</td><td>Poaching crisis → NTCA 2006</td></tr>
+          <tr><td><strong>Keoladeo (Bharatpur) NP</strong></td><td>Gambhir + Banganga confluence</td><td>Migratory birds (300+ sp.), Sarus Crane, Painted Stork</td><td><span class="b b-p">UNESCO WH</span> <span class="b b-b">Ramsar</span> <span class="b b-r">Montreux</span></td></tr>
+          <tr><td><strong>Mukundra Hills NP</strong></td><td>Chambal, Kali Sindh</td><td>Tiger, Leopard, Sloth Bear</td><td>—</td></tr>
+        </table>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — North India</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Corbett:</strong> Ramganga river | India's 1st NP (1936) | 1st Tiger Reserve</div>
+          <div class="sum-item"><strong>Hemis (Ladakh):</strong> Largest NP in India | Snow Leopard highest density</div>
+          <div class="sum-item"><strong>Valley of Flowers + Nanda Devi:</strong> ONE combined UNESCO WH Site</div>
+          <div class="sum-item"><strong>Dachigam:</strong> Only habitat of Kashmir Stag (Hangul)</div>
+          <div class="sum-item"><strong>Keoladeo:</strong> UNESCO WH + Ramsar + Montreux Record (threatened)</div>
+          <div class="sum-item"><strong>Desert NP:</strong> Great Indian Bustard; Luni River; largest NP in Rajasthan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       2. NORTH-EAST
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-ne">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Assam (7–8)</div>
+          <div class="cue-mnemonic">"King Mangoes Often Nourish Deer, Dancing Robins"</div>
+          <span class="cue-kw">Kaziranga · Manas · Orang · Nameri<br>Dibru-Saikhowa · Dehing Patkai · Raimona</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Kaziranga's Brahmaputra significance?</div>
+          <span class="cue-kw">75% world pop. of 1-horned Rhino; UNESCO WH + Ramsar</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">World's rarest pig — where?</div>
+          <span class="cue-kw">Pygmy Hog → Manas NP (Assam)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Feral Horses in India?</div>
+          <span class="cue-kw">Dibru-Saikhowa NP, Assam</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Only park with all 4 big cats?</div>
+          <span class="cue-kw">Namdapha NP (Arunachal Pradesh)</span>
+          <div class="cue-trap">⚠ Clouded leopard = 4th big cat</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Unique NPs</div>
+          <div class="cue-q">Keibul Lamjao (Manipur)?</div>
+          <span class="cue-kw">World's ONLY floating NP; on Loktak Lake; Sangai deer</span>
+          <div class="cue-trap">⚠ Loktak Lake = Ramsar + Montreux Record</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Sikkim</div>
+          <div class="cue-q">Khangchendzonga NP?</div>
+          <span class="cue-kw">Red Panda; UNESCO WH; 3rd highest peak (Kangchenjunga)</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🌿 Assam — 7 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Flagship Species</th><th>Tag</th></tr>
+          <tr><td><strong>Kaziranga NP</strong></td><td>Brahmaputra (N); Diphlu, Mora Dhansiri</td><td>Indian 1-horned Rhino (<strong>75% world pop.</strong>), Tiger (highest density), Elephant, Wild Buffalo, Swamp Deer</td><td><span class="b b-p">UNESCO WH</span> <span class="b b-b">Ramsar</span></td></tr>
+          <tr><td><strong>Manas NP</strong></td><td>Manas R. (India-Bhutan border)</td><td>Golden Langur, <strong>Pygmy Hog</strong> (rarest pig), Hispid Hare, Tiger, Rhino, Assamese Macaque</td><td><span class="b b-p">UNESCO WH</span> <span class="b b-b">Ramsar</span> <span class="b b-g">Tiger + Elephant</span></td></tr>
+          <tr><td><strong>Orang NP</strong></td><td>Brahmaputra</td><td>Rhino, Tiger, Elephant</td><td>"Mini Kaziranga"</td></tr>
+          <tr><td><strong>Dibru-Saikhowa NP</strong></td><td>Brahmaputra, Lohit, Dibru</td><td><strong>Feral Horses</strong> (unique!), Gangetic Dolphin, Tiger</td><td>Semi-evergreen forest</td></tr>
+          <tr><td><strong>Dehing Patkai NP</strong></td><td>Dihing River</td><td>Eastern Hoolock Gibbon; largest lowland rainforest E India</td><td>"Rainforest of the East"</td></tr>
+          <tr><td><strong>Nameri NP</strong></td><td>Jia-Bhoroli (Kameng)</td><td>Tiger, Elephant, White-winged Wood Duck, Great Hornbill</td><td>—</td></tr>
+          <tr><td><strong>Raimona NP</strong></td><td>Sankosh River</td><td>Golden Langur, Tiger, Elephant</td><td>Newest (2021)</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌿 Arunachal Pradesh — 2 NPs &nbsp;|&nbsp; Manipur — 1 NP</div>
+        <table class="nt">
+          <tr><th>State / NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td>AR — <strong>Namdapha NP</strong></td><td>Noa-Dihing (Lohit tributary)</td><td>Tiger, Leopard, <strong>Snow Leopard, Clouded Leopard</strong>, Hoolock Gibbon, Takin</td><td><span class="b b-r">Only park with all 4 big cats</span>; largest NP in NE India</td></tr>
+          <tr><td>AR — <strong>Mouling NP</strong></td><td>Siyom River</td><td>Tiger, Snow Leopard, Red Panda, Mishmi Takin</td><td>—</td></tr>
+          <tr><td>Manipur — <strong>Keibul Lamjao NP</strong></td><td>Loktak Lake (floating phumdis)</td><td><strong>Sangai</strong> (Brow-antlered Deer — State Animal), Otter</td><td><span class="b b-r">World's ONLY floating NP</span><br><span class="b b-b">Loktak = Ramsar + Montreux Record</span></td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌿 Other NE States — Quick Reference</div>
+        <table class="nt">
+          <tr><th>State</th><th>NP(s)</th><th>Key Species / Fact</th></tr>
+          <tr><td>Meghalaya</td><td>Balphakram, <strong>Nokrek</strong></td><td>Red Panda, Clouded Leopard; Nokrek = Biosphere Reserve</td></tr>
+          <tr><td>Nagaland</td><td>Intanki NP</td><td>Blyth's Tragopan (State Bird of Nagaland), Tiger, Elephant</td></tr>
+          <tr><td>Mizoram</td><td>Murlen NP, <strong>Phawngpui NP</strong></td><td>Clouded Leopard; Phawngpui = Blue Mountain NP</td></tr>
+          <tr><td>Sikkim</td><td><strong>Khangchendzonga NP</strong></td><td>Red Panda, Snow Leopard; UNESCO WH; Kangchenjunga (3rd highest)</td></tr>
+          <tr><td>Tripura</td><td>Clouded Leopard NP</td><td>Only NP entirely named after Clouded Leopard</td></tr>
+        </table>
+
+        <div class="hb green"><strong>Assam Tip:</strong> Kaziranga + Manas both hold 4 tags simultaneously (UNESCO + Ramsar + Tiger Reserve + Project Elephant). Manas also gets Project Elephant separately.</div>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — North-East India</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Kaziranga:</strong> 75% world rhinos | Brahmaputra | UNESCO WH + Ramsar</div>
+          <div class="sum-item"><strong>Manas:</strong> Pygmy Hog (rarest pig worldwide) + Golden Langur | Manas River</div>
+          <div class="sum-item"><strong>Dibru-Saikhowa:</strong> Only NP with Feral Horses | Brahmaputra / Lohit</div>
+          <div class="sum-item"><strong>Namdapha:</strong> Only NP with all 4 big cats | Arunachal | Noa-Dihing</div>
+          <div class="sum-item"><strong>Keibul Lamjao:</strong> World's only floating NP | Loktak Lake | Sangai deer</div>
+          <div class="sum-item"><strong>Khangchendzonga:</strong> Red Panda | UNESCO WH | 3rd highest peak | Sikkim</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       3. CENTRAL INDIA
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-central">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Madhya Pradesh (11)</div>
+          <div class="cue-mnemonic">"Kanha's Bold Panthers Swim, Panna Savanna's Mad Fossils"</div>
+          <span class="cue-kw">Kanha · Bandhavgarh · Pench · Satpura<br>Panna · Sanjay · Madhav · Fossil (Ghughua)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Hard-ground Barasingha — only where?</div>
+          <span class="cue-kw">Kanha NP, MP (also inspired Jungle Book)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Fossil NP is unique because?</div>
+          <span class="cue-kw">Plant fossils from Cretaceous era — NO wildlife at all</span>
+          <div class="cue-trap">⚠ Ghughua = plant fossils only</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Panna NP controversy?</div>
+          <span class="cue-kw">Ken-Betwa River Link Project threatens tiger habitat</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Chhattisgarh (3)</div>
+          <div class="cue-mnemonic">"Guru Indravati Kanger"</div>
+          <span class="cue-kw">Guru Ghasidas · Indravati · Kanger Valley</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Kanger Valley unique feature?</div>
+          <span class="cue-kw">Kotumsar &amp; Dandak caves inside; most dense NP in India</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Bihar / Jharkhand</div>
+          <div class="cue-q">Valmiki NP location?</div>
+          <span class="cue-kw">On India-Nepal border; Gandak (Narayani) river; Tiger + Elephant + Gharial</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🌳 Madhya Pradesh — Key National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Flagship Species</th><th>Tag</th></tr>
+          <tr><td><strong>Kanha NP</strong></td><td>Halon, Banjar</td><td>Tiger, <strong>Hard-ground Barasingha</strong> (ONLY here), Gaur, Leopard</td><td><span class="b b-r">Only Barasingha</span>; Jungle Book inspiration</td></tr>
+          <tr><td><strong>Bandhavgarh NP</strong></td><td>Charanganga</td><td>Tiger (historically highest density), Leopard, White Tiger (historical)</td><td>Best Tiger sightings</td></tr>
+          <tr><td><strong>Pench NP</strong></td><td>Pench River</td><td>Tiger, Leopard; Mowgli's setting</td><td>Shared with Maharashtra</td></tr>
+          <tr><td><strong>Satpura NP</strong></td><td>Denwa River</td><td>Tiger, Leopard, Giant Squirrel, Wild Dog</td><td>Walking + boat safari</td></tr>
+          <tr><td><strong>Panna NP</strong></td><td>Ken River</td><td>Tiger (reintroduced), Gharial, Vulture</td><td>Ken-Betwa Link controversy</td></tr>
+          <tr><td><strong>Sanjay NP</strong></td><td>Son River</td><td>Tiger, Leopard</td><td>—</td></tr>
+          <tr><td><strong>Fossil NP (Ghughua)</strong></td><td>—</td><td><strong>Plant fossils, Cretaceous era — NO wildlife</strong></td><td><span class="b b-r">Unique: fossils not fauna</span></td></tr>
+          <tr><td><strong>Madhav NP</strong></td><td>Sind River</td><td>Nilgai, Sambar; historical Cheetah habitat</td><td>—</td></tr>
+        </table>
+        <div class="hb trap">⚠ <strong>Fossil NP (Ghughua)</strong> is the only NP in India declared for plant fossils — no animals at all. Don't confuse with wildlife NPs.</div>
+
+        <hr class="hr">
+        <div class="nh">🌳 Chhattisgarh — 3 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species / Fact</th></tr>
+          <tr><td><strong>Indravati NP</strong></td><td>Indravati River</td><td>Wild Buffalo, Tiger, Bastar Hill Myna; Project Tiger reserve</td></tr>
+          <tr><td><strong>Kanger Valley NP</strong></td><td>Kanger River</td><td>Bastar Hill Myna, Wild Buffalo; <strong>Kotumsar + Dandak caves</strong> inside; most dense NP</td></tr>
+          <tr><td><strong>Guru Ghasidas NP</strong></td><td>Hasdeo, Banas</td><td>Tiger, Leopard; declared NP 2021</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌳 Jharkhand (1) &amp; Bihar (1)</div>
+        <table class="nt">
+          <tr><th>State / NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td>Jharkhand — <strong>Betla (Palamau) NP</strong></td><td>North Koel, Auranga</td><td>Tiger, Elephant, Leopard</td><td>First Tiger Reserve in Jharkhand</td></tr>
+          <tr><td>Bihar — <strong>Valmiki NP</strong></td><td>Gandak (Narayani)</td><td>Tiger, Elephant, Gharial</td><td>On India-Nepal border</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌳 Important Rivers in Central NPs — Quick Map</div>
+        <div class="two">
+          <div class="two-box">
+            <h4 style="color:var(--water)">MP Rivers → NP</h4>
+            <ul>
+              <li><strong>Ken River</strong> → Panna NP</li>
+              <li><strong>Banjar / Halon</strong> → Kanha</li>
+              <li><strong>Denwa</strong> → Satpura</li>
+              <li><strong>Son River</strong> → Sanjay NP</li>
+              <li><strong>Charanganga</strong> → Bandhavgarh</li>
+            </ul>
+          </div>
+          <div class="two-box">
+            <h4 style="color:var(--fern)">Special Species Exclusives</h4>
+            <ul>
+              <li>Hard-ground Barasingha → <strong>Kanha only</strong></li>
+              <li>Kotumsar caves → <strong>Kanger Valley</strong></li>
+              <li>Plant fossils (Cretaceous) → <strong>Ghughua (Fossil NP)</strong></li>
+              <li>Wild Buffalo → <strong>Indravati</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — Central India</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Kanha:</strong> Hard-ground Barasingha (only here) | Halon/Banjar | Jungle Book</div>
+          <div class="sum-item"><strong>Fossil NP (Ghughua):</strong> Plant fossils from Cretaceous — no wildlife</div>
+          <div class="sum-item"><strong>Panna:</strong> Ken River | Tiger reintroduced | Ken-Betwa Link controversy</div>
+          <div class="sum-item"><strong>Kanger Valley:</strong> Most dense NP | Kotumsar + Dandak caves inside</div>
+          <div class="sum-item"><strong>Valmiki NP (Bihar):</strong> Gandak River | India-Nepal border</div>
+          <div class="sum-item"><strong>Satpura:</strong> Denwa River | Only NP with walking + boat safaris</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       4. EAST & WEST INDIA
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-east">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">West Bengal (5)</div>
+          <div class="cue-mnemonic">"Sundarbans' Beautiful Gorillas Sing Nicely"</div>
+          <span class="cue-kw">Sundarbans · Buxa · Gorumara<br>Singalila · Neora Valley</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Sundarbans river system?</div>
+          <span class="cue-kw">Ganges delta — Hoogly, Matla rivers; UNESCO WH + Ramsar + Biosphere Reserve</span>
+          <div class="cue-trap">⚠ Irrawaddy Dolphins = Chilika Lake, NOT Chambal!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Black (Melanistic) Tigers — where?</div>
+          <span class="cue-kw">Simlipal NP, Odisha — unique globally</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Gujarat (4)</div>
+          <div class="cue-mnemonic">"Gir's Beautiful Marine Vistas"</div>
+          <span class="cue-kw">Gir · Blackbuck (Velavadar)<br>Marine (Gulf of Kutch) · Vansda</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Asiatic Lion only in?</div>
+          <span class="cue-kw">Gir Forest NP, Gujarat (only wild pop. outside Africa)</span>
+          <div class="cue-trap">⚠ Gir rivers: Hiran, Shingada, Saraswati, Raval</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Maharashtra</div>
+          <div class="cue-mnemonic">"Tadoba Navegaon Sanjay Chandoli Gugamal"</div>
+          <span class="cue-kw">Tadoba · Navegaon · Sanjay Gandhi<br>Chandoli · Gugamal</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Urban NP in Mumbai?</div>
+          <span class="cue-kw">Sanjay Gandhi NP (Tulsi + Vihar lakes inside)</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🌊 West Bengal — 5 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Sundarban NP</strong></td><td>Ganges delta — Hoogly, Matla</td><td>Royal Bengal Tiger (swimming tigers), Estuarine Croc, Irrawaddy Dolphin, Olive Ridley Turtle</td><td><span class="b b-p">UNESCO WH</span> <span class="b b-b">Ramsar</span> <span class="b b-g">Biosphere Reserve</span></td></tr>
+          <tr><td><strong>Buxa NP</strong></td><td>Raidak River</td><td>Tiger, Elephant; corridor with Manas</td><td>—</td></tr>
+          <tr><td><strong>Gorumara NP</strong></td><td>Murti, Raidak</td><td>Indian Rhino, Elephant, Gaur; Dooars region</td><td>—</td></tr>
+          <tr><td><strong>Singalila NP</strong></td><td>Himalayan ridgeline</td><td>Red Panda, Snow Leopard; borders Nepal</td><td>—</td></tr>
+          <tr><td><strong>Neora Valley NP</strong></td><td>Neora River</td><td>Red Panda, Clouded Leopard; highest biodiversity in WB</td><td>—</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌊 Odisha — 2 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Simlipal NP</strong></td><td>Budhabalanga, Deo</td><td>Tiger, Elephant; <strong>Melanistic (Black) Tigers</strong> — unique to Simlipal</td><td>Biosphere Reserve; Black Tiger</td></tr>
+          <tr><td><strong>Bhitarkanika NP</strong></td><td>Brahmani/Baitarani estuary</td><td><strong>Saltwater Crocodile</strong> (largest pop. in India), Olive Ridley Turtle, King Cobra</td><td><span class="b b-b">Ramsar Site</span>; mangrove ecosystem</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌵 Gujarat — 4 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Gir Forest NP</strong></td><td>Hiran, Shingada, Saraswati, Raval</td><td><strong>Asiatic Lion</strong> (only wild pop. outside Africa), Leopard, Marsh Croc, Indian Python</td><td><span class="b b-r">Only Asiatic Lion habitat</span></td></tr>
+          <tr><td><strong>Blackbuck (Velavadar) NP</strong></td><td>Parvalia, Alang</td><td>Blackbuck, Indian Wolf, Lesser Florican</td><td>—</td></tr>
+          <tr><td><strong>Marine NP (Gulf of Kutch)</strong></td><td>—</td><td>Dugong, Coral Reefs, Flamingo, Sea Horse, Puffer Fish</td><td><span class="b b-b">India's 1st Marine NP</span></td></tr>
+          <tr><td><strong>Vansda NP</strong></td><td>Ambika River</td><td>Leopard, Hyena, Giant Squirrel</td><td>Southern Gujarat</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌵 Maharashtra &amp; Goa — Key National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Tadoba-Andhari TR</strong></td><td>Tadoba, Andhari</td><td>Tiger (Maharashtra's largest Tiger Reserve), Sloth Bear, Gaur</td><td>—</td></tr>
+          <tr><td><strong>Gugamal NP</strong></td><td>Sipna, Gadga</td><td>Tiger; part of Melghat Tiger Reserve</td><td>—</td></tr>
+          <tr><td><strong>Chandoli NP</strong></td><td>Warna River</td><td>Tiger; Sahyadri Tiger Reserve; Western Ghats</td><td>—</td></tr>
+          <tr><td><strong>Sanjay Gandhi NP</strong></td><td>Tulsi, Vihar Lakes</td><td>Leopard; Macaque</td><td><span class="b b-r">Urban NP — inside Mumbai</span></td></tr>
+          <tr><td><strong>Mollem (Bhagwan Mahavir) NP</strong> — Goa</td><td>—</td><td>Tiger, Gaur, Black Panther; Dudh Sagar Falls inside</td><td>Goa's only NP</td></tr>
+        </table>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — East &amp; West India</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Sundarban:</strong> Ganges delta | Swimming tigers | UNESCO WH + Ramsar + Biosphere</div>
+          <div class="sum-item"><strong>Simlipal (Odisha):</strong> Melanistic Black Tigers — unique to Simlipal globally</div>
+          <div class="sum-item"><strong>Gir (Gujarat):</strong> Only Asiatic Lions | Hiran/Shingada rivers | 4 rivers</div>
+          <div class="sum-item"><strong>Marine NP, Gulf of Kutch:</strong> India's 1st Marine NP | Dugong + Corals</div>
+          <div class="sum-item"><strong>Bhitarkanika (Odisha):</strong> Largest Saltwater Croc pop. | Ramsar | Mangroves</div>
+          <div class="sum-item"><strong>Sanjay Gandhi NP:</strong> Urban NP inside Mumbai | Tulsi + Vihar lakes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       5. SOUTH INDIA
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-south">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Karnataka (5)</div>
+          <div class="cue-mnemonic">"Bandits Nab Kudus Alongside Bears"</div>
+          <span class="cue-kw">Bandipur · Nagarhole · Kudremukh<br>Anshi · Bannerghatta</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Kudremukh name meaning?</div>
+          <span class="cue-kw">"Horse-face peak"; Tunga, Bhadra, Netravati rivers; UNESCO WH (Western Ghats)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">India's only butterfly park?</div>
+          <span class="cue-kw">Bannerghatta NP, near Bengaluru</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Kerala (6)</div>
+          <div class="cue-mnemonic">"Periyar's Eravikulam Silently Ate Mangoes Peacefully"</div>
+          <span class="cue-kw">Periyar · Eravikulam · Silent Valley<br>Anamudi · Mathikettan · Pampadum</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Silent Valley uniqueness?</div>
+          <span class="cue-kw">Last undisturbed tropical evergreen forest in peninsular India; NO ROADS inside; Kunthipuzha river</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Nilgiri Tahr highest pop.?</div>
+          <span class="cue-kw">Eravikulam NP, Kerala (Pambar River)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Tamil Nadu (5)</div>
+          <div class="cue-mnemonic">"Mudumalai Indira Guindy Mannar Mukurthi"</div>
+          <span class="cue-kw">Mudumalai · Indira Gandhi · Guindy<br>Gulf of Mannar Marine · Mukurthi</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Urban NP in Chennai?</div>
+          <span class="cue-kw">Guindy NP — within Chennai city</span>
+          <div class="cue-trap">⚠ Gulf of Mannar = India's 1st Marine Biosphere Reserve</div>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🌿 Karnataka — 5 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Bandipur NP</strong></td><td>Kabini, Moyar</td><td>Tiger, Elephant, Gaur, Leopard</td><td>Nilgiri Biosphere Reserve</td></tr>
+          <tr><td><strong>Nagarhole (Rajiv Gandhi) NP</strong></td><td>Kabini, Nagarhole</td><td>Tiger, Elephant, Gaur, Dhole (Wild Dog)</td><td>Nilgiri BR</td></tr>
+          <tr><td><strong>Kudremukh NP</strong></td><td>Tunga, Bhadra, Netravati</td><td>Lion-tailed Macaque, Gaur, Tiger</td><td><span class="b b-p">UNESCO WH (W Ghats)</span>; "horse-face peak"</td></tr>
+          <tr><td><strong>Anshi (Kali TR) NP</strong></td><td>Kali (Sharavathi)</td><td>Tiger, Black Panther, Elephant</td><td>Western Ghats</td></tr>
+          <tr><td><strong>Bannerghatta NP</strong></td><td>—</td><td>Elephant, Tiger, Bear; safari</td><td><span class="b b-r">India's only butterfly park</span>; near Bengaluru</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🌿 Kerala — 6 National Parks</div>
+        <table class="nt">
+          <tr><th>NP</th><th>River</th><th>Key Species</th><th>Tag</th></tr>
+          <tr><td><strong>Periyar NP</strong></td><td>Periyar, Pambar</td><td>Tiger, Elephant, Gaur, Lion-tailed Macaque; Periyar Lake</td><td>Tiger Reserve</td></tr>
+          <tr><td><strong>Eravikulam NP</strong></td><td>Pambar River</td><td><strong>Nilgiri Tahr</strong> (highest pop.), Leopard</td><td>Highest altitude NP in Kerala; UNESCO WH candidate</td></tr>
+          <tr><td><strong>Silent Valley NP</strong></td><td><strong>Kunthipuzha</strong> (Bhavani tributary)</td><td>Lion-tailed Macaque, Tiger, Leopard</td><td><span class="b b-r">Last undisturbed tropical evergreen forest</span>; no roads</td></tr>
+          <tr><td><strong>Anamudi Shola NP</strong></td><td>Pambar</td><td>Nilgiri Tahr, Gaur; near Eravikulam</td><td>—</td></tr>
+          <tr><td><strong>Mathikettan Shola NP</strong></td><td>Periyar tributary</td><td>Nilgiri Langur, Lion-tailed Macaque</td><td>—</td></tr>
+          <tr><td><strong>Pampadum Shola NP</strong></td><td>—</td><td>Shola ecosystem</td><td>Smallest NP in Kerala</td></tr>
+        </table>
+        <div class="hb trap">⚠ <strong>Silent Valley River = Kunthipuzha</strong> (also called "Silent River" — gives the park its name). Frequently tested!</div>
+
+        <hr class="hr">
+        <div class="nh">🌿 Tamil Nadu — 5 NPs &nbsp;|&nbsp; Andhra Pradesh — 3 NPs</div>
+        <table class="nt">
+          <tr><th>State / NP</th><th>River</th><th>Key Species / Tag</th></tr>
+          <tr><td>TN — <strong>Mudumalai NP</strong></td><td>Moyar</td><td>Tiger, Elephant, Gaur; Nilgiri Biosphere Reserve</td></tr>
+          <tr><td>TN — <strong>Indira Gandhi (Anamalai) NP</strong></td><td>—</td><td>Elephant, Tiger, Giant Squirrel</td></tr>
+          <tr><td>TN — <strong>Gulf of Mannar Marine NP</strong></td><td>—</td><td>Dugong, Coral Reefs, Sea Turtle; <span class="b b-b">India's 1st Marine Biosphere Reserve</span></td></tr>
+          <tr><td>TN — <strong>Mukurthi NP</strong></td><td>—</td><td>Nilgiri Tahr; Shola grassland</td></tr>
+          <tr><td>TN — <strong>Guindy NP</strong></td><td>—</td><td>Blackbuck, Chital, Jackal; <span class="b b-r">urban NP within Chennai</span></td></tr>
+          <tr><td>AP — <strong>Papikonda NP</strong></td><td>Godavari River</td><td>Tiger, Bison; Godavari gorge</td></tr>
+          <tr><td>AP — <strong>Sri Venkateswara NP</strong></td><td>Swarnamukhi</td><td>Slender Loris, Leopard; Tirupati hills</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🏝 Andaman &amp; Nicobar Islands</div>
+        <table class="nt">
+          <tr><th>NP</th><th>Key Facts</th></tr>
+          <tr><td><strong>Saddle Peak NP</strong></td><td>Highest peak of A&N; Andaman Wild Pig, Saltwater Croc</td></tr>
+          <tr><td><strong>Galathea NP</strong></td><td>Leatherback Sea Turtle nesting; Giant Robber Crab; Galathea River</td></tr>
+          <tr><td><strong>Mahatma Gandhi Marine NP (Wandur)</strong></td><td>Dugong, Coral Reefs, Sea Turtle; South Andaman</td></tr>
+          <tr><td><strong>Campbell Bay NP</strong></td><td><span class="b b-r">Southernmost NP of India</span>; Nicobar Megapode; Saltwater Croc</td></tr>
+          <tr><td><strong>Mount Harriet NP</strong></td><td>Butterflies, Andaman Serpent Eagle</td></tr>
+          <tr><td><strong>South Button NP</strong></td><td><span class="b b-r">Smallest NP in India</span></td></tr>
+        </table>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — South India</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Silent Valley:</strong> Kunthipuzha river | Last undisturbed tropical evergreen forest | No roads</div>
+          <div class="sum-item"><strong>Nilgiri Tahr (highest pop.):</strong> Eravikulam NP, Kerala</div>
+          <div class="sum-item"><strong>Kudremukh:</strong> 3 rivers (Tunga/Bhadra/Netravati) | UNESCO WH | "Horse-face peak"</div>
+          <div class="sum-item"><strong>Gulf of Mannar:</strong> India's 1st Marine Biosphere Reserve | Dugong + Corals</div>
+          <div class="sum-item"><strong>Bannerghatta:</strong> India's only butterfly park | Near Bengaluru</div>
+          <div class="sum-item"><strong>Campbell Bay:</strong> Southernmost NP | South Button = Smallest NP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       6. RAMSAR SITES
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-ramsar">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Stats (2026)</div>
+          <span class="cue-kw">Total Ramsar Sites: 98<br>Most in state: UP (10)<br>Oldest: Chilika + Keoladeo (1981)<br>Smallest: Renuka Wetland, HP (20 ha)<br>Largest: Sundarbans, WB</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Montreux Record</div>
+          <div class="cue-q">Which are on Montreux Record (threatened)?</div>
+          <span class="cue-kw">Loktak Lake (Manipur) ✅<br>Keoladeo NP (Rajasthan) ✅</span>
+          <div class="cue-trap">⚠ Chilika REMOVED from Montreux after restoration!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Lonar Lake significance?</div>
+          <span class="cue-kw">Meteorite crater lake (saline + alkaline) — unique globally; Maharashtra; Ramsar</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Wular vs Loktak vs Vembanad?</div>
+          <span class="cue-kw">Wular = largest freshwater lake India (J&K)<br>Loktak = largest in NE India<br>Vembanad = longest lake in India</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">East Kolkata Wetlands uniqueness?</div>
+          <span class="cue-kw">World's largest wastewater resource recovery system — sewage used as fish ponds + vegetable farms</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Newest 2026</div>
+          <span class="cue-kw">Chhari-Dhand (Gujarat)<br>Patna Bird Sanctuary (UP)</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">💧 Ramsar Sites — State-wise Master Table</div>
+        <table class="nt">
+          <tr><th>State</th><th>Key Ramsar Sites</th><th>Special Feature</th></tr>
+          <tr><td><strong>Andhra Pradesh</strong></td><td>Kolleru Lake</td><td>Largest freshwater lake in AP; Pelicans, Painted Stork</td></tr>
+          <tr><td><strong>Assam</strong></td><td>Deepor Beel</td><td>Only Ramsar site in Assam; important Elephant habitat near Guwahati</td></tr>
+          <tr><td><strong>Bihar</strong></td><td>Kanwar Taal, Gogabeel, Nagi BS, Nakti BS</td><td>Nagi &amp; Nakti = 2023 additions</td></tr>
+          <tr><td><strong>Goa</strong></td><td>Nanda Lake</td><td>Added 2022</td></tr>
+          <tr><td><strong>Gujarat</strong></td><td>Nalsarovar BS, Thol, Wadhvana, Khijadia, <strong>Chhari-Dhand (2026)</strong></td><td>Chhari-Dhand = newest Ramsar site in India</td></tr>
+          <tr><td><strong>Haryana</strong></td><td>Bhindawas WLS, Sultanpur NP</td><td>Sultanpur = NP + Ramsar</td></tr>
+          <tr><td><strong>Himachal Pradesh</strong></td><td>Chandertal (Chandra Taal), Pong Dam Lake, <strong>Renuka Lake</strong></td><td>Renuka = smallest Ramsar site (20 ha); Chandertal = high-altitude moon lake</td></tr>
+          <tr><td><strong>J&amp;K</strong></td><td>Hokera, <strong>Wular Lake</strong>, Surinsar-Mansar</td><td>Wular = largest freshwater lake in India</td></tr>
+          <tr><td><strong>Ladakh</strong></td><td>Tso Moriri, Tso Kar Wetland Complex</td><td>High-altitude cold desert; breeding ground of Black-necked Crane</td></tr>
+          <tr><td><strong>Karnataka</strong></td><td>Ranganathittu, Aghanashini Estuary, Kokkare Bellur, Lingambudhi + more</td><td>Most Ramsar sites in South India</td></tr>
+          <tr><td><strong>Kerala</strong></td><td>Ashtamudi, <strong>Vembanad-Kol</strong>, Sasthamkotta</td><td>Vembanad = longest lake in India; Ashtamudi = "8-armed lake"</td></tr>
+          <tr><td><strong>Madhya Pradesh</strong></td><td>Bhoj Wetlands (Bhopal), Yashwant Sagar, Sirpur Lake, Tawa Reservoir</td><td>Bhoj Wetland = in Bhopal city</td></tr>
+          <tr><td><strong>Maharashtra</strong></td><td>Nandur Madhameshwar, <strong>Lonar Lake</strong>, Thane Creek Flamingo</td><td>Lonar = <strong>meteorite crater lake</strong> (saline + alkaline); unique globally</td></tr>
+          <tr><td><strong>Manipur</strong></td><td><strong>Loktak Lake</strong></td><td>Largest freshwater lake in NE India; floating Phumdis; Keibul Lamjao NP inside; <span class="b b-r">Montreux Record</span></td></tr>
+          <tr><td><strong>Mizoram</strong></td><td>Palak Dil, Tam Dil</td><td>Palak = deepest lake in Mizoram</td></tr>
+          <tr><td><strong>Odisha</strong></td><td><strong>Chilika Lake</strong>, Bhitarkanika, Hirakud, Satkosia</td><td>Chilika = Irrawaddy Dolphins; largest coastal lagoon; <span class="b b-g">removed from Montreux after restoration</span></td></tr>
+          <tr><td><strong>Punjab</strong></td><td><strong>Harike Wetland</strong>, Kanjli, Keshopur-Miani, Nangal</td><td>Harike = confluence of Beas + Sutlej</td></tr>
+          <tr><td><strong>Rajasthan</strong></td><td><strong>Keoladeo</strong>, <strong>Sambhar Lake</strong>, Bap Matal Jheel</td><td>Sambhar = largest inland saltwater lake; Keoladeo = <span class="b b-r">Montreux Record</span> + UNESCO WH</td></tr>
+          <tr><td><strong>Tamil Nadu</strong></td><td>Point Calimere, Kazhuveli BS, Vedanthangal BS</td><td>Point Calimere = Blackbuck + Flamingo</td></tr>
+          <tr><td><strong>Uttar Pradesh</strong></td><td>Nawabganj, Upper Ganga River, Sur Sarovar, Haiderpur, <strong>Patna BS (2026)</strong> + 5 more</td><td><span class="b b-r">Most Ramsar sites — 10</span></td></tr>
+          <tr><td><strong>Uttarakhand</strong></td><td>Asan Conservation Reserve</td><td>—</td></tr>
+          <tr><td><strong>West Bengal</strong></td><td><strong>East Kolkata Wetlands</strong>, Sundarbans</td><td>EKW = world's largest wastewater resource recovery system; Sundarbans = UNESCO WH</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">💧 Special Ramsar Comparisons — UPSC Tested</div>
+        <div class="two">
+          <div class="two-box">
+            <h4 style="color:var(--water)">Lake Records</h4>
+            <ul>
+              <li>Largest freshwater lake → <strong>Wular Lake, J&K</strong></li>
+              <li>Largest lake NE India → <strong>Loktak, Manipur</strong></li>
+              <li>Longest lake → <strong>Vembanad, Kerala</strong></li>
+              <li>Largest coastal lagoon → <strong>Chilika, Odisha</strong></li>
+              <li>Largest inland saltwater → <strong>Sambhar, Rajasthan</strong></li>
+              <li>Smallest Ramsar site → <strong>Renuka, HP (20 ha)</strong></li>
+            </ul>
+          </div>
+          <div class="two-box">
+            <h4 style="color:var(--rust)">Montreux Record Status</h4>
+            <ul>
+              <li>Currently ON record: <strong>Loktak Lake</strong> (Manipur)</li>
+              <li>Currently ON record: <strong>Keoladeo NP</strong> (Rajasthan)</li>
+              <li>REMOVED (restored): <strong>Chilika Lake</strong> (Odisha)</li>
+              <li>Meteorite crater lake: <strong>Lonar Lake, Maharashtra</strong></li>
+              <li>High-altitude Black-necked Crane: <strong>Tso Moriri, Ladakh</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — Ramsar Sites</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Most sites (state):</strong> Uttar Pradesh — 10 | Newest: Chhari-Dhand (Gujarat, 2026)</div>
+          <div class="sum-item"><strong>Oldest (1981):</strong> Chilika Lake (Odisha) + Keoladeo NP (Rajasthan)</div>
+          <div class="sum-item"><strong>Montreux Record:</strong> Loktak ✅ | Keoladeo ✅ | Chilika ❌ (removed after restoration)</div>
+          <div class="sum-item"><strong>Lonar Lake:</strong> Meteorite crater | saline + alkaline | Maharashtra | Ramsar</div>
+          <div class="sum-item"><strong>East Kolkata Wetlands:</strong> World's largest wastewater resource recovery system</div>
+          <div class="sum-item"><strong>Wular = largest freshwater</strong> | Loktak = largest NE | Vembanad = longest</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       7. MNEMONICS
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-mnemonics">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Tip</div>
+          <div class="cue-q">How to use these mnemonics?</div>
+          <span class="cue-kw">First letter of each word = first letter of the NP name. Recall the state, then run the mnemonic.</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which state has 11 NPs?</div>
+          <span class="cue-kw">Madhya Pradesh</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which state has 8 NPs?</div>
+          <span class="cue-kw">Assam</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which states share Pench NP?</div>
+          <span class="cue-kw">Madhya Pradesh + Maharashtra (Pench river forms border)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Urban NPs</div>
+          <span class="cue-kw">Mumbai → Sanjay Gandhi NP<br>Chennai → Guindy NP<br>Srinagar → Salim Ali NP<br>Bengaluru → Bannerghatta NP</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🧠 State-wise NP Mnemonics — Master Table</div>
+        <table class="nt">
+          <tr><th>State</th><th>Mnemonic</th><th>Parks (in order)</th></tr>
+          <tr><td><strong>Uttarakhand</strong></td><td class="mkey">"<em>Corbett's Rangers Go Near Gangotri's Valley</em>"</td><td>Corbett · Rajaji · Gangotri · Nanda Devi · Govind · Valley of Flowers</td></tr>
+          <tr><td><strong>Himachal Pradesh</strong></td><td class="mkey">"<em>Great Indian Kings Play Sitar</em>"</td><td>Great Himalayan · Inderkilla · Khirganga · Pin Valley · Simbalbara</td></tr>
+          <tr><td><strong>J&amp;K</strong></td><td class="mkey">"<em>Dachshund Kittens Can Swim</em>"</td><td>Dachigam · Kishtwar · City Forest (Salim Ali) · Kazinag</td></tr>
+          <tr><td><strong>Rajasthan</strong></td><td class="mkey">"<em>Ranthambore's Desert Safari Keeps Memories</em>"</td><td>Ranthambore · Desert · Sariska · Keoladeo · Mukundra</td></tr>
+          <tr><td><strong>Madhya Pradesh</strong></td><td class="mkey">"<em>Kanha's Bold Panthers Swim, Panna Savanna's Mad Fossils</em>"</td><td>Kanha · Bandhavgarh · Pench · Satpura · Panna · Sanjay · Madhav · Fossil</td></tr>
+          <tr><td><strong>Chhattisgarh</strong></td><td class="mkey">"<em>Guru Indravati Kanger</em>"</td><td>Guru Ghasidas · Indravati · Kanger Valley</td></tr>
+          <tr><td><strong>Assam</strong></td><td class="mkey">"<em>King Mangoes Often Nourish Deer, Dancing Robins</em>"</td><td>Kaziranga · Manas · Orang · Nameri · Dibru · Dehing · Raimona</td></tr>
+          <tr><td><strong>West Bengal</strong></td><td class="mkey">"<em>Sundarbans' Beautiful Gorillas Sing Nicely</em>"</td><td>Sundarban · Buxa · Gorumara · Singalila · Neora Valley</td></tr>
+          <tr><td><strong>Gujarat</strong></td><td class="mkey">"<em>Gir's Beautiful Marine Vistas</em>"</td><td>Gir · Blackbuck · Marine (Gulf of Kutch) · Vansda</td></tr>
+          <tr><td><strong>Maharashtra</strong></td><td class="mkey">"<em>Tadoba Navegaon Sanjay Chandoli Gugamal</em>"</td><td>Tadoba · Navegaon · Sanjay Gandhi · Chandoli · Gugamal</td></tr>
+          <tr><td><strong>Karnataka</strong></td><td class="mkey">"<em>Bandits Nab Kudus Alongside Bears</em>"</td><td>Bandipur · Nagarhole · Kudremukh · Anshi · Bannerghatta</td></tr>
+          <tr><td><strong>Kerala</strong></td><td class="mkey">"<em>Periyar's Eravikulam Silently Ate Mangoes Peacefully</em>"</td><td>Periyar · Eravikulam · Silent Valley · Anamudi · Mathikettan · Pampadum</td></tr>
+          <tr><td><strong>Tamil Nadu</strong></td><td class="mkey">"<em>Mudumalai Indira Guindy Mannar Mukurthi</em>"</td><td>Mudumalai · Indira Gandhi · Guindy · Gulf of Mannar · Mukurthi</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🧠 Species-Exclusive NP Mnemonics</div>
+        <div class="two">
+          <div class="two-box">
+            <h4 style="color:var(--rust)">Unique Species → NP</h4>
+            <ul>
+              <li><strong>Asiatic Lion</strong> → Gir, Gujarat</li>
+              <li><strong>Hard-ground Barasingha</strong> → Kanha, MP</li>
+              <li><strong>Kashmir Stag (Hangul)</strong> → Dachigam, J&K</li>
+              <li><strong>Sangai / Brow-antlered Deer</strong> → Keibul Lamjao, Manipur</li>
+              <li><strong>Melanistic (Black) Tigers</strong> → Simlipal, Odisha</li>
+              <li><strong>Pygmy Hog</strong> → Manas, Assam</li>
+              <li><strong>Feral Horses</strong> → Dibru-Saikhowa, Assam</li>
+              <li><strong>All 4 big cats</strong> → Namdapha, Arunachal</li>
+            </ul>
+          </div>
+          <div class="two-box">
+            <h4 style="color:var(--water)">River → NP Quick Pairs</h4>
+            <ul>
+              <li><strong>Ramganga</strong> → Jim Corbett</li>
+              <li><strong>Kunthipuzha</strong> → Silent Valley</li>
+              <li><strong>Bhagirathi</strong> → Gangotri NP</li>
+              <li><strong>Ken River</strong> → Panna NP</li>
+              <li><strong>Brahmaputra</strong> → Kaziranga, Orang</li>
+              <li><strong>Manas River</strong> → Manas NP</li>
+              <li><strong>Kabini</strong> → Bandipur + Nagarhole</li>
+              <li><strong>Godavari</strong> → Papikonda (AP)</li>
+            </ul>
+          </div>
+        </div>
+
+        <hr class="hr">
+        <div class="nh">🧠 "Firsts &amp; Onlys" — Most Tested</div>
+        <div class="pills">
+          <span class="pill pill-a">1st NP = Jim Corbett (1936)</span>
+          <span class="pill pill-g">1st Marine NP = Gulf of Kutch</span>
+          <span class="pill pill-b">1st Marine Biosphere = Gulf of Mannar (TN)</span>
+          <span class="pill pill-r">Largest NP = Hemis, Ladakh</span>
+          <span class="pill pill-a">Smallest NP = S. Button Island, A&N</span>
+          <span class="pill pill-g">Only Floating NP = Keibul Lamjao</span>
+          <span class="pill pill-b">Southernmost NP = Campbell Bay, A&N</span>
+          <span class="pill pill-r">Urban NPs: Sanjay Gandhi + Guindy + Salim Ali + Bannerghatta</span>
+          <span class="pill pill-a">Only butterfly park = Bannerghatta, Karnataka</span>
+          <span class="pill pill-g">Only NP w/ plant fossils = Ghughua (Fossil NP), MP</span>
+        </div>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Mnemonic Quick-Recall</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>Uttarakhand:</strong> Corbett's Rangers Go Near Gangotri's Valley</div>
+          <div class="sum-item"><strong>MP:</strong> Kanha's Bold Panthers Swim, Panna Savanna's Mad Fossils</div>
+          <div class="sum-item"><strong>Assam:</strong> King Mangoes Often Nourish Deer, Dancing Robins</div>
+          <div class="sum-item"><strong>Gujarat:</strong> Gir's Beautiful Marine Vistas</div>
+          <div class="sum-item"><strong>Kerala:</strong> Periyar's Eravikulam Silently Ate Mangoes Peacefully</div>
+          <div class="sum-item"><strong>Karnataka:</strong> Bandits Nab Kudus Alongside Bears</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       8. UPSC TRAPS
+  ═══════════════════════════════ -->
+  <div class="section" id="sec-traps">
+    <div class="cornell">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Most Repeated</div>
+          <div class="cue-q">Top traps from previous years?</div>
+          <span class="cue-kw">1st NP · Largest NP · Floating NP · All 4 big cats · Irrawaddy Dolphin · Montreux Record · River → NP pairs</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Classic Trap</div>
+          <div class="cue-q">Irrawaddy Dolphin = Chambal?</div>
+          <span class="cue-kw">NO → Chilika Lake, Odisha (NOT Chambal river!)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Classic Trap</div>
+          <div class="cue-q">India's 1st NP = Gir?</div>
+          <span class="cue-kw">NO → Jim Corbett (1936), originally "Hailey NP"</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Classic Trap</div>
+          <div class="cue-q">Chilika on Montreux Record?</div>
+          <span class="cue-kw">NO → Chilika was on it but REMOVED after successful restoration. Currently: Loktak + Keoladeo</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Classic Trap</div>
+          <div class="cue-q">Valley of Flowers is separate UNESCO site?</div>
+          <span class="cue-kw">NO → Combined SINGLE UNESCO WH site with Nanda Devi</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="nh">🎯 Complete UPSC Trap Table — National Parks</div>
+        <table class="nt">
+          <tr><th>Trap Question</th><th>✅ Correct Answer</th></tr>
+          <tr><td>India's first National Park?</td><td><strong>Jim Corbett NP, Uttarakhand (1936)</strong> — originally named Hailey NP. Also India's first Tiger Reserve.</td></tr>
+          <tr><td>Largest NP in India?</td><td><strong>Hemis NP, Ladakh</strong> — Snow Leopard (highest density), Bharal, Tibetan Wolf</td></tr>
+          <tr><td>Smallest NP in India?</td><td><strong>South Button Island NP, Andaman &amp; Nicobar Islands</strong></td></tr>
+          <tr><td>World's only floating NP?</td><td><strong>Keibul Lamjao NP, Manipur</strong> — on Loktak Lake; Sangai (Brow-antlered Deer)</td></tr>
+          <tr><td>Only park with all 4 big cats?</td><td><strong>Namdapha NP, Arunachal Pradesh</strong> — Tiger, Leopard, Snow Leopard, Clouded Leopard</td></tr>
+          <tr><td>Asiatic Lion only found in?</td><td><strong>Gir Forest NP, Gujarat</strong> — only wild pop. outside Africa; Rivers: Hiran, Shingada, Saraswati, Raval</td></tr>
+          <tr><td>Hard-ground Barasingha only in?</td><td><strong>Kanha NP, MP</strong> — inspired Kipling's Jungle Book; Halon + Banjar rivers</td></tr>
+          <tr><td>Melanistic (Black) Tigers?</td><td><strong>Simlipal NP, Odisha</strong> — genetically unique; Budhabalanga, Deo rivers</td></tr>
+          <tr><td>Pygmy Hog (world's rarest pig)?</td><td><strong>Manas NP, Assam</strong> — also Golden Langur, Hispid Hare; UNESCO WH + Ramsar</td></tr>
+          <tr><td>Feral Horses in India?</td><td><strong>Dibru-Saikhowa NP, Assam</strong> — Brahmaputra/Lohit/Dibru rivers</td></tr>
+          <tr><td>Irrawaddy Dolphin in India?</td><td><strong>Chilika Lake, Odisha</strong> — NOT Chambal river. Chilika = largest coastal lagoon.</td></tr>
+          <tr><td>River flowing through Corbett?</td><td><strong>Ramganga River</strong> (main); also Sonanadi, Kosi, Mandal</td></tr>
+          <tr><td>River giving Silent Valley its name?</td><td><strong>Kunthipuzha</strong> — also called "Silent River" (Bhavani tributary)</td></tr>
+          <tr><td>Valley of Flowers + Nanda Devi — same UNESCO?</td><td><strong>Yes — combined single UNESCO WH Site</strong></td></tr>
+          <tr><td>India's first Marine NP?</td><td><strong>Marine NP, Gulf of Kutch, Gujarat</strong></td></tr>
+          <tr><td>India's first Marine Biosphere Reserve?</td><td><strong>Gulf of Mannar Marine NP, Tamil Nadu</strong></td></tr>
+          <tr><td>Urban NPs in India?</td><td>Sanjay Gandhi (Mumbai) | Guindy (Chennai) | Salim Ali (Srinagar) | Bannerghatta (Bengaluru)</td></tr>
+          <tr><td>Southernmost NP of India?</td><td><strong>Campbell Bay NP, Nicobar Islands</strong> — Nicobar Megapode; Saltwater Croc</td></tr>
+          <tr><td>Sariska poaching crisis led to?</td><td>Formation of <strong>National Tiger Conservation Authority (NTCA) in 2006</strong></td></tr>
+          <tr><td>Kaziranga rhino population?</td><td><strong>~75% of world's one-horned rhino population</strong> — Brahmaputra river</td></tr>
+        </table>
+
+        <hr class="hr">
+        <div class="nh">🎯 Complete UPSC Trap Table — Ramsar Sites</div>
+        <table class="nt">
+          <tr><th>Trap Question</th><th>✅ Correct Answer</th></tr>
+          <tr><td>Oldest Ramsar site(s) in India?</td><td><strong>Chilika Lake (Odisha) + Keoladeo NP (Rajasthan) — both designated 1981</strong></td></tr>
+          <tr><td>State with most Ramsar sites?</td><td><strong>Uttar Pradesh — 10 sites</strong></td></tr>
+          <tr><td>Largest coastal lagoon in India?</td><td><strong>Chilika Lake, Odisha</strong></td></tr>
+          <tr><td>Largest freshwater lake in India?</td><td><strong>Wular Lake, Jammu &amp; Kashmir</strong></td></tr>
+          <tr><td>Largest freshwater lake in NE India?</td><td><strong>Loktak Lake, Manipur</strong></td></tr>
+          <tr><td>Longest lake in India?</td><td><strong>Vembanad Lake, Kerala</strong></td></tr>
+          <tr><td>Largest inland saltwater lake?</td><td><strong>Sambhar Lake, Rajasthan</strong></td></tr>
+          <tr><td>Smallest Ramsar site in India?</td><td><strong>Renuka Wetland, Himachal Pradesh — only 20 ha</strong></td></tr>
+          <tr><td>Meteorite crater + Ramsar site?</td><td><strong>Lonar Lake, Maharashtra</strong> — saline + alkaline; unique globally</td></tr>
+          <tr><td>Sites on Montreux Record (currently)?</td><td><strong>Loktak Lake (Manipur)</strong> + <strong>Keoladeo NP (Rajasthan)</strong></td></tr>
+          <tr><td>Removed from Montreux Record (restoration)?</td><td><strong>Chilika Lake, Odisha</strong> — successfully restored</td></tr>
+          <tr><td>East Kolkata Wetlands function?</td><td><strong>World's largest wastewater resource recovery system</strong> — sewage → fish + vegetables</td></tr>
+          <tr><td>High-altitude breeding ground of Black-necked Crane?</td><td><strong>Tso Moriri / Tso Kar, Ladakh</strong></td></tr>
+          <tr><td>Newest Ramsar site(s) 2026?</td><td><strong>Chhari-Dhand (Gujarat)</strong> + <strong>Patna Bird Sanctuary (UP)</strong></td></tr>
+          <tr><td>Harike Wetland — which rivers meet?</td><td><strong>Beas + Sutlej confluence</strong>, Punjab</td></tr>
+          <tr><td>Bhoj Wetland location?</td><td><strong>Bhopal city itself</strong>, Madhya Pradesh</td></tr>
+        </table>
+      </div>
+
+      <div class="summary-row">
+        <div class="sum-label">📝 Summary — Never-Forget Traps</div>
+        <div class="sum-grid">
+          <div class="sum-item"><strong>1st NP:</strong> Jim Corbett (1936) — NOT Gir, NOT Kaziranga</div>
+          <div class="sum-item"><strong>Irrawaddy Dolphin:</strong> Chilika Lake — NOT Chambal</div>
+          <div class="sum-item"><strong>Montreux NOW:</strong> Loktak + Keoladeo | Chilika = REMOVED (restored)</div>
+          <div class="sum-item"><strong>Silent Valley river:</strong> Kunthipuzha — frequently tested!</div>
+          <div class="sum-item"><strong>All 4 big cats:</strong> Namdapha, Arunachal Pradesh only</div>
+          <div class="sum-item"><strong>Sariska crisis → NTCA 2006</strong> | Ken-Betwa link threatens Panna</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+// Highlight mnemonic first letters
+document.querySelectorAll('.mkey').forEach(el => {
+  el.innerHTML = el.innerHTML.replace(/\b([A-Z])/g, '<span style="color:var(--amber);font-weight:700">$1</span>');
+});
+</script>
+</body>
+</html>

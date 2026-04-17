@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC Religion & Philosophy — Cornell Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f5edd8;
+    --parchment-dark: #ede0c4;
+    --ink: #1a1209;
+    --ink-light: #3d2e14;
+    --rust: #8b3a1e;
+    --saffron: #c47c2b;
+    --gold: #d4a017;
+    --teal: #1e5f6b;
+    --lotus: #7a3050;
+    --sage: #4a6741;
+    --blue-sect: #1e3f6b;
+    --orange-sect: #8b4a1e;
+    --yellow-sect: #6b5a1e;
+    --green-sect: #2a5a3e;
+    --red-sect: #6b1e1e;
+    --rule: #b8996a;
+    --margin-line: #c8a870;
+    --highlight: rgba(212, 160, 23, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #2a1f12;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 20px;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(90,50,10,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(60,30,10,0.3) 0%, transparent 50%);
+  }
+
+  /* ── PRINT BUTTON ── */
+  .print-bar {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .print-btn {
+    background: var(--saffron);
+    color: #fff;
+    border: none;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    padding: 8px 28px;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: background 0.2s;
+  }
+  .print-btn:hover { background: var(--rust); }
+
+  /* ── PAGE ── */
+  .page {
+    background: var(--parchment);
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 2px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
+    overflow: hidden;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 31px,
+        rgba(184,153,106,0.3) 31px,
+        rgba(184,153,106,0.3) 32px
+      );
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 22px 36px 18px;
+    border-bottom: 3px solid var(--gold);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+  .header-subtitle {
+    font-size: 0.9rem;
+    color: #b8996a;
+    font-style: italic;
+    margin-top: 3px;
+  }
+  .header-meta {
+    text-align: right;
+    font-size: 0.78rem;
+    color: #b8996a;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.8;
+  }
+  .header-meta span {
+    display: block;
+  }
+
+  /* ── TAB NAV ── */
+  .tab-nav {
+    background: var(--ink-light);
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--gold);
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: #b8996a;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    border-right: 1px solid rgba(184,153,106,0.2);
+    transition: all 0.18s;
+    text-transform: uppercase;
+  }
+  .tab-btn:hover { color: var(--gold); background: rgba(212,160,23,0.08); }
+  .tab-btn.active {
+    background: var(--parchment);
+    color: var(--rust);
+    border-bottom: 2px solid var(--parchment);
+    margin-bottom: -2px;
+  }
+
+  /* ── SECTION ── */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── CORNELL LAYOUT ── */
+  .cornell-wrap {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto auto;
+    min-height: 600px;
+  }
+
+  /* Left margin line */
+  .cue-col {
+    border-right: 2px solid var(--margin-line);
+    padding: 20px 16px;
+    background: rgba(180,140,70,0.07);
+  }
+  .notes-col {
+    padding: 20px 24px;
+  }
+  .summary-row {
+    grid-column: 1 / -1;
+    border-top: 2px solid var(--rule);
+    background: rgba(180,140,70,0.1);
+    padding: 16px 28px;
+  }
+
+  /* ── CUE ITEMS ── */
+  .cue-block {
+    margin-bottom: 22px;
+  }
+  .cue-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rust);
+    margin-bottom: 4px;
+  }
+  .cue-q {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .cue-keyword {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    background: var(--highlight);
+    border-left: 2px solid var(--saffron);
+    padding: 3px 7px;
+    margin-top: 5px;
+    color: var(--ink);
+    display: block;
+  }
+  .cue-trap {
+    font-size: 0.76rem;
+    color: var(--rust);
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 2px 6px;
+    border: 1px dashed var(--rust);
+    background: rgba(139,58,30,0.06);
+  }
+
+  /* ── NOTES CONTENT ── */
+  .note-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--teal);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+    margin-bottom: 14px;
+    margin-top: 8px;
+  }
+  .note-heading:first-child { margin-top: 0; }
+
+  .note-subheading {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--saffron);
+    margin: 14px 0 6px;
+  }
+
+  .note-body {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  /* ── TABLES ── */
+  .note-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+    margin: 10px 0 16px;
+  }
+  .note-table th {
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    letter-spacing: 0.04em;
+  }
+  .note-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid rgba(184,153,106,0.3);
+    vertical-align: top;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+  .note-table tr:nth-child(even) td {
+    background: rgba(180,140,70,0.08);
+  }
+  .note-table tr:hover td {
+    background: rgba(212,160,23,0.1);
+  }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 1px 7px;
+    border-radius: 2px;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+  .badge-blue  { background: #1e3f6b; color: #a8c8e8; }
+  .badge-orange{ background: #5a2810; color: #f0b888; }
+  .badge-green { background: #1e4a2e; color: #90c8a0; }
+  .badge-red   { background: #5a1e1e; color: #f0a0a0; }
+  .badge-gold  { background: #4a3808; color: #d4a850; }
+  .badge-lotus { background: #4a1e30; color: #d8a0b8; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .hbox {
+    border-left: 3px solid var(--saffron);
+    background: rgba(212,160,23,0.08);
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .hbox.trap {
+    border-color: var(--rust);
+    background: rgba(139,58,30,0.07);
+  }
+  .hbox.green {
+    border-color: var(--sage);
+    background: rgba(74,103,65,0.07);
+  }
+  .hbox.teal {
+    border-color: var(--teal);
+    background: rgba(30,95,107,0.07);
+  }
+  .hbox strong { color: var(--rust); }
+
+  /* ── SUMMARY ── */
+  .summary-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--rust);
+    margin-bottom: 8px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 8px;
+  }
+  .summary-item {
+    font-size: 0.84rem;
+    color: var(--ink-light);
+    padding: 5px 10px;
+    border-left: 2px solid var(--gold);
+    background: rgba(212,160,23,0.06);
+    line-height: 1.5;
+  }
+  .summary-item strong { color: var(--ink); }
+
+  /* ── BOOK PILLS ── */
+  .book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 8px 0;
+  }
+  .book-pill {
+    font-size: 0.78rem;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    padding: 3px 11px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+  .book-pill.buddhist { border-color: #1e3f6b; color: #1e3f6b; background: rgba(30,63,107,0.07); }
+  .book-pill.jain     { border-color: #6b3a00; color: #6b3a00; background: rgba(107,58,0,0.07); }
+  .book-pill.hindu    { border-color: #5a1e6b; color: #5a1e6b; background: rgba(90,30,107,0.07); }
+  .book-pill.other    { border-color: #1e5a3a; color: #1e5a3a; background: rgba(30,90,58,0.07); }
+
+  /* ── TWO-COL INSIDE NOTES ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 8px 0;
+  }
+  .two-col-box {
+    background: rgba(180,140,70,0.06);
+    border: 1px solid rgba(184,153,106,0.4);
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+  .two-col-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.88rem;
+    margin-bottom: 6px;
+  }
+  .two-col-box ul {
+    padding-left: 16px;
+    line-height: 1.7;
+    color: var(--ink-light);
+  }
+
+  /* ── DIVIDER ── */
+  .note-div {
+    border: none;
+    border-top: 1px dashed var(--rule);
+    margin: 14px 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:700px) {
+    .cornell-wrap { grid-template-columns: 1fr; }
+    .cue-col { border-right: none; border-bottom: 2px solid var(--margin-line); }
+    .two-col { grid-template-columns: 1fr; }
+    .header { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .print-bar { display: none; }
+    .page { box-shadow: none; }
+    .tab-nav { display: none; }
+    .section { display: block !important; page-break-before: always; }
+    .section:first-child { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <button class="print-btn" onclick="window.print()">🖨 Print / Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-title">🕉️ UPSC Religion &amp; Philosophy</div>
+      <div class="header-subtitle">Cornell Revision Notes — PYQ Based (1995–2024)</div>
+    </div>
+    <div class="header-meta">
+      <span>Subject: Ancient History</span>
+      <span>Topic: Religion &amp; Philosophy</span>
+      <span>Format: Cornell Notes</span>
+    </div>
+  </div>
+
+  <!-- TAB NAV -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('buddhism')">🔵 Buddhism</button>
+    <button class="tab-btn" onclick="showTab('jainism')">🟠 Jainism</button>
+    <button class="tab-btn" onclick="showTab('texts')">📚 Sacred Texts</button>
+    <button class="tab-btn" onclick="showTab('hindu')">🟡 Hindu Philosophy</button>
+    <button class="tab-btn" onclick="showTab('bhakti')">🌸 Bhakti &amp; Sufi</button>
+    <button class="tab-btn" onclick="showTab('compare')">⚖️ Compare</button>
+    <button class="tab-btn" onclick="showTab('traps')">🎯 Trap Patterns</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 1: BUDDHISM
+  ══════════════════════════════════════════════════ -->
+  <div class="section active" id="sec-buddhism">
+    <div class="cornell-wrap">
+
+      <!-- CUE COL -->
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Who is Shakyamuni vs Nayaputta?</div>
+          <span class="cue-keyword">Shakyamuni = Buddha<br>Nayaputta = Mahavira</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">What are the Four Noble Truths?</div>
+          <span class="cue-keyword">Dukkha · Samudaya<br>Nirodha · Magga</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Sthaviravada → which school?</div>
+          <span class="cue-keyword">Theravada / Hinayana<br>NOT Mahayana</span>
+          <div class="cue-trap">⚠ Trap: Mahasanghika → Mahayana</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Who presided 4th Council?</div>
+          <span class="cue-keyword">Vasumitra (Kashmir)<br>Under Kanishka</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Bhumisparsha mudra meaning?</div>
+          <span class="cue-keyword">Earth witnesses Buddha's purity vs Mara</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Maitreya vs Avalokitesvara?</div>
+          <span class="cue-keyword">Maitreya = Future Buddha<br>Avalokitesvara = Padmapani</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">PYQ Years</div>
+          <div class="cue-q">Buddhist concepts tested:</div>
+          <span class="cue-keyword">2024, 2023, 2020, 2019, 2018, 2015, 2012, 2011, 2009, 2004, 2001, 2000, 1998, 1997, 1996, 1995</span>
+        </div>
+      </div>
+
+      <!-- NOTES COL -->
+      <div class="notes-col">
+
+        <div class="note-heading">Buddha — Life &amp; Key Epithets</div>
+        <table class="note-table">
+          <tr><th>Epithet</th><th>Meaning</th><th>Status</th></tr>
+          <tr><td><strong>Shakyamuni</strong></td><td>Sage of the Shakyas (his clan)</td><td><span class="badge badge-blue">✅ Buddha</span></td></tr>
+          <tr><td><strong>Tathagata</strong></td><td>"Thus Gone/Thus Come" — enlightened state</td><td><span class="badge badge-blue">✅ Buddha</span></td></tr>
+          <tr><td><strong>Siddhartha / Gautama / Sugata</strong></td><td>Personal / clan / "well-gone" names</td><td><span class="badge badge-blue">✅ Buddha</span></td></tr>
+          <tr><td><strong>Nayaputta</strong></td><td>"Son of Naya clan"</td><td><span class="badge badge-orange">❌ Mahavira</span></td></tr>
+        </table>
+        <div class="hbox trap">Born <strong>563 BCE, Lumbini, Nepal</strong>. Mother = Maya Devi (Koshalan princess). Enlightenment at Bodh Gaya. First sermon = Sarnath. Death (Mahaparinirvana) = Kushinagar.</div>
+
+        <div class="note-heading">Four Noble Truths &amp; Eightfold Path</div>
+        <table class="note-table">
+          <tr><th>Truth</th><th>Pali Term</th><th>Content</th></tr>
+          <tr><td>1st</td><td>Dukkha</td><td>Life is suffering</td></tr>
+          <tr><td>2nd</td><td>Samudaya</td><td>Cause = tanha (craving/desire)</td></tr>
+          <tr><td>3rd</td><td>Nirodha</td><td>Cessation of suffering is possible</td></tr>
+          <tr><td>4th</td><td>Magga</td><td>Eightfold Path leads to cessation</td></tr>
+        </table>
+        <div class="hbox teal"><strong>Eightfold Path</strong> (proclaimed in <em>Dhammachakra Pravartana Sutta</em>, 1st sermon at Sarnath): Right View · Right Intention · Right Speech · Right Action · Right Livelihood · Right Effort · Right Mindfulness · Right Concentration</div>
+        <div class="hbox"><strong>Nirvana</strong> = extinction of the flame of tanha (desire). NOT annihilation of self. NOT mere bliss.</div>
+
+        <hr class="note-div">
+
+        <div class="note-heading">Buddhist Sects — Critical Table</div>
+        <table class="note-table">
+          <tr><th>Sect</th><th>Key Feature</th><th>Sub-schools</th></tr>
+          <tr>
+            <td><strong>Sthaviravada</strong><br><small>(Theravada / Hinayana)</small></td>
+            <td>Strict Vinaya; individual salvation; no deification of Buddha</td>
+            <td>Sarvastivadin, Sautrantika, Sammitiya</td>
+          </tr>
+          <tr>
+            <td><strong>Mahasanghika</strong></td>
+            <td>Liberal; began deifying Buddha → led to Mahayana</td>
+            <td><strong>Lokottaravadin</strong> (sub-sect)</td>
+          </tr>
+          <tr>
+            <td><strong>Mahayana</strong></td>
+            <td>Bodhisattva ideal; image worship; Sanskrit texts</td>
+            <td>Madhyamaka (Nagarjuna), Yogachara</td>
+          </tr>
+          <tr>
+            <td><strong>Vajrayana</strong></td>
+            <td>Tantric; mantra; mudra</td>
+            <td>Bengal / Tibet</td>
+          </tr>
+        </table>
+        <div class="hbox trap">⚠ <strong>Sautrantika, Sammitiya, Sarvastivadin</strong> = all Buddhist schools. NEVER Jain! | <strong>Lokottaravadin</strong> = sub-sect of Mahasanghika (NOT Sthaviravada)</div>
+
+        <div class="note-subheading">Mahayana Features (All 3 from 2019 Q)</div>
+        <div class="book-grid">
+          <span class="book-pill buddhist">Bodhisattva ideal</span>
+          <span class="book-pill buddhist">Deification of Buddha</span>
+          <span class="book-pill buddhist">Image worship</span>
+          <span class="book-pill buddhist">Sanskrit texts</span>
+          <span class="book-pill buddhist">Salvation for all beings</span>
+        </div>
+
+        <hr class="note-div">
+
+        <div class="note-heading">Buddhist Scholars</div>
+        <table class="note-table">
+          <tr><th>Scholar</th><th>School</th><th>Key Contribution</th></tr>
+          <tr><td><strong>Nagarjuna</strong></td><td>Mahayana Madhyamaka</td><td>Shunyavada — doctrine of emptiness</td></tr>
+          <tr><td><strong>Aryadeva</strong></td><td>Buddhist Madhyamaka</td><td>Disciple of Nagarjuna <span class="badge badge-red">NOT Jain</span></td></tr>
+          <tr><td><strong>Dignaga</strong></td><td>Buddhist logic</td><td>Founded Buddhist epistemology ✅</td></tr>
+          <tr><td><strong>Ashvaghosha</strong></td><td>Early Mahayana</td><td>Vice-president, 4th Council</td></tr>
+          <tr><td><strong>Vasumitra</strong></td><td>Sarvastivadin</td><td>Presided 4th Council under Kanishka ✅</td></tr>
+          <tr><td><strong>Nathamuni</strong></td><td>Vaishnava</td><td>✅ correctly paired (not Buddhist, but tested)</td></tr>
+        </table>
+
+        <div class="note-heading">Four Buddhist Councils</div>
+        <table class="note-table">
+          <tr><th>#</th><th>Location</th><th>King</th><th>Key Outcome</th></tr>
+          <tr><td>1st</td><td>Rajagriha</td><td>Ajatashatru</td><td>Compiled Vinaya &amp; Dhamma</td></tr>
+          <tr><td>2nd</td><td>Vaishali</td><td>Kalashoka</td><td>Schism: Sthaviravada vs Mahasanghika</td></tr>
+          <tr><td>3rd</td><td>Pataliputra</td><td><strong>Ashoka</strong></td><td>Abhidhamma Pitaka; missions abroad</td></tr>
+          <tr><td><strong>4th</strong></td><td><strong>Kashmir</strong></td><td><strong>Kanishka</strong></td><td>Presided by <strong>Vasumitra</strong>; Mahayana formalized</td></tr>
+        </table>
+
+        <div class="note-heading">Bodhisattvas</div>
+        <table class="note-table">
+          <tr><th>Name</th><th>Identity &amp; Symbol</th></tr>
+          <tr><td><strong>Maitreya</strong></td><td><strong>Future Buddha</strong> — messianic, yet to come</td></tr>
+          <tr><td><strong>Avalokitesvara = Padmapani</strong></td><td>Compassion; holds lotus (padma); also Lokesvara</td></tr>
+          <tr><td><strong>Manjushri</strong></td><td>Wisdom</td></tr>
+          <tr><td><strong>Vajrapani</strong></td><td>Power / thunder</td></tr>
+        </table>
+
+        <div class="note-heading">Key Buddhist Mudras</div>
+        <table class="note-table">
+          <tr><th>Mudra</th><th>Gesture</th><th>Meaning</th></tr>
+          <tr><td><strong>Bhumisparsha</strong></td><td>Right hand touches earth</td><td>Buddha calls Earth to witness purity/chastity against Mara ✅ <span class="badge badge-blue">2012 PYQ</span></td></tr>
+          <tr><td>Dharmachakra</td><td>Both hands — wheel gesture</td><td>Turning Wheel of Law / first sermon</td></tr>
+          <tr><td>Abhaya</td><td>Right hand raised, palm out</td><td>Protection / fearlessness</td></tr>
+          <tr><td>Dhyana</td><td>Hands in lap, palms up</td><td>Meditation</td></tr>
+          <tr><td>Varada</td><td>Open palm facing down</td><td>Gift-giving / charity</td></tr>
+        </table>
+
+      </div><!-- /notes-col -->
+
+      <!-- SUMMARY -->
+      <div class="summary-row">
+        <div class="summary-label">📝 Summary — Buddhism</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>Core:</strong> Four Noble Truths → Eightfold Path → Middle Way → Nirvana (extinction of tanha)</div>
+          <div class="summary-item"><strong>Sects:</strong> Sthaviravada (strict) → Hinayana | Mahasanghika (liberal) → Mahayana | Vajrayana (tantric)</div>
+          <div class="summary-item"><strong>4th Council:</strong> Kashmir, Kanishka, <em>Presided Vasumitra</em>, Ashvaghosha = vice. Mahayana formalized.</div>
+          <div class="summary-item"><strong>Bodhisattvas:</strong> Maitreya = Future Buddha; Avalokitesvara = Padmapani (lotus/compassion)</div>
+          <div class="summary-item"><strong>Paramitas:</strong> 10 perfections — path to become Bodhisattva (Mahayana concept)</div>
+          <div class="summary-item"><strong>Dhanyakataka:</strong> Major Mahasanghika centre in Andhra (modern Amaravati)</div>
+        </div>
+      </div>
+
+    </div><!-- /cornell-wrap -->
+  </div><!-- /sec-buddhism -->
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 2: JAINISM
+  ══════════════════════════════════════════════════ -->
+  <div class="section" id="sec-jainism">
+    <div class="cornell-wrap">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Who is Nayaputta?</div>
+          <span class="cue-keyword">Mahavira = Nayaputta (24th Tirthankara)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Mahavira's mother relation to Chetaka?</div>
+          <span class="cue-keyword">Trishala = SISTER of Chetaka (NOT daughter)</span>
+          <div class="cue-trap">⚠ Classic trap!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Sthanakvasi belongs to which sect?</div>
+          <span class="cue-keyword">Shvetambara sub-sect (rejects idol worship)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Anuvratas vs Mahavratas?</div>
+          <span class="cue-keyword">Anuvratas = lay followers (small vows)<br>Mahavratas = monks (great vows)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Jainism's view on Creator God?</div>
+          <span class="cue-keyword">No creator God — world governed by eternal cosmic law</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Who was Kharavela?</div>
+          <span class="cue-keyword">King of Kalinga (1st c. BC) — prominent Jain patron (Hathigumpha Inscription)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Why did Jains avoid agriculture?</div>
+          <span class="cue-keyword">Ploughing kills insects in soil → violates extreme ahimsa</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="note-heading">Mahavira &amp; Tirthankaras</div>
+        <table class="note-table">
+          <tr><th>Detail</th><th>Fact</th></tr>
+          <tr><td>Full name</td><td>Vardhamana Mahavira; 24th &amp; last Tirthankara</td></tr>
+          <tr><td>Born</td><td>599 BCE, Vaishali (Bihar)</td></tr>
+          <tr><td>Mother</td><td><strong>Trishala</strong> — Lichchhavi princess; <strong>sister</strong> of Chetaka ✅</td></tr>
+          <tr><td>Epithet</td><td><strong>Nayaputta</strong> = "son of Naya clan"</td></tr>
+          <tr><td>23rd Tirthankara</td><td><strong>Parsvanatha</strong> — from <strong>Banaras (Varanasi)</strong></td></tr>
+          <tr><td>Death</td><td>527 BCE, Pavapuri (Bihar)</td></tr>
+        </table>
+
+        <div class="note-heading">Core Jain Doctrines (All PYQ-tested)</div>
+        <table class="note-table">
+          <tr><th>Doctrine</th><th>Meaning</th><th>PYQ</th></tr>
+          <tr><td><strong>Sarvajiva</strong></td><td>Every particle (rocks, water, plants, air) has a soul (jiva)</td><td>2023</td></tr>
+          <tr><td><strong>Ahimsa</strong></td><td>Non-violence so extreme → agriculture avoided (kills insects)</td><td>2000</td></tr>
+          <tr><td><strong>Karma</strong></td><td>Material substance binding the soul; must be shed through tapas</td><td>2013</td></tr>
+          <tr><td><strong>Nirjara</strong></td><td>Shedding accumulated karma through penance</td><td>—</td></tr>
+          <tr><td><strong>Anekantavada</strong></td><td>Many-sidedness of truth (Syadvada / conditional predication)</td><td>—</td></tr>
+          <tr><td><strong>Triratna</strong></td><td>Right Faith + Right Knowledge + Right Conduct</td><td>2013</td></tr>
+          <tr><td><strong>No Creator God</strong></td><td>World governed by eternal universal law</td><td>2011</td></tr>
+        </table>
+
+        <hr class="note-div">
+
+        <div class="note-heading">Jain Vows — Mahavratas vs Anuvratas</div>
+        <div class="two-col">
+          <div class="two-col-box">
+            <h4 style="color:var(--rust)">Mahavratas (Monks/Nuns)</h4>
+            <ul>
+              <li>Absolute ahimsa</li>
+              <li>Absolute truth</li>
+              <li>Non-stealing</li>
+              <li>Celibacy (Brahmacharya)</li>
+              <li>Non-possession</li>
+            </ul>
+          </div>
+          <div class="two-col-box">
+            <h4 style="color:var(--saffron)">Anuvratas (Lay followers)</h4>
+            <ul>
+              <li>Same 5 vows but modified</li>
+              <li>Less strict than mahavratas</li>
+              <li>Adapted for householders</li>
+              <li>Called "small vows"</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hbox trap">⚠ <strong>Anuvrata = Jainism</strong> (for lay followers). Never confuse with Buddhist sila or Hindu vrata.</div>
+
+        <div class="note-heading">Jain Sects</div>
+        <table class="note-table">
+          <tr><th>Sect</th><th>Dress</th><th>Feature</th><th>Leader</th></tr>
+          <tr><td><strong>Digambara</strong></td><td>Sky-clad (naked)</td><td>Stricter; South India; women cannot attain moksha</td><td>Bhadrabahu (led migration south)</td></tr>
+          <tr><td><strong>Shvetambara</strong></td><td>White-robed</td><td>Stayed in Pataliputra; women can attain moksha</td><td>Sthulabhadra</td></tr>
+          <tr><td><strong>Sthanakvasi</strong></td><td>White-robed</td><td><strong>Sub-sect of Shvetambara; rejects idol worship</strong></td><td>—</td></tr>
+        </table>
+        <div class="hbox green">Memory trick: Bha<strong>d</strong>rabahu → <strong>D</strong>igambara (D for D) | Sthu<strong>l</strong>abhadra → Shvetambara (S for S)</div>
+
+        <div class="note-heading">Jain Philosophy — Comparisons</div>
+        <table class="note-table">
+          <tr><th>Feature</th><th>Jainism</th><th>Buddhism</th></tr>
+          <tr><td>Asceticism</td><td><strong>Extreme penance</strong></td><td>Middle path (avoids extremes)</td></tr>
+          <tr><td>Soul in objects</td><td><strong>Yes (rocks, water, plants)</strong></td><td>No (anatta)</td></tr>
+          <tr><td>Agriculture</td><td><strong>Avoided</strong></td><td>Permitted</td></tr>
+          <tr><td>Reject Vedas</td><td>Yes ✅</td><td>Yes ✅</td></tr>
+          <tr><td>Reject Vedic rituals</td><td>Yes ✅</td><td>Yes ✅</td></tr>
+          <tr><td>Ahimsa</td><td>Extreme ✅</td><td>Yes ✅</td></tr>
+        </table>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-label">📝 Summary — Jainism</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>24th Tirthankara:</strong> Mahavira (Nayaputta) | 23rd = Parsvanatha (Varanasi)</div>
+          <div class="summary-item"><strong>Core:</strong> Sarvajiva (soul everywhere) + extreme ahimsa + karma as material substance</div>
+          <div class="summary-item"><strong>Sects:</strong> Digambara (naked, south, Bhadrabahu) | Shvetambara (white-robed, Sthulabhadra) | Sthanakvasi (no idols)</div>
+          <div class="summary-item"><strong>Vows:</strong> Mahavratas (monks, absolute) | Anuvratas (laity, modified)</div>
+          <div class="summary-item"><strong>No God:</strong> World governed by eternal cosmic law (unlike theistic systems)</div>
+          <div class="summary-item"><strong>Patron:</strong> Kharavela of Kalinga (Hathigumpha Inscription)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 3: SACRED TEXTS
+  ══════════════════════════════════════════════════ -->
+  <div class="section" id="sec-texts">
+    <div class="cornell-wrap">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Is Therigatha Buddhist or Jain?</div>
+          <span class="cue-keyword">Buddhist (Pali) — Elder Nuns' verses</span>
+          <div class="cue-trap">⚠ Trap: Sounds like it could be Jain!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which texts are Jain (not Buddhist)?</div>
+          <span class="cue-keyword">Parishishtaparvan &amp; Trishashtilakshana = Jain</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">What is the Bijak?</div>
+          <span class="cue-keyword">Kabir's composition (NOT Dadu Dayal)</span>
+          <div class="cue-trap">⚠ Trap: Don't confuse with Dadu Panth!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">First sermon text name?</div>
+          <span class="cue-keyword">Dhammachakra Pravartana Sutta (Sarnath)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which school = Karma Kanda?</div>
+          <span class="cue-keyword">Mimamsa (Purva Mimamsa) = ritual action path</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Lokayata/Charvaka = orthodox school?</div>
+          <span class="cue-keyword">NO — heterodox/materialist. NOT one of 6 Shad Darshanas.</span>
+          <div class="cue-trap">⚠ Kapalika = Shaiva sect, also not in Shad Darshanas</div>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="note-heading">🔵 Buddhist Texts — Complete List</div>
+        <div class="note-subheading">Canonical (Tripitaka)</div>
+        <div class="book-grid">
+          <span class="book-pill buddhist">Vinaya Pitaka</span>
+          <span class="book-pill buddhist">Sutta Pitaka</span>
+          <span class="book-pill buddhist">Abhidhamma Pitaka</span>
+        </div>
+
+        <div class="note-subheading">Major Suttas / Sutras</div>
+        <table class="note-table">
+          <tr><th>Text</th><th>Content / Significance</th></tr>
+          <tr><td><strong>Dhammachakra Pravartana Sutta</strong></td><td>First sermon at Sarnath; Eightfold Path proclaimed <span class="badge badge-blue">1998 PYQ</span></td></tr>
+          <tr><td><strong>Mahaparinibbana Sutta</strong></td><td>Account of Buddha's last days and Parinirvana (death)</td></tr>
+          <tr><td><strong>Dhammapada</strong></td><td>Verses of the Dhamma; most popular Buddhist text; Pali</td></tr>
+          <tr><td><strong>Suttanipata</strong></td><td>Early Pali poetry collection; dialogues and hymns</td></tr>
+          <tr><td><strong>Milindapanha</strong></td><td>"Questions of Milinda (Menander)"; Greek king vs monk Nagasena</td></tr>
+          <tr><td><strong>Prajnaparamita Sutra</strong></td><td>Mahayana; "Perfection of Wisdom"; includes Heart Sutra &amp; Diamond Sutra</td></tr>
+          <tr><td><strong>Lotus Sutra (Saddharmapundarika)</strong></td><td>Key Mahayana text; universal Buddha-nature</td></tr>
+          <tr><td><strong>Vimalakirti Sutra</strong></td><td>Mahayana; lay bodhisattva teaching</td></tr>
+          <tr><td><strong>Lankavatara Sutra</strong></td><td>Yogachara / Mind-only school</td></tr>
+        </table>
+
+        <div class="note-subheading">Historical / Chronicles</div>
+        <table class="note-table">
+          <tr><th>Text</th><th>Content</th></tr>
+          <tr><td><strong>Therigatha</strong></td><td>Pali; "Verses of Elder Nuns" ✅ Buddhist <span class="badge badge-blue">1996 PYQ</span></td></tr>
+          <tr><td><strong>Theragatha</strong></td><td>Pali; Verses of Elder Monks</td></tr>
+          <tr><td><strong>Avadanashataka</strong></td><td>Buddhist Sanskrit; 100 edifying tales ✅</td></tr>
+          <tr><td><strong>Nettipakarana</strong></td><td>Pali; guide to interpreting Dhamma ✅</td></tr>
+          <tr><td><strong>Dipavamsa</strong></td><td>Pali chronicle (Sri Lanka); earliest Buddhist historical text</td></tr>
+          <tr><td><strong>Mahavamsa</strong></td><td>Pali chronicle (Sri Lanka); extends Dipavamsa</td></tr>
+          <tr><td><strong>Divyavadana</strong></td><td>Sanskrit; Buddhist legendary tales; mentions Ashoka</td></tr>
+          <tr><td><strong>Lalitavistara</strong></td><td>Sanskrit; semi-legendary life of Buddha (Mahayana)</td></tr>
+          <tr><td><strong>Buddhacharita</strong></td><td>Sanskrit epic on Buddha's life by <strong>Ashvaghosha</strong></td></tr>
+        </table>
+
+        <hr class="note-div">
+
+        <div class="note-heading">🟠 Jain Texts — Complete List</div>
+        <div class="note-subheading">Agamas (Canonical Scriptures)</div>
+        <table class="note-table">
+          <tr><th>Text</th><th>Content / Significance</th></tr>
+          <tr><td><strong>Acaranga Sutra</strong></td><td>Oldest Jain text; Mahavira's life and conduct rules</td></tr>
+          <tr><td><strong>Sutrakritanga</strong></td><td>Philosophical doctrines; refutation of other schools</td></tr>
+          <tr><td><strong>Uttaradhyayana Sutra</strong></td><td>Last teachings/discourses of Mahavira</td></tr>
+          <tr><td><strong>Brihatkalpasutra</strong></td><td>Rules for Jain monks; monastic code ✅ <span class="badge badge-orange">Jain</span></td></tr>
+          <tr><td><strong>Kalpasutra</strong></td><td>Lives of Tirthankaras; written by <strong>Bhadrabahu</strong></td></tr>
+        </table>
+
+        <div class="note-subheading">Jain Literary Works</div>
+        <table class="note-table">
+          <tr><th>Text</th><th>Author</th><th>Content</th></tr>
+          <tr><td><strong>Parishishtaparvan</strong></td><td>Hemachandra</td><td>Jain biographies of monks; Sanskrit <span class="badge badge-orange">✅ Jain — 2022 PYQ</span></td></tr>
+          <tr><td><strong>Trishashtilakshana Mahapurana</strong></td><td>Jinasena &amp; Gunabhadra</td><td>Jain universal history of 63 great beings <span class="badge badge-orange">✅ Jain — 2022 PYQ</span></td></tr>
+          <tr><td><strong>Adipurana</strong></td><td>Jinasena</td><td>Jain cosmology &amp; Rishabhanatha's story</td></tr>
+          <tr><td><strong>Pravacanasara</strong></td><td>Kundakunda</td><td>Digambara Jain philosophy</td></tr>
+          <tr><td><strong>Ratnakaranda Shravakachara</strong></td><td>Samantabhadra</td><td>Jain lay ethics</td></tr>
+          <tr><td><strong>Yogashastra</strong></td><td>Hemachandra</td><td>Jain yoga and conduct</td></tr>
+        </table>
+
+        <hr class="note-div">
+
+        <div class="note-heading">🟡 Hindu / Vedic Texts</div>
+        <table class="note-table">
+          <tr><th>Text</th><th>Category</th><th>Key Fact</th></tr>
+          <tr><td><strong>Rigveda, Samaveda, Yajurveda, Atharvaveda</strong></td><td>Vedas (Shruti)</td><td>Eternal, authorless per Mimamsa</td></tr>
+          <tr><td><strong>Upanishads</strong></td><td>Vedanta (Shruti)</td><td>Base of all Vedanta schools</td></tr>
+          <tr><td><strong>Bhagavad Gita</strong></td><td>Smriti (part of Mahabharata)</td><td>18 chapters; Karma, Jnana, Bhakti yoga</td></tr>
+          <tr><td><strong>Brahma Sutras</strong></td><td>Vedanta</td><td>Systematized by Badarayana; base for Shankara/Ramanuja</td></tr>
+          <tr><td><strong>Yoga Sutras</strong></td><td>Yoga school</td><td>Patanjali; Ashtanga Yoga (8 limbs)</td></tr>
+          <tr><td><strong>Manusmriti</strong></td><td>Dharmashastra</td><td>Law code; basis for Dayabhaga &amp; Mitakshara</td></tr>
+          <tr><td><strong>Mitakshara</strong></td><td>Law commentary</td><td>Sons get right by <strong>birth</strong> ✅</td></tr>
+          <tr><td><strong>Dayabhaga</strong></td><td>Law commentary</td><td>Sons get right only <strong>after father's death</strong></td></tr>
+          <tr><td><strong>Nyaya Sutras</strong></td><td>Nyaya school</td><td>Akshapada Gautama; 4 pramanas</td></tr>
+          <tr><td><strong>Vaisheshika Sutras</strong></td><td>Vaisheshika</td><td>Kanada; atomic theory; 6 Padarthas</td></tr>
+        </table>
+
+        <div class="note-heading">📖 Bhakti &amp; Sufi Literary Texts</div>
+        <table class="note-table">
+          <tr><th>Text</th><th>Author</th><th>Tradition</th></tr>
+          <tr><td><strong>Bijak</strong></td><td><strong>Kabir</strong> (Weaver)</td><td>Nirguna Bhakti ✅ <span class="badge badge-lotus">NOT Dadu Dayal</span></td></tr>
+          <tr><td><strong>Guru Granth Sahib</strong></td><td>Guru Arjan Dev (compiled)</td><td>Sikhism; includes Kabir, Namdev, Ravidas</td></tr>
+          <tr><td><strong>Prabodha Chandrodaya</strong></td><td>Krishnamishra</td><td>Allegorical play; Vaishnava philosophy</td></tr>
+          <tr><td><strong>Masnavi</strong></td><td>Rumi</td><td>Persian Sufi poetry</td></tr>
+          <tr><td><strong>Kashf-ul-Mahjub</strong></td><td>Ali Hujwiri (Data Ganj Bakhsh)</td><td>Earliest Persian Sufi treatise in India</td></tr>
+          <tr><td><strong>Kitab-ul-Hind</strong></td><td>Al-Biruni</td><td>Study of Indian religion &amp; philosophy (11th c.)</td></tr>
+          <tr><td><strong>Gita Govinda</strong></td><td>Jayadeva</td><td>Vaishnavism; Radha-Krishna devotion</td></tr>
+        </table>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-label">📝 Summary — Texts Trap-Buster</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>Buddhist (Pali):</strong> Therigatha ✅ | Dhammapada ✅ | Mahaparinibbana Sutta ✅</div>
+          <div class="summary-item"><strong>Jain (NOT Buddhist):</strong> Parishishtaparvan ❌ | Trishashtilakshana ❌ | Acaranga ❌</div>
+          <div class="summary-item"><strong>Bijak:</strong> Kabir (Weaver) — NOT Dadu Dayal (Cotton-carder)</div>
+          <div class="summary-item"><strong>Kalpasutra:</strong> Jain (Bhadrabahu) — NOT Buddhist</div>
+          <div class="summary-item"><strong>Buddhacharita:</strong> Buddhist Sanskrit epic by Ashvaghosha</div>
+          <div class="summary-item"><strong>Milindapanha:</strong> Buddhist — dialogue between King Menander &amp; monk Nagasena</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 4: HINDU PHILOSOPHY
+  ══════════════════════════════════════════════════ -->
+  <div class="section" id="sec-hindu">
+    <div class="cornell-wrap">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Name the 6 orthodox Shad Darshanas</div>
+          <span class="cue-keyword">Samkhya · Yoga · Nyaya · Vaisheshika · Mimamsa · Vedanta</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which school focuses on karma kanda (ritual)?</div>
+          <span class="cue-keyword">Mimamsa (Purva Mimamsa) — Jaimini</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Ramanuja's philosophy?</div>
+          <span class="cue-keyword">Vishishtadvaita — Bhakti = best path</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Sankhya accepts rebirth?</div>
+          <span class="cue-keyword">YES — liberation via Vivekajnana (not denial of rebirth)</span>
+          <div class="cue-trap">⚠ Trap: Don't say Sankhya rejects rebirth!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Chronological order: Shankara → Ramanuja → Chaitanya</div>
+          <span class="cue-keyword">8th c. → 11th c. → 15th c.</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Lokayata = orthodox school?</div>
+          <span class="cue-keyword">NO — heterodox materialist. Kapalika = Shaiva sect. Neither in Shad Darshanas.</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="note-heading">Six Orthodox Schools — Shad Darshanas</div>
+        <table class="note-table">
+          <tr><th>School</th><th>Founder</th><th>Liberation Path</th><th>Key Concept</th></tr>
+          <tr><td><strong>Samkhya</strong></td><td>Kapila</td><td>Self-knowledge (Vivekajnana)</td><td>Dualism: Purusha (soul) + Prakriti (matter); accepts rebirth</td></tr>
+          <tr><td><strong>Yoga</strong></td><td>Patanjali</td><td>Meditation &amp; discipline</td><td>Practical path of Samkhya; Ashtanga (8-limbed) Yoga</td></tr>
+          <tr><td><strong>Nyaya</strong></td><td>Akshapada Gautama</td><td>Logical thinking</td><td>4 pramanas; logic leads to liberation</td></tr>
+          <tr><td><strong>Vaisheshika</strong></td><td>Kanada</td><td>Atomic pluralism</td><td>Universe = atoms; 6 Padarthas (categories)</td></tr>
+          <tr><td><strong>Mimamsa</strong> (Purva)</td><td>Jaimini</td><td><strong>Karma</strong> (ritual action)</td><td>Vedas eternal; Karma Kanda (ritual for liberation)</td></tr>
+          <tr><td><strong>Vedanta</strong> (Uttara)</td><td>Vyasa/Badarayana</td><td>Jnana / Bhakti</td><td>Brahman is ultimate reality; Upanishads as base</td></tr>
+        </table>
+        <div class="hbox trap">⚠ <strong>Lokayata (Charvaka)</strong> = NOT orthodox. Materialist, rejects Vedas, denies afterlife. <strong>Kapalika</strong> = Shaiva sect (skull-bearers). Neither is part of Shad Darshanas!</div>
+
+        <div class="note-heading">Vedanta Sub-Schools — Critical Comparison</div>
+        <table class="note-table">
+          <tr><th>Philosopher</th><th>Philosophy</th><th>Period</th><th>Key Teaching</th></tr>
+          <tr><td><strong>Shankaracharya</strong></td><td>Advaita (non-dual)</td><td>8th c. CE</td><td>Brahman = only reality; world = maya (illusion)</td></tr>
+          <tr><td><strong>Ramanuja</strong></td><td>Vishishtadvaita (qualified non-dual)</td><td>11th–12th c. CE</td><td><strong>Bhakti = best path to salvation</strong>; souls &amp; world real but part of Brahman</td></tr>
+          <tr><td><strong>Madhvacharya</strong></td><td>Dvaita (complete dualism)</td><td>13th c. CE</td><td>God &amp; soul forever separate; Vishnu = supreme</td></tr>
+          <tr><td><strong>Vallabhacharya</strong></td><td>Shuddhadvaita (pure non-dual)</td><td>15th–16th c. CE</td><td><strong>Pushti Marg</strong> = path of grace; Krishna devotion</td></tr>
+          <tr><td><strong>Chaitanya</strong></td><td>Achintya Bhedabheda</td><td>15th–16th c. CE</td><td>Bengal Vaishnavism; ecstatic devotion</td></tr>
+        </table>
+        <div class="hbox trap">⚠ <strong>Pushti Marg</strong> = Vallabhacharya (NOT Madhvacharya). Trap in PYQ 2014!</div>
+
+        <hr class="note-div">
+
+        <div class="note-heading">Samkhya — Key Points (PYQ 2013)</div>
+        <div class="hbox">
+          <strong>Dualism:</strong> Purusha (consciousness/soul) + Prakriti (matter/nature) are eternally distinct.<br>
+          <strong>Liberation:</strong> Achieved when Purusha recognizes itself as distinct from Prakriti (Vivekajnana).<br>
+          <strong>Accepts rebirth:</strong> YES ✅ (until liberation; do NOT say Samkhya rejects rebirth).<br>
+          <strong>Karma does not create new bondage</strong> after liberation, but rebirth continues until true self-knowledge.
+        </div>
+
+        <div class="note-heading">Yuga Sequence — Standard Order</div>
+        <div class="hbox teal">
+          <strong>Krita (Satya) → Treta → Dvapara → Kali</strong><br>
+          Each yuga progressively shorter and more corrupt. We are currently in Kali Yuga.
+        </div>
+
+        <div class="note-heading">Law Schools — Mitakshara vs Dayabhaga</div>
+        <table class="note-table">
+          <tr><th>Feature</th><th>Mitakshara</th><th>Dayabhaga</th></tr>
+          <tr><td>Region</td><td>Most of India</td><td>Bengal &amp; Assam</td></tr>
+          <tr><td>Sons' right</td><td><strong>By birth</strong> ✅</td><td><strong>Only after father's death</strong></td></tr>
+          <tr><td>Caste-based?</td><td>No</td><td>No</td></tr>
+          <tr><td>Founder</td><td>Vijnanesvara</td><td>Jimutavahana</td></tr>
+        </table>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-label">📝 Summary — Hindu Philosophy</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>6 Schools:</strong> Samkhya · Yoga · Nyaya · Vaisheshika · Mimamsa · Vedanta (all accept Vedas)</div>
+          <div class="summary-item"><strong>Mimamsa:</strong> Karma Kanda — ritual action for liberation; Vedas eternal</div>
+          <div class="summary-item"><strong>Advaita (Shankara):</strong> 8th c. | Vishishtadvaita (Ramanuja): 11th c. | Dvaita (Madhva): 13th c.</div>
+          <div class="summary-item"><strong>Pushti Marg:</strong> Vallabhacharya (NOT Madhvacharya) — grace + Krishna devotion</div>
+          <div class="summary-item"><strong>Mitakshara:</strong> Sons' right by birth | Dayabhaga: only after father's death</div>
+          <div class="summary-item"><strong>Yugas:</strong> Krita → Treta → Dvapara → Kali (progressively declining)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 5: BHAKTI & SUFI
+  ══════════════════════════════════════════════════ -->
+  <div class="section" id="sec-bhakti">
+    <div class="cornell-wrap">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Kabir's profession &amp; text?</div>
+          <span class="cue-keyword">Weaver → Bijak</span>
+          <div class="cue-trap">⚠ Bijak ≠ Dadu Dayal!</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Match Namdev–Ravidas–Sena professions</div>
+          <span class="cue-keyword">Namdev = Tailor<br>Ravidas = Cobbler<br>Sena = Barber</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Which Sufi order used qawwali/sama?</div>
+          <span class="cue-keyword">Chishti order (Moinuddin Chishti)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Pushti Marg founder?</div>
+          <span class="cue-keyword">Vallabhacharya (NOT Madhvacharya)</span>
+          <div class="cue-trap">⚠ Madhvacharya = Dvaita, Karnataka</div>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Who first used the word "Hindu"?</div>
+          <span class="cue-keyword">Arabs — for people beyond Sindhu (Indus) river</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="note-heading">Bhakti Saints — Profession &amp; Key Works</div>
+        <table class="note-table">
+          <tr><th>Saint</th><th>Profession</th><th>Region</th><th>Key Work / Sect</th></tr>
+          <tr><td><strong>Kabir</strong></td><td><strong>Weaver</strong></td><td>Varanasi</td><td><strong>Bijak</strong> ✅ (Nirguna Bhakti; no idol worship)</td></tr>
+          <tr><td><strong>Namdev</strong></td><td><strong>Tailor / Calico Printer</strong></td><td>Maharashtra</td><td>Varkari tradition; devotion to Vithoba</td></tr>
+          <tr><td><strong>Ravidas (Raidas)</strong></td><td><strong>Cobbler</strong></td><td>Varanasi</td><td>Ravidasi tradition; verses in Guru Granth Sahib</td></tr>
+          <tr><td><strong>Sena</strong></td><td><strong>Barber</strong></td><td>Maharashtra</td><td>Varkari tradition</td></tr>
+          <tr><td><strong>Chaitanya</strong></td><td>Brahmin</td><td>Bengal</td><td>Achintya Bhedabheda; ecstatic Krishna devotion; 15th–16th c.</td></tr>
+          <tr><td><strong>Vallabhacharya</strong></td><td>Brahmin</td><td>Telangana/Gujarat</td><td><strong>Pushti Marg</strong> (path of grace); Krishna; 15th c.</td></tr>
+          <tr><td><strong>Dadu Dayal</strong></td><td>Cotton-carder</td><td>Rajasthan</td><td>Dadu Panth; Nirguna; NOT Bijak author</td></tr>
+          <tr><td><strong>Tukaram</strong></td><td>Peasant/trader</td><td>Maharashtra</td><td>Abhangas; Varkari; devotion to Vithoba</td></tr>
+          <tr><td><strong>Mirabai</strong></td><td>Rajput princess</td><td>Rajasthan</td><td>Krishna bhakti; songs (Padas)</td></tr>
+          <tr><td><strong>Andal</strong></td><td>Woman saint</td><td>Tamil Nadu</td><td>Alvar tradition; Tiruppavai</td></tr>
+        </table>
+        <div class="hbox trap">⚠ <strong>Bijak = Kabir (Weaver)</strong> | Dadu Dayal = Cotton-carder (different saint, different text)</div>
+
+        <div class="note-heading">Alwar &amp; Nayanar Saints</div>
+        <table class="note-table">
+          <tr><th>Type</th><th>Deity</th><th>Key Texts</th><th>Language</th></tr>
+          <tr><td><strong>Alvars</strong> (12 saints)</td><td>Vishnu</td><td>Divya Prabandham (4000 hymns)</td><td>Tamil</td></tr>
+          <tr><td><strong>Nayanars</strong> (63 saints)</td><td>Shiva</td><td>Tevaram; Thiruvachakam</td><td>Tamil</td></tr>
+        </table>
+        <div class="hbox">Nathamuni compiled Divya Prabandham. <strong>Nathamuni ✅</strong> is correctly paired with Alvar tradition.</div>
+
+        <hr class="note-div">
+
+        <div class="note-heading">Sufi Orders in India</div>
+        <table class="note-table">
+          <tr><th>Order (Silsila)</th><th>Founder in India</th><th>Key Feature</th></tr>
+          <tr><td><strong>Chishti</strong></td><td><strong>Moinuddin Chishti</strong> (Ajmer)</td><td>Devotional music — <strong>Sama / Qawwali</strong> as path to God ✅</td></tr>
+          <tr><td><strong>Suhrawardi</strong></td><td>Bahauddin Zakariya (Multan)</td><td>More orthodox; less emphasis on music</td></tr>
+          <tr><td><strong>Qadiri</strong></td><td>Abdul Qadir Jilani (Baghdad origin)</td><td>Founded in Baghdad; branches in India too</td></tr>
+          <tr><td><strong>Naqshbandi</strong></td><td>Khwaja Baqi Billah (Delhi)</td><td>Silent dhikr; close ties to Mughal court</td></tr>
+        </table>
+        <div class="hbox teal">
+          <strong>Khanqah</strong> = Sufi hospice/lodge — centre of Sufi teaching &amp; community.<br>
+          <strong>Silsila</strong> = spiritual chain/lineage connecting Sufi master to disciple back to Prophet.<br>
+          <strong>Sama</strong> = Sufi devotional music/concert practice of Chishti order.
+        </div>
+
+        <div class="note-heading">Shaiva Sects</div>
+        <table class="note-table">
+          <tr><th>Sect</th><th>Region</th><th>Key Feature</th></tr>
+          <tr><td><strong>Mattamayura</strong></td><td>Chambal region (Madhya Pradesh)</td><td>Shaiva sect; ✅ tested in 1996 PYQ</td></tr>
+          <tr><td><strong>Kapalika</strong></td><td>Deccan/South</td><td>Skull-bearers; extreme Shaiva; NOT orthodox Shad Darshana</td></tr>
+          <tr><td><strong>Pasupata</strong></td><td>All India</td><td>Oldest Shaiva sect; founded by Lakulisha</td></tr>
+          <tr><td><strong>Lingayat (Veerashaiva)</strong></td><td>Karnataka</td><td>12th c.; Basavanna; reject caste &amp; idol worship</td></tr>
+        </table>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-label">📝 Summary — Bhakti &amp; Sufi</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>Kabir:</strong> Weaver → Bijak | Nirguna Bhakti | Varanasi</div>
+          <div class="summary-item"><strong>Professions:</strong> Namdev=Tailor | Ravidas=Cobbler | Sena=Barber | Dadu=Cotton-carder</div>
+          <div class="summary-item"><strong>Pushti Marg:</strong> Vallabhacharya (NOT Madhvacharya) — path of grace, Krishna</div>
+          <div class="summary-item"><strong>Chishti:</strong> Moinuddin Chishti (Ajmer); Qawwali/Sama music path to God</div>
+          <div class="summary-item"><strong>Mattamayura:</strong> Shaiva sect from Chambal region ✅</div>
+          <div class="summary-item"><strong>"Hindu":</strong> Arabs first coined for people east of Sindhu (Indus) river</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 6: COMPARE
+  ══════════════════════════════════════════════════ -->
+  <div class="section" id="sec-compare">
+    <div class="cornell-wrap">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">What do Buddhism &amp; Jainism have in common?</div>
+          <span class="cue-keyword">Reject Vedas ✅<br>Reject Vedic rituals ✅<br>Ahimsa ✅</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">What is unique to Buddhism?</div>
+          <span class="cue-keyword">Middle path<br>Anatta (no-soul)<br>Agriculture permitted</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">What is unique to Jainism?</div>
+          <span class="cue-keyword">Extreme asceticism<br>Soul in every object<br>Agriculture avoided</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">Shramana = priest?</div>
+          <span class="cue-keyword">NO — Shramana = wandering ascetic/renunciant (NOT a priest)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Key Question</div>
+          <div class="cue-q">What is Parivrajaka?</div>
+          <span class="cue-keyword">General wandering renunciant (Hindu/general tradition)</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">PYQ Tested</div>
+          <div class="cue-q">Common features tested:</div>
+          <span class="cue-keyword">1996: 2,3,4 (Vedas, rituals, ahimsa) 2012: 2,3 (Vedas, rituals) 2023: Jainism only for Sarvajiva</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="note-heading">Buddhism vs Jainism — Master Comparison</div>
+        <table class="note-table">
+          <tr><th>Feature</th><th>Buddhism</th><th>Jainism</th></tr>
+          <tr><td><strong>Path</strong></td><td><strong>Middle Path</strong> — avoids extremes of luxury &amp; asceticism</td><td><strong>Extreme asceticism</strong> (tapas) — no middle path concept</td></tr>
+          <tr><td><strong>Vedas</strong></td><td>Rejected ✅</td><td>Rejected ✅</td></tr>
+          <tr><td><strong>Vedic rituals</strong></td><td>Rejected ✅</td><td>Rejected ✅</td></tr>
+          <tr><td><strong>Ahimsa</strong></td><td>Yes ✅</td><td>Yes — extreme ✅</td></tr>
+          <tr><td><strong>Soul in objects</strong></td><td>No (Anatta = no soul)</td><td>Yes — rocks, water, plants, air</td></tr>
+          <tr><td><strong>Agriculture</strong></td><td>Permitted ✅</td><td>Avoided (kills insects in soil)</td></tr>
+          <tr><td><strong>Creator God</strong></td><td>No — karma operates independently</td><td>No — eternal cosmic law</td></tr>
+          <tr><td><strong>Goal</strong></td><td>Nirvana (extinction of desire)</td><td>Moksha (liberation of soul from karma)</td></tr>
+          <tr><td><strong>Caste</strong></td><td>Rejected</td><td>Not emphasized</td></tr>
+          <tr><td><strong>Texts</strong></td><td>Pali &amp; Sanskrit (Tripitaka, Sutras)</td><td>Ardhamagadhi Agamas</td></tr>
+          <tr><td><strong>Spread</strong></td><td>South &amp; East Asia</td><td>Mainly India (Gujarat, Rajasthan, Karnataka)</td></tr>
+        </table>
+
+        <div class="note-heading">Heterodox Schools — Both reject Vedas</div>
+        <table class="note-table">
+          <tr><th>School</th><th>Category</th><th>Key Feature</th></tr>
+          <tr><td><strong>Buddhism</strong></td><td>Nastika (heterodox)</td><td>Middle path; Nirvana; Eightfold path</td></tr>
+          <tr><td><strong>Jainism</strong></td><td>Nastika (heterodox)</td><td>Extreme asceticism; Sarvajiva; Triratna</td></tr>
+          <tr><td><strong>Ajivika</strong></td><td>Nastika (heterodox)</td><td>Fatalism (Niyati); founded by Makkhali Gosala; now extinct</td></tr>
+          <tr><td><strong>Lokayata / Charvaka</strong></td><td>Nastika (heterodox)</td><td>Materialism; only direct perception valid; no afterlife</td></tr>
+        </table>
+        <div class="hbox trap">⚠ All 4 above reject Vedas. Only Buddhism &amp; Jainism survived as major living traditions.</div>
+
+        <div class="note-heading">Key Terms Compared</div>
+        <table class="note-table">
+          <tr><th>Term</th><th>Meaning</th><th>Tradition</th></tr>
+          <tr><td><strong>Shramana</strong></td><td>Ascetic/renunciant — NOT a priest</td><td>Buddhism &amp; Jainism</td></tr>
+          <tr><td><strong>Parivrajaka</strong></td><td>Wandering renunciant</td><td>General Hindu/Buddhist</td></tr>
+          <tr><td><strong>Upasaka</strong></td><td>Lay devotee/follower</td><td>Buddhism</td></tr>
+          <tr><td><strong>Sravaka</strong></td><td>Lay follower who hears teaching</td><td>Buddhism &amp; Jainism</td></tr>
+          <tr><td><strong>Magadha</strong></td><td>Bard who memorized epics &amp; genealogies</td><td>Hindu/Vedic</td></tr>
+          <tr><td><strong>Agraharika</strong></td><td>Village headman / administrative head</td><td>Administrative</td></tr>
+          <tr><td><strong>Tanha</strong></td><td>Craving/desire — root of suffering</td><td>Buddhism</td></tr>
+          <tr><td><strong>Karma (Jain)</strong></td><td>Physical substance binding the soul</td><td>Jainism</td></tr>
+          <tr><td><strong>Karma (Buddhist)</strong></td><td>Intentional action creating consequences</td><td>Buddhism</td></tr>
+        </table>
+
+        <div class="note-heading">Dhanyakataka — Geography Note</div>
+        <div class="hbox teal">
+          <strong>Dhanyakataka</strong> = prominent <strong>Mahasanghika Buddhist</strong> centre in <strong>Andhra Pradesh</strong> (modern Amaravati / Dharanikota on Krishna river). ✅ Tested 2023 PYQ.
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-label">📝 Summary — Key Comparisons</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>Both reject:</strong> Vedas ✅ + Vedic rituals ✅ + practice ahimsa ✅</div>
+          <div class="summary-item"><strong>Only Buddhism:</strong> Middle path | Anatta | Agriculture ok | Nirvana = tanha extinction</div>
+          <div class="summary-item"><strong>Only Jainism:</strong> Extreme asceticism | Soul in all objects | Avoid agriculture | No creator God (cosmic law)</div>
+          <div class="summary-item"><strong>Shramana:</strong> Ascetic (NOT priest) — applies to both traditions</div>
+          <div class="summary-item"><strong>Dhanyakataka:</strong> Andhra — Mahasanghika Buddhist centre (Amaravati)</div>
+          <div class="summary-item"><strong>Heterodox 4:</strong> Buddhism, Jainism, Ajivika, Lokayata — all reject Vedas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 7: TRAP PATTERNS
+  ══════════════════════════════════════════════════ -->
+  <div class="section" id="sec-traps">
+    <div class="cornell-wrap">
+      <div class="cue-col">
+        <div class="cue-block">
+          <div class="cue-label">Most Repeated</div>
+          <div class="cue-q">Top 5 traps from 1995–2024 PYQs</div>
+          <span class="cue-keyword">1. Nayaputta<br>2. Middle path<br>3. Aryadeva<br>4. Bijak<br>5. Pushti Marg</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Quick Fire</div>
+          <div class="cue-q">Frequency by theme:</div>
+          <span class="cue-keyword">Buddhism ~15 Qs<br>Jainism ~10 Qs<br>Shad Darshanas ~5 Qs<br>Bhakti/Sufi ~5 Qs<br>Comparison ~3 Qs</span>
+        </div>
+        <div class="cue-block">
+          <div class="cue-label">Strategy Note</div>
+          <div class="cue-q">How to approach sect questions?</div>
+          <span class="cue-keyword">Always check: Is sub-school listed Buddhist OR Jain? Sautrantika/Sammitiya/Sarvastivadin = Buddhist. Sthanakvasi = Jain (Shvetambara sub).</span>
+        </div>
+      </div>
+
+      <div class="notes-col">
+        <div class="note-heading">🎯 Top 10 UPSC Trap Patterns — Never Forget</div>
+        <table class="note-table">
+          <tr><th>#</th><th>Trap</th><th>Correct Answer</th><th>PYQ</th></tr>
+          <tr><td>1</td><td><strong>Nayaputta = Buddha?</strong></td><td>❌ Nayaputta = <strong>Mahavira's</strong> epithet (son of Naya clan)</td><td>2024</td></tr>
+          <tr><td>2</td><td><strong>Middle path = Jainism?</strong></td><td>❌ Middle path = <strong>Buddhism only</strong>; Jainism = extreme asceticism</td><td>1996, 2012</td></tr>
+          <tr><td>3</td><td><strong>Aryadeva = Jain philosopher?</strong></td><td>❌ Aryadeva = <strong>Buddhist</strong> Madhyamaka (Nagarjuna's disciple)</td><td>2022</td></tr>
+          <tr><td>4</td><td><strong>Bijak = Dadu Dayal's text?</strong></td><td>❌ Bijak = <strong>Kabir</strong>'s composition (Weaver, Varanasi)</td><td>2014</td></tr>
+          <tr><td>5</td><td><strong>Pushti Marg = Madhvacharya?</strong></td><td>❌ Pushti Marg = <strong>Vallabhacharya</strong> (Dvaita = Madhvacharya)</td><td>2014</td></tr>
+          <tr><td>6</td><td><strong>Therigatha = Jain text?</strong></td><td>❌ Therigatha = <strong>Buddhist</strong> Pali (Elder Nuns' verses)</td><td>1996</td></tr>
+          <tr><td>7</td><td><strong>Sankhya rejects rebirth?</strong></td><td>❌ Sankhya <strong>accepts</strong> rebirth; liberation via Vivekajnana</td><td>2013</td></tr>
+          <tr><td>8</td><td><strong>Lokayata = Shad Darshana?</strong></td><td>❌ Lokayata (Charvaka) = <strong>heterodox</strong> materialist school</td><td>2014</td></tr>
+          <tr><td>9</td><td><strong>Mahavira's mother = Chetaka's daughter?</strong></td><td>❌ Trishala = Chetaka's <strong>sister</strong> (not daughter)</td><td>2003</td></tr>
+          <tr><td>10</td><td><strong>Sthaviravada → Mahayana?</strong></td><td>❌ Sthaviravada → <strong>Hinayana/Theravada</strong>; Mahasanghika → Mahayana</td><td>2020</td></tr>
+        </table>
+
+        <div class="note-heading">Additional High-Yield Traps</div>
+        <table class="note-table">
+          <tr><th>Trap</th><th>Correct</th><th>PYQ</th></tr>
+          <tr><td>Pavarana = Hindu festival?</td><td>❌ Pavarana = <strong>Buddhist</strong> end-of-Vassa monk confession ceremony</td><td>2003</td></tr>
+          <tr><td>Vasumitra = presided 3rd Council?</td><td>❌ 3rd Council = Ashoka at Pataliputra; 4th = Vasumitra under Kanishka</td><td>2001</td></tr>
+          <tr><td>Bhumisparsha = meditation gesture?</td><td>❌ Bhumisparsha = Earth witnessing Buddha's purity against Mara</td><td>2012</td></tr>
+          <tr><td>Maitreya = past Buddha?</td><td>❌ Maitreya = <strong>Future</strong> Buddha (messianic)</td><td>2018</td></tr>
+          <tr><td>Magadha = ancient kingdom only?</td><td>❌ Magadha also = bard/genealogist caste in Vedic society</td><td>2016</td></tr>
+          <tr><td>Sautrantika = Jain school?</td><td>❌ Sautrantika = <strong>Buddhist</strong> Hinayana sub-school</td><td>2017</td></tr>
+          <tr><td>Sthanakvasi accepts idol worship?</td><td>❌ Sthanakvasi <strong>rejects</strong> idol worship (Shvetambara sub-sect)</td><td>2018</td></tr>
+          <tr><td>Lokottaravadin = Sthaviravada sub-sect?</td><td>❌ Lokottaravadin = <strong>Mahasanghika</strong> sub-sect</td><td>2020</td></tr>
+        </table>
+
+        <div class="note-heading">Quick-Fire Mnemonics</div>
+        <div class="two-col">
+          <div class="two-col-box">
+            <h4 style="color:var(--teal)">Buddhist Councils Memory</h4>
+            <ul>
+              <li><strong>1st</strong>: <u>R</u>ajagriha → <u>A</u>jatashatru</li>
+              <li><strong>2nd</strong>: <u>V</u>aishali → <u>K</u>alashoka (Schism)</li>
+              <li><strong>3rd</strong>: <u>P</u>ataliputra → <u>A</u>shoka</li>
+              <li><strong>4th</strong>: <u>K</u>ashmir → <u>K</u>anishka → <u>V</u>asumitra</li>
+            </ul>
+          </div>
+          <div class="two-col-box">
+            <h4 style="color:var(--saffron)">Vedanta Chronology</h4>
+            <ul>
+              <li><strong>8th c.</strong>: Shankara — Advaita</li>
+              <li><strong>11th c.</strong>: Ramanuja — Vishishtadvaita</li>
+              <li><strong>13th c.</strong>: Madhva — Dvaita</li>
+              <li><strong>15th c.</strong>: Vallabha — Pushti Marg</li>
+              <li><strong>15th c.</strong>: Chaitanya — Bengal Vaishnava</li>
+            </ul>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="two-col-box">
+            <h4 style="color:var(--rust)">Bhakti Saints Professions</h4>
+            <ul>
+              <li>Kabir = <strong>W</strong>eaver</li>
+              <li>Namdev = <strong>T</strong>ailor</li>
+              <li>Ravidas = <strong>C</strong>obbler</li>
+              <li>Sena = <strong>B</strong>arber</li>
+              <li>Dadu = <strong>C</strong>otton-carder</li>
+            </ul>
+          </div>
+          <div class="two-col-box">
+            <h4 style="color:var(--sage)">Jain Sect Trick</h4>
+            <ul>
+              <li>Bha<strong>d</strong>rabahu → <strong>D</strong>igambara</li>
+              <li>Sthu<strong>l</strong>abhadra → Shvetambara</li>
+              <li><strong>S</strong>thanakvasi → <strong>S</strong>hvetambara sub (no idols)</li>
+              <li>Chetaka = Mahavira's <strong>uncle</strong></li>
+              <li>Trishala = Chetaka's <strong>sister</strong></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-label">📝 Final Master Summary</div>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>Nayaputta ≠ Buddha</strong> → Mahavira | <strong>Aryadeva ≠ Jain</strong> → Buddhist</div>
+          <div class="summary-item"><strong>Bijak ≠ Dadu Dayal</strong> → Kabir | <strong>Pushti Marg ≠ Madhva</strong> → Vallabha</div>
+          <div class="summary-item"><strong>Middle path</strong> = Buddhism ONLY | Jainism = extreme penance</div>
+          <div class="summary-item"><strong>Therigatha</strong> = Buddhist Pali (Nuns' verses) ≠ Jain</div>
+          <div class="summary-item"><strong>Lokayata</strong> = heterodox | Kapalika = Shaiva sect | Neither = Shad Darshana</div>
+          <div class="summary-item"><strong>4th Council</strong>: Kashmir, Kanishka, Vasumitra presides, Ashvaghosha = vice</div>
+          <div class="summary-item"><strong>Pavarana</strong> = Buddhist monks' confession at end of Vassa (rainy season)</div>
+          <div class="summary-item"><strong>"Hindu"</strong> coined by Arabs for people east of Sindhu river</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
