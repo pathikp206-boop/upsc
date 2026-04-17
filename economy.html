@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC — Indian Economy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --emerald: #059669;
+    --emerald-light: #34d399;
+    --navy: #0c1a2e;
+    --navy-mid: #0f2318;
+    --cream: #ECFDF5;
+    --gold: #D4AF37;
+    --saffron: #FF9933;
+    --border: rgba(5,150,105,0.25);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--navy); color: var(--cream); font-family: 'Crimson Pro', Georgia, serif; font-size: 17px; line-height: 1.7; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(12,26,46,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--emerald-light); text-decoration: none; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { color: rgba(236,253,245,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; font-family: 'Crimson Pro', serif; }
+  .nav-links a:hover, .nav-links a.active { color: var(--emerald-light); }
+  .nav-links a.active { font-weight: 600; }
+  .hero { background: linear-gradient(135deg, var(--navy-mid), var(--navy)); border-bottom: 1px solid var(--border); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(5,150,105,0.1) 0%, transparent 70%); }
+  .hero-tag { display: inline-block; background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.4); color: var(--emerald-light); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; padding: 0.3rem 0.9rem; border-radius: 2px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; color: var(--cream); margin-bottom: 0.8rem; }
+  .hero h1 span { color: var(--emerald-light); font-style: italic; }
+  .hero p { color: rgba(236,253,245,0.65); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+  .main { max-width: 940px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--emerald-light); letter-spacing: 0.1em; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--cream); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+  .card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--emerald); }
+  .card:hover { border-color: rgba(5,150,105,0.5); transform: translateY(-2px); }
+  .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--emerald-light); margin-bottom: 0.5rem; }
+  .card h3 { font-size: 1.05rem; color: var(--cream); margin-bottom: 0.6rem; font-weight: 600; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { font-size: 0.9rem; color: rgba(236,253,245,0.75); padding: 0.2rem 0 0.2rem 1rem; position: relative; }
+  .card ul li::before { content: '›'; position: absolute; left: 0; color: var(--emerald-light); }
+  .card p { font-size: 0.9rem; color: rgba(236,253,245,0.7); }
+  .highlight { background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.3); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; }
+  .highlight strong { color: var(--emerald-light); }
+  .key-table { width: 100%; border-collapse: collapse; }
+  .key-table th { background: rgba(5,150,105,0.12); color: var(--emerald-light); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em; padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  .key-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.92rem; color: rgba(236,253,245,0.82); vertical-align: top; }
+  .key-table tr:hover td { background: rgba(5,150,105,0.04); }
+  footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: rgba(236,253,245,0.35); }
+  @media (max-width: 600px) { .nav-links { display: none; } .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-brand">⬡ UPSC Revision</a>
+  <div class="nav-links">
+    <a href="history.html">History</a>
+    <a href="geography.html">Geography</a>
+    <a href="polity.html">Polity</a>
+    <a href="economy.html" class="active">Economy</a>
+    <a href="environment.html">Environment</a>
+    <a href="science.html">Science</a>
+    <a href="art-culture.html">Art & Culture</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-tag">GS — PAPER III</div>
+  <h1>Indian <span>Economy</span></h1>
+  <p>Planning, monetary policy, banking, sectors, schemes, and international trade — essential for GS III and Essay</p>
+</div>
+<main class="main">
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">01</span><h2 class="section-title">National Income & Economic Concepts</h2></div>
+    <div class="highlight"><strong>Exam Focus:</strong> GDP vs GNP vs NNP, types of inflation, fiscal deficit definitions — basic but tricky in Prelims options.</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">NATIONAL INCOME</div>
+        <h3>GDP, GNP & NNP</h3>
+        <ul>
+          <li>GDP = Total market value of goods & services within borders</li>
+          <li>GNP = GDP + Net factor income from abroad</li>
+          <li>NNP = GNP − Depreciation (Net National Product)</li>
+          <li>NNP at factor cost = National Income</li>
+          <li>Base year for India's GDP: 2011-12 (current series)</li>
+          <li>Measured at Market Price or Factor Cost</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">INFLATION</div>
+        <h3>Types of Inflation</h3>
+        <ul>
+          <li>CPI (Consumer Price Index) — MPC target: 4% (±2%)</li>
+          <li>WPI (Wholesale Price Index) — for producer level</li>
+          <li>Repo Rate — rate at which RBI lends to banks</li>
+          <li>Reverse Repo — rate at which RBI borrows from banks</li>
+          <li>SLR — Statutory Liquidity Ratio (banks invest in govt securities)</li>
+          <li>CRR — Cash Reserve Ratio (kept with RBI, earns no interest)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">FISCAL CONCEPTS</div>
+        <h3>Budget Deficits</h3>
+        <ul>
+          <li>Revenue Deficit = Revenue Expenditure − Revenue Receipts</li>
+          <li>Fiscal Deficit = Total Expenditure − Total Receipts (excl. borrowings)</li>
+          <li>Primary Deficit = Fiscal Deficit − Interest Payments</li>
+          <li>CAD (Current Account Deficit) — imports &gt; exports</li>
+          <li>FRBM Act (2003) — fiscal consolidation target</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">PLANNING</div>
+        <h3>Planning in India</h3>
+        <ul>
+          <li>Planning Commission (1950) → replaced by NITI Aayog (2015)</li>
+          <li>12 Five Year Plans (1951–2017); 12th Plan ended 2017</li>
+          <li>1st Plan — Harrod-Domar model; priority to agriculture</li>
+          <li>2nd Plan — Mahalanobis model; heavy industries</li>
+          <li>NITI Aayog — think tank; Governing Council includes CMs</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">02</span><h2 class="section-title">Banking & Financial System</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">RBI</div>
+        <h3>Reserve Bank of India</h3>
+        <ul>
+          <li>Established 1935 (Hilton Young Commission); nationalised 1949</li>
+          <li>Monetary Policy Committee (MPC) — 6 members; inflation target</li>
+          <li>Banker's bank, Government's bank, lender of last resort</li>
+          <li>Issues currency (except Re. 1 coin — Ministry of Finance)</li>
+          <li>Regulates NBFCs, Co-operative banks, Payment banks</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">BANKING TYPES</div>
+        <h3>Types of Banks</h3>
+        <ul>
+          <li>Commercial Banks — SBI (largest PSB), HDFC, ICICI</li>
+          <li>Regional Rural Banks (RRBs) — rural credit since 1975</li>
+          <li>Cooperative Banks — multi-tier (State, District, Village)</li>
+          <li>Payment Banks — limited services, Paytm, Airtel, India Post</li>
+          <li>Small Finance Banks — underserved segments</li>
+          <li>NABARD — apex body for rural credit</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">CAPITAL MARKET</div>
+        <h3>Capital & Securities Market</h3>
+        <ul>
+          <li>SEBI (1988) — regulates securities market; statutory body 1992</li>
+          <li>BSE (1875) — oldest stock exchange in Asia</li>
+          <li>NSE — largest by turnover; established 1992</li>
+          <li>Primary market (IPO) vs Secondary market (trading)</li>
+          <li>FDI vs FPI (FII) — direct investment vs portfolio</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">03</span><h2 class="section-title">Sectors & Economic Survey</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">SECTORS</div>
+        <h3>Three Sectors of Economy</h3>
+        <ul>
+          <li>Primary — Agriculture, Forestry, Mining (~16% of GDP)</li>
+          <li>Secondary — Manufacturing, Industry (~28% of GDP)</li>
+          <li>Tertiary/Services — IT, banking, trade (~55% of GDP)</li>
+          <li>India — service-led growth (unlike typical development path)</li>
+          <li>Agriculture employs ~45% of workforce</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">TRADE</div>
+        <h3>International Trade</h3>
+        <ul>
+          <li>WTO — dispute resolution, most favoured nation principle</li>
+          <li>India's largest export: Engineering goods, Petroleum products</li>
+          <li>India's largest import: Petroleum, Gold, Electronics</li>
+          <li>Largest trading partner: USA (exports); China (imports)</li>
+          <li>Special Economic Zones (SEZs) — export-led growth</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">SCHEMES</div>
+        <h3>Key Economic Schemes</h3>
+        <ul>
+          <li>PM-KISAN — ₹6000/year direct income to farmers</li>
+          <li>MGNREGA — 100 days guaranteed rural employment</li>
+          <li>Startup India / Stand Up India — entrepreneurship</li>
+          <li>Make in India — manufacturing hub (2014)</li>
+          <li>PLI Scheme — Production Linked Incentive (14 sectors)</li>
+          <li>Jan Dhan Yojana — financial inclusion (2014)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">04</span><h2 class="section-title">Key Economic Institutions</h2></div>
+    <table class="key-table">
+      <thead><tr><th>Institution</th><th>Full Form / Year</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>RBI</td><td>Reserve Bank of India, 1935</td><td>Central bank, monetary policy, currency issuance</td></tr>
+        <tr><td>SEBI</td><td>Securities & Exchange Board of India, 1988</td><td>Regulates capital market and investor protection</td></tr>
+        <tr><td>NABARD</td><td>National Bank for Agriculture & Rural Development, 1982</td><td>Apex bank for rural credit and development</td></tr>
+        <tr><td>SIDBI</td><td>Small Industries Development Bank of India, 1990</td><td>Financing SMEs</td></tr>
+        <tr><td>EXIM Bank</td><td>Export-Import Bank, 1982</td><td>Financing foreign trade</td></tr>
+        <tr><td>CCI</td><td>Competition Commission of India, 2003</td><td>Prevents anti-competitive practices; merger control</td></tr>
+        <tr><td>IRDAI</td><td>Insurance Regulatory & Development Authority, 1999</td><td>Regulates insurance sector</td></tr>
+        <tr><td>PFRDA</td><td>Pension Fund Regulatory and Development Authority, 2003</td><td>Regulates pension sector; NPS oversight</td></tr>
+        <tr><td>GST Council</td><td>Constituted under Art 279A, 2016</td><td>Recommends GST rates; Union Finance Minister chairs</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+<footer>UPSC Revision Series · Indian Economy · For Civil Services Exam Preparation</footer>
+</body>
+</html>

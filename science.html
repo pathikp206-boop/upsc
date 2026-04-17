@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC — Science & Technology</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #0891b2;
+    --cyan-light: #22d3ee;
+    --navy: #030f1a;
+    --navy-mid: #071828;
+    --cream: #ECFEFF;
+    --gold: #D4AF37;
+    --saffron: #FF9933;
+    --border: rgba(8,145,178,0.25);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--navy); color: var(--cream); font-family: 'Crimson Pro', Georgia, serif; font-size: 17px; line-height: 1.7; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(3,15,26,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--cyan-light); text-decoration: none; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { color: rgba(236,254,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; font-family: 'Crimson Pro', serif; }
+  .nav-links a:hover, .nav-links a.active { color: var(--cyan-light); }
+  .nav-links a.active { font-weight: 600; }
+  .hero { background: linear-gradient(135deg, var(--navy-mid), var(--navy)); border-bottom: 1px solid var(--border); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(8,145,178,0.12) 0%, transparent 70%); }
+  .hero-tag { display: inline-block; background: rgba(8,145,178,0.15); border: 1px solid rgba(8,145,178,0.4); color: var(--cyan-light); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; padding: 0.3rem 0.9rem; border-radius: 2px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; color: var(--cream); margin-bottom: 0.8rem; }
+  .hero h1 span { color: var(--cyan-light); font-style: italic; }
+  .hero p { color: rgba(236,254,255,0.65); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+  .main { max-width: 940px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan-light); letter-spacing: 0.1em; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--cream); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+  .card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--cyan); }
+  .card:hover { border-color: rgba(8,145,178,0.5); transform: translateY(-2px); }
+  .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan-light); margin-bottom: 0.5rem; }
+  .card h3 { font-size: 1.05rem; color: var(--cream); margin-bottom: 0.6rem; font-weight: 600; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { font-size: 0.9rem; color: rgba(236,254,255,0.75); padding: 0.2rem 0 0.2rem 1rem; position: relative; }
+  .card ul li::before { content: '›'; position: absolute; left: 0; color: var(--cyan-light); }
+  .card p { font-size: 0.9rem; color: rgba(236,254,255,0.7); }
+  .highlight { background: rgba(8,145,178,0.08); border: 1px solid rgba(8,145,178,0.3); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; }
+  .highlight strong { color: var(--cyan-light); }
+  .key-table { width: 100%; border-collapse: collapse; }
+  .key-table th { background: rgba(8,145,178,0.12); color: var(--cyan-light); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em; padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  .key-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.92rem; color: rgba(236,254,255,0.82); vertical-align: top; }
+  .key-table tr:hover td { background: rgba(8,145,178,0.04); }
+  footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: rgba(236,254,255,0.35); }
+  @media (max-width: 600px) { .nav-links { display: none; } .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-brand">⬡ UPSC Revision</a>
+  <div class="nav-links">
+    <a href="history.html">History</a>
+    <a href="geography.html">Geography</a>
+    <a href="polity.html">Polity</a>
+    <a href="economy.html">Economy</a>
+    <a href="environment.html">Environment</a>
+    <a href="science.html" class="active">Science</a>
+    <a href="art-culture.html">Art & Culture</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-tag">GS — PAPER III</div>
+  <h1>Science <span>&amp; Technology</span></h1>
+  <p>Space, defence, biotech, IT, energy, nuclear programs — current affairs–heavy section of GS Paper III</p>
+</div>
+<main class="main">
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">01</span><h2 class="section-title">Indian Space Programme (ISRO)</h2></div>
+    <div class="highlight"><strong>Exam Focus:</strong> ISRO missions — Chandrayaan, Mangalyaan, Aditya, GSLV/PSLV differences — Prelims favourite. Current affairs additions are crucial.</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">LANDMARK MISSIONS</div>
+        <h3>ISRO Key Missions</h3>
+        <ul>
+          <li>Aryabhata (1975) — India's first satellite (Soviet launch)</li>
+          <li>APPLE (1981) — first geostationary communications satellite</li>
+          <li>IRS-1A (1988) — first Indian Remote Sensing satellite</li>
+          <li>Chandrayaan-1 (2008) — confirmed water molecules on Moon</li>
+          <li>Mangalyaan/MOM (2014) — first Asian Mars mission; cheapest Mars mission</li>
+          <li>Chandrayaan-3 (2023) — soft landing at Moon's south pole; first nation to do so</li>
+          <li>Aditya-L1 (2023) — first solar observatory; Lagrange point 1</li>
+          <li>Gaganyaan — India's first crewed mission (upcoming)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">LAUNCH VEHICLES</div>
+        <h3>Launch Vehicles</h3>
+        <ul>
+          <li><strong>PSLV</strong> — Polar Satellite Launch Vehicle; workhorse; 4-stage (solid-liquid alternating)</li>
+          <li><strong>GSLV Mk-II</strong> — Geosynchronous; cryogenic upper stage</li>
+          <li><strong>GSLV Mk-III / LVM3</strong> — India's heaviest; OneWeb satellite launches</li>
+          <li><strong>SSLV</strong> — Small Satellite Launch Vehicle; low-cost small satellites</li>
+          <li>Record: PSLV-C37 — 104 satellites in single launch (2017)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">NAVIGATION</div>
+        <h3>Navigation & Communication</h3>
+        <ul>
+          <li>NavIC (IRNSS) — Indian Navigation System; 7 satellites; ±5m accuracy</li>
+          <li>GSAT series — communication satellites</li>
+          <li>RISAT — Radar Imaging Satellite (all-weather)</li>
+          <li>EDUSAT — education broadcast satellite</li>
+          <li>IN-SPACe — body regulating private space sector</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">02</span><h2 class="section-title">Nuclear & Defence Technology</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">NUCLEAR</div>
+        <h3>India's Nuclear Programme</h3>
+        <ul>
+          <li>DAE (1954) — Homi J. Bhabha; 3-stage programme</li>
+          <li>Stage 1: U-235 → Plutonium (thermal reactors)</li>
+          <li>Stage 2: Fast Breeder Reactors (Plutonium + Thorium)</li>
+          <li>Stage 3: Thorium (U-233) reactors — India's long-term goal</li>
+          <li>Pokhran-I (1974) — "Smiling Buddha"; Pokhran-II (1998) — "Operation Shakti"</li>
+          <li>Nuclear doctrine — No First Use (NFU) policy</li>
+          <li>BARC — Bhabha Atomic Research Centre, Trombay</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">DEFENCE</div>
+        <h3>Defence Missiles & Systems</h3>
+        <ul>
+          <li>IGMDP — Integrated Guided Missile Development Programme (Dr. Kalam)</li>
+          <li>Agni series — ballistic missiles (I to V; Agni-V: 5000km range)</li>
+          <li>Prithvi — short-range surface-to-surface</li>
+          <li>BrahMos — supersonic cruise missile (India-Russia joint); Mach 2.8</li>
+          <li>Akash — surface-to-air; indigenous</li>
+          <li>Tejas — Light Combat Aircraft; HAL made; IAF inducted</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">BIOTECHNOLOGY</div>
+        <h3>Biotechnology & Health</h3>
+        <ul>
+          <li>Covaxin — India's indigenous COVID vaccine by Bharat Biotech + ICMR</li>
+          <li>Covishield — AstraZeneca/Oxford vaccine; manufactured by SII</li>
+          <li>Bt Cotton — only GM crop approved in India (2002)</li>
+          <li>GM Mustard (DMH-11) — approved but controversial</li>
+          <li>CRISPR-Cas9 — gene editing; potential in treating genetic diseases</li>
+          <li>DBT — Department of Biotechnology (under Ministry of S&T)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">03</span><h2 class="section-title">Emerging Technologies</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">AI & COMPUTING</div>
+        <h3>Artificial Intelligence</h3>
+        <ul>
+          <li>National AI Strategy — NITI Aayog (#AIForAll)</li>
+          <li>IndiaAI Mission — 2024; GPU compute infrastructure</li>
+          <li>AI applications: healthcare (imaging), agriculture (crop prediction), governance</li>
+          <li>Concerns: bias, deepfakes, job displacement, data privacy</li>
+          <li>PDPB / DPDP Act (2023) — India's data protection law</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">ENERGY</div>
+        <h3>Renewable Energy</h3>
+        <ul>
+          <li>India — 3rd largest solar capacity globally</li>
+          <li>National Solar Mission — 100 GW target by 2022 (part of NAPCC)</li>
+          <li>ISA — International Solar Alliance (India-France joint initiative, HQ Gurugram)</li>
+          <li>PM-Surya Ghar Muft Bijli Yojana — rooftop solar</li>
+          <li>National Hydrogen Mission — green hydrogen economy</li>
+          <li>Green Hydrogen — produced by electrolysis using renewable energy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">DIGITAL INDIA</div>
+        <h3>Digital Technology</h3>
+        <ul>
+          <li>UPI — Unified Payment Interface; NPCI-governed; largest globally</li>
+          <li>Aadhaar — 12-digit biometric ID; 1.4 billion+ enrolled</li>
+          <li>ONDC — Open Network for Digital Commerce</li>
+          <li>Account Aggregator framework — financial data sharing</li>
+          <li>5G rollout in India — 2022; 6G roadmap by DoT</li>
+          <li>Semiconductor Mission — India's chip fabrication push</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">04</span><h2 class="section-title">Important Science Bodies in India</h2></div>
+    <table class="key-table">
+      <thead><tr><th>Organization</th><th>Headquarters</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>ISRO</td><td>Bengaluru</td><td>Space research & satellite development; launch from Sriharikota (SDSC-SHAR)</td></tr>
+        <tr><td>DRDO</td><td>New Delhi</td><td>Defence R&D; 50+ labs; missiles, aircraft, armaments</td></tr>
+        <tr><td>BARC</td><td>Mumbai (Trombay)</td><td>Nuclear research; reactor design; radioisotopes</td></tr>
+        <tr><td>CSIR</td><td>New Delhi</td><td>40 national research labs across disciplines</td></tr>
+        <tr><td>ICAR</td><td>New Delhi</td><td>Agricultural research; Green Revolution inputs</td></tr>
+        <tr><td>ICMR</td><td>New Delhi</td><td>Medical research; COVID vaccines; epidemiology</td></tr>
+        <tr><td>DST</td><td>New Delhi</td><td>Dept of Science & Technology; funds S&T programmes</td></tr>
+        <tr><td>NITI Aayog (NASSCOM)</td><td>New Delhi</td><td>AI/digital policy; replaces Planning Commission</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+<footer>UPSC Revision Series · Science & Technology · For Civil Services Exam Preparation</footer>
+</body>
+</html>

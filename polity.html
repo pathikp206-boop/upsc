@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC — Indian Polity</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --navy: #0c1a2e;
+    --navy-mid: #1a1535;
+    --cream: #F5F0FF;
+    --gold: #D4AF37;
+    --saffron: #FF9933;
+    --border: rgba(124,58,237,0.25);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--navy); color: var(--cream); font-family: 'Crimson Pro', Georgia, serif; font-size: 17px; line-height: 1.7; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(12,26,46,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--purple-light); text-decoration: none; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { color: rgba(245,240,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; font-family: 'Crimson Pro', serif; }
+  .nav-links a:hover, .nav-links a.active { color: var(--purple-light); }
+  .nav-links a.active { font-weight: 600; }
+  .hero { background: linear-gradient(135deg, var(--navy-mid), var(--navy)); border-bottom: 1px solid var(--border); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.12) 0%, transparent 70%); }
+  .hero-tag { display: inline-block; background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.4); color: var(--purple-light); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; padding: 0.3rem 0.9rem; border-radius: 2px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; color: var(--cream); margin-bottom: 0.8rem; }
+  .hero h1 span { color: var(--purple-light); font-style: italic; }
+  .hero p { color: rgba(245,240,255,0.65); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+  .main { max-width: 940px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--purple-light); letter-spacing: 0.1em; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--cream); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+  .card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--purple); }
+  .card:hover { border-color: rgba(124,58,237,0.5); transform: translateY(-2px); }
+  .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--purple-light); margin-bottom: 0.5rem; }
+  .card h3 { font-size: 1.05rem; color: var(--cream); margin-bottom: 0.6rem; font-weight: 600; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { font-size: 0.9rem; color: rgba(245,240,255,0.75); padding: 0.2rem 0 0.2rem 1rem; position: relative; }
+  .card ul li::before { content: '›'; position: absolute; left: 0; color: var(--purple-light); }
+  .card p { font-size: 0.9rem; color: rgba(245,240,255,0.7); }
+  .highlight { background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.3); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; }
+  .highlight strong { color: var(--purple-light); }
+  .key-table { width: 100%; border-collapse: collapse; }
+  .key-table th { background: rgba(124,58,237,0.12); color: var(--purple-light); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em; padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  .key-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.92rem; color: rgba(245,240,255,0.82); vertical-align: top; }
+  .key-table tr:hover td { background: rgba(124,58,237,0.04); }
+  .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.8rem; }
+  .art-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 6px; padding: 0.9rem 1.1rem; }
+  .art-num { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gold); font-weight: 600; }
+  .art-desc { font-size: 0.88rem; color: rgba(245,240,255,0.75); margin-top: 0.2rem; }
+  footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: rgba(245,240,255,0.35); }
+  @media (max-width: 600px) { .nav-links { display: none; } .cards, .articles-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">⬡ UPSC Revision</a>
+  <div class="nav-links">
+    <a href="history.html">History</a>
+    <a href="geography.html">Geography</a>
+    <a href="polity.html" class="active">Polity</a>
+    <a href="economy.html">Economy</a>
+    <a href="environment.html">Environment</a>
+    <a href="science.html">Science</a>
+    <a href="art-culture.html">Art & Culture</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">GS — PAPER II</div>
+  <h1>Indian <span>Polity</span> & Constitution</h1>
+  <p>Constitutional framework, fundamental rights, governance, panchayati raj, and amendments — the backbone of GS Paper II</p>
+</div>
+
+<main class="main">
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">01</span><h2 class="section-title">Constitution — Key Features</h2></div>
+    <div class="highlight"><strong>Exam Focus:</strong> Sources of constitution, borrowed features, Preamble keywords, Schedules content — Prelims favourite.</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">PREAMBLE</div>
+        <h3>Preamble Keywords</h3>
+        <ul>
+          <li>India is a <strong>Sovereign, Socialist, Secular, Democratic, Republic</strong></li>
+          <li>Socialist & Secular added by 42nd Amendment (1976)</li>
+          <li>Justice — Social, Economic, Political</li>
+          <li>Liberty — Thought, Expression, Belief, Faith, Worship</li>
+          <li>Equality of status and opportunity</li>
+          <li>Fraternity — assuring dignity, unity & integrity</li>
+          <li>Adopted: 26 November 1949; Effective: 26 January 1950</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">BORROWED FEATURES</div>
+        <h3>Sources of the Constitution</h3>
+        <ul>
+          <li>UK — Parliamentary system, Rule of Law, Writs, Cabinet</li>
+          <li>USA — Fundamental Rights, Judicial Review, Preamble, FR</li>
+          <li>Ireland — DPSP, Nomination to RS, Method of election of President</li>
+          <li>Canada — Federal + strong centre, residuary powers</li>
+          <li>Australia — Concurrent list, joint sitting of Parliament</li>
+          <li>Germany — Emergency provisions</li>
+          <li>France — Liberty, Equality, Fraternity; Republic</li>
+          <li>South Africa — Amendment procedure (by 2/3rd majority)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">SCHEDULES</div>
+        <h3>12 Schedules</h3>
+        <ul>
+          <li>1st — States & UTs list</li>
+          <li>2nd — Salaries of Constitutional functionaries</li>
+          <li>3rd — Oaths & Affirmations</li>
+          <li>4th — Allocation of RS seats to states</li>
+          <li>5th — Administration of Scheduled Areas/Tribes</li>
+          <li>6th — Tribal areas (NE India)</li>
+          <li>7th — Three Lists (Union, State, Concurrent)</li>
+          <li>8th — 22 Official Languages</li>
+          <li>9th — Acts/Regulations protected from judicial review</li>
+          <li>10th — Anti-Defection Law (1985)</li>
+          <li>11th — Panchayati Raj (29 subjects)</li>
+          <li>12th — Municipalities (18 subjects)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">BASIC STRUCTURE</div>
+        <h3>Basic Structure Doctrine</h3>
+        <ul>
+          <li>Kesavananda Bharati case (1973) — 13-judge bench</li>
+          <li>Parliament cannot amend basic structure</li>
+          <li>Includes: Supremacy of Constitution, democratic republic, secular character, separation of powers, judicial review, federalism, parliamentary system, free and fair elections, rule of law</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">02</span><h2 class="section-title">Fundamental Rights (Part III, Art 12–35)</h2></div>
+    <div class="articles-grid">
+      <div class="art-card"><div class="art-num">Art 12–13</div><div class="art-desc">Definition of State; Laws inconsistent with FRs void</div></div>
+      <div class="art-card"><div class="art-num">Art 14–18</div><div class="art-desc">Right to Equality — equality before law, no discrimination, abolition of untouchability & titles</div></div>
+      <div class="art-card"><div class="art-num">Art 19–22</div><div class="art-desc">Right to Freedom — 6 freedoms (Art 19), protection against conviction (Art 20), life & liberty (Art 21), right against arrest (Art 22)</div></div>
+      <div class="art-card"><div class="art-num">Art 21A</div><div class="art-desc">Right to Education (6–14 yrs) — added by 86th Amendment 2002</div></div>
+      <div class="art-card"><div class="art-num">Art 23–24</div><div class="art-desc">Right Against Exploitation — prohibition of human trafficking, bonded labour; no child labour below 14</div></div>
+      <div class="art-card"><div class="art-num">Art 25–28</div><div class="art-desc">Right to Freedom of Religion — practice, propagate; manage religious affairs; no religious instruction in state schools</div></div>
+      <div class="art-card"><div class="art-num">Art 29–30</div><div class="art-desc">Cultural & Educational Rights — minorities may establish & administer educational institutions</div></div>
+      <div class="art-card"><div class="art-num">Art 32–35</div><div class="art-desc">Right to Constitutional Remedies — 5 writs: Habeas Corpus, Mandamus, Certiorari, Prohibition, Quo Warranto</div></div>
+    </div>
+    <div class="highlight" style="margin-top:1.5rem;"><strong>Note:</strong> Right to Property (Art 31) removed from FRs by 44th Amendment (1978) — now a legal right under Art 300A. Right to Privacy declared fundamental right in <em>K.S. Puttaswamy v. Union of India</em> (2017).</div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">03</span><h2 class="section-title">DPSP & Fundamental Duties</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">PART IV · ART 36–51</div>
+        <h3>Directive Principles (DPSP)</h3>
+        <ul>
+          <li>Non-justiciable but fundamental to governance</li>
+          <li>Borrowed from Ireland (Irish Constitution)</li>
+          <li>Socialistic: Art 38, 39, 39A, 41, 42, 43, 43A, 47</li>
+          <li>Gandhian: Art 40, 43, 43B, 46, 47, 48</li>
+          <li>Liberal-intellectual: Art 44, 45, 48A, 49, 50, 51</li>
+          <li>Art 44 — Uniform Civil Code</li>
+          <li>Art 45 — Free & compulsory education (now FR via 21A)</li>
+          <li>Art 48A — Protection of environment (added by 42nd)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">PART IV-A · ART 51A</div>
+        <h3>Fundamental Duties (11 total)</h3>
+        <ul>
+          <li>Added by 42nd Amendment 1976 (originally 10)</li>
+          <li>11th duty added by 86th Amendment 2002 — duty of parent to provide education to child aged 6-14</li>
+          <li>Based on Swaran Singh Committee recommendations</li>
+          <li>Non-justiciable but legally enforceable in some cases</li>
+          <li>Includes: uphold Constitution, defend sovereignty, protect environment, develop scientific temper</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">04</span><h2 class="section-title">Important Constitutional Amendments</h2></div>
+    <table class="key-table">
+      <thead><tr><th>Amendment</th><th>Year</th><th>Key Changes</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>1951</td><td>Added 9th Schedule; restricted free speech on grounds of public order etc.</td></tr>
+        <tr><td>7th</td><td>1956</td><td>States Reorganisation — linguistic states; abolished Part B states</td></tr>
+        <tr><td>24th</td><td>1971</td><td>Parliament can amend any part of Constitution including FRs</td></tr>
+        <tr><td>42nd</td><td>1976</td><td>"Mini Constitution" — Socialist, Secular, Integrity added to Preamble; 10 FDs added; DPSP given precedence over FRs</td></tr>
+        <tr><td>44th</td><td>1978</td><td>Restored provisions of 42nd; Right to Property removed from FRs</td></tr>
+        <tr><td>52nd</td><td>1985</td><td>Anti-defection law — 10th Schedule added</td></tr>
+        <tr><td>61st</td><td>1989</td><td>Voting age reduced from 21 to 18</td></tr>
+        <tr><td>73rd</td><td>1992</td><td>Panchayati Raj — 3-tier system, 11th Schedule, 1/3 women reservation</td></tr>
+        <tr><td>74th</td><td>1992</td><td>Urban Local Bodies — Municipalities, 12th Schedule, Ward committees</td></tr>
+        <tr><td>86th</td><td>2002</td><td>Art 21A — Free & compulsory education (6–14 yrs) as FR</td></tr>
+        <tr><td>101st</td><td>2016</td><td>Goods and Services Tax (GST) — introduced Art 246A, 269A, 279A</td></tr>
+        <tr><td>103rd</td><td>2019</td><td>10% EWS reservation for economically weaker sections</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-header"><span class="section-num">05</span><h2 class="section-title">Parliament, President & Judiciary</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-tag">PARLIAMENT</div>
+        <h3>Structure of Parliament</h3>
+        <ul>
+          <li>Rajya Sabha — max 250 (238 elected + 12 nominated); permanent house; 1/3 retire every 2 yrs</li>
+          <li>Lok Sabha — max 552 (530+20+2 Anglo-Indian); 5-year term</li>
+          <li>Money Bill — only Lok Sabha; RS has 14 days to return</li>
+          <li>Joint Sitting — Art 108; presided by Lok Sabha Speaker</li>
+          <li>Budget presented on 1 February (changed from last day of Feb)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">PRESIDENT</div>
+        <h3>President of India</h3>
+        <ul>
+          <li>Art 52–78; elected by Electoral College (MPs + MLAs)</li>
+          <li>5-year term; can be impeached by Parliament</li>
+          <li>Pocket Veto — no time limit to withhold assent (unlike US)</li>
+          <li>Can be re-elected (only President Rajendra Prasad elected twice)</li>
+          <li>Emergency powers — Art 352, 356, 360</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">SUPREME COURT</div>
+        <h3>Judiciary</h3>
+        <ul>
+          <li>Supreme Court — Art 124; Original, Appellate, Advisory jurisdiction</li>
+          <li>Collegium system — CJI + 4 senior judges recommend appointments</li>
+          <li>Basic Structure — Kesavananda Bharati (1973)</li>
+          <li>Judicial Activism — PIL introduced by Justice P.N. Bhagwati</li>
+          <li>High Courts — Art 214; subordinate to SC</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-tag">ELECTIONS</div>
+        <h3>Election Commission</h3>
+        <ul>
+          <li>Art 324 — independent constitutional body</li>
+          <li>Chief Election Commissioner — security of tenure (like SC judge)</li>
+          <li>Model Code of Conduct — not statutory</li>
+          <li>EVM introduced in — Parur (Kerala) 1982 (trial); nationwide 2004</li>
+          <li>VVPAT — Voter Verifiable Paper Audit Trail</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>UPSC Revision Series · Indian Polity & Constitution · For Civil Services Exam Preparation</footer>
+</body>
+</html>

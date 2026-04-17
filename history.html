@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC — Indian History</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF9933;
+    --saffron-dark: #e07800;
+    --navy: #0c1a2e;
+    --navy-mid: #162540;
+    --navy-light: #1e3358;
+    --cream: #FDF6EC;
+    --green: #138808;
+    --gold: #D4AF37;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --border: rgba(255,153,51,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12,26,46,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--saffron);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    color: rgba(253,246,236,0.65);
+    text-decoration: none; font-size: 0.9rem;
+    font-family: 'Crimson Pro', serif;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--saffron); }
+  .nav-links a.active { color: var(--saffron); font-weight: 600; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,153,51,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,153,51,0.15);
+    border: 1px solid rgba(255,153,51,0.4);
+    color: var(--saffron);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.12em;
+    padding: 0.3rem 0.9rem; border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900; line-height: 1.15;
+    color: var(--cream); margin-bottom: 0.8rem;
+  }
+  .hero h1 span { color: var(--saffron); font-style: italic; }
+  .hero p { color: rgba(253,246,236,0.65); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+  .period-bar {
+    display: flex; gap: 0.5rem; justify-content: center;
+    flex-wrap: wrap; margin-top: 2rem;
+  }
+  .period-chip {
+    padding: 0.4rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 20px; font-size: 0.85rem;
+    color: rgba(253,246,236,0.75);
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'Crimson Pro', serif;
+  }
+  .period-chip:hover, .period-chip.active {
+    background: var(--saffron); border-color: var(--saffron);
+    color: var(--navy); font-weight: 600;
+  }
+
+  /* MAIN */
+  .main { max-width: 940px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  /* SECTION */
+  .section { margin-bottom: 3.5rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; color: var(--saffron);
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--cream);
+  }
+
+  /* CARDS GRID */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+  .card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--saffron);
+    border-radius: 2px;
+  }
+  .card:hover { border-color: rgba(255,153,51,0.5); transform: translateY(-2px); }
+  .card-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .card h3 { font-size: 1.05rem; color: var(--cream); margin-bottom: 0.6rem; font-weight: 600; }
+  .card p { font-size: 0.9rem; color: rgba(253,246,236,0.65); line-height: 1.6; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li {
+    font-size: 0.9rem; color: rgba(253,246,236,0.7);
+    padding: 0.2rem 0; padding-left: 1rem; position: relative;
+  }
+  .card ul li::before { content: '›'; position: absolute; left: 0; color: var(--saffron); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--saffron), var(--green));
+  }
+  .tl-item { position: relative; margin-bottom: 1.8rem; }
+  .tl-dot {
+    position: absolute; left: -2.35rem; top: 0.35rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--saffron); border: 2px solid var(--navy);
+  }
+  .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--saffron); margin-bottom: 0.2rem; }
+  .tl-event { font-size: 1rem; color: var(--cream); font-weight: 600; margin-bottom: 0.3rem; }
+  .tl-desc { font-size: 0.9rem; color: rgba(253,246,236,0.65); }
+
+  /* KEY TABLE */
+  .key-table { width: 100%; border-collapse: collapse; }
+  .key-table th {
+    background: rgba(255,153,51,0.12);
+    color: var(--saffron); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.08em;
+    padding: 0.7rem 1rem; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .key-table td {
+    padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.92rem; color: rgba(253,246,236,0.82);
+    vertical-align: top;
+  }
+  .key-table tr:hover td { background: rgba(255,153,51,0.04); }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: rgba(255,153,51,0.08);
+    border: 1px solid rgba(255,153,51,0.3);
+    border-radius: 6px; padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .highlight strong { color: var(--saffron); }
+
+  /* BACK BTN */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: rgba(253,246,236,0.5); text-decoration: none;
+    font-size: 0.9rem; margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+  .back-btn:hover { color: var(--saffron); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem; color: rgba(253,246,236,0.35);
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">⬡ UPSC Revision</a>
+  <div class="nav-links">
+    <a href="history.html" class="active">History</a>
+    <a href="geography.html">Geography</a>
+    <a href="polity.html">Polity</a>
+    <a href="economy.html">Economy</a>
+    <a href="environment.html">Environment</a>
+    <a href="science.html">Science</a>
+    <a href="art-culture.html">Art & Culture</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">GS — PAPER I</div>
+  <h1>Indian <span>History</span></h1>
+  <p>Ancient · Medieval · Modern — Key events, dynasties, movements, and personalities for UPSC Prelims & Mains</p>
+  <div class="period-bar">
+    <span class="period-chip active">Ancient</span>
+    <span class="period-chip">Medieval</span>
+    <span class="period-chip">Modern</span>
+    <span class="period-chip">Freedom Struggle</span>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- ANCIENT -->
+  <section class="section" id="ancient">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Ancient India</h2>
+    </div>
+    <div class="highlight">
+      <strong>Exam Focus:</strong> Indus Valley Civilisation, Vedic Period, Mahajanapadas, Mauryan Empire, Gupta Age — frequently tested in Prelims. Focus on dates, capitals, and key rulers.
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-year">3000 – 1500 BCE</div>
+        <h3>Indus Valley Civilisation</h3>
+        <ul>
+          <li>Major sites: Harappa, Mohenjodaro, Lothal (Gujarat — dockyard)</li>
+          <li>Kalibangan (fire altars), Dholavira (signboard)</li>
+          <li>Town planning: grid pattern, drainage system</li>
+          <li>Pashupati seal — proto-Shiva figure</li>
+          <li>No evidence of temples or palaces</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">1500 – 600 BCE</div>
+        <h3>Vedic Period</h3>
+        <ul>
+          <li>Early Vedic: Rigveda, tribal society, pastoral economy</li>
+          <li>Later Vedic: agriculture, Painted Grey Ware (PGW)</li>
+          <li>16 Mahajanapadas — Magadha, Kuru, Panchala key ones</li>
+          <li>Upanishads — philosophical treatises (Vedanta)</li>
+          <li>Buddhism & Jainism founded ~6th century BCE</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">321 – 185 BCE</div>
+        <h3>Mauryan Empire</h3>
+        <ul>
+          <li>Founded by Chandragupta Maurya (321 BCE)</li>
+          <li>Kautilya's Arthashastra — treatise on governance</li>
+          <li>Ashoka (268–232 BCE) — Kalinga War, Dhamma</li>
+          <li>Rock Edicts, Pillar Edicts — spread of Buddhism</li>
+          <li>Capital: Pataliputra. Megasthenes — Greek ambassador</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">320 – 550 CE</div>
+        <h3>Gupta Empire — Golden Age</h3>
+        <ul>
+          <li>Chandragupta I → Samudragupta → Chandragupta II (Vikramaditya)</li>
+          <li>Allahabad Pillar Inscription — Samudragupta's conquests</li>
+          <li>Kalidasa (Meghaduta, Shakuntala), Aryabhata, Varahamihira</li>
+          <li>Nalanda University, Ajanta caves (painting flourish)</li>
+          <li>Iron Pillar of Delhi — rust-resistant metallurgy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">600 – 647 CE</div>
+        <h3>Harshavardhana</h3>
+        <ul>
+          <li>Capital: Kanauj. Last great empire of northern India</li>
+          <li>Hiuen Tsang's visit — Si-Yu-Ki text</li>
+          <li>Banskhera & Madhuban copper plate inscriptions</li>
+          <li>Harshacharita by Banabhatta</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">3rd–9th CE</div>
+        <h3>South Indian Kingdoms</h3>
+        <ul>
+          <li>Cholas, Cheras, Pandyas — Sangam Age (Tamil literature)</li>
+          <li>Pallavas (Mahabalipuram temples, Kanchi capital)</li>
+          <li>Chalukyas of Vatapi (Aihole, Badami, Pattadakal)</li>
+          <li>Rashtrakutas — Ellora caves (Kailash Temple)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIEVAL -->
+  <section class="section" id="medieval">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Medieval India</h2>
+    </div>
+    <div class="highlight">
+      <strong>Exam Focus:</strong> Delhi Sultanate dynasties (5 in order), Mughal emperors sequence, Bhakti/Sufi movements, and administrative/revenue systems.
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-year">1206 – 1526 CE</div>
+        <h3>Delhi Sultanate</h3>
+        <ul>
+          <li><strong>Slave Dynasty</strong> — Qutb-ud-din Aibak, Iltutmish, Razia Sultana, Balban</li>
+          <li><strong>Khilji Dynasty</strong> — Alauddin Khilji (market reforms, Mongol repulsion)</li>
+          <li><strong>Tughlaq Dynasty</strong> — Muhammad bin Tughlaq (token currency, capital shift to Daulatabad)</li>
+          <li><strong>Sayyid & Lodi</strong> — Ibrahim Lodi defeated at Panipat I (1526)</li>
+          <li>Iqta system, Diwan-i-Riyasat, Diwan-i-Bandagan</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">1526 – 1857 CE</div>
+        <h3>Mughal Empire</h3>
+        <ul>
+          <li>Babur (1526) → Humayun → Akbar → Jahangir → Shah Jahan → Aurangzeb</li>
+          <li>Akbar — Din-i-Ilahi, Mansabdari system, Rajput policy, Abul Fazl (Ain-i-Akbari)</li>
+          <li>Shah Jahan — Taj Mahal, Red Fort, Peacock Throne</li>
+          <li>Aurangzeb — Jizya re-imposed; Maratha rise</li>
+          <li>Todar Mal — land revenue (Zabti system)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">1674 – 1818 CE</div>
+        <h3>Maratha Empire</h3>
+        <ul>
+          <li>Shivaji — Raigad capital, Ashta Pradhan (8 ministers)</li>
+          <li>Chauth & Sardeshmukhi — revenue levies</li>
+          <li>Peshwas — Bajirao I (greatest expansion)</li>
+          <li>Battle of Panipat III (1761) — Afghan victory over Marathas</li>
+          <li>Anglo-Maratha Wars (3) → British supremacy by 1818</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-year">8th–17th CE</div>
+        <h3>Bhakti & Sufi Movements</h3>
+        <ul>
+          <li>Alvars & Nayanmars — Tamil Bhakti (south, early)</li>
+          <li>Kabir, Ramananda, Mirabai, Tukaram, Chaitanya</li>
+          <li>Sufi Orders: Chishti (Muinuddin Chishti, Nizamuddin Auliya), Suhrawardi, Naqshbandi, Qadiri</li>
+          <li>Guru Nanak — Sikhism (1469); Ten Gurus lineage</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODERN / FREEDOM STRUGGLE -->
+  <section class="section" id="modern">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Modern India & Freedom Struggle</h2>
+    </div>
+    <div class="highlight">
+      <strong>Exam Focus:</strong> British expansion timeline, Governor Generals' acts, major revolts, Congress Sessions, Gandhi's movements — VERY high weightage in both Prelims & Mains.
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1600</div>
+        <div class="tl-event">East India Company founded</div>
+        <div class="tl-desc">Charter granted by Queen Elizabeth I. Trading posts at Surat (1608), Madras (1639), Bombay (1661), Calcutta (1690).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1757</div>
+        <div class="tl-event">Battle of Plassey</div>
+        <div class="tl-desc">Clive defeats Siraj-ud-Daula. Mir Jafar placed as Nawab. Beginning of British political dominance.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1857</div>
+        <div class="tl-event">First War of Independence / Sepoy Mutiny</div>
+        <div class="tl-desc">Mangal Pandey sparks revolt. Centres: Meerut, Delhi, Kanpur, Lucknow, Jhansi. Rani Lakshmibai, Nana Saheb. Marks end of East India Company rule — Crown takes over.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1885</div>
+        <div class="tl-event">Indian National Congress founded</div>
+        <div class="tl-desc">A.O. Hume. First session Bombay, W.C. Bonnerjee president. Three phases: Moderate (1885–1905), Extremist, Gandhian.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1905</div>
+        <div class="tl-event">Partition of Bengal & Swadeshi Movement</div>
+        <div class="tl-desc">Viceroy Curzon divides Bengal. Bal Pal Lal (Bal Gangadhar Tilak, Bipin Pal, Lala Lajpat Rai) lead Swadeshi agitation.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1919</div>
+        <div class="tl-event">Jallianwala Bagh Massacre</div>
+        <div class="tl-desc">April 13 — General Dyer orders firing at Amritsar gathering. 379+ killed. Rabindranath Tagore returns knighthood.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1920–22</div>
+        <div class="tl-event">Non-Cooperation Movement</div>
+        <div class="tl-desc">Gandhi's first mass movement. Boycott of British goods/titles/courts/schools. Withdrawn after Chauri Chaura violence (1922).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1930</div>
+        <div class="tl-event">Civil Disobedience / Salt March (Dandi March)</div>
+        <div class="tl-desc">March 12 – April 6, 241 miles from Sabarmati Ashram to Dandi. Gandhi breaks salt law. Gandhi-Irwin Pact (1931) follows.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1942</div>
+        <div class="tl-event">Quit India Movement</div>
+        <div class="tl-desc">"Do or Die" — August 8, Bombay. Mass arrests. Underground parallel govts in Satara, Midnapore, Ballia. Most intense movement.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1947</div>
+        <div class="tl-event">Independence & Partition</div>
+        <div class="tl-desc">August 15 — Indian Independence. Mountbatten Plan (June 3). India & Pakistan created. Radcliffe Line drawn.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY ACTS TABLE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Key Acts & Policies</h2>
+    </div>
+    <table class="key-table">
+      <thead>
+        <tr>
+          <th>Act / Policy</th>
+          <th>Year</th>
+          <th>Significance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Regulating Act</td><td>1773</td><td>First step in parliamentary control over EIC; Governor-General post created (Warren Hastings first)</td></tr>
+        <tr><td>Pitts India Act</td><td>1784</td><td>Board of Control established; dual governance</td></tr>
+        <tr><td>Charter Act</td><td>1833</td><td>EIC lost trading rights; India became a colony; Law Commission (Macaulay)</td></tr>
+        <tr><td>Doctrine of Lapse</td><td>1848</td><td>Dalhousie — states without natural heir annexed (Satara, Nagpur, Jhansi)</td></tr>
+        <tr><td>Indian Councils Act</td><td>1861</td><td>Legislative councils; Indians nominated (Syed Ahmad Khan influence)</td></tr>
+        <tr><td>Morley-Minto Reforms</td><td>1909</td><td>Separate electorate for Muslims — seeds of partition</td></tr>
+        <tr><td>Montagu-Chelmsford Reforms</td><td>1919</td><td>Dyarchy in provinces; GIA Act 1919</td></tr>
+        <tr><td>Government of India Act</td><td>1935</td><td>Provincial autonomy; Federal structure; basis of Indian Constitution</td></tr>
+        <tr><td>Indian Independence Act</td><td>1947</td><td>British Parliament act ending Crown rule; creating two dominions</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>UPSC Revision Series · History · For Civil Services Exam Preparation</footer>
+
+</body>
+</html>
