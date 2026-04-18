@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC Cornell Notes — Complete Revision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --ink-2: #3d3830;
+    --ink-3: #6b6460;
+    --ink-4: #a09890;
+    --paper: #faf8f3;
+    --paper-2: #f3efe6;
+    --paper-3: #ebe6d8;
+    --line: #e0d8c8;
+    --line-2: #ccc2ae;
+    --red-bar: #8b1a1a;
+    --blue-note: #1a3a6b;
+    --accent-gold: #b8872a;
+    --accent-teal: #0e6b5e;
+    --accent-plum: #5e2a6b;
+    --danger: #8b1a1a;
+    --safe: #1a5e2a;
+    --warn: #7a4a0e;
+    --gutter: 220px;
+    --page-max: 1100px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 14.5px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ───────────────────────────────── */
+  .top-nav {
+    background: var(--red-bar);
+    color: #f5ede0;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .nav-inner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 20px;
+    letter-spacing: 0.03em;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    white-space: nowrap;
+  }
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    flex: 1;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+    background: none;
+    color: rgba(245,237,224,0.75);
+    transition: background 0.15s, color 0.15s;
+    border-bottom: 3px solid transparent;
+  }
+  .nav-tab:hover { color: #f5ede0; background: rgba(255,255,255,0.1); }
+  .nav-tab.active { color: #f5ede0; border-bottom-color: #f5ede0; background: rgba(255,255,255,0.12); }
+
+  /* ── PAGE SHELL ───────────────────────────── */
+  .page-wrap { max-width: var(--page-max); margin: 0 auto; padding: 24px 20px 80px; }
+
+  /* ── SECTION HEADER ───────────────────────── */
+  .section-header {
+    display: none;
+    background: var(--paper-2);
+    border: 1px solid var(--line-2);
+    border-left: 5px solid var(--red-bar);
+    padding: 20px 24px 16px;
+    margin-bottom: 24px;
+    border-radius: 0 4px 4px 0;
+  }
+  .section-header.visible { display: block; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .section-meta {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CORNELL CARD ─────────────────────────── */
+  .cornell-card {
+    display: none;
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .cornell-card.visible { display: block; }
+
+  .card-header {
+    background: var(--paper-2);
+    border-bottom: 2px solid var(--line-2);
+    padding: 10px 20px 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-header:hover { background: var(--paper-3); }
+
+  .topic-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ink-4);
+    letter-spacing: 0.08em;
+    min-width: 28px;
+  }
+  .topic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+  }
+  .collapse-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-4);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 2px;
+    transition: background 0.1s;
+  }
+  .collapse-btn:hover { background: var(--line); }
+
+  .card-body {
+    display: grid;
+    grid-template-columns: var(--gutter) 1fr;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .card-body.collapsed { display: none; }
+
+  /* Red margin line */
+  .cue-col {
+    background: #fdf5f5;
+    border-right: 2px solid #cc2a2a;
+    padding: 16px 14px 16px 16px;
+  }
+  .notes-col {
+    padding: 16px 20px;
+    border-left: 1px solid var(--line);
+    background: var(--paper);
+    /* lined paper effect */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 28px,
+      rgba(180,165,140,0.18) 28px,
+      rgba(180,165,140,0.18) 29px
+    );
+    background-position: 0 20px;
+  }
+
+  .summary-bar {
+    background: var(--blue-note);
+    color: #e8f0ff;
+    padding: 10px 20px 10px calc(var(--gutter) + 20px);
+    font-size: 12.5px;
+    line-height: 1.5;
+    border-top: 1px solid rgba(0,0,0,0.15);
+  }
+  .summary-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(232,240,255,0.65);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ── CUE COLUMN elements ──────────────────── */
+  .cue-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red-bar);
+    margin-bottom: 8px;
+    margin-top: 14px;
+    display: block;
+  }
+  .cue-heading:first-child { margin-top: 0; }
+
+  .cue-q {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin-bottom: 6px;
+    padding-left: 8px;
+    border-left: 2px solid var(--red-bar);
+  }
+  .cue-kw {
+    display: inline-block;
+    background: var(--red-bar);
+    color: #f5ede0;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin: 2px 2px 2px 0;
+    letter-spacing: 0.04em;
+  }
+  .trap-box {
+    background: #fff3f3;
+    border: 1px solid #e88;
+    border-radius: 3px;
+    padding: 7px 9px;
+    font-size: 12px;
+    color: var(--danger);
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+  .trap-box::before {
+    content: "⚠ TRAP";
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+    color: #a02020;
+  }
+
+  /* ── NOTES COLUMN elements ────────────────── */
+  .notes-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 14px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .notes-h1:first-child { margin-top: 0; }
+
+  .notes-h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin: 10px 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p.note { font-size: 13.5px; margin-bottom: 5px; color: var(--ink); line-height: 1.6; }
+
+  /* Inline emphasis */
+  .hi { font-weight: 600; color: var(--ink); }
+  .hi-red { font-weight: 600; color: var(--danger); }
+  .hi-teal { font-weight: 600; color: var(--accent-teal); }
+  .hi-gold { font-weight: 600; color: var(--warn); }
+  .hi-plum { font-weight: 600; color: var(--accent-plum); }
+  .hi-blue { font-weight: 600; color: var(--blue-note); }
+  .code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--paper-3); padding: 1px 5px; border-radius: 2px; }
+
+  /* Tables */
+  .nt { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 8px 0 12px; }
+  .nt th {
+    background: var(--paper-2);
+    border: 1px solid var(--line-2);
+    padding: 5px 9px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+  }
+  .nt td {
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  .nt tr:nth-child(even) td { background: rgba(235,230,216,0.35); }
+  .nt .yes { color: var(--safe); font-weight: 600; }
+  .nt .no { color: var(--danger); font-weight: 600; }
+
+  /* Bullet list */
+  ul.nb {
+    list-style: none;
+    margin: 4px 0 10px;
+    padding: 0;
+  }
+  ul.nb li {
+    font-size: 13.5px;
+    padding: 2px 0 2px 16px;
+    position: relative;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  ul.nb li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--ink-4);
+    font-size: 12px;
+  }
+
+  /* Flash bars */
+  .flash-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+  }
+  .flash {
+    background: var(--blue-note);
+    color: #dce8ff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 2px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flash.gold { background: var(--warn); color: #fff3d8; }
+  .flash.red { background: var(--danger); color: #ffe8e8; }
+  .flash.teal { background: var(--accent-teal); color: #dafff6; }
+  .flash.plum { background: var(--accent-plum); color: #f5e0ff; }
+
+  /* Right/Wrong comparison */
+  .verdict-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  .v-box {
+    padding: 8px 10px;
+    border-radius: 3px;
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .v-right { background: #edfaf0; border: 1px solid #7ec89b; color: var(--safe); }
+  .v-right::before { content: "✓  "; font-weight: 700; }
+  .v-wrong { background: #fff0f0; border: 1px solid #e8a0a0; color: var(--danger); }
+  .v-wrong::before { content: "✗  "; font-weight: 700; }
+
+  /* Timeline */
+  .timeline { margin: 8px 0; }
+  .tl-row { display: flex; align-items: baseline; gap: 10px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--red-bar);
+    min-width: 90px;
+  }
+  .tl-event { font-size: 13px; color: var(--ink); line-height: 1.4; }
+
+  /* Progress / scale bar */
+  .scale-bar { margin: 8px 0; }
+  .scale-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 12.5px; }
+  .scale-label { min-width: 120px; color: var(--ink-2); }
+  .scale-track { flex: 1; height: 8px; background: var(--line); border-radius: 2px; position: relative; }
+  .scale-fill { height: 100%; border-radius: 2px; background: var(--blue-note); }
+  .scale-val { min-width: 40px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); text-align: right; }
+
+  /* Topic jump grid */
+  .jump-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .jump-card {
+    background: var(--paper-2);
+    border: 1px solid var(--line-2);
+    border-radius: 3px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .jump-card:hover { background: var(--paper-3); border-color: var(--red-bar); }
+  .jc-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-4); }
+  .jc-title { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .jc-tag { font-size: 11px; color: var(--ink-3); font-style: italic; }
+
+  /* Master table section */
+  .master-section { display: none; }
+  .master-section.visible { display: block; }
+
+  /* Search box */
+  .search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: var(--paper-2);
+    border: 1px solid var(--line-2);
+    border-radius: 3px;
+    padding: 8px 14px;
+  }
+  .search-wrap input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+  }
+  .search-wrap input::placeholder { color: var(--ink-4); }
+  .search-icon { color: var(--ink-4); font-size: 14px; }
+
+  /* Print */
+  @media print {
+    .top-nav, .search-wrap { display: none; }
+    .cornell-card { display: block !important; page-break-inside: avoid; }
+    .section-header { display: block !important; }
+    .card-body.collapsed { display: grid !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">UPSC Cornell Notes</div>
+    <div class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" onclick="showSection('home')">Home</button>
+      <button class="nav-tab" onclick="showSection('histgeo')">History &amp; Geography</button>
+      <button class="nav-tab" onclick="showSection('polity')">Polity</button>
+      <button class="nav-tab" onclick="showSection('economy')">Economy</button>
+      <button class="nav-tab" onclick="showSection('envtsci')">Env &amp; Science</button>
+      <button class="nav-tab" onclick="showSection('defence')">Defence &amp; CA</button>
+      <button class="nav-tab" onclick="showSection('master')">Master Table</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+<!-- ══════════════════════════════════════════════════════════
+     HOME
+══════════════════════════════════════════════════════════ -->
+<div id="sec-home">
+  <div style="padding: 28px 0 10px;">
+    <div style="font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--ink); margin-bottom:6px;">UPSC Complete Revision</div>
+    <div style="font-size:13.5px; color:var(--ink-3); font-style:italic; margin-bottom:24px;">Cornell Notes · 47 Topics Across 5 Papers · GS I / II / III</div>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="globalSearch" placeholder="Search topics, keywords, dates…" oninput="doSearch(this.value)">
+      <button onclick="clearSearch()" style="font-size:11px; color:var(--ink-4); background:none; border:none; cursor:pointer;">Clear</button>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-bottom:32px;">
+    <div onclick="showSection('histgeo')" class="jump-card">
+      <div class="jc-num">9 Topics</div>
+      <div class="jc-title">History &amp; Geography</div>
+      <div class="jc-tag">GS I</div>
+    </div>
+    <div onclick="showSection('polity')" class="jump-card">
+      <div class="jc-num">8 Topics</div>
+      <div class="jc-title">Polity &amp; Constitution</div>
+      <div class="jc-tag">GS II</div>
+    </div>
+    <div onclick="showSection('economy')" class="jump-card">
+      <div class="jc-num">12 Topics</div>
+      <div class="jc-title">Economy &amp; Institutions</div>
+      <div class="jc-tag">GS III</div>
+    </div>
+    <div onclick="showSection('envtsci')" class="jump-card">
+      <div class="jc-num">12 Topics</div>
+      <div class="jc-title">Environment &amp; Science</div>
+      <div class="jc-tag">GS III</div>
+    </div>
+    <div onclick="showSection('defence')" class="jump-card">
+      <div class="jc-num">9 Topics</div>
+      <div class="jc-title">Defence, Sports &amp; CA</div>
+      <div class="jc-tag">GS III / CA</div>
+    </div>
+    <div onclick="showSection('master')" class="jump-card" style="border-color:var(--red-bar);">
+      <div class="jc-num">All 47</div>
+      <div class="jc-title">Master Trap Table</div>
+      <div class="jc-tag">Quick revision</div>
+    </div>
+  </div>
+
+  <div style="background:var(--paper-2); border:1px solid var(--line-2); border-left:4px solid var(--accent-teal); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13px; color:var(--ink-2);">
+    <strong>How to use:</strong> Each card follows Cornell format — <em>Cue column</em> (left, red margin) has questions &amp; keywords for active recall. <em>Notes column</em> (right) has the full content. <em>Summary bar</em> (blue footer) is the one-line answer. Collapse cards after testing yourself.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     HISTORY & GEOGRAPHY
+══════════════════════════════════════════════════════════ -->
+<div id="sec-histgeo" style="display:none;">
+  <div class="section-header visible">
+    <div class="section-title">History &amp; Geography</div>
+    <div class="section-meta">GS I · 9 Topics · Ancient India · Physical Geography · Sangam · Harappan</div>
+  </div>
+
+  <!-- T1: Pattanam -->
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-01</span>
+      <span class="topic-title">Pattanam / Pattana — Ancient Port Towns</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What does Pattanam mean?</p>
+        <p class="cue-q">Which site = Muziris? Who excavated it?</p>
+        <p class="cue-q">Name 3 literary sources mentioning Muziris.</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Muziri Pattanam</span>
+        <span class="cue-kw">KCHR</span>
+        <span class="cue-kw">Periplus</span>
+        <span class="cue-kw">Periyar River</span>
+        <span class="cue-kw">Pliny</span>
+        <div class="trap-box">Pattanam ≠ military/religious site. It is a <strong>coastal/riverine commercial trade settlement</strong>.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Definition</p>
+        <p class="note"><span class="hi">Pattanam</span> (Tamil) / <span class="hi">Pattana</span> (Sanskrit) = coastal or riverine <span class="hi-red">commercial port town</span>. The "-pattanam" suffix always signals a trading settlement with water access. Distinguished from Nagara (admin city), Nigama (market), Shreni (guild).</p>
+
+        <p class="notes-h1">Archaeological Site — Pattanam, Kerala</p>
+        <p class="note">Believed to be <span class="hi-teal">Muziris</span> — the greatest Indo-Roman emporium. Located near the delta of the <span class="hi">Periyar River</span>, Ernakulam district.</p>
+        <ul class="nb">
+          <li>Excavated since <span class="hi">2006</span> by <span class="hi">KCHR</span> (Kerala Council of Historical Research) under <em>Muziris Heritage Project</em></li>
+          <li><span class="hi">300,000+ artefacts</span> spanning 3rd century BCE – 10th century CE</li>
+          <li>Finds: Mediterranean amphorae, West Asian ceramics, rouletted ware, glass beads, boat planks/ship timbers</li>
+        </ul>
+
+        <p class="notes-h1">Literary Sources</p>
+        <div class="flash-row">
+          <span class="flash teal">Sangam poetry (Akananuru, Purananuru)</span>
+          <span class="flash">Periplus of Erythraean Sea — 1st C CE</span>
+          <span class="flash gold">Pliny's Natural History — "gold drain"</span>
+        </div>
+
+        <p class="notes-h1">Terminology Distinctions</p>
+        <table class="nt">
+          <tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
+          <tr><td><span class="hi">Pattanam / Pattana</span></td><td>Coastal/riverine port-town</td><td>Muziri Pattanam, Kaveri Pattanam</td></tr>
+          <tr><td>Nagara</td><td>Inland admin city</td><td>Pataliputra</td></tr>
+          <tr><td>Nigama</td><td>Market/trading settlement</td><td>Mauryan period refs</td></tr>
+          <tr><td>Shreni</td><td>Trade/craft guild (NOT a place)</td><td>—</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Pattanam = coastal commercial port-town; Pattanam site (Kerala) = likely Muziris; excavated by KCHR since 2006; 3rd C BCE – 10th C CE; 300,000+ finds including Roman amphorae.</div>
+  </div>
+
+  <!-- T2: Southwest Monsoon -->
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-02</span>
+      <span class="topic-title">Mechanism of the Southwest Monsoon</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What is the core driver of monsoon?</p>
+        <p class="cue-q">What role does ITCZ shift play? When does it occur?</p>
+        <p class="cue-q">When does monsoon onset in Kerala? Cover all India?</p>
+        <p class="cue-q">Name both monsoon branches and their impact areas.</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">ITCZ</span>
+        <span class="cue-kw">Coriolis Force</span>
+        <span class="cue-kw">Easterly Jet</span>
+        <span class="cue-kw">Thar Low</span>
+        <div class="trap-box">ITCZ shift timing confusion. Easterly (Somali) Jet is linked to <strong>onset burst</strong> — don't confuse with westerly jet.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Core Driver</p>
+        <p class="note"><span class="hi-red">Differential heating</span> — land heats/cools faster than ocean (lower specific heat). This pressure gradient drives everything.</p>
+
+        <p class="notes-h1">Four-Step Causal Chain</p>
+        <div class="timeline">
+          <div class="tl-row"><span class="tl-date">Mar – May</span><span class="tl-event">Thar Desert &amp; Deccan heat up; Tibetan Plateau acts as elevated heat engine → surface low deepens</span></div>
+          <div class="tl-row"><span class="tl-date">May – Jun</span><span class="tl-event"><span class="hi">ITCZ shifts north</span> to 20°–25°N (becomes Monsoon Trough); Westerly jet retreats north; <span class="hi-teal">Easterly (Somali) Jet forms</span> at 15°N → onset burst</span></div>
+          <div class="tl-row"><span class="tl-date">Jun</span><span class="tl-event">Deep thermal low in Thar (&lt;1000 hPa) — acts as vacuum pulling oceanic air</span></div>
+          <div class="tl-row"><span class="tl-date">Jun+</span><span class="tl-event">SE trade winds cross equator → deflected right by Coriolis → become SW winds; enter as two branches</span></div>
+        </div>
+
+        <p class="notes-h1">Two Branches</p>
+        <table class="nt">
+          <tr><th>Branch</th><th>Path</th><th>Key Areas</th></tr>
+          <tr><td><span class="hi">Arabian Sea</span></td><td>Hits Western Ghats (orographic) → crosses Deccan</td><td>Mumbai/Goa/Konkan 250+ cm; Deccan rain shadow &lt;50 cm</td></tr>
+          <tr><td><span class="hi">Bay of Bengal</span></td><td>Hits NE India → moves up Gangetic Plain</td><td>Assam, WB, Bihar, UP, Delhi</td></tr>
+        </table>
+
+        <p class="notes-h1">Key Dates</p>
+        <div class="flash-row">
+          <span class="flash red">Kerala ~1 Jun</span>
+          <span class="flash">Mumbai ~10 Jun</span>
+          <span class="flash">Delhi ~29 Jun</span>
+          <span class="flash">All India ~15 Jul</span>
+          <span class="flash gold">Withdrawal begins Rajasthan ~1 Sep</span>
+          <span class="flash plum">NE Monsoon Tamil Nadu Oct–Dec</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Differential heating → ITCZ northward shift → Thar Deep Low → SW moisture-laden winds (two branches). Kerala onset ~1 Jun; full India ~15 Jul. Easterly Jet = onset burst trigger.</div>
+  </div>
+
+  <!-- T3: Yavanika -->
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-03</span>
+      <span class="topic-title">Yavanika — Ancient Indian Theatre</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What is Yavanika?</p>
+        <p class="cue-q">Why is it named after Yavana?</p>
+        <p class="cue-q">Name the foundational text of Indian performing arts.</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Stage curtain</span>
+        <span class="cue-kw">Yavana = Greek</span>
+        <span class="cue-kw">Natyashastra</span>
+        <span class="cue-kw">Sutradhara</span>
+        <div class="trap-box">Yavanika = <strong>stage curtain</strong> ONLY. Not a musical instrument, not a character, not royal patronage.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Definition</p>
+        <p class="note"><span class="hi-red">Yavanika</span> = the <span class="hi">stage curtain</span> in ancient Indian theatre. Concealed actors before entrances; demarcated backstage from performance area.</p>
+        <p class="note">Derived from <span class="hi-teal">Yavana</span> (Sanskrit for Greeks, from "Ionia"). The curtain was a <span class="hi">Hellenistic theatrical innovation</span> introduced after Alexander's campaigns and Indo-Greek kingdoms. Indians named it after its Greek originators.</p>
+
+        <p class="notes-h1">Drama Terminology Glossary</p>
+        <table class="nt">
+          <tr><th>Term</th><th>Meaning</th></tr>
+          <tr><td><span class="hi">Yavanika</span></td><td>Stage curtain</td></tr>
+          <tr><td>Sutradhara</td><td>Stage director / manager who introduces the play</td></tr>
+          <tr><td>Nandi</td><td>Benedictory verse at play's start</td></tr>
+          <tr><td>Purvaranga</td><td>Preliminary rites before the play begins</td></tr>
+          <tr><td>Vidushaka</td><td>Comic character — Brahmin jester</td></tr>
+          <tr><td>Nayaka / Nayika</td><td>Male / Female protagonist</td></tr>
+          <tr><td><span class="hi">Natyashastra</span></td><td>Bharata Muni's treatise — foundational performing arts text</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Yavanika = stage curtain; derived from "Yavana" (Greek). Hellenistic theatrical innovation. Not an instrument or character — the answer is simply "stage curtain".</div>
+  </div>
+
+  <!-- T4: Native Plants -->
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-04</span>
+      <span class="topic-title">Plants Native to India vs Introduced Species</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Is Eucalyptus native to India?</p>
+        <p class="cue-q">Who introduced Eucalyptus to India? When?</p>
+        <p class="cue-q">Is Neem native? What is its active compound?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Eucalyptus → Australia</span>
+        <span class="cue-kw">Tipu Sultan 1790</span>
+        <span class="cue-kw">Azadirachtin</span>
+        <span class="cue-kw">Ficus benghalensis</span>
+        <div class="trap-box">Eucalyptus is from <strong>Australia</strong> — introduced to India ~1790 by Tipu Sultan at Nandi Hills.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Quick Reference</p>
+        <table class="nt">
+          <tr><th>Plant</th><th>Native?</th><th>Origin</th><th>Key Fact</th></tr>
+          <tr><td><span class="hi">Neem</span> (Azadirachta indica)</td><td class="yes">✓ Native</td><td>India/Myanmar</td><td>Active compound: <span class="hi">Azadirachtin</span>; "Sarva Roga Nivarini"</td></tr>
+          <tr><td><span class="hi">Banyan</span> (Ficus benghalensis)</td><td class="yes">✓ Native</td><td>India</td><td>National Tree; aerial prop roots</td></tr>
+          <tr><td><span class="hi">Teak</span> (Tectona grandis)</td><td class="yes">✓ Native</td><td>India/Myanmar</td><td>Premier hardwood; tropical dry deciduous forests</td></tr>
+          <tr><td><span class="hi-red">Eucalyptus</span></td><td class="no">✗ Introduced</td><td><span class="hi-red">Australia</span></td><td>Introduced ~1790 Tipu Sultan; Nilgiris 1843; degrades soil</td></tr>
+          <tr><td>Rubber</td><td class="no">✗ Introduced</td><td>Amazon</td><td>Latex source</td></tr>
+          <tr><td>Gulmohar</td><td class="no">✗ Introduced</td><td>Madagascar</td><td>Ornamental</td></tr>
+        </table>
+        <p class="notes-h1">Eucalyptus Ecological Concerns</p>
+        <ul class="nb">
+          <li>Extremely high water consumption; allelopathic effects</li>
+          <li>Acidifies and degrades soil; reduces undergrowth biodiversity</li>
+          <li>Hollow, brittle wood — not ideal structurally</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Neem, Banyan, Teak = Native to India. Eucalyptus = from Australia; introduced ~1790 by Tipu Sultan at Nandi Hills; degrades soil.</div>
+  </div>
+
+  <!-- T5: Sangam Literature -->
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-05</span>
+      <span class="topic-title">Sangam Literature — Complete Notes</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What is the Tinai system?</p>
+        <p class="cue-q">Akam vs Puram — which covers love? What ratio?</p>
+        <p class="cue-q">Which Tinai is associated with Vellalar?</p>
+        <p class="cue-q">Which community is associated with coastal tinai?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">5 Tinais</span>
+        <span class="cue-kw">Akam 3/4</span>
+        <span class="cue-kw">Tolkappiyam</span>
+        <span class="cue-kw">3 Sangam academies</span>
+        <div class="trap-box">Sangam literature has extensive geographical references — the entire Tinai system IS geography. Never say "Sangam has no geographic references."</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Overview</p>
+        <p class="note">~300 BCE – 300 CE; three legendary <span class="hi">Sangam academies</span> in Madurai. The surviving corpus is from the <span class="hi">Third Sangam</span>; Tolkappiyam survived from the Second.</p>
+
+        <p class="notes-h1">Tinai System — 5 Eco-zones</p>
+        <table class="nt">
+          <tr><th>Tinai</th><th>Landscape</th><th>Deity</th><th>Theme</th><th>Community</th></tr>
+          <tr><td><span class="hi">Kurinji</span></td><td>Mountains</td><td>Murugan</td><td>Union/Love</td><td>Kuravar (hunters)</td></tr>
+          <tr><td><span class="hi">Mullai</span></td><td>Forest/Pastoral</td><td>Mayon (Vishnu)</td><td>Patient waiting</td><td>Idaiyar (herdsmen)</td></tr>
+          <tr><td><span class="hi">Marudam</span></td><td>Agri. Plains</td><td>Indra</td><td>Infidelity/Quarrel</td><td><span class="hi-teal">Vellalar (farmers)</span></td></tr>
+          <tr><td><span class="hi">Neytal</span></td><td>Coast/Seashore</td><td>Varuna</td><td>Longing/Separation</td><td>Paravar (fishers)</td></tr>
+          <tr><td><span class="hi">Palai</span></td><td>Desert (arid)</td><td>Korravai (Durga)</td><td>Hardship/Separation</td><td>Maravar (warriors)</td></tr>
+        </table>
+        <p class="note" style="font-size:12px; color:var(--ink-3);">Note: Palai is not a separate landscape — it is Kurinji or Mullai transformed during drought.</p>
+
+        <p class="notes-h1">Akam vs Puram</p>
+        <div class="verdict-row">
+          <div class="v-right" style="background:#f0f6ff; border-color:#8ab; color:var(--blue-note);"><strong>Akam</strong> = Inner world — Love, romance, private themes. <span class="hi">~3/4 of all Sangam poetry</span></div>
+          <div class="v-right" style="background:#f0fff4; border-color:#8cb; color:var(--accent-teal);"><strong>Puram</strong> = Outer world — War, heroism, elegy, praise of kings. ~1/4</div>
+        </div>
+
+        <p class="notes-h1">The Three Kingdoms (Muvendars)</p>
+        <table class="nt">
+          <tr><th>Kingdom</th><th>Emblem</th><th>Capital</th><th>Specialty</th></tr>
+          <tr><td><span class="hi">Chera</span></td><td>Bow</td><td>Vanji</td><td>Western coast trade, pepper</td></tr>
+          <tr><td><span class="hi">Chola</span></td><td>Tiger</td><td>Uraiyur → Puhar</td><td>Eastern coast, rice, Kaveri</td></tr>
+          <tr><td><span class="hi">Pandya</span></td><td>Fish</td><td>Madurai</td><td>Southern trade, pearl fishing</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Tinai = 5-fold geography system. Akam = love (3/4); Puram = war (1/4). Vellalar = Marudam (agrarian plains). Paravar = Neytal (coast). Three kingdoms: Chera (bow), Chola (tiger), Pandya (fish).</div>
+  </div>
+
+  <!-- T6-T9 condensed for space -->
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-06</span>
+      <span class="topic-title">Megalithic Culture of South India</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What is the defining material characteristic of megalithic burials?</p>
+        <p class="cue-q">Which site was excavated by Mortimer Wheeler?</p>
+        <p class="cue-q">What type of burial is Adichanallur famous for?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Iron Age</span>
+        <span class="cue-kw">Black &amp; Red Ware</span>
+        <span class="cue-kw">Brahmagiri</span>
+        <span class="cue-kw">Adichanallur</span>
+        <div class="trap-box">Megaliths NOT confined to Western Ghats — distributed across entire South India &amp; Deccan (Kerala, Tamil Nadu, Karnataka, AP, Maharashtra).</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Overview</p>
+        <p class="note">Iron Age (~1200–300 BCE); large stone structures primarily for funerary purposes. Name = Greek mega (large) + lithos (stone).</p>
+        <p class="notes-h1">Monument Types</p>
+        <table class="nt">
+          <tr><th>Type</th><th>Description</th><th>Key Sites</th></tr>
+          <tr><td><span class="hi">Dolmen</span></td><td>Capstone on 2–3 uprights</td><td>Kerala, Karnataka</td></tr>
+          <tr><td><span class="hi">Cist Burial</span></td><td>Underground stone-lined box</td><td>Karnataka, Tamil Nadu</td></tr>
+          <tr><td><span class="hi">Cairn Circle</span></td><td>Stone heap/mound with ring</td><td>Brahmagiri</td></tr>
+          <tr><td><span class="hi">Urn Burial</span></td><td>Remains in large pottery urn</td><td><span class="hi-red">Adichanallur</span></td></tr>
+          <tr><td><span class="hi">Menhir</span></td><td>Single upright stone memorial</td><td>Kerala, Tamil Nadu</td></tr>
+        </table>
+        <p class="notes-h1">Material Culture</p>
+        <div class="flash-row">
+          <span class="flash red">Iron tools &amp; weapons (defining)</span>
+          <span class="flash">Black &amp; Red Ware (BRW) pottery</span>
+          <span class="flash gold">Horse bones</span>
+          <span class="flash teal">Gold/copper ornaments</span>
+        </div>
+        <p class="notes-h1">Key Sites</p>
+        <table class="nt">
+          <tr><th>Site</th><th>State</th><th>Significance</th></tr>
+          <tr><td>Adichanallur</td><td>Tamil Nadu</td><td>Urn burials; earliest Tamil Brahmi inscriptions</td></tr>
+          <tr><td>Brahmagiri</td><td>Karnataka</td><td>Excavated by <span class="hi">Mortimer Wheeler (1947)</span>; three cultural phases</td></tr>
+          <tr><td>Hallur</td><td>Karnataka</td><td>One of earliest Iron Age sites (~1000 BCE)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Iron Age (~1200–300 BCE); BRW pottery + iron tools are defining. Adichanallur = urn burials. Brahmagiri excavated by Mortimer Wheeler. Distribution: entire South India, not just Western Ghats.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-07</span>
+      <span class="topic-title">Aravalli Range &amp; Its Rivers</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Which rivers originate from Aravallis?</p>
+        <p class="cue-q">Where does Luni drain?</p>
+        <p class="cue-q">What does Narmada originate from (not Aravalli)?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">BALS mnemonic</span>
+        <span class="cue-kw">Guru Shikar</span>
+        <span class="cue-kw">Rann of Kutch</span>
+        <div class="trap-box">Narmada, Mahi, Tapti, Son do <strong>NOT</strong> originate from Aravallis. They are commonly confused with Sabarmati because they also flow west.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Aravalli Facts</p>
+        <div class="flash-row">
+          <span class="flash">World's oldest fold mountains — Precambrian ~570 Ma</span>
+          <span class="flash gold">Delhi → Gujarat; ~670–800 km</span>
+          <span class="flash red">Highest: Guru Shikar 1,722 m (Mt Abu)</span>
+        </div>
+        <p class="notes-h1">Rivers from Aravallis — <span class="hi-red">B-A-L-S</span></p>
+        <table class="nt">
+          <tr><th>River</th><th>Direction</th><th>Drains Into</th><th>Key Feature</th></tr>
+          <tr><td><span class="hi">Banas</span></td><td>East</td><td>Chambal → Yamuna → Ganga</td><td>Longest river entirely within Rajasthan</td></tr>
+          <tr><td><span class="hi">Sabarmati</span></td><td>SW</td><td>Gulf of Khambhat</td><td>Flows through Ahmedabad; Gandhi Ashram</td></tr>
+          <tr><td><span class="hi">Luni</span></td><td>W-NW</td><td><span class="hi-red">Rann of Kutch</span></td><td>Becomes saline in lower course; "salt river"</td></tr>
+          <tr><td><span class="hi">Sahibi</span></td><td>East</td><td>Yamuna</td><td>Seasonal; flows through Haryana</td></tr>
+        </table>
+        <p class="notes-h1">Common Confusions — NOT from Aravallis</p>
+        <table class="nt">
+          <tr><th>River</th><th>Actual Origin</th></tr>
+          <tr><td>Narmada</td><td>Amarkantak Plateau (MP)</td></tr>
+          <tr><td>Mahi</td><td>Vindhya Range (MP)</td></tr>
+          <tr><td>Tapti / Tapi</td><td>Satpura Range (Betul, MP)</td></tr>
+          <tr><td>Son</td><td>Amarkantak Plateau</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>BALS from Aravallis: Banas (E→Ganga), Sabarmati (SW→Arabian Sea), Luni (W→Rann of Kutch), Sahibi (E→Yamuna). Narmada/Mahi/Tapti/Son are NOT from Aravallis.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">T-08 + T-09</span>
+      <span class="topic-title">Vellalar &amp; Dholavira (Harappan City)</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What makes Dholavira unique among all IVC cities?</p>
+        <p class="cue-q">What are Dholavira's 5 unique features?</p>
+        <p class="cue-q">Who are the Vellalar? Which Tinai?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">3-tier city</span>
+        <span class="cue-kw">RS Bisht</span>
+        <span class="cue-kw">Khadir Bet</span>
+        <span class="cue-kw">16+ reservoirs</span>
+        <span class="cue-kw">UNESCO 2021</span>
+        <div class="trap-box">Mohenjo-daro does <strong>NOT</strong> have 3 tiers. Only Dholavira has the Middle Town tier.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Vellalar</p>
+        <p class="note">Highest non-Brahmin agrarian community. Settled wet paddy cultivators. Tinai = <span class="hi">Marudam</span>. Etymology: "vell/vel" = to cultivate/conquer the land. Supplied administrators to the three kingdoms.</p>
+
+        <p class="notes-h1">Dholavira</p>
+        <div class="flash-row">
+          <span class="flash teal">Khadir Bet, Kutch district, Gujarat</span>
+          <span class="flash">~3000–1500 BCE</span>
+          <span class="flash gold">RS Bisht (ASI, 1990–2005)</span>
+          <span class="flash red">UNESCO July 2021 (India's 40th WHS)</span>
+        </div>
+        <p class="notes-h1">Three-Tier Structure (Unique Feature)</p>
+        <table class="nt">
+          <tr><th>Tier</th><th>Who Lived</th><th>Key Feature</th></tr>
+          <tr><td><span class="hi">Citadel (Acropolis)</span></td><td>Ruling elite, admin</td><td>Castle + Bailey; most massive stone fortifications</td></tr>
+          <tr><td><span class="hi-red">Middle Town</span></td><td>Artisans, traders, mid-officials</td><td><span class="hi-red">ABSENT in all other IVC cities</span> — Dholavira's unique innovation</td></tr>
+          <tr><td><span class="hi">Lower Town</span></td><td>General population</td><td>Largest zone; residential areas</td></tr>
+        </table>
+        <p class="notes-h1">5 Unique Features of Dholavira</p>
+        <ul class="nb">
+          <li><span class="hi">3-tier layout</span> — no other IVC city has it</li>
+          <li><span class="hi">Stone construction</span> — others used kiln-fired mud brick</li>
+          <li><span class="hi">16+ reservoirs</span> — most sophisticated ancient water harvesting; fed by Mansar &amp; Manhar rivers</li>
+          <li><span class="hi">World's earliest signboard</span> — 10 Indus script signs in white gypsum on wood</li>
+          <li><span class="hi">Parallelogram layout</span> — E-W orientation with concentric fortifications</li>
+        </ul>
+        <p class="notes-h1">IVC Site Comparison</p>
+        <table class="nt">
+          <tr><th>Site</th><th>Division</th><th>Famous For</th></tr>
+          <tr><td>Dholavira</td><td>3-tier</td><td>Stone, reservoirs, signboard</td></tr>
+          <tr><td>Mohenjo-daro</td><td>2-tier</td><td>Great Bath, granary</td></tr>
+          <tr><td>Kalibangan</td><td>2-tier</td><td>Earliest ploughed field; fire altars</td></tr>
+          <tr><td>Lothal</td><td>Integrated</td><td>World's earliest dockyard</td></tr>
+          <tr><td>Rakhigarhi</td><td>2-tier</td><td>Largest IVC site in India</td></tr>
+          <tr><td>Surkotada</td><td>Combined</td><td>First horse bones in IVC</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Dholavira = ONLY IVC city with 3 tiers (Citadel + Middle Town + Lower Town). Stone construction. 16+ reservoirs. UNESCO 2021 (India's 40th WHS). Vellalar = settled agrarian cultivators, Marudam tinai.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     POLITY
+══════════════════════════════════════════════════════════ -->
+<div id="sec-polity" style="display:none;">
+  <div class="section-header visible">
+    <div class="section-title">Polity &amp; Constitution</div>
+    <div class="section-meta">GS II · 8 Topics · Articles · Amendments · Federal Structure</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">P-01</span>
+      <span class="topic-title">National Symbols — Chronology</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">When was the National Flag adopted? By whom?</p>
+        <p class="cue-q">Anthem or Song — which came first?</p>
+        <p class="cue-q">When was National Animal changed to Tiger?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">22 Jul 1947</span>
+        <span class="cue-kw">24 Jan 1950</span>
+        <span class="cue-kw">Pingali Venkayya</span>
+        <span class="cue-kw">Mundaka Upanishad</span>
+        <div class="trap-box">Flag = 1947 (pre-Republic), NOT 1950. Anthem &amp; Song both adopted same day: 24 Jan 1950. Animal changed Lion→Tiger in <strong>1973</strong> (Project Tiger launch).</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Timeline</p>
+        <div class="timeline">
+          <div class="tl-row"><span class="tl-date">22 Jul 1947</span><span class="tl-event"><span class="hi">National Flag</span> — Constituent Assembly; designed by <span class="hi">Pingali Venkayya</span>; Ashoka Chakra (navy blue, 24 spokes)</span></div>
+          <div class="tl-row"><span class="tl-date">24 Jan 1950</span><span class="tl-event"><span class="hi">National Anthem</span> (Jana Gana Mana) — Constituent Assembly; <span class="hi">Rabindranath Tagore</span> 1911; 52 sec</span></div>
+          <div class="tl-row"><span class="tl-date">24 Jan 1950</span><span class="tl-event"><span class="hi">National Song</span> (Vande Mataram) — same day; <span class="hi">Bankim Chandra Chatterjee</span> 1882; equal status to Anthem</span></div>
+          <div class="tl-row"><span class="tl-date">26 Jan 1950</span><span class="tl-event"><span class="hi">National Emblem</span> — Adapted from <span class="hi">Ashoka's Sarnath Pillar</span>; "Satyameva Jayate" from <span class="hi">Mundaka Upanishad</span></span></div>
+          <div class="tl-row"><span class="tl-date">22 Mar 1957</span><span class="tl-event">National Calendar — Saka Era; Chaitra = first month</span></div>
+          <div class="tl-row"><span class="tl-date">Apr 1973</span><span class="tl-event"><span class="hi-red">National Animal → Bengal Tiger</span> (replaced Lion); coincided with <span class="hi">Project Tiger</span></span></div>
+          <div class="tl-row"><span class="tl-date">15 Jul 2010</span><span class="tl-event">National Currency Symbol ₹ — designed by <span class="hi">D. Udaya Kumar</span> (IIT Bombay)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Flag 1947 (pre-Republic). Anthem + Song both 24 Jan 1950 (2 days before Republic Day). Emblem 26 Jan 1950. Tiger replaced Lion in 1973 at Project Tiger launch.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">P-02</span>
+      <span class="topic-title">Article 72 — Presidential Pardoning Power</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What are the 5 types of clemency under Art 72?</p>
+        <p class="cue-q">Can the Governor pardon a death sentence?</p>
+        <p class="cue-q">Which case confirmed judicial review of Art 72?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Epuru Sudhakar 2006</span>
+        <span class="cue-kw">Kehar Singh 1988</span>
+        <span class="cue-kw">Death sentence → only President</span>
+        <div class="trap-box">Pardoning power IS subject to limited judicial review (Epuru Sudhakar 2006) — but courts cannot review the <em>merits</em>, only procedural/constitutional grounds.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Five Types of Clemency</p>
+        <table class="nt">
+          <tr><th>Power</th><th>Effect</th></tr>
+          <tr><td><span class="hi">Pardon</span></td><td>Removes BOTH conviction AND sentence — person treated as never convicted</td></tr>
+          <tr><td><span class="hi">Commutation</span></td><td>Changes nature: Death → Life; RI → SI</td></tr>
+          <tr><td><span class="hi">Remission</span></td><td>Reduces quantum; nature unchanged</td></tr>
+          <tr><td><span class="hi">Respite</span></td><td>Lesser sentence due to special circumstances (pregnancy, age)</td></tr>
+          <tr><td><span class="hi">Reprieve</span></td><td>Temporary stay — pending appeal, medical exam</td></tr>
+        </table>
+        <p class="notes-h1">President vs Governor</p>
+        <table class="nt">
+          <tr><th>Power</th><th>President (Art 72)</th><th>Governor (Art 161)</th></tr>
+          <tr><td>Death sentence</td><td class="yes">✓ CAN pardon</td><td class="no">✗ CANNOT</td></tr>
+          <tr><td>Court martial</td><td class="yes">✓ CAN</td><td class="no">✗ CANNOT</td></tr>
+          <tr><td>Union law offences</td><td class="yes">✓ CAN</td><td class="no">✗ CANNOT</td></tr>
+          <tr><td>Reasons required?</td><td colspan="2">Neither required to give reasons</td></tr>
+        </table>
+        <p class="notes-h1">Judicial Review — Key Cases</p>
+        <ul class="nb">
+          <li><span class="hi">Maru Ram v. UoI (1980)</span>: Cannot be exercised arbitrarily or mala fide</li>
+          <li><span class="hi">Kehar Singh v. UoI (1988)</span>: SC cannot review merits — only strict limitations</li>
+          <li><span class="hi-red">Epuru Sudhakar v. Govt AP (2006)</span>: IS subject to judicial review — on grounds of mala fide, arbitrary, irrelevant considerations, fraud on Constitution</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Art 72: Pardon/Commute/Remit/Respite/Reprieve. Only President can pardon death sentence. IS subject to limited judicial review (Epuru Sudhakar). No reasons required.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">P-03</span>
+      <span class="topic-title">Emergency &amp; Fundamental Rights — Arts 358 &amp; 359; 44th Amendment</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Art 358 vs Art 359 — what's the key difference?</p>
+        <p class="cue-q">Which Articles can NEVER be suspended?</p>
+        <p class="cue-q">What 5 key changes did the 44th Amendment make?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Art 358 = Automatic</span>
+        <span class="cue-kw">Art 359 = Presidential Order</span>
+        <span class="cue-kw">Arts 20 &amp; 21 = NEVER</span>
+        <span class="cue-kw">44th Amend 1978</span>
+        <div class="trap-box">NOT all FRs automatically suspended. Art 20 &amp; 21 can <strong>NEVER</strong> be suspended — even by Presidential order.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Art 358 vs Art 359</p>
+        <table class="nt">
+          <tr><th>Aspect</th><th>Article 358</th><th>Article 359</th></tr>
+          <tr><td>Trigger</td><td class="hi-red">Automatic</td><td>Requires Presidential Order</td></tr>
+          <tr><td>Rights affected</td><td>Only Art 19</td><td>All FRs except Arts 20 &amp; 21</td></tr>
+          <tr><td>What suspended</td><td>Right + enforcement</td><td>Only <em>enforcement</em> (rights exist)</td></tr>
+          <tr><td>Emergency ground</td><td>Only War/External Aggression</td><td>All 3 grounds (incl. armed rebellion)</td></tr>
+        </table>
+
+        <p class="notes-h1">44th Amendment, 1978 — Key Changes</p>
+        <ul class="nb">
+          <li>"Internal disturbance" → <span class="hi-red">"Armed rebellion"</span> (higher threshold)</li>
+          <li>Written Cabinet recommendation required before Presidential proclamation</li>
+          <li>Parliament approval within <span class="hi">1 month</span> by special majority (was 2 months)</li>
+          <li>Emergency can be revoked by <span class="hi">simple majority of Lok Sabha</span></li>
+          <li>Arts 358 restricted to war/external aggression ONLY (not armed rebellion)</li>
+          <li><span class="hi-red">Arts 20 &amp; 21 can NEVER be suspended</span> — added by 44th Amendment</li>
+          <li>Right to Property (Art 31) → legal right under Art 300A</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Art 358 = automatic Art 19 suspension (war/external aggression only). Art 359 = Presidential order for other FRs. Arts 20 &amp; 21 can NEVER be suspended. 44th Amendment was response to 1975–77 Emergency abuse.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">P-04 to P-08</span>
+      <span class="topic-title">SC Powers · Reservation · Constitutional Bodies · 7th Schedule · Federalism</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Art 134 allows SC to transfer from HC?</p>
+        <p class="cue-q">When does SC/ST seat reservation expire? Which amendment extended it to 2030?</p>
+        <p class="cue-q">Does the Constitution explicitly say "OBC"?</p>
+        <p class="cue-q">Name 5 subjects transferred State→Concurrent by 42nd Amend.</p>
+        <p class="cue-q">GST Council: Centre's vote weight? States' weight? Majority needed?</p>
+        <p class="cue-q">Is NHRC a Constitutional or Statutory body?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Art 139A = Transfer</span>
+        <span class="cue-kw">104th Amend</span>
+        <span class="cue-kw">Art 16(4) = "backward class"</span>
+        <span class="cue-kw">NHRC = Statutory</span>
+        <span class="cue-kw">GST: 1/3 vs 2/3</span>
+        <div class="trap-box">Art 16(4) says "backward class" — NOT explicitly "OBC". OBC policy came via Mandal Commission 1990. NHRC &amp; NCW = Statutory, NOT constitutional.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Art 139A — SC Case Transfer</p>
+        <p class="note">Inserted by 42nd Amend 1976. SC can withdraw cases from HCs to itself (or another HC) where substantially similar questions of law of general public importance arise. Can act suo motu or on AG's/party's application.</p>
+
+        <p class="notes-h1">Reservation — Art 334 Timeline</p>
+        <div class="flash-row">
+          <span class="flash">Original: 10 years (1950–1960)</span>
+          <span class="flash gold">Extended 8 times by amendment</span>
+          <span class="flash red">104th Amend (2019) → until 2030</span>
+          <span class="flash plum">Anglo-Indian seats ABOLISHED (104th)</span>
+        </div>
+
+        <p class="notes-h1">EWS Reservation (103rd Amend, 2019)</p>
+        <div class="flash-row">
+          <span class="flash teal">Art 15(6) → 10% EWS in education</span>
+          <span class="flash teal">Art 16(6) → 10% EWS in jobs</span>
+        </div>
+
+        <p class="notes-h1">7th Schedule — 42nd Amend 1976 Transfers (State → Concurrent)</p>
+        <div class="flash-row">
+          <span class="flash red">Education</span>
+          <span class="flash red">Forests</span>
+          <span class="flash red">Weights &amp; Measures</span>
+          <span class="flash red">Wild Animals &amp; Birds</span>
+          <span class="flash red">Administration of Justice</span>
+        </div>
+
+        <p class="notes-h1">GST Council (Art 279A)</p>
+        <table class="nt">
+          <tr><td>Centre vote weight</td><td><span class="hi-red">1/3 of total</span></td></tr>
+          <tr><td>States collectively</td><td><span class="hi-teal">2/3 of total</span></td></tr>
+          <tr><td>Decision threshold</td><td><span class="hi">¾ of weighted votes</span></td></tr>
+          <tr><td>Result</td><td>Neither Centre alone nor all States alone can pass decisions</td></tr>
+        </table>
+
+        <p class="notes-h1">Constitutional vs Statutory Bodies</p>
+        <table class="nt">
+          <tr><th>Body</th><th>Type</th><th>Article</th></tr>
+          <tr><td>ECI</td><td class="yes">Constitutional</td><td>324</td></tr>
+          <tr><td>CAG</td><td class="yes">Constitutional</td><td>148</td></tr>
+          <tr><td>Finance Commission</td><td class="yes">Constitutional</td><td>280</td></tr>
+          <tr><td>NCSC</td><td class="yes">Constitutional</td><td>338</td></tr>
+          <tr><td><span class="hi-red">NHRC</span></td><td class="no">Statutory</td><td>PHR Act 1993</td></tr>
+          <tr><td><span class="hi-red">NCW</span></td><td class="no">Statutory</td><td>NCW Act 1990</td></tr>
+          <tr><td>NITI Aayog</td><td class="no">Executive</td><td>Cabinet Resolution</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Art 339A = SC case transfer. Art 334 extended to 2030 by 104th Amend. Art 16(4) = "backward class" NOT "OBC". 42nd Amend moved Education/Forests/Weights/Wild Animals/Admin of Justice to Concurrent. GST: Centre=1/3, States=2/3, need ¾ majority. NHRC/NCW = Statutory.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ECONOMY
+══════════════════════════════════════════════════════════ -->
+<div id="sec-economy" style="display:none;">
+  <div class="section-header visible">
+    <div class="section-title">Economy &amp; Institutions</div>
+    <div class="section-meta">GS III · 12 Topics · FDI · RBI · BoP · Monetary Policy · WPI/CPI</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">E-01</span>
+      <span class="topic-title">FDI — Routes, Prohibited Sectors, NRI Treatment</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Is tobacco manufacturing prohibited or only restricted?</p>
+        <p class="cue-q">NRI investing on repatriation basis = FDI or domestic?</p>
+        <p class="cue-q">Name 5 sectors where FDI is 0% (prohibited).</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Automatic vs Govt Route</span>
+        <span class="cue-kw">FEMA / DPIIT</span>
+        <span class="cue-kw">Repatriation = FDI</span>
+        <div class="trap-box">Tobacco manufacturing = <strong>completely prohibited (0%)</strong>, not merely restricted. NRI repatriation basis = treated as FDI. Non-repatriation = domestic investment.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">FDI Prohibited Sectors (0%)</p>
+        <div class="flash-row">
+          <span class="flash red">Lottery (govt/private/online)</span>
+          <span class="flash red">Gambling &amp; betting</span>
+          <span class="flash red">Chit funds</span>
+          <span class="flash red">Nidhi companies</span>
+          <span class="flash red">Real estate business / farm houses</span>
+          <span class="flash red">Tobacco manufacturing</span>
+          <span class="flash red">Atomic energy (Constitutional)</span>
+        </div>
+        <p class="notes-h1">Two Routes</p>
+        <table class="nt">
+          <tr><th>Route</th><th>Meaning</th><th>Examples</th></tr>
+          <tr><td>Automatic</td><td>No prior govt approval; just post-filing with RBI</td><td>Manufacturing, IT, infrastructure</td></tr>
+          <tr><td>Government</td><td>Prior ministry approval required</td><td>Defence &gt;74%, Print media, Brownfield pharma</td></tr>
+        </table>
+        <p class="notes-h1">NRI Investment Rule</p>
+        <div class="verdict-row">
+          <div class="v-right">NRI investing on <strong>repatriation basis</strong> = treated as FDI</div>
+          <div class="v-wrong">NRI investing on <strong>non-repatriation basis</strong> = treated as domestic (funds stay in India)</div>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Tobacco = 0% FDI (prohibited). Atomic energy = 0% (Constitutional ban). Two routes: Automatic (no approval) vs Government (prior approval). NRI repatriation basis = FDI.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">E-02 + E-03</span>
+      <span class="topic-title">SEBI Powers &amp; RBI PCA Framework</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Can SEBI attach bank accounts without court order?</p>
+        <p class="cue-q">What are 3 PCA trigger parameters?</p>
+        <p class="cue-q">What NPA % triggers PCA Threshold 1?</p>
+        <p class="cue-q">Are RRBs covered under PCA?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Sec 28A SEBI Act</span>
+        <span class="cue-kw">90 days Special Court</span>
+        <span class="cue-kw">NPA &gt;6% = Threshold 1</span>
+        <span class="cue-kw">CRAR &lt;9%</span>
+        <div class="trap-box">SEBI can attach FIRST without court order, then confirm with Special Court within <strong>90 days</strong>. NOT the reverse. RRBs ARE covered under PCA.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">SEBI — Asset Attachment Power (Sec 28A)</p>
+        <ul class="nb">
+          <li>Can attach movable/immovable property + bank accounts <span class="hi-red">WITHOUT approaching court first</span></li>
+          <li>Must confirm with <span class="hi">Special Court within 90 days</span> of attachment</li>
+          <li>CAN call information from any bank regarding securities transactions</li>
+        </ul>
+
+        <p class="notes-h1">RBI PCA — 3 Trigger Parameters (2021 Revised Framework)</p>
+        <table class="nt">
+          <tr><th>Parameter</th><th>Threshold 1</th><th>Threshold 2</th><th>Threshold 3</th></tr>
+          <tr><td><span class="hi">CRAR</span></td><td>&lt;15% but ≥12%</td><td>&lt;12% but ≥9%</td><td><span class="hi-red">&lt;9%</span></td></tr>
+          <tr><td><span class="hi">Tier I Capital</span></td><td>&lt;10% but ≥8%</td><td>&lt;8% but ≥6%</td><td>&lt;6%</td></tr>
+          <tr><td><span class="hi">Net NPA</span></td><td><span class="hi-red">&gt;6%</span> but ≤9%</td><td>&gt;9% but ≤12%</td><td>&gt;12%</td></tr>
+        </table>
+        <p class="notes-h1">PCA Mandatory Actions</p>
+        <div class="flash-row">
+          <span class="flash red">Dividend restriction</span>
+          <span class="flash red">No branch expansion</span>
+          <span class="flash red">Management compensation cap</span>
+          <span class="flash red">Mandatory special audit</span>
+        </div>
+        <p class="notes-h1">PCA Coverage</p>
+        <div class="verdict-row">
+          <div class="v-right">Scheduled Commercial Banks ✓</div>
+          <div class="v-right">RRBs (Regional Rural Banks) ✓</div>
+          <div class="v-right">NBFCs (systemically important, from Oct 2022) ✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>SEBI attaches first, confirms with Special Court within 90 days. PCA triggers: CRAR, Tier I Capital, Net NPA (&gt;6% = Threshold 1). RRBs and large NBFCs covered under PCA.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">E-04 to E-07</span>
+      <span class="topic-title">Sector Classification · Money Multiplier · WPI vs CPI · CAD Logic</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Is cotton ginning Primary or Secondary?</p>
+        <p class="cue-q">Money Multiplier formula? Effect of increasing reserve ratio?</p>
+        <p class="cue-q">CPI vs WPI — which covers services? Which does RBI use?</p>
+        <p class="cue-q">What is the ONLY necessarily true result of widening CAD?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Ginning = Secondary</span>
+        <span class="cue-kw">MM = 1/Reserve Ratio</span>
+        <span class="cue-kw">CPI = NSO</span>
+        <span class="cue-kw">WPI = OEA MoCI</span>
+        <div class="trap-box">↑ Reserve Ratio → ↓ Money Multiplier (INVERSE). CAD does NOT necessarily mean rupee depreciation or forex depletion — only means imports &gt; exports in aggregate.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Sector Classification</p>
+        <table class="nt">
+          <tr><th>Sector</th><th>Definition</th><th>Examples</th></tr>
+          <tr><td>Primary</td><td>Direct extraction from nature</td><td>Agriculture, mining, fishing, apiculture</td></tr>
+          <tr><td><span class="hi">Secondary</span></td><td>Transformation of raw materials</td><td>Manufacturing, <span class="hi-red">cotton ginning</span>, food processing</td></tr>
+          <tr><td>Tertiary</td><td>Services supporting above</td><td><span class="hi-red">Transport, communication</span>, trade, banking</td></tr>
+          <tr><td>Quaternary</td><td>Knowledge/information services</td><td>IT, R&amp;D, education, consulting</td></tr>
+          <tr><td>Quinary</td><td>Apex decision-making</td><td>CEOs, senior govt officials, top scientists</td></tr>
+        </table>
+        <p class="note" style="font-size:12px;"><span class="hi-red">Cotton ginning = Secondary</span> (physical transformation of cotton, not extraction). Transport = Tertiary, NOT Secondary.</p>
+
+        <p class="notes-h1">Money Multiplier</p>
+        <p class="note"><span class="code">MM = 1 ÷ Reserve Ratio</span>. If CRR = 10%, MM = 10. If CRR = 4%, MM = 25.</p>
+        <div class="verdict-row">
+          <div class="v-right">↑ Reserve Ratio → ↓ Money Multiplier (inverse — less credit)</div>
+          <div class="v-wrong">↑ Reserve Ratio → ↑ Money Multiplier [WRONG — this is the trap]</div>
+        </div>
+
+        <p class="notes-h1">WPI vs CPI</p>
+        <table class="nt">
+          <tr><th>Feature</th><th>WPI</th><th>CPI</th></tr>
+          <tr><td>Level</td><td>Wholesale/Producer</td><td>Retail/Consumer</td></tr>
+          <tr><td>Services?</td><td class="no">NO</td><td class="yes">YES</td></tr>
+          <tr><td>Highest weight</td><td>Manufactured goods (64%)</td><td>Food &amp; beverages (~46%)</td></tr>
+          <tr><td>Released by</td><td>OEA, Ministry of Commerce</td><td>NSO, Ministry of Statistics</td></tr>
+          <tr><td>RBI policy anchor?</td><td class="no">NO</td><td class="yes">YES (since Urjit Patel, 2014)</td></tr>
+          <tr><td>Base Year</td><td>2011-12</td><td>2012</td></tr>
+        </table>
+
+        <p class="notes-h1">Core Inflation</p>
+        <p class="note">Headline inflation MINUS food AND fuel. Reflects underlying demand-driven pressures. RBI targets <span class="hi">headline CPI at 4% (±2%)</span>.</p>
+
+        <p class="notes-h1">CAD — What Necessarily Follows?</p>
+        <div class="verdict-row">
+          <div class="v-right"><strong>Only this is definitionally true:</strong> Imports &gt; Exports in aggregate value (goods + services + income)</div>
+          <div class="v-wrong">Rupee WILL depreciate [Not necessarily — RBI intervention can support it]</div>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Cotton ginning = Secondary. Transport = Tertiary. MM = 1/RR (inverse relationship). WPI = no services, OEA; CPI = includes services, NSO, RBI anchor. CAD = imports &gt; exports in aggregate — only this is necessarily true.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">E-08 to E-12</span>
+      <span class="topic-title">PSL Norms · Rice Exports · DER · Repo Rate Logic</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What PSL target do foreign banks (&lt;20 branches) have? Agriculture sub-target?</p>
+        <p class="cue-q">What % of global rice trade does India account for?</p>
+        <p class="cue-q">Is demand response software a DER?</p>
+        <p class="cue-q">What is the ONLY necessarily true consequence of a Repo Rate cut?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Foreign banks = 40% PSL, no agri sub-target</span>
+        <span class="cue-kw">India = 40% rice</span>
+        <span class="cue-kw">DER = decentralised</span>
+        <div class="trap-box">Foreign banks &lt;20 branches: same 40% PSL target but NO specific agriculture sub-target. Repo rate cut → only overnight cost for banks decreases (definitionally) — inflation/FII flows are NOT necessarily true.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">PSL — Foreign Bank Rule (Key Trap)</p>
+        <table class="nt">
+          <tr><th>Bank Type</th><th>Total PSL</th><th>Agriculture Sub-target</th></tr>
+          <tr><td>Domestic SCBs</td><td>40% ANBC</td><td>18%</td></tr>
+          <tr><td>Foreign Banks ≥20 branches</td><td>40% ANBC</td><td>18%</td></tr>
+          <tr><td><span class="hi-red">Foreign Banks &lt;20 branches</span></td><td><span class="hi">40% ANBC (same)</span></td><td><span class="hi-red">NO specific sub-target</span></td></tr>
+          <tr><td>RRBs + SFBs</td><td>75% ANBC</td><td>18%</td></tr>
+        </table>
+
+        <p class="notes-h1">India's Rice Exports</p>
+        <div class="flash-row">
+          <span class="flash teal">World's largest rice exporter since 2012</span>
+          <span class="flash gold">~40% of global rice trade</span>
+          <span class="flash">20.1 MMT in FY2024-25</span>
+          <span class="flash">Frozen shrimp = largest marine export by value</span>
+        </div>
+
+        <p class="notes-h1">Distributed Energy Resources (DERs)</p>
+        <p class="note">Small-scale, decentralised power generation and storage units. ALL of these qualify:</p>
+        <div class="flash-row">
+          <span class="flash teal">EV Chargers (V2G)</span>
+          <span class="flash teal">Battery storage (behind meter)</span>
+          <span class="flash teal">Small hydro (&lt;25 MW)</span>
+          <span class="flash teal">Demand response software</span>
+        </div>
+
+        <p class="notes-h1">Repo Rate Cut — What Necessarily Follows?</p>
+        <div class="verdict-row">
+          <div class="v-right"><strong>Only definitionally true:</strong> Cost of overnight borrowing from RBI for banks <em>decreases</em></div>
+          <div class="v-wrong">Inflation will definitely fall [NOT necessarily — cheaper credit can increase demand]</div>
+        </div>
+        <p class="notes-h1">OMO Spectrum: Most Expansionary → Contractionary</p>
+        <div class="flash-row">
+          <span class="flash teal">RBI buys bonds (inject base money)</span>
+          <span class="flash teal">Reduce CRR</span>
+          <span class="flash">Reduce Repo Rate</span>
+          <span class="flash gold">Increase Repo Rate</span>
+          <span class="flash red">Increase CRR</span>
+          <span class="flash red">RBI sells bonds (withdraw base money)</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Foreign banks &lt;20 branches: same 40% PSL but NO agriculture sub-target. India = ~40% global rice trade. All 4 types are DERs. Repo cut → only overnight borrowing cost decreases (necessarily).</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ENVIRONMENT & SCIENCE
+══════════════════════════════════════════════════════════ -->
+<div id="sec-envtsci" style="display:none;">
+  <div class="section-header visible">
+    <div class="section-title">Environment &amp; Science</div>
+    <div class="section-meta">GS III · 12 Topics · Biofuels · SLCPs · Gene Therapy · ISA · Web 3.0</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">ES-01 + ES-02</span>
+      <span class="topic-title">National Policy on Biofuels &amp; Short-Lived Climate Pollutants</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Is CO₂ an SLCP? Why/why not?</p>
+        <p class="cue-q">Which treaty governs HFCs?</p>
+        <p class="cue-q">What feedstocks are permitted for ethanol under NPB 2022?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">CO₂ = NOT SLCP</span>
+        <span class="cue-kw">Kigali Amendment 2016</span>
+        <span class="cue-kw">E20 target 2025</span>
+        <span class="cue-kw">Methane GWP = 84×</span>
+        <div class="trap-box">CO₂ is the most discussed GHG but is <strong>NOT an SLCP</strong> — its atmospheric lifetime is 300–1,000 years. SLCPs last days to ~15 years.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">SLCPs — The Four</p>
+        <table class="nt">
+          <tr><th>Substance</th><th>Lifetime</th><th>GWP (20yr)</th><th>Key Sources</th><th>Treaty</th></tr>
+          <tr><td><span class="hi">Black Carbon</span></td><td>Days–weeks</td><td>Very high</td><td>Diesel, cookstoves, biomass</td><td>CCAC</td></tr>
+          <tr><td><span class="hi">Methane (CH₄)</span></td><td>~12 years</td><td>84× CO₂</td><td>Livestock, rice, landfills</td><td>Global Methane Pledge (India NOT signatory)</td></tr>
+          <tr><td><span class="hi">HFCs</span></td><td>Months–15 yr</td><td>1000–10,000×</td><td>AC, refrigerants</td><td><span class="hi-teal">Kigali Amend 2016</span></td></tr>
+          <tr><td><span class="hi">Tropospheric Ozone</span></td><td>Hours–weeks</td><td>Indirect</td><td>NOT directly emitted; NOx + VOCs</td><td>—</td></tr>
+          <tr><td><span class="hi-red">CO₂</span></td><td class="no">300–1000 yr</td><td>Baseline=1</td><td>Fossil fuels</td><td class="no">NOT an SLCP</td></tr>
+        </table>
+
+        <p class="notes-h1">NPB 2022 — Permitted Ethanol Feedstocks</p>
+        <div class="flash-row">
+          <span class="flash">Sugarcane juice / B-heavy molasses / C-heavy molasses</span>
+          <span class="flash gold">Damaged food grains</span>
+          <span class="flash gold">Broken rice</span>
+          <span class="flash gold">Maize</span>
+          <span class="flash gold">Sweet sorghum</span>
+          <span class="flash teal">Bamboo, rice straw, wheat straw, bagasse (2G)</span>
+        </div>
+        <p class="note" style="font-size:12px;">Target: <span class="hi">E20 (20% ethanol blend) by 2025</span> (preponed from 2030). India at ~18–19% in FY2024-25.</p>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>CO₂ is NOT an SLCP (300–1000 yr lifetime). SLCPs = Black Carbon, Methane (84× GWP), HFCs (Kigali 2016), Tropospheric Ozone. E20 target by 2025. NPB 2022 added maize, damaged grains, sweet sorghum as feedstocks.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">ES-03 to ES-06</span>
+      <span class="topic-title">Fuel Cells · Bio-indicators · Green Hydrogen · 30×30 Target</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What are the only by-products of a hydrogen fuel cell?</p>
+        <p class="cue-q">Can fuel cells power laptops?</p>
+        <p class="cue-q">Is biomass gasification a source of green/carbon-neutral hydrogen?</p>
+        <p class="cue-q">Where was 30×30 adopted? Which target number is it?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Heat + Water = only by-products</span>
+        <span class="cue-kw">DMFC for laptops</span>
+        <span class="cue-kw">All 4 = bio-indicators</span>
+        <span class="cue-kw">CBD COP15 Kunming-Montreal 2022</span>
+        <div class="trap-box">Aerogel is NOT a load-bearing structural material — it is extremely brittle. Used for insulation (space suits) and oil absorption only.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Fuel Cells — Key Facts</p>
+        <ul class="nb">
+          <li>Electrochemical device; converts H₂ + O₂ → electricity directly (no combustion)</li>
+          <li>By-products: <span class="hi-teal">ONLY heat and water vapour</span> — zero carbon</li>
+          <li>Power stationary buildings ✓ (Japan: 40,000+ PEM installations)</li>
+          <li>Power small devices (laptops) via <span class="hi">DMFC (Direct Methanol FC)</span> ✓</li>
+        </ul>
+        <p class="notes-h1">Bio-indicators — All 4 Qualify</p>
+        <table class="nt">
+          <tr><th>Organism</th><th>Indicates</th></tr>
+          <tr><td><span class="hi">Lichens</span></td><td>Air quality / SO₂ pollution (absent in polluted areas)</td></tr>
+          <tr><td><span class="hi">Frogs</span></td><td>Water quality (permeable skin absorbs pollutants directly)</td></tr>
+          <tr><td><span class="hi">Dragonflies</span></td><td>Freshwater health (larvae sensitive to dissolved O₂)</td></tr>
+          <tr><td><span class="hi">Sparrows</span></td><td>Urban biodiversity (pesticide use, habitat loss)</td></tr>
+        </table>
+        <p class="notes-h1">Green / Carbon-Neutral Hydrogen — All 4 Qualify</p>
+        <div class="flash-row">
+          <span class="flash teal">Wind energy electrolysis = Green H₂</span>
+          <span class="flash teal">Solar PV electrolysis = Green H₂</span>
+          <span class="flash gold">Biomass gasification = Carbon-neutral (CO₂ re-absorbed during growth)</span>
+          <span class="flash gold">MSW gasification = Carbon-neutral (biogenic fraction)</span>
+        </div>
+        <p class="notes-h1">30×30 Target</p>
+        <div class="flash-row">
+          <span class="flash red">CBD COP15 — Kunming-Montreal GBF, Dec 2022</span>
+          <span class="flash">Target 3 of 23 targets</span>
+          <span class="flash teal">30% land AND ocean protected by 2030</span>
+          <span class="flash">India current PA coverage ~5% — huge gap</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Fuel cells emit only heat + water. DMFC powers laptops. All 4 (lichens/frogs/dragonflies/sparrows) are bio-indicators. All 4 hydrogen sources qualify. 30×30 = CBD COP15 Kunming-Montreal 2022, Target 3.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">ES-07 to ES-12</span>
+      <span class="topic-title">Aerogel · Green Propellants · Cattle Methane · Gene Therapy · ISA · Web 3.0</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Where is aerogel used — and where NOT?</p>
+        <p class="cue-q">Which seaweed compound reduces cattle methane by 45–80%?</p>
+        <p class="cue-q">Is germline gene therapy banned or non-existent?</p>
+        <p class="cue-q">ISA headquartered where? Established under what?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Aerogel ≠ structural</span>
+        <span class="cue-kw">Asparagopsis / Bromoform</span>
+        <span class="cue-kw">Germline = banned not non-existent</span>
+        <span class="cue-kw">ISA = Kingston Jamaica</span>
+        <div class="trap-box">Gene therapy is NOT only somatic — germline therapy exists but is <strong>banned/restricted</strong>. Gene therapy CAN treat both inherited AND acquired diseases.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Aerogel</p>
+        <p class="note">Ultra-porous solid (95–99% empty space); lowest thermal conductivity of any solid; called "frozen smoke".</p>
+        <div class="verdict-row">
+          <div class="v-right">Space suit thermal insulation ✓ (NASA)</div>
+          <div class="v-right">Oil spill absorption ✓ (hydrophobic; absorbs 900× own weight)</div>
+          <div class="v-wrong">Structural load-bearing columns ✗ — extremely brittle</div>
+        </div>
+
+        <p class="notes-h1">Green Propellants — All 4 Qualify</p>
+        <div class="flash-row">
+          <span class="flash teal">Water (H₂O) — steam propulsion, CubeSats</span>
+          <span class="flash teal">Liquid oxygen (LOX) — LOX + LH₂ = cleanest rocket combination</span>
+          <span class="flash teal">Ionic liquids — non-toxic, non-flammable, microsats</span>
+          <span class="flash teal">Paraffin wax — hybrid rockets, non-toxic</span>
+        </div>
+
+        <p class="notes-h1">Cattle Methane — Feed Additives</p>
+        <table class="nt">
+          <tr><th>Additive</th><th>Evidence</th><th>Mechanism</th></tr>
+          <tr><td><span class="hi-red">Red Seaweed (Asparagopsis)</span></td><td>Very strong (45–80% reduction)</td><td><span class="hi">Bromoform inhibits MCR enzyme</span></td></tr>
+          <tr><td>Garlic oil</td><td>Moderate</td><td>Organosulphur compounds</td></tr>
+          <tr><td>Fish oil</td><td>Moderate</td><td>Omega-3 alters rumen fermentation</td></tr>
+          <tr><td>Lemon grass</td><td>Weak/inconsistent</td><td>Essential oils</td></tr>
+        </table>
+
+        <p class="notes-h1">Gene Therapy</p>
+        <table class="nt">
+          <tr><th>Type</th><th>Target</th><th>Inherited?</th><th>Status</th></tr>
+          <tr><td>Somatic</td><td>Non-reproductive body cells</td><td>Not heritable</td><td class="yes">Approved (Casgevy, CAR-T)</td></tr>
+          <tr><td>Germline</td><td>Egg/sperm/embryo</td><td>Heritable to all offspring</td><td class="no">Banned/restricted</td></tr>
+        </table>
+        <p class="note" style="font-size:12px;"><span class="hi">Viral vectors</span> = most efficient delivery. Modified HIV (lentiviral) used in CAR-T. Treats both inherited AND acquired diseases.</p>
+
+        <p class="notes-h1">ISA</p>
+        <div class="flash-row">
+          <span class="flash">Established under UNCLOS 1994</span>
+          <span class="flash red">HQ: Kingston, Jamaica</span>
+          <span class="flash teal">Regulates "the Area" — seabed beyond EEZ</span>
+          <span class="flash gold">Art 136 UNCLOS: "Common Heritage of Mankind"</span>
+          <span class="flash">India: 75,000 km² block in CIOB</span>
+        </div>
+
+        <p class="notes-h1">Web 3.0 — All 3 Statements Correct</p>
+        <div class="flash-row">
+          <span class="flash teal">Blockchain-based decentralisation ✓</span>
+          <span class="flash teal">Users own their data ✓</span>
+          <span class="flash teal">No centralised intermediaries ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Aerogel = insulation (space suits) + oil absorption; NOT structural. Red seaweed (Asparagopsis/bromoform) = strongest cattle methane reducer. Germline therapy exists but banned. ISA HQ = Kingston, Jamaica (UNCLOS). Web 3.0: all 3 statements correct.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     DEFENCE & CA
+══════════════════════════════════════════════════════════ -->
+<div id="sec-defence" style="display:none;">
+  <div class="section-header visible">
+    <div class="section-title">Defence, Sports &amp; Current Affairs</div>
+    <div class="section-meta">GS III / CA · 9 Topics · Olympic Medals · ASAT · Project Kusha · Military Exercises</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">D-01 + D-02</span>
+      <span class="topic-title">Women Olympic Medallists &amp; India's Digital Public Infrastructure</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">Which Indian woman athlete won 2 medals in a single Olympics?</p>
+        <p class="cue-q">India's share of global real-time digital payments?</p>
+        <p class="cue-q">How many countries have UPI/RuPay partnerships?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Manu Bhaker = 2 medals Paris 2024</span>
+        <span class="cue-kw">UPI = 49% global</span>
+        <span class="cue-kw">All 4 = Olympic medallists</span>
+        <div class="trap-box">None of the 4 athletes (Manu Bhaker, PV Sindhu, Saina Nehwal, Karnam Malleswari) received Bharat Ratna. They are all Olympic medallists.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Four Women Olympic Medallists</p>
+        <table class="nt">
+          <tr><th>Athlete</th><th>Sport</th><th>Medal(s)</th><th>Significance</th></tr>
+          <tr><td><span class="hi">Manu Bhaker</span></td><td>Shooting</td><td>2× Bronze (Paris 2024)</td><td>First Indian to win 2 medals in a single Olympics (modern era)</td></tr>
+          <tr><td><span class="hi">PV Sindhu</span></td><td>Badminton</td><td>Silver (Rio 2016) + Bronze (Tokyo 2020)</td><td>First Indian woman with 2 Olympic medals</td></tr>
+          <tr><td><span class="hi">Saina Nehwal</span></td><td>Badminton</td><td>Bronze (London 2012)</td><td>India's first Olympic badminton medal</td></tr>
+          <tr><td><span class="hi">Karnam Malleswari</span></td><td>Weightlifting</td><td>Bronze (Sydney 2000)</td><td>India's <span class="hi-red">first woman</span> Olympic medallist</td></tr>
+        </table>
+        <p class="note" style="font-size:12px;">Common thread: <span class="hi">All four have won at least one Olympic medal</span>. None received Bharat Ratna.</p>
+
+        <p class="notes-h1">India's DPI / UPI</p>
+        <div class="flash-row">
+          <span class="flash red">~49% of all global real-time digital payment transactions</span>
+          <span class="flash">IMF: World's largest real-time payment system (June 2025)</span>
+          <span class="flash gold">21.7 billion transactions/month (Jan 2026)</span>
+          <span class="flash teal">81% of all retail digital transactions in India</span>
+          <span class="flash">30+ countries with UPI/RuPay partnerships</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>All 4 women athletes are Olympic medallists. Manu Bhaker = 2 medals in single Olympics (Paris 2024). UPI = ~49% global real-time payments; 21.7B txns/month; 30+ countries.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">D-03 + D-04</span>
+      <span class="topic-title">Project Kusha &amp; India's Space Defence (Mission Shakti)</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What is Project Kusha? What is it comparable to?</p>
+        <p class="cue-q">Mission Shakti — target orbit: LEO or GEO?</p>
+        <p class="cue-q">Is India a signatory to the Outer Space Treaty?</p>
+        <p class="cue-q">What is DSA? Which services does it cover?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Kusha = LRSAM / ERADS</span>
+        <span class="cue-kw">S-400 equivalent</span>
+        <span class="cue-kw">Mission Shakti = LEO 283 km</span>
+        <span class="cue-kw">DSA = tri-service Bengaluru</span>
+        <div class="trap-box">Mission Shakti target was in <strong>LEO (283 km)</strong> — NOT GEO (35,786 km). This is the single biggest ASAT trap. India IS a signatory to Outer Space Treaty.</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Project Kusha</p>
+        <table class="nt">
+          <tr><th>Feature</th><th>Detail</th></tr>
+          <tr><td>Full name</td><td>ERADS (Extended Range Air Defence System / XRSAM)</td></tr>
+          <tr><td>Type</td><td>Long-Range Surface-to-Air Missile (LR-SAM)</td></tr>
+          <tr><td>Developer</td><td>DRDO</td></tr>
+          <tr><td>Comparable to</td><td><span class="hi-teal">Russia's S-400 (400 km range)</span></td></tr>
+          <tr><td>Ranges</td><td>M1: ~150 km; M2: ~250 km; M3: ~350–400 km</td></tr>
+          <tr><td>CCS approval</td><td>May 2022; ₹21,700 crore for 5 squadrons</td></tr>
+          <tr><td>Induction timeline</td><td>Phased: 2028–2030</td></tr>
+        </table>
+        <div class="trap-box" style="margin-top:6px;">NOT a joint venture with Israel for Iron Dome. NOT tethered balloons. NOT satellite ICBM warning. It is an indigenous LRSAM.</div>
+
+        <p class="notes-h1">Mission Shakti (2019)</p>
+        <div class="flash-row">
+          <span class="flash">27 March 2019</span>
+          <span class="flash gold">DRDO, PDV Mk-II interceptor</span>
+          <span class="flash red">Target: Microsat-R in LEO (283 km)</span>
+          <span class="flash">Kinetic Kill Vehicle (no explosion)</span>
+          <span class="flash teal">India = 4th country with ASAT (after USA 1985, Russia 1968, China 2007)</span>
+        </div>
+
+        <p class="notes-h1">Defence Space Agency (DSA)</p>
+        <div class="flash-row">
+          <span class="flash teal">Established 2019 after Mission Shakti</span>
+          <span class="flash">HQ: Bengaluru</span>
+          <span class="flash red">Tri-service (Army + Navy + Air Force)</span>
+        </div>
+
+        <p class="notes-h1">Outer Space Treaty (OST) 1967</p>
+        <p class="note"><span class="hi">India IS a signatory</span>. OST prohibits WMDs in orbit/on Moon. Does NOT explicitly prohibit conventional ASAT — grey area.</p>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Project Kusha = DRDO LRSAM (ERADS), S-400 equivalent, induction 2028–30. Mission Shakti = LEO (283 km), NOT GEO. India = 4th ASAT nation. DSA = tri-service, Bengaluru. India = OST signatory.</div>
+  </div>
+
+  <div class="cornell-card visible">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="topic-num">D-05 to D-09</span>
+      <span class="topic-title">Repechage · Khel Ratna · Durand Cup · Military Exercises · Sector Classification</span>
+      <button class="collapse-btn">▲</button>
+    </div>
+    <div class="card-body">
+      <div class="cue-col">
+        <span class="cue-heading">Key Questions</span>
+        <p class="cue-q">What is repechage?</p>
+        <p class="cue-q">Is "currently active" a mandatory Khel Ratna condition?</p>
+        <p class="cue-q">Which exercise: India-Egypt? India-Japan? India-France?</p>
+        <p class="cue-q">Is Durand Cup oldest in Asia or oldest globally?</p>
+        <p class="cue-q">How many trophies does Durand Cup winner receive?</p>
+        <span class="cue-heading">Keywords</span>
+        <span class="cue-kw">Repechage = second chance</span>
+        <span class="cue-kw">Cyclone = India-Egypt</span>
+        <span class="cue-kw">Dharma Guardian = India-Japan</span>
+        <span class="cue-kw">Durand = 3 trophies</span>
+        <div class="trap-box">"Currently active" is NOT a mandatory Khel Ratna condition — retired athletes can receive it. Desert Knight = India-France bilateral (UAE only in one specific 2021 edition — not always trilateral).</div>
+      </div>
+      <div class="notes-col">
+        <p class="notes-h1">Repechage</p>
+        <p class="note">French: "to fish out again." A format that gives athletes who lost in early rounds a second chance — triggered when the athlete they lost to reaches the <span class="hi">final</span>. Those athletes compete for <span class="hi">two bronze medals</span> (one per semi-final side). Used in wrestling, judo, rowing, taekwondo.</p>
+
+        <p class="notes-h1">Khel Ratna — Mandatory Conditions</p>
+        <div class="verdict-row">
+          <div class="v-right">Outstanding performance over 4 years ✓</div>
+          <div class="v-right">Clean anti-doping record ✓</div>
+          <div class="v-right">Indian citizen ✓</div>
+          <div class="v-wrong">"Currently active in the sport" — NOT mandatory ✗</div>
+        </div>
+
+        <p class="notes-h1">Durand Cup</p>
+        <div class="flash-row">
+          <span class="flash red">Founded 1888 (Shimla)</span>
+          <span class="flash teal">Oldest football tournament in Asia</span>
+          <span class="flash">3rd oldest globally (after FA Cup 1871, Scottish FA Cup 1873)</span>
+          <span class="flash gold">Organised: Indian Armed Forces + AIFF</span>
+          <span class="flash plum">Winner gets 3 trophies: Durand + Shimla + President's Cup</span>
+        </div>
+
+        <p class="notes-h1">Military Exercises</p>
+        <table class="nt">
+          <tr><th>Exercise</th><th>Partner(s)</th><th>Service</th></tr>
+          <tr><td><span class="hi">Cyclone</span></td><td><span class="hi-red">Egypt</span></td><td>Army / SF</td></tr>
+          <tr><td><span class="hi">Dharma Guardian</span></td><td><span class="hi-teal">Japan</span></td><td>Army</td></tr>
+          <tr><td><span class="hi">Desert Knight</span></td><td><span class="hi-gold">France</span> (bilateral)</td><td>Air Force</td></tr>
+          <tr><td>Shakti</td><td>France</td><td>Army</td></tr>
+          <tr><td>Yudh Abhyas</td><td>USA</td><td>Army</td></tr>
+          <tr><td>Malabar</td><td>USA, Japan, Australia</td><td>Navy</td></tr>
+          <tr><td>Varuna</td><td>France</td><td>Navy</td></tr>
+          <tr><td>Garuda</td><td>France</td><td>Air Force</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-bar"><span class="summary-label">SUMMARY</span>Repechage = second chance for losers to finalists (→ two bronzes). "Currently active" NOT mandatory for Khel Ratna. Cyclone=Egypt, Dharma Guardian=Japan, Desert Knight=France. Durand Cup: oldest in Asia, 3 trophies, Armed Forces + AIFF.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MASTER TABLE
+══════════════════════════════════════════════════════════ -->
+<div id="sec-master" class="master-section">
+  <div class="section-header visible">
+    <div class="section-title">Master Trap Table — All 47 Topics</div>
+    <div class="section-meta">Quick revision · Core fact + most common UPSC trap for each topic</div>
+  </div>
+  <table class="nt" style="font-size:12.5px;">
+    <tr><th style="width:5%;">#</th><th style="width:20%;">Topic</th><th style="width:38%;">Core UPSC Fact</th><th style="width:37%;">Most Common Trap</th></tr>
+    <tr><td>T-01</td><td>Pattanam/Pattana</td><td>Coastal/riverine commercial port-town; Pattanam = likely Muziris; KCHR since 2006</td><td>Confusing with military or religious sites</td></tr>
+    <tr><td>T-02</td><td>SW Monsoon</td><td>ITCZ shifts north May–Jun; Easterly Jet = onset burst; Kerala ~1 Jun, all India ~15 Jul</td><td>Confusing ITCZ timing; forgetting Easterly Jet role</td></tr>
+    <tr><td>T-03</td><td>Yavanika</td><td>Stage curtain; from "Yavana" (Greek); Hellenistic innovation</td><td>Confusing with musical instrument or character</td></tr>
+    <tr><td>T-04</td><td>Native Plants</td><td>Neem/Banyan/Teak = Native India; Eucalyptus = Australia, introduced 1790 Tipu Sultan</td><td>Thinking Eucalyptus is Indian</td></tr>
+    <tr><td>T-05</td><td>Sangam Literature</td><td>Tinai IS geography; Akam = love (3/4); Puram = war (1/4); Vellalar = Marudam</td><td>Saying Sangam has no geographical references</td></tr>
+    <tr><td>T-06</td><td>Megalithic Culture</td><td>Iron Age; BRW pottery + iron tools; Adichanallur = urn burials; Brahmagiri = Mortimer Wheeler</td><td>Confining distribution only to Western Ghats</td></tr>
+    <tr><td>T-07</td><td>Aravalli Rivers</td><td>BALS: Banas, Sabarmati, Luni (→Rann), Sahibi. Narmada/Mahi/Tapti = NOT from Aravallis</td><td>Confusing west-flowing rivers with Aravalli rivers</td></tr>
+    <tr><td>T-08</td><td>Vellalar</td><td>Settled agrarian land-owning cultivators; Marudam tinai; supplied admins to 3 kingdoms</td><td>Confusing with nomadic, priestly, or foreign traders</td></tr>
+    <tr><td>T-09</td><td>Dholavira</td><td>ONLY IVC city with 3 tiers (Citadel + Middle Town + Lower Town); stone; 16+ reservoirs; UNESCO 2021</td><td>Saying Mohenjo-daro also has three tiers</td></tr>
+    <tr><td>P-01</td><td>National Symbols</td><td>Flag 22 Jul 1947; Anthem + Song both 24 Jan 1950; Emblem 26 Jan 1950; Tiger replaced Lion 1973</td><td>Saying Flag was adopted in 1950</td></tr>
+    <tr><td>P-02</td><td>Article 72</td><td>IS subject to limited judicial review (Epuru Sudhakar). No reasons required. Only President can pardon death sentence</td><td>Saying pardoning power has NO judicial review</td></tr>
+    <tr><td>P-03</td><td>Emergency &amp; FRs</td><td>Art 358 = automatic Art 19 suspension. Art 359 = Presidential order. Arts 20 &amp; 21 can NEVER be suspended</td><td>Saying ALL FRs automatically suspended; or Art 21 can be suspended</td></tr>
+    <tr><td>P-04</td><td>SC Powers</td><td>Art 139A = transfer cases from HC. SC can act suo motu (Art 32 + PIL)</td><td>Saying SC cannot transfer cases from HC to itself</td></tr>
+    <tr><td>P-05</td><td>Reservation Art 334</td><td>Original 10 years; extended 8 times; currently until 2030 (104th Amend); Anglo-Indian seats abolished</td><td>Saying reservation was always permanent</td></tr>
+    <tr><td>P-06</td><td>OBC Reservation</td><td>Art 16(4) says "backward class" NOT explicitly "OBC". OBC came via Mandal Commission 1990</td><td>Saying Constitution explicitly uses the word "OBC"</td></tr>
+    <tr><td>P-07</td><td>Constitutional vs Statutory</td><td>NCSC (338) + Finance Commission (280) = Constitutional. NHRC, CIC, NCW = Statutory. NITI Aayog = Executive</td><td>Calling NHRC or NCW "constitutional bodies"</td></tr>
+    <tr><td>P-08</td><td>7th Schedule / 42nd Amend</td><td>Education, Forests, Weights, Wild Animals, Admin of Justice moved State→Concurrent in 1976</td><td>Saying Education was always in Concurrent List</td></tr>
+    <tr><td>E-01</td><td>FDI Prohibited</td><td>Tobacco manufacturing = 0% (prohibited). NRI repatriation basis = FDI; non-repatriation = domestic</td><td>Thinking tobacco is just restricted, not prohibited</td></tr>
+    <tr><td>E-02</td><td>SEBI Powers</td><td>Attach assets WITHOUT court order first; Special Court confirmation within 90 days. CAN call info from banks</td><td>Saying SEBI needs prior court order</td></tr>
+    <tr><td>E-03</td><td>RBI PCA Framework</td><td>3 triggers: CRAR, Tier I Capital, Net NPA (&gt;6%=Threshold 1). RRBs + large NBFCs covered</td><td>Forgetting RRBs are covered</td></tr>
+    <tr><td>E-04</td><td>DERs</td><td>All 4 are DERs: EV chargers, battery storage, small hydro (&lt;25 MW), demand response software</td><td>Excluding demand response software as "not physical"</td></tr>
+    <tr><td>E-05</td><td>GST Council</td><td>Centre = 1/3 weight; States collectively = 2/3; decisions need ¾ majority. Art 279A, 101st Amend</td><td>Confusing Centre's 1/3 weight with a veto power</td></tr>
+    <tr><td>E-06</td><td>Sector Classification</td><td>Cotton ginning = Secondary (transformation). Transport = Tertiary. Quinary = apex decision-making</td><td>Placing transport in Secondary; ginning in Primary</td></tr>
+    <tr><td>E-07</td><td>Money Multiplier</td><td>MM = 1/Reserve Ratio (inverse). ↑RR → ↓MM. If CRR=10%, MM=10. If CRR=4%, MM=25</td><td>Saying ↑Reserve Ratio increases multiplier</td></tr>
+    <tr><td>E-08</td><td>Rice/Marine Exports</td><td>India = world's largest rice exporter (~40% global share). Frozen shrimp = largest marine export by value</td><td>Thinking India's 40% share is overstated</td></tr>
+    <tr><td>E-09</td><td>PSL — Foreign Banks</td><td>Foreign banks &lt;20 branches: same 40% PSL but NO agriculture sub-target</td><td>Saying foreign banks have lower overall PSL targets</td></tr>
+    <tr><td>E-10</td><td>WPI vs CPI</td><td>WPI = no services, OEA, manufactured goods 64%. CPI = includes services, NSO, food 46%, RBI anchor</td><td>Saying CPI excludes services; or WPI is RBI anchor</td></tr>
+    <tr><td>E-11</td><td>Core Inflation</td><td>Excludes BOTH food AND fuel. Reflects underlying demand pressures. RBI targets headline CPI at 4%</td><td>Saying core inflation excludes only food</td></tr>
+    <tr><td>E-12</td><td>CAD + Repo Rate</td><td>CAD definitionally = imports &gt; exports. Repo cut definitionally = overnight cost for banks decreases. Nothing else necessarily follows</td><td>Saying CAD = rupee must depreciate; or repo cut = FIIs necessarily invest more</td></tr>
+    <tr><td>ES-01</td><td>NPB / Ethanol</td><td>All 4 (damaged grains, broken rice, maize, sweet sorghum) permitted. E20 target 2025</td><td>Thinking only sugarcane-based sources allowed</td></tr>
+    <tr><td>ES-02</td><td>SLCPs</td><td>Black carbon, methane (84×GWP), HFCs, tropospheric ozone = SLCPs. CO₂ is NOT an SLCP</td><td>Including CO₂ among SLCPs</td></tr>
+    <tr><td>ES-03</td><td>Fuel Cells</td><td>Emit only heat + water vapour. Power stationary buildings AND laptops (DMFC). All 3 statements correct</td><td>Thinking laptops can't use fuel cells</td></tr>
+    <tr><td>ES-04</td><td>Bio-indicators</td><td>All 4 qualify: lichens (air), frogs (water), dragonflies (freshwater), sparrows (urban biodiversity)</td><td>Excluding dragonflies or sparrows</td></tr>
+    <tr><td>ES-05</td><td>Green Hydrogen</td><td>All 4 qualify: wind/solar = green H₂; biomass/MSW gasification = carbon-neutral H₂</td><td>Excluding biomass/MSW as "not green enough"</td></tr>
+    <tr><td>ES-06</td><td>30×30 Target</td><td>CBD COP15 Kunming-Montreal GBF, December 2022. Target 3. 30% land AND ocean by 2030</td><td>Confusing with a carbon emission target; wrong treaty body</td></tr>
+    <tr><td>ES-07</td><td>Aerogel</td><td>Space suit insulation ✓; oil spill absorption ✓; NOT structural load-bearing ✗ (extremely brittle)</td><td>Thinking aerogel can bear structural loads</td></tr>
+    <tr><td>ES-08</td><td>Green Propellants</td><td>All 4 qualify: water, liquid oxygen, ionic liquids, paraffin wax</td><td>Thinking water or paraffin wax can't be propellants</td></tr>
+    <tr><td>ES-09</td><td>Cattle Methane</td><td>Red seaweed (Asparagopsis / bromoform) = 45–80% reduction. Strongest evidence</td><td>Thinking all 4 additives have equal evidence</td></tr>
+    <tr><td>ES-10</td><td>Gene Therapy</td><td>Viral vectors ✓; germline exists but BANNED (not non-existent); treats inherited AND acquired diseases</td><td>Saying gene therapy is ONLY somatic</td></tr>
+    <tr><td>ES-11</td><td>ISA</td><td>HQ: Kingston, Jamaica. Established under UNCLOS 1994. Regulates "the Area" — beyond EEZ. Art 136 = Common Heritage of Mankind</td><td>Confusing ISA with ITLOS or IHO</td></tr>
+    <tr><td>ES-12</td><td>Web 3.0</td><td>All 3 statements correct: blockchain-based ✓; user data ownership ✓; no centralised intermediaries ✓</td><td>Thinking Web 3.0 still needs intermediaries</td></tr>
+    <tr><td>D-01</td><td>Women Olympic Medallists</td><td>All 4 are Olympic medallists. Manu Bhaker = 2 medals in single Olympics. Karnam Malleswari = first Indian woman medallist (Sydney 2000)</td><td>Thinking one of the four is NOT an Olympic medallist</td></tr>
+    <tr><td>D-02</td><td>India DPI / UPI</td><td>~49% global real-time payments. IMF recognised. 21.7B txns/month. 30+ countries</td><td>Using "50%" — actual is ~49%</td></tr>
+    <tr><td>D-03</td><td>Project Kusha</td><td>DRDO indigenous LRSAM (ERADS); S-400 equivalent; range 150–400 km; CCS approved 2022; induction 2028–30</td><td>Saying it is a joint venture with Israel for Iron Dome</td></tr>
+    <tr><td>D-04</td><td>Mission Shakti / DSA</td><td>Mission Shakti target = LEO (283 km), NOT GEO. India = 4th ASAT nation. DSA = tri-service, Bengaluru</td><td>Saying GEO interception — the biggest single ASAT trap</td></tr>
+    <tr><td>D-05</td><td>Repechage</td><td>Second chance for athletes who lost to eventual finalists; leads to two bronze medals. Used in wrestling, judo, rowing</td><td>Confusing with doping procedure or seeding</td></tr>
+    <tr><td>D-06</td><td>Khel Ratna</td><td>"Currently active" is NOT a mandatory condition. Mandatory: 4-year outstanding performance, clean doping record, Indian citizen</td><td>Thinking "currently active" is always mandatory</td></tr>
+    <tr><td>D-07</td><td>Durand Cup</td><td>Oldest in Asia (1888); 3rd oldest globally; Indian Armed Forces + AIFF; winner gets 3 trophies (Durand + Shimla + President's Cup)</td><td>Thinking only one trophy is given</td></tr>
+    <tr><td>D-08</td><td>Military Exercises</td><td>Cyclone = India-Egypt; Dharma Guardian = India-Japan; Desert Knight = India-France (UAE only in one edition)</td><td>Treating Desert Knight as always trilateral India-France-UAE</td></tr>
+    <tr><td>D-09</td><td>Sector Classification</td><td>Transport &amp; Communication = Tertiary (NOT Secondary). Quinary = apex decision-making. Quaternary = knowledge/R&amp;D/IT</td><td>Placing transport in Secondary</td></tr>
+  </table>
+</div>
+
+</div><!-- end page-wrap -->
+
+<script>
+function showSection(id) {
+  const sections = ['home','histgeo','polity','economy','envtsci','defence','master'];
+  sections.forEach(s => {
+    const el = document.getElementById('sec-' + s);
+    if (el) el.style.display = (s === id) ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-tab').forEach((t, i) => {
+    t.classList.toggle('active', sections[i] === id);
+  });
+}
+
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const btn = header.querySelector('.collapse-btn');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    btn.textContent = '▲';
+  } else {
+    body.classList.add('collapsed');
+    btn.textContent = '▼';
+  }
+}
+
+function doSearch(q) {
+  if (!q || q.length < 2) { clearSearch(); return; }
+  q = q.toLowerCase();
+  const sections = ['histgeo','polity','economy','envtsci','defence'];
+  // Show all sections, highlight matches
+  document.getElementById('sec-home').style.display = 'none';
+  document.getElementById('sec-master').style.display = 'none';
+  sections.forEach(s => {
+    const el = document.getElementById('sec-' + s);
+    if (el) el.style.display = 'block';
+  });
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+  document.querySelectorAll('.cornell-card').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (text.includes(q)) {
+      card.style.display = 'block';
+      card.style.outline = '2px solid #8b1a1a';
+      const body = card.querySelector('.card-body');
+      if (body) body.classList.remove('collapsed');
+    } else {
+      card.style.display = 'none';
+      card.style.outline = '';
+    }
+  });
+  document.querySelectorAll('.section-header').forEach(h => h.classList.add('visible'));
+}
+
+function clearSearch() {
+  document.getElementById('globalSearch').value = '';
+  document.querySelectorAll('.cornell-card').forEach(card => {
+    card.style.display = '';
+    card.style.outline = '';
+  });
+  showSection('home');
+}
+</script>
+</body>
+</html>
