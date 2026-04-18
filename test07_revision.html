@@ -1,0 +1,715 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0;font-family:var(--font-sans)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.tab{padding:6px 13px;font-size:12.5px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;transition:all .12s}
+.tab.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;border-color:var(--color-border-primary)}
+.cornell{display:grid;grid-template-columns:200px 1fr;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;min-height:400px}
+.cue-pane{background:var(--color-background-secondary);border-right:0.5px solid var(--color-border-tertiary);padding:10px}
+.cue-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.cue-item{font-size:12.5px;color:var(--color-text-secondary);padding:7px 6px;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;line-height:1.5;border-radius:4px}
+.cue-item:last-child{border-bottom:none}
+.cue-item:hover{color:var(--color-text-primary);background:var(--color-background-primary)}
+.cue-item.sel{color:var(--color-text-primary);font-weight:500;background:var(--color-background-primary)}
+.notes-pane{background:var(--color-background-primary);padding:14px}
+.q-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.q-num{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;background:#E6F1FB;color:#0C447C}
+.q-ans{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;background:#EAF3DE;color:#27500A}
+.q-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;line-height:1.5}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500}
+.cp-blue{background:#E6F1FB;color:#0C447C}
+.cp-teal{background:#E1F5EE;color:#085041}
+.cp-amber{background:#FAEEDA;color:#633806}
+.cp-coral{background:#FAECE7;color:#712B13}
+.cp-purple{background:#EEEDFE;color:#3C3489}
+.cp-green{background:#EAF3DE;color:#27500A}
+.cp-red{background:#FCEBEB;color:#791F1F}
+.point{display:flex;gap:7px;margin-bottom:7px;align-items:baseline}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:8px}
+.dot-blue{background:#378ADD}.dot-teal{background:#1D9E75}.dot-amber{background:#BA7517}
+.dot-coral{background:#D85A30}.dot-purple{background:#7F77DD}.dot-red{background:#E24B4A}
+.pt{font-size:13px;color:var(--color-text-primary);line-height:1.7}
+.pt b{font-weight:500}
+.trap{background:#FAEEDA;border-radius:var(--border-radius-md);padding:9px 12px;margin:10px 0;font-size:12.5px;color:#633806;line-height:1.6}
+.trap-label{font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.mtable{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0;table-layout:fixed}
+.mtable th{font-size:10.5px;font-weight:500;color:var(--color-text-secondary);padding:4px 6px;border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:.04em;text-align:left}
+.mtable td{padding:5px 6px;color:var(--color-text-primary);border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:top}
+.mtable tr:last-child td{border-bottom:none}
+.mtable tr:hover td{background:var(--color-background-secondary)}
+.sumbox{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-top:10px}
+.sum-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.sum-txt{font-size:12.5px;color:var(--color-text-secondary);line-height:1.6}
+.mcq-wrap{margin-top:12px;border-top:0.5px solid var(--color-border-tertiary);padding-top:12px}
+.mcq-q{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px}
+.mcq-meta{font-size:10.5px;color:var(--color-text-tertiary);margin-bottom:7px;text-transform:uppercase;letter-spacing:.04em}
+.opt{padding:6px 10px;font-size:12.5px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);cursor:pointer;color:var(--color-text-secondary);background:var(--color-background-primary);margin-bottom:4px;transition:all .1s}
+.opt:hover{border-color:var(--color-border-secondary);color:var(--color-text-primary)}
+.opt.correct{background:#EAF3DE;border-color:#639922;color:#27500A}
+.opt.wrong{background:#FCEBEB;border-color:#A32D2D;color:#501313}
+.exp{font-size:12.5px;color:var(--color-text-secondary);line-height:1.6;margin-top:7px;padding:9px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);display:none}
+.nxt{margin-top:8px;padding:6px 14px;font-size:12.5px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;background:var(--color-background-primary);color:var(--color-text-primary);display:none}
+.nxt:hover{background:var(--color-background-secondary)}
+.progress{font-size:11px;color:var(--color-text-tertiary);margin-bottom:12px}
+</style>
+<div class="wrap">
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Test 07 wrong questions — complete revision tool with Cornell notes and practice MCQs</h2>
+<div class="tabs" id="tabBar"></div>
+<div id="main"></div>
+</div>
+<script>
+const subjects=[
+{id:'history',label:'History & Geo',color:'teal',qs:[
+{n:'Q1',ans:'(d)',title:'Pattanam — ancient port towns',chips:[{t:'IVC/Ancient',c:'teal'},{t:'Trade',c:'blue'},{t:'Kerala',c:'amber'}],
+points:[
+{c:'teal',t:'<b>Pattanam/Pattana</b> = Tamil/Sanskrit for a coastal or riverine port-town, centre of maritime commerce'},
+{c:'blue',t:'Pattanam site is in Ernakulam district, Kerala — likely <b>Muziris</b> (Muciri Pattinam) of Sangam-age fame'},
+{c:'amber',t:'Excavated since 2006 by <b>KCHR under Muziris Heritage Project</b>; artefacts 3rd BCE to 10th CE'},
+{c:'coral',t:'Found: Roman wine amphorae, West Asian ceramics, Iron Age pottery — connected 40+ ancient ports'},
+{c:'purple',t:'Not military, not religious — strictly a <b>commercial port-town</b>'}
+],trap:'Pattanam ≠ nagara (inland city) ≠ shreni (guild). Pattanam = coastal/port trading town.',
+table:{h:['Term','Meaning'],rows:[['Pattanam/Pattana','Coastal port-town'],['Nagara','Inland administrative city'],['Shreni','Trade guild (not a place)'],['Vanigrama','Merchant settlement']]},
+sum:'Pattanam = Muziris = Indo-Roman trade hub on Kerala\'s Malabar coast. Excavated under Muziris Heritage Project by KCHR.',
+mcqs:[{q:'The archaeological site of Pattanam (Kerala) is believed to be which ancient port?',opts:['Kaveripattinam','Tondi','Muziris','Arikamedu'],ans:2,exp:'Pattanam in Ernakulam district is identified with Muziris (Muciri Pattinam), mentioned in Greek, Roman and Sangam texts as a major Indo-Roman trade hub.'}]},
+
+{n:'Q6',ans:'(A)',title:'National symbols — chronological order',chips:[{t:'P→R→Q→S',c:'green'},{t:'1947→1950→1950→1973',c:'blue'}],
+points:[
+{c:'blue',t:'Flag (Tricolour): <b>22 July 1947</b> — Constituent Assembly; designed by Pingali Venkayya; Ashoka Chakra replaced charkha'},
+{c:'teal',t:'National Anthem (Jana Gana Mana): <b>24 January 1950</b> — Tagore; formally adopted by Constituent Assembly'},
+{c:'amber',t:'National Emblem (Lion Capital of Sarnath): <b>26 January 1950</b> — Republic Day; "Satyameva Jayate" from Mundaka Upanishad'},
+{c:'coral',t:'National Animal (Tiger): <b>April 1973</b> — replaced Lion, coincided with launch of <b>Project Tiger</b>'}
+],trap:'Anthem (24 Jan) came TWO DAYS BEFORE Emblem (26 Jan / Republic Day). Flag is 1947, not 1950.',
+table:{h:['Symbol','Date'],rows:[['National Flag','22 July 1947'],['National Anthem','24 Jan 1950'],['National Emblem','26 Jan 1950'],['National Animal (Tiger)','April 1973']]},
+sum:'P (Flag 1947) → R (Anthem 24 Jan 1950) → Q (Emblem 26 Jan 1950) → S (Tiger 1973).',
+mcqs:[{q:'National Anthem was adopted on:',opts:['22 July 1947','24 January 1950','26 January 1950','15 August 1947'],ans:1,exp:'Jana Gana Mana was formally adopted by the Constituent Assembly on 24 January 1950 — two days before Republic Day and the National Emblem.'}]},
+
+{n:'Q39',ans:'(a)',title:'Yavanika — ancient Indian theatre',chips:[{t:'Natyashastra',c:'purple'},{t:'Greek origin',c:'teal'},{t:'Stage curtain',c:'amber'}],
+points:[
+{c:'teal',t:'<b>Yavanika</b> = the stage curtain in Sanskrit drama; derived from "Yavana" (Sanskrit for Greeks)'},
+{c:'blue',t:'Greeks used curtains to separate stage from audience; Indians adopted the practice and named it after Greeks'},
+{c:'amber',t:'Mentioned in <b>Bhasa\'s Dridiracharudatta</b>; codified in <b>Natyashastra</b> by Bharata Muni'},
+{c:'purple',t:'Other terms: Sutradhara (director), Vidushaka (jester), Nayaka (hero), Nayika (heroine), Purvaranga (preliminary rites)'}
+],trap:'Yavanika = CURTAIN only. Greek connection is context; the answer is simply "stage curtain".',
+table:{h:['Term','Meaning'],rows:[['Yavanika','Stage curtain'],['Sutradhara','Stage manager/director'],['Vidushaka','Comic jester'],['Purvaranga','Preliminary rites before play']]},
+sum:'Yavanika = stage curtain; word derived from "Yavana" (Greeks) who introduced curtained stages to India.',
+mcqs:[{q:'The term "Yavanika" in ancient Indian drama refers to:',opts:['The hero\'s crown','Stage curtain','Rhythmic drum beat','Comedic dialogue'],ans:1,exp:'Yavanika is the Sanskrit stage curtain, named after "Yavana" (Greeks), whose theatrical curtain practice was adopted into Sanskrit drama tradition.'}]},
+
+{n:'Q75',ans:'(b)',title:'Sangam literature — key features',chips:[{t:'Only 2 correct',c:'amber'},{t:'Tinai system',c:'teal'},{t:'Akam/Puram',c:'blue'}],
+points:[
+{c:'red',t:'Stmt 1 FALSE — Sangam poetry is DEEPLY tied to geography via <b>Tinai system</b> (5 ecological landscapes: Kurinji, Mullai, Marudam, Neytal, Palai)'},
+{c:'teal',t:'Stmt 2 TRUE — <b>Akam</b> (inner/love poetry) vs <b>Puram</b> (outer/war/praise) is the fundamental organising binary'},
+{c:'blue',t:'Stmt 3 TRUE — Sangam texts explicitly mention <b>Yavana merchants</b> bringing gold; ports like Puhar and Tondi named'},
+{c:'amber',t:'Sangam period: ~300 BCE – 300 CE; Three Sangams at <b>Madurai</b> (1st & 3rd) and <b>Kapatapuram</b> (2nd, submerged)'}
+],trap:'Statement 1 is the trap — Sangam IS geography-linked (the Tinai system is famous for this).',
+table:{h:['Tinai','Landscape','Theme'],rows:[['Kurinji','Hills','Love/Union'],['Mullai','Forest','Waiting'],['Marudam','Plains','Quarrel'],['Neytal','Coast','Separation'],['Palai','Desert','Hardship']]},
+sum:'Stmts 2 & 3 correct. Sangam IS geography-linked (Tinai). Akam/Puram division + Indo-Roman trade references are correct.',
+mcqs:[{q:'Which Sangam academy is said to have been submerged in the sea?',opts:['First (Madurai)','Second (Kapatapuram)','Third (Madurai)','Fourth (Korkai)'],ans:1,exp:'The second Sangam academy was held at Kapatapuram, which is said to have been swallowed by the sea. The first and third Sangams were both at Madurai.'}]},
+
+{n:'Q78',ans:'(b)',title:'Megalithic burials in South India',chips:[{t:'Only 2 correct',c:'amber'},{t:'Iron Age',c:'coral'},{t:'Not only W Ghats',c:'red'}],
+points:[
+{c:'teal',t:'Stmt 1 TRUE — "Megalith" = large stone (Greek). Burial chambers, dolmens, cists, cairns all use large stones'},
+{c:'blue',t:'Stmt 2 TRUE — South Indian megaliths = Iron Age (~1200–300 BCE); iron tools, weapons, black-and-red ware found'},
+{c:'red',t:'Stmt 3 FALSE — NOT exclusively Western Ghats; found across Kerala, Tamil Nadu, Karnataka, AP, Maharashtra, Odisha'},
+{c:'amber',t:'Key sites: Adichanallur (TN), Hallur (Karnataka, ~1000 BCE), Brahmagiri (Karnataka — excavated by Mortimer Wheeler)'}
+],trap:'Statement 3 is the trap — megaliths are widespread across the Deccan and peninsular India, not confined to Western Ghats.',
+table:{h:['Type','Description'],rows:[['Dolmen','Capstone over uprights; burial chamber'],['Cist','Stone-lined underground box grave'],['Urn burial','Body/ashes in pottery urn'],['Menhir','Single standing stone']]},
+sum:'Large stones ✓, iron tools ✓, NOT exclusively Western Ghats ✗. Distributed across entire peninsular India.',
+mcqs:[{q:'Adichanallur, a famous megalithic burial site, is located in:',opts:['Karnataka','Andhra Pradesh','Tamil Nadu','Kerala'],ans:2,exp:'Adichanallur is in Tamil Nadu. It is known for urn burials, iron tools, and early Tamil Brahmi inscriptions. It was first excavated by Louis Cousens in the late 19th century.'}]},
+
+{n:'Q89',ans:'(b)',title:'Vellalar in Sangam age',chips:[{t:'Agrarian land-owners',c:'green'},{t:'Marudam tinai',c:'teal'}],
+points:[
+{c:'teal',t:'<b>Vellalar</b> = dominant agrarian landowning community of ancient Tamil society; cultivated the Marudam (plains) landscape'},
+{c:'blue',t:'Involved in wet paddy cultivation; socially prestigious non-Brahmin community; "vell" = to cultivate/tame'},
+{c:'amber',t:'NOT priestly (Brahmins), NOT nomadic hunters (Kuravar), NOT foreign traders (Vanikars)'},
+{c:'coral',t:'Sangam social structure by Tinai: Vellalar (plains), Paravar (coast), Kuravar (hills), Idaiyar (forest), Maravar (arid)'}
+],trap:'Vellalar = land-owning settled cultivators, NOT warriors or traders.',
+table:{h:['Community','Landscape','Activity'],rows:[['Vellalar','Marudam (plains)','Agriculture, land-owning'],['Paravar','Neytal (coast)','Fishing, pearl diving'],['Kuravar','Kurinji (hills)','Hunting'],['Maravar','Palai (arid)','Warfare, raiding']]},
+sum:'Vellalar = agrarian land-owning settled cultivators of the marudam (agricultural plains) landscape in Sangam Tamil society.',
+mcqs:[{q:'In Sangam age social structure, which community was associated with the Neytal (coastal) landscape?',opts:['Vellalar','Maravar','Paravar','Idaiyar'],ans:2,exp:'The Paravar community was associated with the Neytal (coastal/seashore) tinai — they were fishers, pearl divers, and maritime traders. Not to be confused with Vellalar (plains cultivators).'}]},
+
+{n:'Q16',ans:'(C)',title:'Monsoon formation — causal sequence',chips:[{t:'S→Q→P→R',c:'blue'},{t:'ITCZ shift',c:'teal'},{t:'Differential heating',c:'amber'}],
+points:[
+{c:'amber',t:'S first: <b>Differential heating</b> of Indian landmass vs Indian Ocean (Mar–May); Tibetan Plateau acts as heat engine'},
+{c:'teal',t:'Q second: <b>ITCZ shifts northward</b> to 20°–25°N over Indo-Gangetic Plain — becomes the Monsoon Trough; westerly jet withdraws'},
+{c:'blue',t:'P third: Intense <b>low pressure</b> develops over Thar Desert and NW India'},
+{c:'coral',t:'R fourth: Moisture-laden SE trade winds cross equator → deflected by Coriolis → <b>SW monsoon</b> surges toward India in two branches'}
+],trap:'The sequence is causal, not simultaneous. Differential heating CAUSES ITCZ shift which CAUSES low pressure which CAUSES moisture inflow.',
+table:{h:['Branch','Path','Rainfall'],rows:[['Arabian Sea','Western Ghats → Deccan → BoB','Heavy orographic on Ghats; rain-shadow Deccan'],['Bay of Bengal','NE India → Gangetic plain','Cherrapunji (1000cm/yr) due to orographic + funneling']]},
+sum:'S (differential heating) → Q (ITCZ northward shift) → P (Thar low pressure) → R (SW monsoon moisture inflow).',
+mcqs:[{q:'The ITCZ during peak summer monsoon is located over:',opts:['The Arabian Sea','The Bay of Bengal','The Indo-Gangetic Plain','The Tibetan Plateau'],ans:2,exp:'The ITCZ shifts northward during summer, settling over the Indo-Gangetic Plain (around 20°–25°N) where it is called the Monsoon Trough. Its position here draws in the SW monsoon winds.'}]},
+
+{n:'Q80',ans:'(d)',title:'Rivers originating from Aravallis',chips:[{t:'None of the listed',c:'red'},{t:'Banas/Sabarmati/Luni',c:'teal'}],
+points:[
+{c:'red',t:'<b>None</b> of Narmada, Mahi, Tapti, Son originate from Aravallis'},
+{c:'blue',t:'Narmada: Amarkantak Plateau (MP) → Arabian Sea; Tapti: Satpura Range (Betul, MP) → Arabian Sea'},
+{c:'amber',t:'Mahi: Vindhya Range (MP) → Arabian Sea; Son: Amarkantak Plateau → Ganga (Patna)'},
+{c:'teal',t:'Rivers ACTUALLY from Aravallis: <b>Banas</b> (→Chambal→Yamuna), <b>Sabarmati</b> (→Gulf of Khambhat), <b>Luni</b> (→Rann of Kutch), Sahibi'}
+],trap:'All 4 listed rivers are west-flowing peninsular rivers like Sabarmati — but they arise from Vindhyas/Satpuras/Amarkantak, NOT Aravallis.',
+table:{h:['River','Origin','Drain'],rows:[['Sabarmati','Aravallis','Arabian Sea'],['Luni','Aravallis (near Ajmer)','Rann of Kutch'],['Banas','Aravallis','Chambal→Yamuna'],['Narmada','Amarkantak (NOT Aravallis)','Arabian Sea']]},
+sum:'Memory: BALS from Aravallis = Banas, And Sabarmati, Luni, Sahibi. Narmada/Tapti/Mahi/Son = Vindhyas/Satpuras/Amarkantak.',
+mcqs:[{q:'Which of the following rivers originates from the Aravalli Range?',opts:['Narmada','Mahi','Sabarmati','Tapti'],ans:2,exp:'Sabarmati originates from the Aravalli Hills in Rajasthan and flows southwest through Gujarat to the Gulf of Khambhat. Narmada, Mahi, and Tapti all originate from the Vindhya/Satpura/Amarkantak region.'}]},
+
+{n:'Q40',ans:'(C)',title:'Plants native to Indian subcontinent',chips:[{t:'Only 3 native',c:'amber'},{t:'Eucalyptus = Australia',c:'red'}],
+points:[
+{c:'teal',t:'Neem (Azadirachta indica): <b>NATIVE</b> — Indian subcontinent + Myanmar; "Sarva Roga Nivarini"; azadirachtin pesticide'},
+{c:'blue',t:'Banyan (Ficus benghalensis): <b>NATIVE</b> — species name confirms; India\'s National Tree; aerial prop roots'},
+{c:'green',t:'Teak (Tectona grandis): <b>NATIVE</b> — India, Myanmar, Laos, Thailand; tropical dry deciduous forests'},
+{c:'red',t:'Eucalyptus: <b>NOT NATIVE</b> — native to Australia; introduced in 19th century; "ecological villain" — high water use, allelopathic, acidifies soil'}
+],trap:'Eucalyptus is the odd one out. Despite being everywhere in South India, it is an Australian import planted during British era.',
+table:{h:['Plant','Native?','Notes'],rows:[['Neem','Yes — India/Myanmar','Ayurvedic; pesticide'],['Banyan','Yes — India','National tree; aerial roots'],['Teak','Yes — India/Myanmar/SE Asia','Valuable timber'],['Eucalyptus','No — Australia','Introduced 19th century; ecological concerns']]},
+sum:'Neem, Banyan, Teak = native. Eucalyptus = Australian introduction. Three out of four are native.',
+mcqs:[{q:'Gulmohar trees, commonly seen in Indian avenues, were originally introduced from:',opts:['South America','Madagascar','Australia','Sub-Saharan Africa'],ans:1,exp:'Gulmohar (Delonix regia) is native to Madagascar and was introduced to India during the colonial era. Like Eucalyptus, it is now widespread in India but not a native species.'}]},
+
+{n:'Q100',ans:'(c)',title:'IVC site with three-tier city division',chips:[{t:'Dholavira',c:'teal'},{t:'Gujarat / Kutch',c:'amber'},{t:'UNESCO 2021',c:'blue'}],
+points:[
+{c:'teal',t:'<b>Dholavira</b> (Khadir Bet, Kutch, Gujarat) is the ONLY Harappan city with <b>3-tier division</b>: Citadel + Middle Town + Lower Town'},
+{c:'blue',t:'All other cities (Mohenjo-daro, Harappa, Kalibangan) had only 2 parts — Citadel + Lower Town'},
+{c:'amber',t:'Dholavira also unique for: <b>stone</b> construction (not brick), <b>16+ water reservoirs</b>, world\'s earliest public signboard (10 Indus script signs)'},
+{c:'coral',t:'Excavated by <b>RS Bisht</b> (ASI, 1990s); UNESCO World Heritage Site — <b>July 2021</b> (India\'s 40th WHS)'},
+{c:'purple',t:'Lothal = earliest dockyard; Rakhigarhi = largest IVC site in India (Haryana); Kalibangan = earliest ploughed field'}
+],trap:'Dholavira = THREE tiers. All other major Harappan cities = TWO tiers. The "Middle Town" is Dholavira\'s defining feature.',
+table:{h:['Site','Urban division','Unique for'],rows:[['Dholavira','THREE (Citadel+Middle+Lower)','Stone walls; water reservoirs; 3-tier'],['Mohenjo-daro','Two','Great Bath; granary'],['Harappa','Two','Multiple granaries'],['Lothal','Combined platform','Earliest dockyard'],['Kalibangan','Two','Ploughed field; fire altars']]},
+sum:'Dholavira = only Harappan 3-tier city. Located in Kutch, Gujarat. Excavated by RS Bisht. UNESCO WHS 2021. Stone construction + 16 reservoirs.',
+mcqs:[{q:'Which IVC site is located on the Khadir Bet island in the Rann of Kutch?',opts:['Lothal','Rakhigarhi','Dholavira','Banawali'],ans:2,exp:'Dholavira is situated on Khadir Bet, an island in the Great Rann of Kutch, Gujarat. Its location between two seasonal streams (Mansar and Manhar) made its sophisticated water harvesting system vital for survival.'}]}
+]},
+
+{id:'polity',label:'Polity',color:'purple',qs:[
+{n:'Q14',ans:'(b)',title:'President\'s pardoning power — Article 72',chips:[{t:'Only 2 correct',c:'amber'},{t:'Judicial review allowed',c:'red'},{t:'Art. 72',c:'purple'}],
+points:[
+{c:'purple',t:'Stmt 1 TRUE — Art. 72 pardoning power is an <b>executive power, independent of judiciary</b> (not an appeal or review)'},
+{c:'teal',t:'Stmt 2 TRUE — President is <b>not required to record reasons</b> — confirmed in Kehar Singh v. Union of India (1988)'},
+{c:'red',t:'Stmt 3 FALSE (the trap) — Power IS subject to <b>limited judicial review</b> on grounds of mala fide, arbitrariness, or violation of Constitution (Epuru Sudhakar, 2006; Maru Ram, 1980)'}
+],trap:'Statement 3 is the classic trap. Presidential pardon IS reviewable — courts can check for mala fide/arbitrariness, just not the merits.',
+table:{h:['Power','Meaning'],rows:[['Pardon','Complete absolution; removes conviction AND sentence'],['Reprieve','Temporary stay of execution'],['Respite','Lesser sentence for special circumstances'],['Remission','Reduces quantum (not nature) of sentence'],['Commutation','Changes nature (death→life; rigorous→simple)']]},
+sum:'President\'s pardoning power: executive power, no reasons required, BUT subject to limited judicial review (mala fide/arbitrariness). President alone can pardon death sentences; Governor cannot.',
+mcqs:[{q:'The pardoning power of the President under Article 72 is NOT available to the Governor under Article 161 in which case?',opts:['Murder convictions','Offences under state law','Court-martial convictions','Offences under concurrent list'],ans:2,exp:'The Governor cannot pardon court-martial (military tribunal) convictions — only the President can. The Governor also cannot pardon death sentences. Both exercise power on Council of Ministers\' advice.'}]},
+
+{n:'Q43',ans:'(C)',title:'Fundamental Rights during national emergency',chips:[{t:'Art. 20 & 21 protected',c:'green'},{t:'44th Amendment 1978',c:'blue'},{t:'Art. 358 vs 359',c:'amber'}],
+points:[
+{c:'blue',t:'<b>Article 358</b>: Art. 19 freedoms AUTOMATICALLY suspended during external emergency (against state action only)'},
+{c:'green',t:'<b>Article 359</b>: President CAN suspend right to approach courts for enforcement of FRs — EXCEPT Articles 20 and 21'},
+{c:'teal',t:'<b>44th Amendment (1978)</b>: Made Articles 20 and 21 non-suspendable even by Presidential order — response to 1975–77 Emergency abuse'},
+{c:'amber',t:'Before 44th Amendment, even Art. 20 & 21 enforcement could be suspended — this was the major democratic failure of Emergency era'}
+],trap:'Articles 20 and 21 CANNOT have their enforcement suspended — even during national emergency. This was the 44th Amendment\'s key contribution.',
+table:{h:['Article','During Emergency'],rows:[['Art. 19','Auto-suspended (Art. 358)'],['Art. 20','Cannot be suspended (44th Amend.)'],['Art. 21','Cannot be suspended (44th Amend.)'],['Arts. 14,15 etc.','Suspendable by Art. 359 Presidential order']]},
+sum:'44th Amendment (1978): changed "internal disturbance" → "armed rebellion"; Cabinet written recommendation required; Articles 20 & 21 non-suspendable.',
+mcqs:[{q:'Before the 44th Constitutional Amendment (1978), which Articles could have their enforcement suspended during a National Emergency?',opts:['Only Article 19','All Fundamental Rights including Articles 20 and 21','All FRs except Article 21 only','Only Articles 14–18'],ans:1,exp:'Before the 44th Amendment, the President could under Article 359 suspend access to courts for all Fundamental Rights — including Articles 20 and 21. The 1975–77 Emergency exposed this danger, leading to the amendment that made 20 and 21 non-suspendable.'}]},
+
+{n:'Q47',ans:'(c)',title:'Supreme Court — suo motu and case transfer',chips:[{t:'Both correct',c:'green'},{t:'Art. 139A',c:'blue'},{t:'Art. 32 + PIL',c:'purple'}],
+points:[
+{c:'purple',t:'Stmt 1 TRUE — SC can take <b>suo motu cognizance</b> under Art. 32; letters, news reports treated as petitions; developed by Justices Bhagwati & Krishna Iyer in 1980s'},
+{c:'blue',t:'Stmt 2 TRUE — SC can transfer cases under <b>Article 139A</b> (introduced by 42nd Amendment, 1976)'},
+{c:'teal',t:'Art. 139A(1): Transfer where cases involve <b>same substantial question of law of general public importance</b>; SC can act suo motu or on AG/party application'},
+{c:'amber',t:'Art. 139A(2): Transfer any case from HC to SC for <b>ends of justice</b>; also Section 25 CPC, Section 406 CrPC for statutory transfers'}
+],trap:'Both statements are correct — this is a "both correct" answer which students tend to second-guess.',
+table:{h:['Power','Article'],rows:[['Original jurisdiction','Art. 131'],['Writ jurisdiction (FRs)','Art. 32'],['Case transfer','Art. 139A'],['Advisory jurisdiction','Art. 143'],['Special Leave Petition','Art. 136 — against any court/tribunal']]},
+sum:'SC can take suo motu cognizance (Art. 32/PIL) and transfer cases from HC to itself or another HC (Art. 139A). Both statements correct.',
+mcqs:[{q:'Under which Article can the Supreme Court transfer a case from a High Court to itself or another High Court?',opts:['Article 131','Article 136','Article 139A','Article 143'],ans:2,exp:'Article 139A, inserted by the 42nd Constitutional Amendment (1976), empowers the Supreme Court to transfer cases involving substantial questions of law of general public importance from High Courts to itself or to another High Court.'}]},
+
+{n:'Q51',ans:'(A)',title:'Reservation — constitutional basis',chips:[{t:'Only 1 correct',c:'amber'},{t:'Art. 334 — 10 years',c:'blue'},{t:'Art. 16(4) = backward class',c:'coral'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — <b>Article 334</b> originally provided SC/ST seat reservation for <b>10 years</b> from Constitution commencement (until 1960); extended 8 times; now to <b>2030</b> via 104th Amendment (2019)'},
+{c:'coral',t:'Stmt 2 FALSE — Art. 16(4) uses term <b>"backward class"</b>, NOT "OBC" explicitly. OBC is a policy/administrative term from Mandal Commission; Indra Sawhney case (1992) upheld OBC reservation'},
+{c:'amber',t:'104th Amendment (2019): Extended reservation to 2030; also <b>abolished Anglo-Indian reservation</b> in Lok Sabha and State Assemblies'}
+],trap:'Article 16(4) says "backward class" NOT "OBC". The word "OBC" does not appear in the Constitution.',
+table:{h:['Article','Provision'],rows:[['Art. 15(4)','Reservation in educational admissions for SC/ST/backward classes'],['Art. 15(6)','EWS reservation (103rd Amendment, 2019)'],['Art. 16(4)','Reservation in govt jobs for "backward classes"'],['Art. 334','Duration of seat reservation — originally 10 years, now 2030']]},
+sum:'Art. 334: 10-year original term, extended to 2030. Art. 16(4): "backward class" (not OBC explicitly). Anglo-Indian reservation abolished by 104th Amendment.',
+mcqs:[{q:'The 104th Constitutional Amendment (2019) is significant because it:',opts:['Added EWS reservation','Extended SC/ST seat reservation to 2030 AND abolished Anglo-Indian reservation','Raised OBC reservation to 27%','Added Article 16(4A) for promotions'],ans:1,exp:'The 104th Amendment extended SC/ST reservation in Lok Sabha and State Assemblies to 2030 (from 2020) and simultaneously abolished the special seats reserved for the Anglo-Indian community.'}]},
+
+{n:'Q73',ans:'(b)',title:'Constitutional vs statutory bodies',chips:[{t:'Only 2 constitutional',c:'amber'},{t:'NCSC + Finance Comm',c:'teal'}],
+points:[
+{c:'teal',t:'<b>NCSC (National Commission for Scheduled Castes)</b>: Constitutional — <b>Article 338</b>'},
+{c:'green',t:'<b>Finance Commission</b>: Constitutional — <b>Article 280</b>'},
+{c:'red',t:'<b>NHRC</b>: Statutory — Protection of Human Rights Act, 1993 (NOT constitutional)'},
+{c:'red',t:'<b>CIC (Central Information Commission)</b>: Statutory — RTI Act, 2005 (NOT constitutional)'}
+],trap:'NHRC and CIC are very commonly mistaken as constitutional. They are statutory — created by Parliament, not the Constitution.',
+table:{h:['Body','Type','Article/Act'],rows:[['Election Commission','Constitutional','Art. 324'],['CAG','Constitutional','Art. 148'],['Finance Commission','Constitutional','Art. 280'],['NCSC','Constitutional','Art. 338'],['NHRC','Statutory','Protection of HR Act, 1993'],['CIC','Statutory','RTI Act, 2005'],['NITI Aayog','Executive (no statute)','Executive resolution']]},
+sum:'Constitutional bodies: ECI, CAG, UPSC, Finance Commission, NCSC, NCST, NCBC, AG. Statutory: NHRC, CIC, NCW, SEBI, TRAI.',
+mcqs:[{q:'Which of the following is a constitutional body?',opts:['National Human Rights Commission','Central Information Commission','National Commission for Scheduled Tribes','National Commission for Women'],ans:2,exp:'The National Commission for Scheduled Tribes (NCST) is established under Article 338A of the Constitution, inserted by the 89th Constitutional Amendment (2003). NHRC, CIC, and NCW are all statutory bodies created by Acts of Parliament.'}]},
+
+{n:'Q74',ans:'(d)',title:'Seventh Schedule — Concurrent List subjects',chips:[{t:'All four correct',c:'green'},{t:'42nd Amendment 1976',c:'amber'},{t:'State→Concurrent',c:'blue'}],
+points:[
+{c:'blue',t:'All 4 — Education, Forests, Protection of Wild Animals/Birds, Weights & Measures — are in <b>Concurrent List</b>'},
+{c:'amber',t:'All four were transferred from <b>State List → Concurrent List</b> by the <b>42nd Constitutional Amendment, 1976</b>'},
+{c:'teal',t:'5th transfer by 42nd Amendment: <b>Administration of Justice</b> (constitution of courts below SC/HC)'},
+{c:'coral',t:'Art. 254 repugnancy rule: Central law prevails over State law on Concurrent List subject; exception if State law got Presidential assent before Central law'}
+],trap:'Students often think Education or Forests is in State List. Both moved to Concurrent List in 1976 — the most centralising amendment in Indian constitutional history.',
+table:{h:['Subject','Original List','Transferred by'],rows:[['Education','State','42nd Amendment 1976'],['Forests','State','42nd Amendment 1976'],['Wild Animals & Birds','State','42nd Amendment 1976'],['Weights & Measures','State','42nd Amendment 1976']]},
+sum:'All four transferred from State → Concurrent List by 42nd Amendment (1976). Union List = 98, State List = 59, Concurrent List = 52 subjects.',
+mcqs:[{q:'Which Constitutional Amendment transferred "Forests" from the State List to the Concurrent List?',opts:['39th Amendment','42nd Amendment','44th Amendment','86th Amendment'],ans:1,exp:'The 42nd Constitutional Amendment (1976) transferred five subjects from the State List to the Concurrent List: Education, Forests, Weights and Measures, Protection of Wild Animals and Birds, and Administration of Justice.'}]},
+
+{n:'Q98',ans:'(D)',title:'Federal to unitary spectrum — Q→S→R→P',chips:[{t:'7th Schedule → Art.356',c:'purple'},{t:'Most federal → unitary',c:'amber'}],
+points:[
+{c:'green',t:'Q — <b>Seventh Schedule</b>: Most federal; clearly demarcates Union/State/Concurrent domains; independent legislative sovereignty for each'},
+{c:'blue',t:'S — <b>Article 246A (GST)</b>: Federal but cooperative; both Centre and States legislate on GST; GST Council requires consensus'},
+{c:'amber',t:'R — <b>Article 249</b>: Parliament legislates on State List subject if Rajya Sabha passes 2/3 resolution of national importance; valid for 1 year (renewable)'},
+{c:'red',t:'P — <b>Article 356 (President\'s Rule)</b>: Most unitary; State constitutional machinery suspended; President assumes all State powers; Parliament legislates directly on State subjects'}
+],trap:'Arrange from most federal (distribution of power) to most unitary (centralisation). Art. 356 is the ultimate centralising provision.',
+table:{h:['Feature','Federal','Unitary'],rows:[['Seventh Schedule','Yes — divides powers','—'],['Art. 246A (GST)','Yes — shared','—'],['Art. 249','—','Centre overrides State List'],['Art. 356','—','Complete central takeover'],['Single citizenship','—','Yes — unitary']]},
+sum:'Q (7th Schedule, most federal) → S (Art. 246A, cooperative federal) → R (Art. 249, encroaches on State) → P (Art. 356, most unitary).',
+mcqs:[{q:'Under Article 249, Parliament can legislate on a State List subject if a resolution is passed by which body?',opts:['Joint session of Parliament','Lok Sabha by simple majority','Rajya Sabha by 2/3 majority of members present and voting','President on advice of PM'],ans:2,exp:'Article 249 requires the Rajya Sabha to pass a resolution supported by not less than 2/3 of members present and voting, declaring that the subject in the State List has assumed national importance. The law remains in force for 1 year, extendable.'}]}
+]},
+
+{id:'economy',label:'Economy',color:'amber',qs:[
+{n:'Q42',ans:'(C)',title:'FDI in India — key rules',chips:[{t:'1 & 3 only',c:'amber'},{t:'Tobacco prohibited',c:'red'},{t:'NRI repatriation basis',c:'blue'}],
+points:[
+{c:'teal',t:'Stmt 1 TRUE — <b>100% FDI under automatic route</b> in construction development (townships, housing, built-up infrastructure)'},
+{c:'red',t:'Stmt 2 FALSE — NRI investment treated as FDI only on <b>repatriation basis</b>; NRI investment on non-repatriation basis = domestic investment'},
+{c:'coral',t:'Stmt 3 TRUE — FDI completely <b>prohibited</b> in manufacturing of cigarettes, cigars, cheroots, cigarillos and other tobacco products'}
+],trap:'NRI investment is NOT automatically FDI — the repatriation basis condition is the trap.',
+table:{h:['Sector','FDI Status'],rows:[['Tobacco manufacturing','Prohibited'],['Lottery/gambling','Prohibited'],['Chit funds','Prohibited'],['Construction development','100% automatic'],['Multi-brand retail','Govt route']]},
+sum:'FDI: 100% automatic in construction ✓; NRI non-repatriation basis = domestic ✓; tobacco = prohibited ✓.',
+mcqs:[{q:'FDI is completely prohibited in which of the following sectors?',opts:['Single brand retail','Construction development','Tobacco manufacturing','Telecom infrastructure'],ans:2,exp:'FDI is absolutely prohibited in tobacco product manufacturing (cigars, cigarettes, cheroots, cigarillos, etc.) — no automatic or government approval route exists for this sector.'}]},
+
+{n:'Q50',ans:'(B)',title:'RBI Prompt Corrective Action (PCA) framework',chips:[{t:'Only 2 correct',c:'amber'},{t:'Net NPA >6%',c:'red'},{t:'Dividend = discretionary',c:'blue'}],
+points:[
+{c:'red',t:'Stmt 1 FALSE — Dividend restriction under PCA is <b>discretionary</b>, not automatic on Day 1; depends on severity level triggered'},
+{c:'teal',t:'Stmt 2 TRUE — Net NPA exceeding <b>6% (but ≤9%)</b> triggers Risk Threshold 1 of PCA'},
+{c:'blue',t:'PCA parameters (2021 revised): CRAR (<15%), Tier 1 Capital (<10%), Net NPA (>6%)'},
+{c:'amber',t:'Mandatory actions: branch expansion restriction, management compensation limits. Discretionary: dividend restriction, lending limits'}
+],trap:'Dividend restriction is discretionary under PCA, not automatic. Net NPA >6% IS the defined trigger (Risk Threshold 1).',
+table:{h:['Trigger','Threshold 1','Threshold 2','Threshold 3'],rows:[['Net NPA','6–9%','9–12%','>12%'],['CRAR','12–15%','9–12%','<9%'],['Tier 1 Capital','8–10%','6–8%','<6%']]},
+sum:'Net NPA >6% = PCA Threshold 1 ✓. Dividend restriction = discretionary, NOT automatic ✗. PCA revised in 2021, extended to NBFCs.',
+mcqs:[{q:'Which of the following is a mandatory action under RBI\'s PCA framework?',opts:['Restriction on dividend payment','Restriction on branch expansion','Restriction on management bonuses only','Asset sale requirement'],ans:1,exp:'Restriction on branch expansion is a mandatory PCA action — a bank under PCA cannot open new branches. Dividend restrictions are discretionary — they depend on the severity level and RBI\'s assessment, not automatic on entry into PCA.'}]},
+
+{n:'Q56',ans:'(C)',title:'GST Council — structure and voting',chips:[{t:'Both correct',c:'green'},{t:'Art. 279A',c:'blue'},{t:'3/4 weighted votes',c:'amber'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — Union Finance Minister is <b>Chairperson</b>; established under <b>Article 279A</b> (101st Amendment, 2016)'},
+{c:'amber',t:'Stmt 2 TRUE — Decisions by <b>3/4 of weighted votes</b> of members present and voting (Art. 279A(9))'},
+{c:'teal',t:'Weighted votes: <b>Centre = 1/3</b>, <b>All States collectively = 2/3</b>. Neither can act unilaterally — centre has effective veto'},
+{c:'coral',t:'Vice-Chairperson: elected from among State Finance Ministers. Quorum: 50% of total members'}
+],trap:'The 3/4 weighted vote threshold with Centre=1/3 weight is the key fact. Even if all States vote together, they still need Centre to cross 3/4.',
+table:{h:['Member','Vote Weight'],rows:[['Central Government','1/3 (33.33%)'],['All States collectively','2/3 (66.67%)'],['Decision threshold','3/4 of weighted votes present']]},
+sum:'GST Council: Art. 279A, FM as Chair, 3/4 weighted votes, Centre=1/3 weight. Alcohol and petroleum not fully under GST.',
+mcqs:[{q:'What percentage of weighted votes is required for a decision in the GST Council?',opts:['Simple majority (>50%)','2/3 majority','3/4 majority of votes present and voting','Unanimous consent'],ans:2,exp:'Article 279A(9) requires decisions to be taken by majority of not less than 3/4 of weighted votes of members present and voting. The Centre holds 1/3 weight and all States together 2/3, making cooperative consensus essential.'}]},
+
+{n:'Q59',ans:'(a)',title:'Fractional reserve banking — money multiplier',chips:[{t:'1 & 2 only',c:'amber'},{t:'Higher reserve = LOWER multiplier',c:'red'}],
+points:[
+{c:'teal',t:'Stmt 1 TRUE — Banks hold only a <b>fraction</b> of deposits as reserves (CRR + SLR); lend the rest — definition of fractional reserve banking'},
+{c:'blue',t:'Stmt 2 TRUE — Lending out deposits creates deposits elsewhere → <b>money multiplier effect</b> = credit expansion'},
+{c:'red',t:'Stmt 3 FALSE (the trap) — Money Multiplier = <b>1/Reserve Ratio</b>. Higher Reserve Ratio → LOWER Multiplier. E.g. 10% reserve → multiplier 10; 20% → multiplier 5'}
+],trap:'Money Multiplier = 1/Reserve Ratio. Higher reserve ratio = LOWER multiplier. This is the classic inverse relationship trap.',
+table:{h:['Reserve Ratio','Money Multiplier','Credit effect'],rows:[['4%','25x','Maximum expansion'],['10%','10x','Moderate'],['20%','5x','Restricted']]},
+sum:'Fractional reserve: banks keep fraction, lend rest. Multiplier = 1/reserve ratio. Higher CRR = lower multiplier = less credit creation.',
+mcqs:[{q:'If RBI increases the Cash Reserve Ratio from 4% to 5%, the money multiplier changes from:',opts:['25 to 20','20 to 25','10 to 5','5 to 10'],ans:0,exp:'Money Multiplier = 1/CRR. At 4%, multiplier = 1/0.04 = 25. At 5%, multiplier = 1/0.05 = 20. Increasing CRR DECREASES the money multiplier, reducing overall credit creation in the economy.'}]},
+
+{n:'Q71',ans:'(C)',title:'Price indices — WPI, CPI, core inflation',chips:[{t:'All 3 correct',c:'green'},{t:'WPI excl. services',c:'blue'},{t:'CPI base 2012',c:'teal'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — WPI measures <b>wholesale/producer level prices; excludes services</b>; covers only goods (Primary, Fuel & Power, Manufactured). Base year: <b>2011-12</b>'},
+{c:'teal',t:'Stmt 2 TRUE — CPI (Combined) base year is <b>2012</b> (=100); compiled by NSO; covers retail/consumer prices including services'},
+{c:'amber',t:'Stmt 3 TRUE — <b>Core Inflation</b> = CPI after removing food and fuel (volatile components); also called "CPI ex-food and fuel"'},
+{c:'coral',t:'CPI is <b>RBI\'s preferred measure</b> for monetary policy (inflation target: 4% ± 2%). WPI compiled by Office of Economic Adviser, Ministry of Commerce'}
+],trap:'All three are correct — students often doubt whether "CPI base year 2012" is accurate. It is.',
+table:{h:['Index','Compiled by','Base Year','Includes services?'],rows:[['WPI','OEA, Min of Commerce','2011-12','No'],['CPI (Combined)','NSO, MoSPI','2012','Yes'],['GDP Deflator','CSO','Current','Yes (broadest)']]},
+sum:'WPI: wholesale, no services, 2011-12 base. CPI: retail, includes services, 2012 base, RBI\'s preferred. Core = CPI minus food and fuel.',
+mcqs:[{q:'The RBI uses which price index as the primary indicator for its monetary policy decisions?',opts:['WPI (Wholesale Price Index)','GDP Deflator','CPI (Consumer Price Index)','Core Inflation Index'],ans:2,exp:'RBI uses CPI (Consumer Price Index — Combined) as the headline inflation measure for its flexible inflation targeting framework. The target is 4% (±2%), i.e., a band of 2–6%. CPI better captures consumer-level price changes including services.'}]},
+
+{n:'Q83',ans:'(C)',title:'SEBI\'s regulatory powers',chips:[{t:'Both correct',c:'green'},{t:'Bank info access',c:'blue'},{t:'Asset attachment',c:'amber'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — After Securities Laws Amendment Act (2014), SEBI can call for information from <b>any bank</b> regarding transactions in securities; powers retrospective from March 1998'},
+{c:'amber',t:'Stmt 2 TRUE — SEBI can attach and recover assets <b>without approaching a court</b>; powers granted by 2013 Ordinance/2014 Act'},
+{c:'coral',t:'SEBI can: attach movable/immovable property, attach bank accounts, arrest defaulters, appoint receivers; assets transferred to spouse/minor children also attachable'},
+{c:'teal',t:'SEBI also has powers of search and seizure, levy of penalties through Adjudicating Officers, and settlement of cases'}
+],trap:'Both statements are correct. Many assume SEBI needs court intervention for asset attachment — it does not (post-2014 amendment).',
+table:{h:['SEBI Power','Source'],rows:[['Seek bank transaction data','Securities Laws Amendment Act 2014'],['Attach property without court','Securities Laws Amendment Act 2014'],['Impose penalties','SEBI Act 1992 — Adjudicating Officer'],['SLP/appeal','Securities Appellate Tribunal (SAT)']]},
+sum:'SEBI: can access any bank\'s securities transaction data AND directly attach assets/arrest defaulters without court. Both correct.',
+mcqs:[{q:'The Securities Laws (Amendment) Act, 2014 empowered SEBI to:',opts:['Regulate commodity markets exclusively','Call bank information and attach assets without a court order','Become part of the Reserve Bank of India\'s oversight framework','Set interest rates for securities transactions'],ans:1,exp:'The 2014 Act (based on a 2013 ordinance) gave SEBI the power to call for securities-related transaction information from any bank and to directly attach properties and bank accounts of defaulters — without needing to first approach a court.'}]},
+
+{n:'Q96',ans:'(C)',title:'Current account deficit — necessary consequence',chips:[{t:'Imports > Exports',c:'red'},{t:'Reserves not definite',c:'blue'},{t:'Rupee not definite',c:'amber'}],
+points:[
+{c:'red',t:'Option C CORRECT — CAD = imports of goods + services + income > exports; this is the <b>definition</b> of Current Account Deficit'},
+{c:'blue',t:'Option A WRONG — Reserves can INCREASE despite CAD if <b>capital account surplus</b> (FDI + FPI + ECB) exceeds the deficit'},
+{c:'amber',t:'Option B WRONG — Rupee depreciation is NOT certain; RBI can intervene using reserves; capital inflows can support Rupee'},
+{c:'coral',t:'Option D WRONG — Fiscal deficit (budget) and current account deficit are separate; "twin deficit" is a hypothesis, not an automatic relationship'}
+],trap:'Only the DEFINITION (imports>exports) is a necessary consequence. All others depend on additional conditions.',
+table:{h:['Account','India\'s typical position'],rows:[['Current Account','Deficit (CAD) — import-heavy economy'],['Capital Account','Surplus — FDI, FPI, NRI remittances finance CAD'],['Overall Balance','Determines change in forex reserves']]},
+sum:'CAD = only necessary consequence is aggregate imports > exports. Reserves can rise if capital surplus > CAD. Rupee depreciation not guaranteed.',
+mcqs:[{q:'India\'s current account deficit is primarily caused by:',opts:['High fiscal deficit','Trade deficit in goods, especially oil and gold imports','Low FDI inflows','Falling GDP growth'],ans:1,exp:'India\'s CAD is primarily driven by a large goods trade deficit — specifically high imports of crude oil and gold. This is partially offset by a services trade surplus (IT/BPO exports) and remittance inflows.'}]},
+
+{n:'Q97',ans:'(A)',title:'RBI monetary policy — expansionary to contractionary',chips:[{t:'Q→R→S→P',c:'amber'},{t:'OMO purchase most expansionary',c:'green'},{t:'CRR hike most contractionary',c:'red'}],
+points:[
+{c:'green',t:'Q — <b>OMO Purchase</b>: RBI buys govt securities → directly injects base money into system → MOST EXPANSIONARY'},
+{c:'teal',t:'R — <b>Repo rate cut</b>: Borrowing from RBI cheaper → banks borrow more → credit expansion → EXPANSIONARY'},
+{c:'amber',t:'S — <b>Reverse repo rate cut</b>: Lower return for parking with RBI → banks lend more instead → MILDLY EXPANSIONARY'},
+{c:'red',t:'P — <b>CRR increase by 100 bps</b>: Banks must hold more with RBI → reduces loanable funds → MOST CONTRACTIONARY'}
+],trap:'OMO purchase (not repo rate cut) is the MOST expansionary as it directly creates base money. CRR hike is the most contractionary.',
+table:{h:['Instrument','Effect when increased'],rows:[['Repo Rate','Contractionary — credit costlier'],['Reverse Repo Rate','Contractionary — banks park more with RBI'],['CRR','Contractionary — reduces loanable funds'],['OMO Purchase','Expansionary — injects liquidity'],['SLR','Contractionary — more in govt securities']]},
+sum:'Most expansionary → contractionary: OMO Purchase > Repo cut > Reverse repo cut > CRR hike.',
+mcqs:[{q:'When RBI conducts Open Market Operations (OMO) by purchasing government securities, the immediate effect is:',opts:['Reduction in money supply','Increase in money supply and liquidity injection','Rise in interest rates','Reduction in fiscal deficit'],ans:1,exp:'When RBI buys government securities (OMO purchase), it pays for them by crediting banks\' accounts with the RBI — directly injecting base money into the system. This increases liquidity, allowing banks to expand credit, reducing market interest rates.'}]},
+
+{n:'Q99',ans:'(c)',title:'Ashgabat Agreement',chips:[{t:'Central Asia ↔ Persian Gulf',c:'teal'},{t:'India joined 2018',c:'blue'},{t:'Chabahar link',c:'amber'}],
+points:[
+{c:'teal',t:'Ashgabat Agreement = multimodal transport/transit corridor connecting <b>Central Asia and Persian Gulf</b> (via Iran and Oman)'},
+{c:'blue',t:'Signed 2011 in Ashgabat; <b>India joined in 2018</b>; members include Uzbekistan, Turkmenistan, Iran, Oman, Kazakhstan, Pakistan'},
+{c:'amber',t:'Key for India: connectivity to Central Asian Republics <b>bypassing Pakistan</b>; complemented by Chabahar Port development and INSTC'},
+{c:'coral',t:'Compare with <b>INSTC</b> (India-Iran-Russia, N-S corridor: Mumbai→Moscow) vs Ashgabat (E-W: India→Persian Gulf→Central Asia)'}
+],trap:'Ashgabat Agreement is NOT about reducing carbon emissions or nuclear energy — it is specifically a multimodal transport corridor.',
+table:{h:['Corridor','Members','Direction'],rows:[['INSTC','India, Iran, Russia + 10','N-S: Mumbai→Moscow'],['Ashgabat Agreement','India, Iran, Oman, CAR nations','E-W: India→Central Asia'],['Chabahar Port','India-Iran','India\'s Central Asia gateway']]},
+sum:'Ashgabat Agreement: multimodal transport corridor, Central Asia ↔ Persian Gulf; India joined 2018; key strategic route bypassing Pakistan.',
+mcqs:[{q:'The Ashgabat Agreement connects which two regions?',opts:['South Asia and East Africa','Central Asia and Persian Gulf region','Southeast Asia and South Asia','Central Asia and Europe'],ans:1,exp:'The Ashgabat Agreement, signed in 2011 and joined by India in 2018, establishes an international multimodal transport and transit corridor connecting Central Asian Republics to the Persian Gulf (via Iran and Oman). This provides India an alternative route to Central Asia bypassing Pakistan.'}]}
+]},
+
+{id:'envsci',label:'Env & Science',color:'green',qs:[
+{n:'Q11',ans:'(d)',title:'Ethanol feedstock — National Policy on Biofuels',chips:[{t:'All four correct',c:'green'},{t:'NPB 2018 rev 2022',c:'teal'},{t:'E20 by 2025',c:'amber'}],
+points:[
+{c:'teal',t:'All four — <b>damaged food grains, broken rice, maize, sweet sorghum</b> — are permissible feedstocks under NPB 2018 (revised 2022)'},
+{c:'blue',t:'Grain-based feedstocks include: damaged grains, broken rice, maize, barley, bajra, jowar'},
+{c:'amber',t:'Sugarcane-based: juice, B-Heavy/C-Heavy molasses, sugar syrup; Cellulosic: rice straw, bagasse, bamboo'},
+{c:'coral',t:'Damaged/surplus grains used when FCI stocks exceed buffer norms — prevents food vs fuel conflict. <b>E20 target by 2025</b> (brought forward from 2030)'}
+],trap:'All four items are permissible. The question tests whether you know the expanded feedstock list under the 2022 revision.',
+table:{h:['Category','Feedstock examples'],rows:[['Grain-based','Damaged grains, broken rice, maize, barley'],['Sugarcane-based','Juice, B-Heavy/C-Heavy molasses'],['Cellulosic','Rice/wheat straw, bagasse, bamboo'],['Energy crops','Sweet sorghum, sugarbeet']]},
+sum:'NPB 2022 allows all of: damaged grains, broken rice, maize, sweet sorghum. India targets 20% ethanol blending (E20) by 2025.',
+mcqs:[{q:'India\'s Ethanol Blended Petrol Programme targets what percentage of blending by 2025?',opts:['10%','15%','20%','25%'],ans:2,exp:'India\'s E20 target (20% ethanol blending) was advanced from 2030 to 2025 by the government. The National Policy on Biofuels 2022 revision expanded feedstock options to accelerate blending and reduce import dependence on crude oil.'}]},
+
+{n:'Q13',ans:'(C)',title:'Short-Lived Climate Pollutants (SLCPs)',chips:[{t:'Only 4 are SLCPs',c:'amber'},{t:'CO₂ is NOT',c:'red'},{t:'Kigali/HFCs',c:'blue'}],
+points:[
+{c:'teal',t:'SLCPs = atmospheric lifetime of <b>days to ~15 years</b>; potent near-term warming despite short lives'},
+{c:'blue',t:'<b>Black carbon</b>: days-weeks; very high warming; from diesel, biomass burning, cookstoves'},
+{c:'green',t:'<b>Methane (CH₄)</b>: ~12 years; <b>84x CO₂</b> over 20 years; from livestock, rice paddies, landfills'},
+{c:'amber',t:'<b>HFCs</b>: months–15 years; 1,000–10,000x CO₂; regulated under <b>Kigali Amendment (2016)</b> to Montreal Protocol'},
+{c:'red',t:'<b>CO₂ is NOT an SLCP</b> — atmospheric lifetime of 300–1,000 years. This is the key trap.'}
+],trap:'CO₂ is the most-discussed greenhouse gas but is explicitly NOT an SLCP due to its extremely long atmospheric lifetime.',
+table:{h:['SLCP','Lifetime','GWP vs CO₂'],rows:[['Black carbon','Days to weeks','Very high (absorbs solar)'],['Methane','~12 years','84x (20-yr timeframe)'],['HFCs','Months–15 yr','1,000–10,000x'],['Tropospheric ozone','Hours–weeks','Indirect warmer'],['CO₂ (NOT SLCP)','300–1000 years','Baseline = 1']]},
+sum:'4 SLCPs: black carbon, methane, HFCs, tropospheric ozone. CO₂ is long-lived, not SLCP. Kigali Amendment targets HFCs (India ratified 2021).',
+mcqs:[{q:'The Kigali Amendment (2016) to the Montreal Protocol specifically targets the phase-down of:',opts:['Carbon dioxide','Methane','Hydrofluorocarbons (HFCs)','Black carbon'],ans:2,exp:'The Kigali Amendment (adopted October 2016) targets the phase-down of hydrofluorocarbons (HFCs) — refrigerants that replaced ozone-depleting CFCs but are potent greenhouse gases. India ratified the Kigali Amendment in 2021.'}]},
+
+{n:'Q32',ans:'(d)',title:'Bio-indicators of environmental health',chips:[{t:'All four correct',c:'green'},{t:'Lichens = air quality',c:'teal'},{t:'Frogs = permeable skin',c:'blue'}],
+points:[
+{c:'teal',t:'<b>Lichens</b>: absorb nutrients directly from atmosphere; ultra-sensitive to SO₂; absence = heavy air pollution; used globally for air quality monitoring'},
+{c:'blue',t:'<b>Frogs</b>: permeable moist skin absorbs toxins, heavy metals, endocrine disruptors; require both aquatic and terrestrial habitats; "sentinels of environmental health"'},
+{c:'green',t:'<b>Dragonflies</b>: larvae are aquatic, sensitive to water quality; absent in polluted/eutrophied water; adults track atmospheric contaminants'},
+{c:'amber',t:'<b>Sparrows</b>: House sparrow decline = urban ecosystem health indicator; signals loss of insects, nesting sites, pesticide use, urban heat'}
+],trap:'All four are valid bioindicators. Students often doubt sparrows — but urban sparrow decline is a recognised ecological health metric.',
+table:{h:['Bio-indicator','What it monitors'],rows:[['Lichens','Air quality (SO₂, nitrogen deposition)'],['Frogs','Water/soil toxins, habitat quality'],['Dragonflies','Freshwater ecosystem health'],['Sparrows','Urban biodiversity and ecosystem health']]},
+sum:'All 4 are bio-indicators: lichens (air), frogs (water+soil), dragonflies (freshwater), sparrows (urban ecosystem).',
+mcqs:[{q:'Which type of organism is primarily used as a bio-indicator of air pollution, especially sulphur dioxide levels?',opts:['Mosses','Lichens','Ferns','Algae'],ans:1,exp:'Lichens are the primary bio-indicators of air quality. They lack a cuticle and absorb everything directly from the atmosphere. They are highly sensitive to SO₂ and nitrogen pollution — their absence indicates degraded air quality, while diverse lichen communities indicate clean air.'}]},
+
+{n:'Q37',ans:'(d)',title:'Green/carbon-neutral hydrogen production',chips:[{t:'All four correct',c:'green'},{t:'Biogenic carbon cycle',c:'teal'},{t:'NGHM 5 MMT by 2030',c:'amber'}],
+points:[
+{c:'green',t:'<b>Wind energy + Solar PV</b>: power electrolysis → split water → H₂ + O₂ → zero operational emissions = <b>Green Hydrogen</b>'},
+{c:'teal',t:'<b>Biomass gasification</b>: heated in low-oxygen → syngas → H₂; CO₂ is biogenic (natural cycle) → <b>carbon-neutral</b>'},
+{c:'blue',t:'<b>MSW (Municipal Solid Waste)</b>: gasification of organic fraction → H₂; biogenic carbon → carbon-neutral/renewable'},
+{c:'amber',t:'National Green Hydrogen Mission (2023): <b>5 MMT per year by 2030</b>; ₹19,744 crore outlay; SIGHT programme for incentives'}
+],trap:'MSW and biomass produce CO₂ but are carbon-neutral because the carbon is biogenic (part of natural cycle, not fossil).',
+table:{h:['Hydrogen colour','Production method','Carbon footprint'],rows:[['Green','Electrolysis (renewable)','Near-zero'],['Blue','Natural gas + CCS','Low'],['Grey','Natural gas, no CCS','High'],['Pink','Electrolysis (nuclear)','Low'],['Black/Brown','Coal gasification','Very high']]},
+sum:'Wind, solar, biomass gasification, MSW — all green/carbon-neutral H₂ pathways. National Green Hydrogen Mission: 5 MMT by 2030.',
+mcqs:[{q:'India\'s National Green Hydrogen Mission targets the annual production of green hydrogen at what level by 2030?',opts:['1 million metric tonnes','3 million metric tonnes','5 million metric tonnes','10 million metric tonnes'],ans:2,exp:'The National Green Hydrogen Mission (launched January 2023) targets production of 5 million metric tonnes (MMT) of green hydrogen per year by 2030, with a government outlay of ₹19,744 crore and the SIGHT programme for incentivising production.'}]},
+
+{n:'Q38',ans:'(C)',title:'"30 by 30" biodiversity target',chips:[{t:'30% land + ocean by 2030',c:'green'},{t:'Kunming-Montreal GBF',c:'teal'},{t:'COP15 Montreal 2022',c:'blue'}],
+points:[
+{c:'teal',t:'30×30 = ensure by 2030, at least <b>30% of terrestrial, inland water, coastal and marine areas</b> are effectively conserved as protected areas or OECMs'},
+{c:'blue',t:'Adopted at <b>COP15 of CBD</b> in Montreal, Canada (December 2022) under <b>Kunming-Montreal Global Biodiversity Framework</b>'},
+{c:'green',t:'Other GBF targets: restore 30% degraded ecosystems by 2030; reduce pesticide risk by 50%; eliminate $500bn/year harmful subsidies; $30bn/year biodiversity finance'},
+{c:'amber',t:'NOT about carbon emissions (that\'s Paris Agreement/UNFCCC), NOT about nuclear energy, NOT about non-communicable diseases'}
+],trap:'30×30 = protected areas for biodiversity (CBD/GBF). Completely unrelated to UNFCCC/Paris Agreement carbon targets.',
+table:{h:['GBF Target','Detail'],rows:[['30×30','30% of land+ocean as protected areas by 2030'],['Ecosystem restoration','30% degraded ecosystems restored by 2030'],['Pesticide reduction','50% reduction in risk by 2030'],['Finance','$30bn/year from developed to developing nations']]},
+sum:'30×30 = Kunming-Montreal GBF (CBD COP15, Dec 2022): protect 30% of Earth\'s land and ocean by 2030. India is a party to CBD.',
+mcqs:[{q:'The Kunming-Montreal Global Biodiversity Framework (2022) was adopted at COP15 of which convention?',opts:['UNFCCC','Basel Convention','Convention on Biological Diversity (CBD)','CITES'],ans:2,exp:'The Kunming-Montreal GBF was adopted in December 2022 at COP15 of the Convention on Biological Diversity (CBD) held in Montreal, Canada. It was originally planned for Kunming, China (hence the dual name), but COVID disruptions led to the final adoption session in Montreal.'}]},
+
+{n:'Q48',ans:'(B)',title:'Aerogel — properties and applications',chips:[{t:'1 & 3 only',c:'amber'},{t:'Not structural',c:'red'},{t:'Oil spill absorption',c:'teal'}],
+points:[
+{c:'teal',t:'Stmt 1 TRUE — NASA used aerogel for <b>space suit insulation</b> and Mars Pathfinder rover; lowest thermal conductivity of any solid (0.015 W/m·K)'},
+{c:'red',t:'Stmt 2 FALSE — Aerogel is <b>extremely brittle</b> and cannot bear structural loads; used as insulation panels NOT structural columns'},
+{c:'green',t:'Stmt 3 TRUE — Hydrophobic aerogels absorb up to <b>900x their weight in oil</b>; used for oil spill cleanup and industrial remediation'},
+{c:'amber',t:'Aerogel properties: density as low as 1.9 kg/m³ (air = 1.2), porosity up to 99.98%, world\'s least dense solid'}
+],trap:'Aerogel is a thermal super-insulator but is structurally fragile — it cannot be used as load-bearing columns.',
+table:{h:['Application','Type'],rows:[['Space suit/spacecraft insulation','Thermal'],['Building insulation panels','Thermal'],['Oil spill absorption','Environmental'],['Pipeline insulation','Thermal/subsea'],['Battery electrodes (new)','Energy storage']]},
+sum:'Aerogel: space suit insulation ✓, oil spill absorption ✓, structural columns ✗ (too brittle). Holds records for lowest density and thermal conductivity.',
+mcqs:[{q:'Aerogel is often called the world\'s lightest solid material because of its:',opts:['Very low melting point','Extremely high porosity (up to 99.98% air by volume)','Transparent optical properties','High electrical conductivity'],ans:1,exp:'Aerogel\'s extraordinary lightness comes from its extremely high porosity — up to 99.98% of its volume is air. The solid silica (or other material) forms a nanoporous 3D network, making it almost entirely air while still being a continuous solid structure.'}]},
+
+{n:'Q68',ans:'(d)',title:'Green propellants for rockets/satellites',chips:[{t:'All four correct',c:'green'},{t:'Replacing hydrazine',c:'red'},{t:'V2G / water plasma',c:'blue'}],
+points:[
+{c:'blue',t:'<b>Water</b>: electrolysis in space → H₂ + O₂ → thrust; water plasma thrusters for CubeSats'},
+{c:'teal',t:'<b>Liquid Oxygen (LOX)</b>: non-toxic oxidiser; used with LH₂ or RP-1 in cryogenic engines (ISRO GSLV, Falcon 9)'},
+{c:'green',t:'<b>Ionic liquids</b> (e.g. AF-M315E): low-toxicity; replace hydrazine in satellite thrusters; NASA\'s Green Propellant Infusion Mission (GPIM) demonstrated 12% higher Isp'},
+{c:'amber',t:'<b>Paraffin wax</b>: solid fuel in hybrid rockets with liquid/gaseous oxidiser; safe to handle, non-toxic; SpaceDev hybrid rocket concept'}
+],trap:'All four are green propellants. The contrast is with legacy hydrazine (carcinogenic, explosive). All four are cleaner alternatives.',
+table:{h:['Green Propellant','Use case'],rows:[['Water','CubeSat thrusters; electrolysis-based thrust'],['Liquid Oxygen','Cryogenic main engines (GSLV, Falcon 9)'],['Ionic liquids (AF-M315E)','Satellite attitude control; replacing hydrazine'],['Paraffin wax','Hybrid rocket fuel']]},
+sum:'All four are green propellants vs legacy hydrazine. LOX is the classical oxidiser; ionic liquids are the new generation satellite propellants.',
+mcqs:[{q:'Which NASA mission demonstrated the performance of an ionic-liquid-based green propellant as an alternative to hydrazine?',opts:['Deep Space 1','Green Propellant Infusion Mission (GPIM)','Artemis I','New Horizons'],ans:1,exp:'NASA\'s Green Propellant Infusion Mission (GPIM) successfully demonstrated the AF-M315E ionic liquid propellant on a small satellite. It showed ~12% higher specific impulse than hydrazine with significantly lower toxicity and handling hazards.'}]},
+
+{n:'Q70',ans:'(c)',title:'Feed additives reducing cattle methane',chips:[{t:'1 only',c:'amber'},{t:'Red seaweed (Asparagopsis)',c:'teal'},{t:'67–82% reduction',c:'green'}],
+points:[
+{c:'teal',t:'<b>Red seaweed (Asparagopsis taxiformis)</b>: contains <b>bromoform</b> which inhibits enzyme MCR used by methanogens in cattle rumen → <b>67–82% methane reduction</b> in controlled studies'},
+{c:'blue',t:'Garlic: allicin has mild antimicrobial effect; inconsistent results (0–15% reduction); not established'},
+{c:'amber',t:'Lemongrass: essential oils tested in vitro; negligible/inconsistent large-scale cattle results'},
+{c:'coral',t:'Fish oil: modest 5–10% reduction; alters milk fat composition; not classified as primary anti-methanogenic additive'}
+],trap:'Only red seaweed has robust peer-reviewed evidence for significant methane reduction. Other three have weak/inconsistent evidence.',
+table:{h:['Feed additive','Evidence','Est. CH₄ reduction'],rows:[['Red seaweed (Asparagopsis)','Strong, peer-reviewed','67–82%'],['Garlic','Weak/inconsistent','0–15%'],['Lemongrass','Very limited','Negligible'],['Fish oil','Modest','5–10%']]},
+sum:'Only red seaweed (Asparagopsis) has strong evidence for cattle methane reduction (67–82% via bromoform inhibiting MCR enzyme).',
+mcqs:[{q:'The compound "bromoform" in red seaweed (Asparagopsis) reduces cattle methane by inhibiting:',opts:['Lipase enzyme in the small intestine','Methyl-coenzyme M reductase (MCR) used by rumen methanogens','Cellulose digestion in the rumen','Nitrogen fixation bacteria'],ans:1,exp:'Bromoform in Asparagopsis seaweed specifically inhibits methyl-coenzyme M reductase (MCR) — the enzyme used by methanogenic archaea in the rumen to produce methane during enteric fermentation. Without this enzyme, methane production is dramatically reduced.'}]},
+
+{n:'Q84',ans:'(b)',title:'Gene therapy — key concepts',chips:[{t:'Only 2 correct',c:'amber'},{t:'Germline exists (He Jiankui)',c:'red'},{t:'Treats inherited + acquired',c:'green'}],
+points:[
+{c:'teal',t:'Stmt 1 TRUE — Gene therapy commonly uses <b>modified viral vectors</b> (AAV, retrovirus, lentivirus) to deliver therapeutic genes'},
+{c:'red',t:'Stmt 2 FALSE — Gene therapy is NOT only performed on somatic cells; <b>germline therapy</b> (heritable changes) exists but is banned in most countries. He Jiankui (China, 2018) performed controversial germline editing on embryos'},
+{c:'green',t:'Stmt 3 TRUE — Gene therapy treats both <b>inherited diseases</b> (haemophilia A — Roctavian, SMA — Zolgensma) and <b>acquired diseases</b> (some cancers via CAR-T therapy, HIV trials)'}
+],trap:'Statement 2 says gene therapy is "only" on somatic cells — wrong because germline therapy has been conducted (though banned in most countries).',
+table:{h:['Therapy','Disease','Vector'],rows:[['Zolgensma','Spinal Muscular Atrophy','AAV9'],['Luxturna','Inherited retinal dystrophy','AAV2'],['Roctavian','Haemophilia A','AAV5'],['Casgevy','Sickle cell / Thalassemia','CRISPR-Cas9'],['CAR-T (Kymriah)','Blood cancers','Lentiviral']]},
+sum:'Viral vectors ✓; both inherited + acquired ✓; NOT only somatic (germline exists, banned but done) ✗. Casgevy = first approved CRISPR therapy.',
+mcqs:[{q:'"Casgevy" — the first approved CRISPR-based gene therapy — is used to treat:',opts:['Haemophilia A','Spinal Muscular Atrophy','Sickle cell disease and beta-thalassemia','Inherited retinal dystrophy'],ans:2,exp:'Casgevy (exagamglogene autotemcel) is the first approved CRISPR-Cas9 gene therapy, approved in 2023. It treats sickle cell disease and transfusion-dependent beta-thalassemia by editing the BCL11A gene to reactivate fetal haemoglobin production.'}]},
+
+{n:'Q87',ans:'(d)',title:'International Seabed Authority (ISA)',chips:[{t:'All four correct',c:'green'},{t:'UNCLOS + Kingston',c:'teal'},{t:'Common Heritage of Mankind',c:'blue'}],
+points:[
+{c:'teal',t:'All 4 stmts TRUE — ISA established under <b>UNCLOS (Part XI)</b>; operational since <b>1994</b>'},
+{c:'blue',t:'Headquartered in <b>Kingston, Jamaica</b>; 168 member states; governs "The Area" (seabed beyond national jurisdiction)'},
+{c:'green',t:'Regulates and controls mineral-resource activities in international seabed; principle: <b>Common Heritage of Mankind</b>'},
+{c:'amber',t:'Key resources: polymetallic nodules (Clarion-Clipperton Zone, Pacific), seafloor massive sulphides, cobalt-rich crusts. 30+ exploration contracts issued but NO commercial mining approved yet'}
+],trap:'All four statements are correct. Students often doubt whether ISA "authorises AND controls" — it does both.',
+table:{h:['ISA Body','Role'],rows:[['Assembly','All 168 members; supreme organ; policy decisions'],['Council','36 members; executive body; controls mining'],['Legal & Technical Commission','Reviews applications; technical advice'],['Secretariat','Administrative; based in Kingston']]},
+sum:'ISA: UNCLOS-based, Kingston Jamaica, regulates deep sea mining, Common Heritage of Mankind principle. All four statements correct.',
+mcqs:[{q:'The concept of "Common Heritage of Mankind" in relation to deep sea mineral resources was established under:',opts:['Paris Agreement','CITES','UN Convention on the Law of the Sea (UNCLOS)','Convention on Biological Diversity'],ans:2,exp:'UNCLOS (1982) established that the international seabed area and its mineral resources are the "common heritage of mankind" — meaning no state can claim sovereignty over them. The International Seabed Authority (ISA) manages these resources on behalf of all humanity.'}]},
+
+{n:'Q93',ans:'(d)',title:'Web 3.0 — core principles',chips:[{t:'None wrong (all correct)',c:'green'},{t:'Blockchain + decentralised',c:'teal'},{t:'Read-Write-Own',c:'blue'}],
+points:[
+{c:'teal',t:'All 3 stmts CORRECT — Web3 is based on <b>decentralised blockchain</b> technology (Ethereum, Solana, Polkadot)'},
+{c:'blue',t:'Stmt 2 TRUE — Users hold <b>cryptographic keys</b> to their own data; ownership is with users, not platforms (vs Web 2.0 where Facebook/Google own data)'},
+{c:'green',t:'Stmt 3 TRUE — <b>Disintermediation</b> is core Web3 principle; smart contracts execute without Big Tech intermediaries; DeFi, DAOs, NFTs embody this'}
+],trap:'CRITICAL READING: The question asks how many are "NOT correct" — since all three are correct, the answer is NONE are wrong = option (d).',
+table:{h:['Feature','Web 1.0','Web 2.0','Web 3.0'],rows:[['Nature','Read-only','Read-Write','Read-Write-Own'],['Data control','Creators','Big Tech platforms','Users'],['Technology','Static HTML','APIs, cloud','Blockchain, AI, AR/VR'],['Intermediaries','ISPs','Google, Facebook','None (P2P)']]},
+sum:'All 3 Web3 statements correct. Answer (d) = none are "NOT correct". Web3 = blockchain, user data ownership, no Big Tech intermediaries.',
+mcqs:[{q:'In Web 3.0, the primary change from Web 2.0 regarding data is:',opts:['Data is stored in larger centralised servers','Data ownership shifts from platforms to individual users via cryptographic keys','Data is only stored offline','Data is owned by governments for regulation'],ans:1,exp:'The defining shift in Web3 is data sovereignty — users hold cryptographic keys to their own data instead of having it owned and monetised by centralised platforms like Google or Facebook. Smart contracts and decentralised protocols enable this user ownership without requiring trust in a central authority.'}]}
+]},
+
+{id:'defence',label:'Defence & Current Affairs',color:'coral',qs:[
+{n:'Q8',ans:'(C)',title:'Project Kusha — indigenous air defence',chips:[{t:'Both correct',c:'green'},{t:'DRDO LR-SAM',c:'blue'},{t:'150–400km range',c:'teal'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — Project Kusha (ERADS/XRSAM) is India\'s <b>indigenous long-range surface-to-air missile</b> developed by DRDO; CCS approved May 2022'},
+{c:'teal',t:'Range: <b>150–400 km</b> — comparable to S-400 Triumf; fills gap between Barak-8 (70 km) and S-400'},
+{c:'green',t:'Stmt 2 TRUE — Three-tiered system providing <b>multi-layered air defence</b>; targets drones to hypersonic missiles and space threats'},
+{c:'amber',t:'Three layers: short-range (Akash, QRSAM ~30–50km), medium-range (Barak-8 ~70km), long-range (S-400 now, Project Kusha future); induction by 2028–2030'}
+],trap:'Both statements are correct. India\'s air defence is explicitly multi-layered and Project Kusha IS indigenous (DRDO, not imported).',
+table:{h:['System','Range','Origin','Status'],rows:[['Akash','~25km','Indigenous','Deployed'],['QRSAM','~50km','Indigenous','Inducted'],['Barak-8 (MR-SAM)','~70km','India-Israel','Inducted'],['S-400','~400km','Russia','5 squadrons'],['Project Kusha','150–400km','Indigenous (DRDO)','2028–30 target']]},
+sum:'Project Kusha: DRDO, LR-SAM, 150–400km range, three-tier multi-layered air defence, induction 2028–30.',
+mcqs:[{q:'Project Kusha is intended to eventually replace which imported air defence system for long-range coverage?',opts:['Patriot (USA)','S-400 Triumf (Russia)','THAAD (USA)','Iron Dome (Israel)'],ans:1,exp:'Project Kusha is India\'s indigenous answer to the S-400 Triumf — the Russian long-range surface-to-air missile system India procured for ~$5.43 billion (2018 deal, 5 squadrons). Kusha will reduce long-term import dependence for strategic air defence.'}]},
+
+{n:'Q9',ans:'(b)',title:'Mission Shakti — India\'s ASAT test',chips:[{t:'Only 1 correct',c:'amber'},{t:'LEO 283km NOT GEO',c:'red'},{t:'4th ASAT nation',c:'blue'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — <b>27 March 2019</b>; DRDO PDV Mk-II interceptor destroyed Microsat-R at <b>283 km in LEO</b> using hit-to-kill kinetic vehicle'},
+{c:'red',t:'Stmt 2 FALSE (the trap) — Target was in <b>LEO (283 km), NOT GEO</b> (35,786 km); ASAT technology was BMD-based, designed for LEO'},
+{c:'teal',t:'India became <b>4th nation with ASAT capability</b> after USA, Russia (1968), China (2007)'},
+{c:'amber',t:'Low altitude chosen strategically — debris at 283 km decays in weeks (atmospheric drag); high-altitude debris lasts centuries'}
+],trap:'LEO (283 km) NOT GEO (35,786 km). This is the defining fact. Mission Shakti used kinetic kill vehicle, not explosives.',
+table:{h:['Feature','Detail'],rows:[['Date','27 March 2019'],['Target','Microsat-R at 283 km (LEO)'],['Method','Hit-to-kill kinetic kill vehicle'],['Launcher site','Dr. APJ Abdul Kalam Island, Odisha'],['India\'s ranking','4th ASAT-capable nation']]},
+sum:'Mission Shakti: March 2019, 283 km LEO (not GEO), kinetic kill, India = 4th ASAT nation. Debris decayed in weeks (low altitude strategic choice).',
+mcqs:[{q:'Which satellite was destroyed during Mission Shakti?',opts:['RISAT-2BR1','Microsat-R','Cartosat-3','EMISAT'],ans:1,exp:'India\'s own satellite Microsat-R (launched January 2019) was used as the target for Mission Shakti. The satellite was placed in a low Earth orbit of ~283 km specifically so that the test debris would decay quickly due to atmospheric drag.'}]},
+
+{n:'Q24',ans:'(d)',title:'Outer Space Treaty (OST) 1967',chips:[{t:'All 3 correct',c:'green'},{t:'Art. IV — no WMD',c:'blue'},{t:'No national appropriation',c:'teal'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — <b>Article IV</b>: No nuclear weapons or WMD in Earth orbit, on Moon, or other celestial bodies. Conventional weapons NOT banned — only WMDs'},
+{c:'teal',t:'Stmt 2 TRUE — Moon and other celestial bodies: exclusively <b>peaceful purposes</b>; no military bases, testing, manoeuvres'},
+{c:'green',t:'Stmt 3 TRUE — <b>Article II</b>: Outer space NOT subject to national appropriation by sovereignty, use, or occupation — province of all mankind'},
+{c:'amber',t:'India is an OST signatory; Mission Shakti did NOT violate OST (kinetic kill in orbit ≠ WMD in orbit); signed 1967, in force 1967'}
+],trap:'All three are correct. Note: conventional weapons in orbit are NOT banned by OST — only WMDs.',
+table:{h:['OST Article','Content'],rows:[['Art. I','Space for benefit of all countries; free exploration for all'],['Art. II','No national appropriation of outer space'],['Art. IV','No WMD in orbit; Moon = peaceful use only'],['Art. VI','States responsible for national space activities (even private)']]},
+sum:'OST 1967: WMD in orbit prohibited, Moon = peaceful use, no national appropriation. India is signatory. Mission Shakti (kinetic kill) does not violate OST.',
+mcqs:[{q:'Under the Outer Space Treaty, which type of weapons are explicitly prohibited from being placed in Earth orbit?',opts:['Conventional kinetic weapons','All weapons without exception','Nuclear weapons and weapons of mass destruction (WMD) only','Space-based lasers'],ans:2,exp:'Article IV of the OST prohibits placing "nuclear weapons or any other kinds of weapons of mass destruction" in Earth orbit. Conventional weapons (including kinetic interceptors like those used in ASAT tests) are NOT explicitly banned by the treaty, which is why Mission Shakti was treaty-compliant.'}]},
+
+{n:'Q29',ans:'(d)',title:'India\'s joint military exercises — matching',chips:[{t:'Cyclone=Egypt',c:'teal'},{t:'Dharma Guardian=Japan',c:'blue'},{t:'Desert Knight=France+UAE',c:'amber'}],
+points:[
+{c:'teal',t:'Exercise <b>Cyclone</b>: India + <b>Egypt</b>; Army Special Forces; desert warfare, SF small-team tactics; held at Mahajan Field Firing Ranges, Rajasthan'},
+{c:'blue',t:'Exercise <b>Dharma Guardian</b>: India + <b>Japan</b>; Army; urban/jungle warfare tactics; held at East Fuji Manoeuvre Area, Japan'},
+{c:'amber',t:'Exercise <b>Desert Knight</b>: India + <b>France + UAE</b>; Air Force; aerial combat, refuelling, composite air operations; India deploys Rafale jets'}
+],trap:'All three matchings must be correct (matching question). Memorise by pairing: Cyclone=Egypt(desert), Dharma Guardian=Japan(guardian/discipline), Desert Knight=France+UAE(desert).',
+table:{h:['Exercise','Countries','Service'],rows:[['Cyclone','India-Egypt','Army SF'],['Dharma Guardian','India-Japan','Army'],['Desert Knight','India-France-UAE','Air Force'],['Malabar','India-USA-Japan-Australia','Navy (Quad)'],['Varuna','India-France','Navy']]},
+sum:'Cyclone=Egypt, Dharma Guardian=Japan, Desert Knight=France+UAE. Desert Knight is notable for trilateral Rafale interoperability.',
+mcqs:[{q:'Exercise "Malabar" is a naval exercise involving India and which other nations?',opts:['India, Russia, China','India, USA, Japan, Australia (Quad navies)','India, France, UAE','India, Sri Lanka, Maldives'],ans:1,exp:'Exercise Malabar started as a bilateral India-USA exercise in 1992, evolved to include Japan, and now includes all four Quad nations (India, USA, Japan, Australia). It is the premier quadrilateral naval exercise and focuses on high-end maritime warfare.'}]},
+
+{n:'Q30',ans:'(b)',title:'Durand Cup — historical facts',chips:[{t:'Only 2 correct',c:'amber'},{t:'World\'s 3rd oldest',c:'red'},{t:'Armed Forces organise',c:'blue'}],
+points:[
+{c:'red',t:'Stmt 1 FALSE — Durand Cup is world\'s <b>THIRD oldest</b> surviving football tournament (not first); FA Cup (England, 1871) and Scottish FA Cup (1874) are older'},
+{c:'blue',t:'Stmt 2 TRUE — <b>Indian Armed Forces</b> (Army, Navy, Air Force jointly) organise the Durand Cup via Durand Football Tournament Society'},
+{c:'teal',t:'Founded <b>1888</b> in Shimla; named after Sir Henry Mortimer Durand (Foreign Secretary, British India); <b>Asia\'s oldest football tournament</b>'},
+{c:'amber',t:'Three trophies awarded: <b>Durand Cup, Shimla Trophy, President\'s Cup</b>. Six Armed Forces teams participate. 134th edition in 2025 (IndianOil Durand Cup).'}
+],trap:'Students often remember "oldest" — it is the THIRD oldest (not first) globally, but IS Asia\'s oldest.',
+table:{h:['Tournament','Country','Founded'],rows:[['FA Cup','England','1871 (oldest)'],['Scottish FA Cup','Scotland','1874 (2nd)'],['Durand Cup','India','1888 (3rd oldest; Asia\'s oldest)']]},
+sum:'Durand Cup: world\'s 3rd oldest, Asia\'s oldest football tournament; founded 1888 in Shimla; organised by Indian Armed Forces; three trophies awarded.',
+mcqs:[{q:'The Durand Cup was named after which official of British India?',opts:['Lord Dalhousie','Sir Henry Mortimer Durand','Lord Mountbatten','William Bentinck'],ans:1,exp:'The Durand Cup was named after Sir Henry Mortimer Durand, the Foreign Secretary of British India, who established the tournament in Shimla in 1888. The cup was originally meant for military and civilian teams stationed in India.'}]},
+
+{n:'Q36',ans:'(C)',title:'India\'s UPI — digital payments statistics',chips:[{t:'Only 2 correct',c:'amber'},{t:'~49% of global RT payments',c:'red'},{t:'World\'s largest RT system',c:'green'}],
+points:[
+{c:'red',t:'Stmt 1 FALSE — UPI accounts for approximately <b>49% of global real-time payment transactions</b> (ACI Worldwide 2024), NOT 30%'},
+{c:'green',t:'Stmt 2 TRUE — IMF formally recognised UPI as <b>world\'s largest real-time payment system</b> (June 2025 report)'},
+{c:'blue',t:'India processed <b>129.3 billion</b> real-time transactions vs Brazil\'s 37.4 billion (2nd place); UPI grown 12,000-fold since 2016 launch'},
+{c:'teal',t:'UPI accounts for <b>81% of all retail digital transactions</b> within India; managed by NPCI; launched April 2016'}
+],trap:'30% is wrong — the actual figure is ~49%. Students should update their memory: UPI now accounts for nearly HALF of global real-time payments.',
+table:{h:['Country','Transactions (Bn)','Global Share'],rows:[['India (UPI)','129.3','~49%'],['Brazil (PIX)','37.4','~14%'],['Thailand (PromptPay)','20.4','~8%'],['China (UnionPay)','17.2','~6%']]},
+sum:'UPI: ~49% of global RT payments (not 30%), world\'s largest RT payment system (IMF confirmed). Managed by NPCI, launched April 2016.',
+mcqs:[{q:'UPI (Unified Payments Interface) is managed by which organisation?',opts:['Reserve Bank of India','Ministry of Finance','National Payments Corporation of India (NPCI)','State Bank of India'],ans:2,exp:'UPI is managed by the National Payments Corporation of India (NPCI) — an umbrella organisation set up by RBI and IBA to operate retail payment systems. NPCI also manages IMPS (on which UPI is built), NACH, RuPay, and other payment systems.'}]},
+
+{n:'Q63',ans:'(C)',title:'Repechage system in sports',chips:[{t:'Wrestling, Judo, Taekwondo',c:'teal'},{t:'Two bronze medals',c:'amber'},{t:'Lost to finalist = second chance',c:'blue'}],
+points:[
+{c:'teal',t:'Repechage (French: "fishing out again") = athletes who <b>lost to eventual finalists</b> get a second chance to compete for bronze'},
+{c:'amber',t:'Result: <b>two bronze medals</b> awarded — one from each semifinal pool'},
+{c:'blue',t:'Used in: <b>Wrestling</b> (freestyle + Greco-Roman), <b>Judo</b>, <b>Taekwondo</b> at Olympics; also rowing (qualifying repechage heats)'},
+{c:'coral',t:'NOT used in: Boxing (both semifinal losers get bronze), Badminton (bronze playoff), most team sports'}
+],trap:'Boxing does NOT use repechage — both semifinal losers get bronze. Only combat sports (wrestling, judo, taekwondo) use the knockout-repechage format.',
+table:{h:['Sport','Repechage?','Bronze medal system'],rows:[['Wrestling','Yes','Two bronzes via repechage'],['Judo','Yes','Two bronzes via repechage'],['Taekwondo','Yes','Two bronzes via repechage'],['Boxing','No','Both SF losers = bronze'],['Badminton','No','Bronze playoff match']]},
+sum:'Repechage = wrestlers/judokas/taekwondo athletes who lost to finalists compete for bronze. Two bronze medals awarded. Boxing does NOT use repechage.',
+mcqs:[{q:'In which Olympic sport are both athletes who lose in the semifinals directly awarded bronze medals WITHOUT a playoff match?',opts:['Judo','Wrestling','Boxing','Taekwondo'],ans:2,exp:'In Olympic boxing, both athletes who lose their semifinal bouts are automatically awarded bronze medals — there is no bronze medal bout. In contrast, wrestling, judo, and taekwondo use the repechage system, resulting in two separate bronze medal contests.'}]},
+
+{n:'Q64',ans:'(b)',title:'Major Dhyan Chand Khel Ratna — eligibility',chips:[{t:'Only 1 correct',c:'amber'},{t:'4 years performance',c:'blue'},{t:'Retired athletes eligible',c:'teal'}],
+points:[
+{c:'blue',t:'Stmt 1 TRUE — Khel Ratna recognises "spectacular and most outstanding performance at international level" over <b>preceding four years</b>; 80% weightage to Olympic/Asian/CWG medals'},
+{c:'teal',t:'Stmt 2 FALSE — No active status requirement; <b>retired sportspersons can and do receive</b> the award based on performance in the evaluation period'},
+{c:'amber',t:'Renamed from Rajiv Gandhi Khel Ratna to <b>Major Dhyan Chand Khel Ratna</b> in August 2021; normally one award per year'},
+{c:'coral',t:'Recent awardees: Neeraj Chopra (2021), Manu Bhaker (2024 — 2 medals Paris Olympics), Gukesh (2024 — World Chess Champion), Harmanpreet Singh (2024)'}
+],trap:'No active status requirement — retired athletes are eligible. This is a common misconception.',
+table:{h:['Criterion','Requirement'],rows:[['Citizenship','Indian citizen required'],['Performance base','International level, preceding 4 years'],['WADA compliance','Required — banned substances disqualify'],['Active status','NOT required — retired athletes eligible']]},
+sum:'Khel Ratna: 4-year performance window, 80% weightage to international medals, NO active status requirement, renamed August 2021.',
+mcqs:[{q:'The Major Dhyan Chand Khel Ratna Award was renamed from "Rajiv Gandhi Khel Ratna" in:',opts:['January 2021','August 2021','January 2022','August 2022'],ans:1,exp:'The award was renamed in August 2021, coinciding with the Tokyo Olympics, honouring legendary Indian hockey player Major Dhyan Chand — the "Wizard of Hockey" — who was born on 29 August 1905 (celebrated as National Sports Day).'}]}
+]}
+];
+
+let activeTab='history';
+let activeCueIdx=0;
+let mcqState={};
+
+function renderTabs(){
+const bar=document.getElementById('tabBar');
+bar.innerHTML='';
+subjects.forEach(s=>{
+const t=document.createElement('button');
+t.className='tab'+(s.id===activeTab?' active':'');
+t.textContent=s.label+' ('+s.qs.length+')';
+t.onclick=()=>{activeTab=s.id;activeCueIdx=0;render()};
+bar.appendChild(t);
+});
+}
+
+function renderMain(){
+const subj=subjects.find(s=>s.id===activeTab);
+const q=subj.qs[activeCueIdx];
+const m=document.getElementById('main');
+m.innerHTML='';
+
+const cornell=document.createElement('div');
+cornell.className='cornell';
+
+const cuePane=document.createElement('div');
+cuePane.className='cue-pane';
+const cl=document.createElement('div');
+cl.className='cue-label';
+cl.textContent='Questions ('+subj.qs.length+')';
+cuePane.appendChild(cl);
+subj.qs.forEach((qi,i)=>{
+const c=document.createElement('div');
+c.className='cue-item'+(i===activeCueIdx?' sel':'');
+c.innerHTML='<span style="font-weight:500;font-size:11px">'+qi.n+'</span> — '+qi.title.substring(0,30)+(qi.title.length>30?'...':'');
+c.onclick=()=>{activeCueIdx=i;render()};
+cuePane.appendChild(c);
+});
+cornell.appendChild(cuePane);
+
+const notesPane=document.createElement('div');
+notesPane.className='notes-pane';
+
+const hdr=document.createElement('div');
+hdr.className='q-header';
+hdr.innerHTML='<span class="q-num">'+q.n+'</span><span class="q-ans">Ans: '+q.ans+'</span>';
+notesPane.appendChild(hdr);
+
+const title=document.createElement('div');
+title.className='q-title';
+title.textContent=q.title;
+notesPane.appendChild(title);
+
+const chips=document.createElement('div');
+chips.className='chips';
+q.chips.forEach(ch=>{
+chips.innerHTML+='<span class="chip cp-'+ch.c+'">'+ch.t+'</span>';
+});
+notesPane.appendChild(chips);
+
+q.points.forEach(p=>{
+const row=document.createElement('div');
+row.className='point';
+row.innerHTML='<div class="dot dot-'+p.c+'"></div><div class="pt">'+p.t+'</div>';
+notesPane.appendChild(row);
+});
+
+if(q.trap){
+const tr=document.createElement('div');
+tr.className='trap';
+tr.innerHTML='<div class="trap-label">UPSC trap alert</div>'+q.trap;
+notesPane.appendChild(tr);
+}
+
+if(q.table){
+const wrap=document.createElement('div');
+wrap.style.overflowX='auto';
+let html='<table class="mtable"><thead><tr>';
+q.table.h.forEach(h=>{html+='<th>'+h+'</th>'});
+html+='</tr></thead><tbody>';
+q.table.rows.forEach(r=>{html+='<tr>'+r.map(c=>'<td>'+c+'</td>').join('')+'</tr>'});
+html+='</tbody></table>';
+wrap.innerHTML=html;
+notesPane.appendChild(wrap);
+}
+
+const sumbox=document.createElement('div');
+sumbox.className='sumbox';
+sumbox.innerHTML='<div class="sum-label">Summary</div><div class="sum-txt">'+q.sum+'</div>';
+notesPane.appendChild(sumbox);
+
+if(q.mcqs&&q.mcqs.length){
+const key=activeTab+'_'+activeCueIdx;
+const state=mcqState[key]||{qi:0,answered:false};
+const mcqWrap=document.createElement('div');
+mcqWrap.className='mcq-wrap';
+const qIdx=state.qi||0;
+const mcq=q.mcqs[qIdx];
+mcqWrap.innerHTML='<div class="mcq-meta">Practice MCQ '+(qIdx+1)+'/'+q.mcqs.length+'</div><div class="mcq-q">'+mcq.q+'</div>';
+const optsDiv=document.createElement('div');
+mcq.opts.forEach((o,oi)=>{
+const opt=document.createElement('div');
+opt.className='opt';
+opt.textContent=String.fromCharCode(65+oi)+'. '+o;
+opt.dataset.i=oi;
+optsDiv.appendChild(opt);
+});
+mcqWrap.appendChild(optsDiv);
+const exp=document.createElement('div');
+exp.className='exp';
+exp.textContent=mcq.exp;
+mcqWrap.appendChild(exp);
+const nxt=document.createElement('button');
+nxt.className='nxt';
+nxt.textContent=qIdx+1<q.mcqs.length?'Next MCQ →':'Reset MCQs';
+mcqWrap.appendChild(nxt);
+notesPane.appendChild(mcqWrap);
+
+optsDiv.querySelectorAll('.opt').forEach(opt=>{
+opt.onclick=function(){
+if(state.answered) return;
+state.answered=true;
+const chosen=parseInt(this.dataset.i);
+optsDiv.querySelectorAll('.opt').forEach((o,i)=>{
+if(i===mcq.ans) o.className='opt correct';
+else if(i===chosen) o.className='opt wrong';
+});
+exp.style.display='block';
+nxt.style.display='inline-block';
+mcqState[key]=state;
+}
+});
+nxt.onclick=function(){
+const qi=state.qi||0;
+if(qi+1<q.mcqs.length){
+mcqState[key]={qi:qi+1,answered:false};
+} else {
+delete mcqState[key];
+}
+render();
+};
+}
+
+cornell.appendChild(notesPane);
+m.appendChild(cornell);
+}
+
+function render(){renderTabs();renderMain()}
+render();
+</script>
