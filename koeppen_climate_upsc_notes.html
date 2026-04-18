@@ -1,0 +1,313 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:transparent}
+.wrap{padding:1rem 0;max-width:900px}
+h1{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.sub{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.2rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.tab{padding:6px 14px;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.tab.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;border-color:var(--color-border-primary)}
+.cornell{display:grid;grid-template-columns:220px 1fr;gap:0;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.cue{background:var(--color-background-secondary);padding:1rem;border-right:0.5px solid var(--color-border-tertiary)}
+.notes{background:var(--color-background-primary);padding:1rem}
+.cue-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.cue-q{font-size:13px;color:var(--color-text-secondary);line-height:1.6;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer}
+.cue-q:last-child{border-bottom:none}
+.cue-q:hover{color:var(--color-text-primary)}
+.cue-q.sel{color:var(--color-text-primary);font-weight:500}
+.notes-title{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.chip-blue{background:#E6F1FB;color:#0C447C}
+.chip-teal{background:#E1F5EE;color:#085041}
+.chip-amber{background:#FAEEDA;color:#633806}
+.chip-coral{background:#FAECE7;color:#712B13}
+.chip-purple{background:#EEEDFE;color:#3C3489}
+.chip-green{background:#EAF3DE;color:#27500A}
+.row{display:flex;gap:8px;margin-bottom:8px;align-items:baseline}
+.bullet{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.b-blue{background:#378ADD}
+.b-teal{background:#1D9E75}
+.b-amber{background:#BA7517}
+.b-coral{background:#D85A30}
+.b-purple{background:#7F77DD}
+.row-txt{font-size:13.5px;color:var(--color-text-primary);line-height:1.7}
+.row-txt b{font-weight:500}
+.mini-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+.mini-table th{text-align:left;font-weight:500;font-size:11px;color:var(--color-text-secondary);padding:4px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:.04em}
+.mini-table td{padding:5px 8px;color:var(--color-text-primary);border-bottom:0.5px solid var(--color-border-tertiary)}
+.mini-table tr:last-child td{border-bottom:none}
+.mini-table tr:hover td{background:var(--color-background-secondary)}
+.summary{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;margin-top:14px}
+.summary-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.summary-txt{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+.mcq-block{margin-top:14px}
+.mcq-q{font-size:13.5px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px}
+.mcq-opts{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.mcq-opt{font-size:13px;padding:7px 12px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);cursor:pointer;color:var(--color-text-secondary);background:var(--color-background-primary);transition:all .12s}
+.mcq-opt:hover{border-color:var(--color-border-secondary);color:var(--color-text-primary)}
+.mcq-opt.correct{background:#EAF3DE;border-color:#639922;color:#27500A}
+.mcq-opt.wrong{background:#FCEBEB;border-color:#A32D2D;color:#501313}
+.mcq-exp{font-size:13px;color:var(--color-text-secondary);line-height:1.6;margin-top:6px;padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);display:none}
+.next-btn{margin-top:10px;padding:7px 16px;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;background:var(--color-background-primary);color:var(--color-text-primary);display:none}
+.next-btn:hover{background:var(--color-background-secondary)}
+.hidden{display:none}
+</style>
+<div class="wrap">
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Koeppen Climate Classification Cornell Notes for UPSC Revision</h2>
+<h1>Koeppen's Climate Classification</h1>
+<p class="sub">Cornell notes · UPSC revision · tap any cue question to explore · quiz yourself</p>
+<div class="tabs" id="tabBar"></div>
+<div id="main"></div>
+</div>
+<script>
+const data=[
+{id:'overview',label:'Overview',cues:[
+{q:'What is empirical classification?',title:'Koeppen\'s scheme — fundamentals',chips:[{t:'Empirical',c:'blue'},{t:'5 Groups',c:'teal'},{t:'Temperature + Precipitation',c:'amber'}],points:[
+{c:'blue',t:'<b>Empirical</b> = based on observation, not theory (e.g., dropping a stone confirms gravity)'},
+{c:'teal',t:'Koeppen noted <b>vegetation distribution closely mirrors climate</b> — used this as a proxy'},
+{c:'amber',t:'<b>A, C, D, E</b> = humid climates (temperature-based); <b>B</b> = dry (precipitation-based)'},
+{c:'coral',t:'Small letters: <b>f</b>=no dry season, <b>m</b>=monsoon, <b>w</b>=winter dry, <b>s</b>=summer dry'},
+{c:'purple',t:'Severity of temperature: <b>a</b> (hottest) → <b>b</b> → <b>c</b> → <b>d</b> (coldest)'},
+{c:'blue',t:'B subdivided: <b>S</b>=steppe/semi-arid, <b>W</b>=desert'}
+],table:{h:['Group','Name','Basis'],rows:[['A','Tropical Humid','Temperature'],['B','Dry','Precipitation'],['C','Warm Temperate','Temperature'],['D','Cold / Boreal','Temperature'],['E','Polar / Tundra','Temperature']]},summary:'5 major groups; 4 on temperature, 1 on precipitation. Capital letters = major groups; small letters = sub-types based on seasonality.',mcqs:[
+{q:'Which of Koeppen\'s major climate groups is based on precipitation rather than temperature?',opts:['A','B','C','D'],ans:1,exp:'Group B (dry climates) is the only group defined by precipitation. It is subdivided into S (steppe) and W (desert).'},
+{q:'The small letter "m" in Koeppen\'s classification represents:',opts:['Mountain climate','Monsoon climate','Moderate rainfall','Mediterranean'],ans:1,exp:'"m" stands for monsoon climate — a season of concentrated heavy rainfall typical of Am climates like India.'}
+]}
+]},
+{id:'A',label:'A — Tropical',cues:[
+{q:'Af: Why double rainfall peaks?',title:'Tropical wet climate (Af)',chips:[{t:'Equatorial',c:'teal'},{t:'5°N–5°S',c:'blue'},{t:'>150cm rainfall',c:'green'}],points:[
+{c:'teal',t:'Temperature uniform ~<b>27°C</b> year-round; no winter; no distinct dry month'},
+{c:'blue',t:'<b>Double rainfall peaks</b> in April & October (shortly after equinoxes) — unique to Af'},
+{c:'amber',t:'Least rain in June & December (solstices)'},
+{c:'coral',t:'Selvas (Amazon dense forest); canopy in layers up to <b>50m</b>; multiple species → hard to log commercially'},
+{c:'purple',t:'<b>Why net timber importers?</b> Non-homogeneous stands + very heavy hardwood that won\'t float'}
+],table:{h:['Plantation','Leading Producers'],rows:[['Rubber','Malaysia, Indonesia'],['Cocoa','Ghana, Nigeria'],['Palm Oil','Indonesia, Malaysia'],['Coffee','Brazil'],['Sugarcane','Brazil']]},summary:'Af = no dry month, double rainfall peaks at equinoxes, selvas vegetation, sparsely populated. Commercially challenging due to multiple species.',mcqs:[
+{q:'The double rainfall peaks in equatorial climate coincide with:',opts:['Solstices (June & Dec)','Equinoxes (April & Oct)','Trade wind reversal','ITCZ shifting to poles'],ans:1,exp:'Shortly after equinoxes (March & September), the sun is overhead at the equator, intensifying convection — causing the two annual rainfall peaks of April and October.'},
+{q:'Equatorial countries are net importers of timber because:',opts:['No forests exist','Trees occur in non-homogeneous stands and are too heavy to float','Deforestation has removed all trees','Shifting cultivation uses all timber'],ans:1,exp:'Multiple species grow intermixed (not pure stands), making commercial extraction difficult. Tropical hardwoods are also too heavy to float on rivers, making transport expensive.'}
+]},
+{q:'Am: Three seasons of monsoon',title:'Tropical monsoon climate (Am)',chips:[{t:'5°–30° N/S',c:'blue'},{t:'Seasonal wind reversal',c:'coral'},{t:'India, SE Asia',c:'teal'}],points:[
+{c:'teal',t:'Three seasons: <b>cool dry</b> (Oct–Feb), <b>hot dry</b> (Mar–mid June), <b>rainy</b> (mid-June–Sep)'},
+{c:'blue',t:'South-West Monsoon "bursts" in mid-June; <b>almost all annual rain</b> falls in this season'},
+{c:'amber',t:'Cherrapunji & Mawsynram ~<b>1000 cm/year</b> — orographic + funneling effect'},
+{c:'coral',t:'NE Monsoon: dry for mainland India but brings rain to <b>SE tip</b> (Tamil Nadu, Nov–Dec)'},
+{c:'purple',t:'Teak — Burma = <b>3/4 of world production</b>; "poisoned" years before felling so it floats'}
+],table:{h:['Country/Region','Shifting Cultivation Name'],rows:[['NE India','Jhum'],['Myanmar','Taungya'],['Sri Lanka','Chena'],['Philippines','Caingin'],['Thailand','Tamrai'],['Java','Humah']]},summary:'Am = monsoon; seasonal reversal of winds; concentrated summer rainfall; three distinct seasons. Subsistence farming dominant.',mcqs:[
+{q:'Western disturbances bring rainfall to Punjab during which season?',opts:['South-West Monsoon','North-East Monsoon / winter','Hot dry season','Retreating monsoon'],ans:1,exp:'Western disturbances are frontal (cyclonic) precipitation brought by jet streams during the cool dry season (Oct–Feb), providing vital moisture for winter cereals in Punjab.'},
+{q:'Which is the world\'s leading teak producer?',opts:['India','Thailand','Myanmar (Burma)','Indonesia'],ans:2,exp:'Myanmar accounts for about 3/4 of world teak production. Teak is "poisoned" years before felling so it dries and becomes light enough to float down the Chindwin and Irrawaddy rivers.'}
+]},
+{q:'Aw: Savanna — what causes alternating seasons?',title:'Tropical wet-and-dry / Savanna (Aw)',chips:[{t:'Sudan type',c:'amber'},{t:'80–160cm',c:'green'},{t:'Transitional',c:'coral'}],points:[
+{c:'teal',t:'Transitional between <b>equatorial rainforest</b> and <b>hot desert</b>'},
+{c:'blue',t:'<b>Alternating wet/dry</b>: on-shore winds bring summer rain; off-shore winds keep winter dry'},
+{c:'amber',t:'Peak temperature just <b>before</b> the rainy season (April in N.Hemisphere), not at June solstice'},
+{c:'coral',t:'Tall elephant grass (up to 15 ft) in wet season; turns yellow and dies in dry season'},
+{c:'purple',t:'<b>Masai</b> = pastoralists (E. Africa plateau); <b>Hausa</b> = settled cultivators (Nigeria)'}
+],table:{h:['Region','Local Name'],rows:[['Africa','Savanna / Bush-veld'],['South America (N)','Llanos (Orinoco)'],['South America (S)','Campos (Brazilian Highlands)'],['Australia','Australian Savanna'],['India','N. Karnataka, S. Maharashtra, Telangana']]},summary:'Aw = two seasons (wet summer, dry winter); lateritic soils; "big game country"; agricultural potential hampered by drought, political instability and soil degradation.',mcqs:[
+{q:'In savanna climate, the highest temperatures occur:',opts:['During the solstice month (June)','Just before the onset of the rainy season','At the end of the rainy season','In the middle of the dry season'],ans:1,exp:'The highest temperatures in savanna occur just before the rainy season (April in N. Hemisphere, October in S. Hemisphere) — not at the solstice, because cloud cover and rainfall moderate temperatures once the rains arrive.'}
+]}
+]},
+{id:'B',label:'B — Dry',cues:[
+{q:'Why hot deserts on western coasts 15–30°?',title:'Hot desert climate (BW/BWh)',chips:[{t:'Trade wind deserts',c:'amber'},{t:'15°–30° N/S',c:'blue'},{t:'Sahara, Thar, Atacama',c:'coral'}],points:[
+{c:'amber',t:'Located in <b>sub-tropical high pressure belts</b> (horse latitudes) — descending air, no precipitation'},
+{c:'blue',t:'<b>Off-shore Trade Winds</b> blow from land to sea — carry no moisture inland'},
+{c:'coral',t:'Cold ocean currents on western coasts chill incoming air → <b>mist/fog</b> but no rain (Atacama ≈ 1.3 cm/yr)'},
+{c:'teal',t:'Very high <b>diurnal temperature range</b> (14–25°C) due to dry air & cloudless sky; frost possible at night'},
+{c:'purple',t:'Atacama (Peru/Chile) = driest desert on Earth; rain shadow + off-shore trades'}
+],table:{h:['Desert','Location','Cause'],rows:[['Sahara','N Africa','Sub-tropical HP + off-shore trades'],['Thar','India/Pakistan','Same + continental'],['Atacama','Chile','Cold Humboldt Current + rain shadow'],['Gobi','Central Asia','Continentality'],['Patagonian','Argentina','Rain-shadow of Andes']]},summary:'Hot deserts: western coasts 15–30°, sub-tropical high pressure, off-shore trades, cold currents. Gobi & Patagonian = mid-latitude deserts due to continentality / rain-shadow.',mcqs:[
+{q:'The Atacama Desert is the driest because of:',opts:['Distance from equator only','Cold Humboldt Current + rain-shadow effect of Andes','Sub-tropical high pressure alone','Lack of rivers'],ans:1,exp:'The cold Humboldt (Peruvian) Current chills oncoming air, and the Andes create a massive rain-shadow on the leeward (western) side. Both effects together make Atacama the driest place on Earth (~1.3 cm annual rainfall).'},
+{q:'Mid-latitude deserts like Gobi differ from hot deserts because they:',opts:['Receive monsoon rain','Are formed by continentality — cut off from ocean by mountains','Are in horse latitudes','Are near cold currents'],ans:1,exp:'Gobi lies deep in a continental interior, sheltered by the Himalayas and other ranges. It gets bitterly cold winters with snow — unlike hot deserts — due to extreme continentality.'}
+]}
+]},
+{id:'C',label:'C — Warm Temp.',cues:[
+{q:'Mediterranean: Why dry summer, wet winter?',title:'Mediterranean climate (Cs)',chips:[{t:'30°–45° N/S',c:'blue'},{t:'Western margins',c:'teal'},{t:'Winter rain',c:'amber'}],points:[
+{c:'teal',t:'<b>Shifting wind belts</b>: summer → off-shore trades (dry); winter → on-shore Westerlies (wet)'},
+{c:'blue',t:'Best developed in <b>central Chile</b>; also California, SW Africa (Cape Town), SW & S Australia'},
+{c:'amber',t:'<b>Sirocco</b>: hot dusty wind from Sahara (S→N); can carry red dust causing "blood rain"'},
+{c:'coral',t:'<b>Mistral</b>: cold N wind funneled down Rhône valley (Alps + Central Massif) at 40–80 mph'},
+{c:'purple',t:'<b>Net exporter</b> of citrus fruits (70% of world exports); net <b>importer</b> of dairy products'}
+],table:{h:['Crop','Why it thrives'],rows:[['Olives','Deep roots; leathery skin; drought-tolerant'],['Citrus fruits','Long sunny summer ripens fruit; thick skin prevents transpiration'],['Wheat','Winter rain suits growth cycle'],['Grapes (wine)','Long sunny summer; 75% world wine from Mediterranean rim']]},summary:'Cs = hot dry summer (off-shore trades), cool wet winter (on-shore Westerlies). Orchard farming, viticulture, transhumance. Cork oak, giant redwood (California), eucalyptus (Australia).',mcqs:[
+{q:'Which is the best developed region of Mediterranean climate?',opts:['Around the Mediterranean Sea itself','Central Chile','California','SW Australia'],ans:1,exp:'Although the Mediterranean Sea gives this climate its name, the best developed (most textbook-perfect) Mediterranean climate is found in central Chile, according to Koeppen.'},
+{q:'Mistral is caused by:',opts:['Hot Saharan air','Cold northerly wind funneled between the Alps and Central Massif down the Rhône valley','Sea breezes from Mediterranean','Sirocco rebounding off the Alps'],ans:1,exp:'The Mistral is a cold, strong northerly wind that gains speed through the funneling effect of the narrow Rhône valley, flanked by the Alps on the east and the Central Massif on the west.'}
+]},
+{q:'British type: why mild winters?',title:'British type / NW European Maritime (Cfb)',chips:[{t:'Westerlies year-round',c:'teal'},{t:'N Atlantic Drift',c:'blue'},{t:'4 seasons',c:'purple'}],points:[
+{c:'teal',t:'Under influence of <b>Westerlies all year</b> — regions of frontal/temperate cyclonic activity'},
+{c:'blue',t:'<b>North Atlantic Drift</b> (warm current) keeps winters abnormally mild for the latitude'},
+{c:'amber',t:'Rainfall throughout year with slight <b>winter maximum</b> (frontal cyclones)'},
+{c:'coral',t:'Unlike equatorial forests, deciduous trees in <b>pure stands</b> → commercially profitable lumbering'},
+{c:'purple',t:'Canterbury (NZ) = rain-shadow; <b>20 sheep per person</b>; 2/3 of world mutton exports from NZ'}
+],table:{h:['Country','Economic Specialty'],rows:[['Denmark/Netherlands','Intensive dairying; cheese, butter'],['New Zealand','Wool, mutton export; Canterbury sheep'],['Britain/Norway','Fishing; automotive (Germany)'],['Tasmania','Merino wool; market gardening ("garden state")']]},summary:'Cfb = oceanic; mild winters due to N Atlantic Drift; 4 distinct seasons; deciduous forests; market gardening; dairying; beet sugar unique to this region.',mcqs:[
+{q:'Why does New Zealand\'s Canterbury plain receive less rainfall despite being in the British-type climate zone?',opts:['It is far from the ocean','It lies in the rain-shadow of the Southern Alps','Westerlies bypass it','It has a high pressure zone'],ans:1,exp:'The Southern Alps block the on-shore Westerlies. The windward western margins get heavy orographic rainfall, while Canterbury on the leeward side receives less — classic rain-shadow. This dry grassland is ideal for sheep rearing.'}
+]},
+{q:'China type vs Gulf type vs Natal type?',title:'Warm temperate eastern margin (Cwa/Cfa)',chips:[{t:'20°–35° N/S',c:'amber'},{t:'East coasts',c:'coral'},{t:'Warm moist summer',c:'teal'}],points:[
+{c:'teal',t:'<b>China type</b>: temperate monsoon; hot summer SE monsoon from Pacific; cold dry NW monsoon in winter'},
+{c:'blue',t:'<b>Gulf type</b>: SE USA; slight monsoonal; hurricanes in Sep–Oct; Cotton Belt, Corn Belt, Tobacco'},
+{c:'amber',t:'<b>Natal type</b>: non-monsoonal; SE Trade Winds bring even year-round rainfall; cane sugar dominant'},
+{c:'coral',t:'Cotton Belt nemesis = <b>boll-weevil</b>; pushed cultivation westward to Mississippi flood plains'},
+{c:'purple',t:'China: 1/3 of world rice; padi on <b>terraced hillslopes</b>; also tea, mulberry (sericulture)'}
+],table:{h:['Sub-type','Key feature','Region'],rows:[['China type','Temperate monsoon','China, S Japan'],['Gulf type','Slight monsoon, hurricanes','SE USA'],['Natal type','Year-round rain from trades','S Africa, SE Brazil, E Australia']]},summary:'Eastern margins: warm moist summer, cool dry winter (except Natal). China=rice/tea; Gulf=corn/cotton/tobacco; Natal=sugarcane. Quebracho (hardest wood) in SE Brazil.',mcqs:[
+{q:'The Natal type of climate differs from China type mainly because:',opts:['It has colder winters','SE Trade Winds bring year-round rainfall, eliminating monsoon seasonality','It receives no rainfall at all','It is found only in Africa'],ans:1,exp:'The narrowness of southern continents and dominance of maritime influence means SE Trade Winds deliver rainfall fairly evenly year-round in the Natal type — unlike the strongly seasonal China type.'}
+]}
+]},
+{id:'D',label:'D — Cold / Taiga',cues:[
+{q:'Taiga: Why absent in southern hemisphere?',title:'Taiga / Boreal / Siberian climate (Dfc/Dfd)',chips:[{t:'50°–70° N only',c:'blue'},{t:'Evergreen conifers',c:'green'},{t:'Greatest annual range',c:'coral'}],points:[
+{c:'teal',t:'<b>Only northern hemisphere</b> — southern continents too narrow at high latitudes for this continental climate'},
+{c:'blue',t:'Verkhoyansk, Siberia: <b>–67°C</b> ever recorded; annual range ~50–60°C (greatest in world)'},
+{c:'amber',t:'Conifers in <b>pure/homogeneous stands</b> → commercially favorable (unlike equatorial forests)'},
+{c:'coral',t:'Logs float easily (softwood) → rivers used for transport; <b>Canada = ~50% of world newsprint</b>'},
+{c:'purple',t:'Lumberjacks historically; now machines fell trees; sawmills downstream; pulp → paper, rayon, varnish'}
+],table:{h:['Country','Specialty'],rows:[['Canada','Newsprint (50% of world); freshwater fishing'],['Russia','Largest softwood reserve (Siberian taiga)'],['Sweden/Finland','Matches export; hydropower for sawmills'],['USA','Wood pulp (mechanical & chemical)']],},summary:'Dfc = sub-Arctic continental; evergreen conifers; pure stands; softwood floats → river transport. Lumbering, fur trapping, paper & pulp industries dominant. Agriculture almost absent.',mcqs:[
+{q:'Which country accounts for almost half of the world\'s newsprint production?',opts:['USA','Russia','Sweden','Canada'],ans:3,exp:'Canada leads in newsprint production due to its vast accessible coniferous forests and well-developed pulp mills. The USA leads in total wood pulp production.'},
+{q:'Taiga climate is absent in the southern hemisphere because:',opts:['No coniferous trees grow there','Southern continents are too narrow at high latitudes to develop continental conditions','The southern hemisphere is warmer','There are no cold ocean currents'],ans:1,exp:'The great east-west extent of landmass is needed to develop the extreme continentality of taiga climate. Southern continents (Africa, South America, Australia) narrow sharply poleward, so oceanic influence dominates and extreme continental conditions cannot develop.'}
+]},
+{q:'Laurentian: fishing dominance?',title:'Laurentian / Cool temperate eastern marine',chips:[{t:'N hemisphere only',c:'coral'},{t:'NE Canada + E Asia',c:'blue'},{t:'Fishing dominant',c:'teal'}],points:[
+{c:'teal',t:'Intermediate between British (moderate) and Taiga (extreme) — maritime + continental mix'},
+{c:'blue',t:'<b>Grand Banks, Newfoundland</b>: warm Gulf Stream + cold Labrador Current → upwelling → rich plankton'},
+{c:'amber',t:'NW Pacific Japan: warm <b>Kuroshio</b> + cold <b>Oyashio</b> — same mixing, same result'},
+{c:'coral',t:'Japan: <b>1/6 of world fish catch</b>; pearl culture; seaweed cultivation; whaling (controversial)'},
+{c:'purple',t:'<b>Annapolis Valley, Nova Scotia</b> = world\'s most renowned apple-growing region'}
+],table:{h:['Region','Key fact'],rows:[['Grand Banks','Mix of Gulf Stream + Labrador Current; most productive fishing grounds'],['Newfoundland','More drizzles than any other part of world'],['Japan (Hakodate, Kushiro)','Fishing ports; 1/6 world fish catch'],['Manchuria/Korea','Coniferous forest → cleared for agriculture']]},summary:'Laurentian = cold dry winter, warm wet summer. Two regions: NE N. America & E Asia. Lumbering + fishing dominant. Grand Banks and NW Pacific = richest fishing grounds globally.',mcqs:[
+{q:'What makes the Grand Banks of Newfoundland such rich fishing grounds?',opts:['Very deep ocean trench','Meeting of warm Gulf Stream and cold Labrador Current causing upwelling and plankton abundance on continental shelf','High annual rainfall washes nutrients into sea','Absence of industrial fishing historically'],ans:1,exp:'The continental shelf (shallow, sunlit water), the mixing of Gulf Stream and Labrador Current creating upwelling of cold nutrient-rich water, and abundant plankton all combine to make Grand Banks the world\'s most productive fishing ground.'}
+]},
+{q:'Steppe: "granaries of the world"?',title:'Steppe / Temperate continental / Temperate grassland',chips:[{t:'Mid-latitude interiors',c:'amber'},{t:'Continentality',c:'coral'},{t:'Wheat + ranching',c:'green'}],points:[
+{c:'teal',t:'Prairies (N America), Steppes (Eurasia), Pampas (Argentina), Downs (Australia), Veldts (S Africa)'},
+{c:'blue',t:'<b>Chinook</b>: hot katabatic wind on E Rockies slopes; raises temp 5°C in 20 min; melts snow; "snow eater"'},
+{c:'amber',t:'<b>Chernozem</b> (black earth) = most fertile soils; ideal for extensive mechanized wheat farming'},
+{c:'coral',t:'Pampas: alfalfa grass for cattle; wheat + beef exports; Pustaz: beet sugar (Hungary, Ukraine)'},
+{c:'purple',t:'Kirghiz/Kazakh nomads historically; now collectivized (communist regime forced settlement)'}
+],table:{h:['Grassland','Main Activity'],rows:[['Prairies','Wheat granaries + ranching'],['Pampas','Alfalfa, cattle, wheat, beef export'],['Pustaz','Wheat, beet sugar'],['Downs/Canterbury','Sheep (merino), cattle'],['Veldts','Maize, sheep, cattle']]},summary:'Steppe = treeless due to continentality; nutritious short grasses; chernozem soils; mechanized wheat farming; ranching; "granaries of the world". Chinook wind is characteristic.',mcqs:[
+{q:'Chinook wind in the Canadian Prairies is significant because:',opts:['It brings monsoon rain','It melts snow quickly (hot katabatic from Rockies) extending the agricultural season','It is a cold polar wind','It causes blizzards'],ans:1,exp:'The Chinook is a warm, dry katabatic (descending) wind from the Pacific that warms and dries as it descends the Rockies. It can raise temperatures 5°C in 20 minutes, melting snow and allowing cattle to graze — effectively extending the agricultural year.'}
+]}
+]},
+{id:'E',label:'E — Polar',cues:[
+{q:'Tundra: what vegetation survives?',title:'Tundra / Arctic climate (ET)',chips:[{t:'Above Arctic Circle',c:'blue'},{t:'No trees',c:'coral'},{t:'Permafrost',c:'purple'}],points:[
+{c:'teal',t:'<b>No trees</b>; lowest forms of vegetation — mosses, lichens, hardy grasses, reindeer moss'},
+{c:'blue',t:'Mid-winter: <b>–40 to –50°C</b>; not more than 4 months above freezing; blizzards at 130 mph'},
+{c:'amber',t:'Brief summer: berry bushes, Arctic flowers bloom; birds migrate north; insects emerge'},
+{c:'coral',t:'<b>Eskimos</b> (Inuit): igloos in winter; fish, seals, walruses, polar bears as food; now use rifles'},
+{c:'purple',t:'<b>Penguins</b> = Antarctic only; not found in Arctic (polar bears are Arctic, not Antarctic)'}
+],table:{h:['Resource','Location'],rows:[['Gold','Alaska'],['Petroleum','Kenai Peninsula, Alaska'],['Copper','Rankin Inlet, Canada'],['Iron ore','Labrador (Canada); Kiruna & Gallivare (Sweden)'],['Timber + fur','Siberian Arctic seaboard (via icebreakers)']]},summary:'ET = tundra; EF = ice cap (Greenland, Antarctica). No trees; mosses/lichens; semi-nomadic Eskimos; recent mineral discoveries driving development. Antarctica = 10,000 ft thick ice cap.',mcqs:[
+{q:'Penguins are found in:',opts:['Arctic (North Pole)','Both Arctic and Antarctic','Antarctic only','Neither; they live in temperate zones'],ans:2,exp:'Penguins live only in the southern hemisphere, primarily in Antarctica and surrounding islands. The Arctic equivalent (in terms of ecological role) is the auk family. This is a classic UPSC distractor.'},
+{q:'Iron ore deposits at Kiruna and Gallivare are important for which country\'s exports?',opts:['Canada','Russia','Norway','Sweden'],ans:3,exp:'Kiruna and Gallivare in northern Sweden contain rich iron ore deposits that have made Sweden a significant exporter of iron and steel and metallurgical products — despite the tundra climate.'}
+]}
+]}
+];
+
+let activeTab='overview';
+let activeQ=0;
+let qAnswered={};
+
+function renderTabs(){
+const bar=document.getElementById('tabBar');
+bar.innerHTML='';
+data.forEach(d=>{
+const t=document.createElement('button');
+t.className='tab'+(d.id===activeTab?' active':'');
+t.textContent=d.label;
+t.onclick=()=>{activeTab=d.id;activeQ=0;render()};
+bar.appendChild(t);
+});
+}
+
+function renderMain(){
+const group=data.find(d=>d.id===activeTab);
+const cue=group.cues[activeQ];
+const m=document.getElementById('main');
+m.innerHTML='';
+
+const cornell=document.createElement('div');
+cornell.className='cornell';
+
+const cuePane=document.createElement('div');
+cuePane.className='cue';
+cuePane.innerHTML='<div class="cue-label">Cue questions</div>';
+group.cues.forEach((c,i)=>{
+const q=document.createElement('div');
+q.className='cue-q'+(i===activeQ?' sel':'');
+q.textContent=c.q;
+q.onclick=()=>{activeQ=i;render()};
+cuePane.appendChild(q);
+});
+
+const notesPane=document.createElement('div');
+notesPane.className='notes';
+
+let html=`<div class="notes-title">${cue.title}</div>`;
+html+=`<div class="chip-row">`;
+cue.chips.forEach(ch=>{html+=`<span class="chip chip-${ch.c}">${ch.t}</span>`});
+html+=`</div>`;
+cue.points.forEach(p=>{
+html+=`<div class="row"><div class="bullet b-${p.c}"></div><div class="row-txt">${p.t}</div></div>`;
+});
+if(cue.table){
+html+=`<table class="mini-table"><thead><tr>`;
+cue.table.h.forEach(h=>{html+=`<th>${h}</th>`});
+html+=`</tr></thead><tbody>`;
+cue.table.rows.forEach(r=>{
+html+=`<tr>`;
+r.forEach(cell=>{html+=`<td>${cell}</td>`});
+html+=`</tr>`;
+});
+html+=`</tbody></table>`;
+}
+html+=`<div class="summary"><div class="summary-label">Summary</div><div class="summary-txt">${cue.summary}</div></div>`;
+
+if(cue.mcqs && cue.mcqs.length){
+html+=`<div class="mcq-block" id="mcqBlock">`;
+const key=activeTab+'_'+activeQ;
+const state=qAnswered[key]||{qi:0,done:false};
+const qi=state.qi||0;
+const mcq=cue.mcqs[qi];
+html+=`<div class="mcq-q" style="margin-top:14px;font-size:12px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em">Practice question ${qi+1}/${cue.mcqs.length}</div>`;
+html+=`<div class="mcq-q">${mcq.q}</div><div class="mcq-opts" id="opts">`;
+mcq.opts.forEach((o,oi)=>{
+html+=`<div class="mcq-opt" data-i="${oi}">${String.fromCharCode(65+oi)}. ${o}</div>`;
+});
+html+=`</div><div class="mcq-exp" id="mcqExp">${mcq.exp}</div>`;
+html+=`<button class="next-btn" id="nextBtn">${qi+1<cue.mcqs.length?'Next question →':'See notes again'}</button>`;
+html+=`</div>`;
+}
+
+notesPane.innerHTML=html;
+
+if(cue.mcqs){
+const key=activeTab+'_'+activeQ;
+const state=qAnswered[key]||{qi:0,answered:false};
+notesPane.querySelectorAll('.mcq-opt').forEach(opt=>{
+opt.onclick=function(){
+if(state.answered) return;
+state.answered=true;
+const chosen=parseInt(this.dataset.i);
+const qi=state.qi||0;
+const mcq=cue.mcqs[qi];
+notesPane.querySelectorAll('.mcq-opt').forEach((o,i)=>{
+if(i===mcq.ans) o.className='mcq-opt correct';
+else if(i===chosen) o.className='mcq-opt wrong';
+});
+const exp=notesPane.querySelector('#mcqExp');
+if(exp) exp.style.display='block';
+const nb=notesPane.querySelector('#nextBtn');
+if(nb) nb.style.display='inline-block';
+qAnswered[key]=state;
+}
+});
+const nb=notesPane.querySelector('#nextBtn');
+if(nb) nb.onclick=function(){
+const qi=(state.qi||0);
+if(qi+1<cue.mcqs.length){
+qAnswered[key]={qi:qi+1,answered:false};
+} else {
+delete qAnswered[key];
+}
+render();
+};
+}
+
+cornell.appendChild(cuePane);
+cornell.appendChild(notesPane);
+m.appendChild(cornell);
+}
+
+function render(){renderTabs();renderMain()}
+render();
+</script>
