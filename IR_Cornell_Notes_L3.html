@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR Cornell Notes – Lecture 3 | UPSC Prelims 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12100e;--paper:#faf7f2;--cream:#f0ead8;--rule:#cfc0a8;
+    --red:#b5281c;--blue:#14305a;--gold:#9a7200;--hl:#fff9c4;
+    --trap-bg:#fff0ee;--trap-bdr:#d94030;--tag-bg:#e6effc;--tag-col:#14305a;
+    --green:#1a6b3a;--green-bg:#eaf7ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#ddd5c5;font-family:'Source Serif 4',Georgia,serif;color:var(--ink);padding:20px 14px;}
+  .nb{max-width:1120px;margin:0 auto;}
+  .nb-hd{background:var(--blue);color:#fff;padding:18px 28px 14px;border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .nb-hd h1{font-family:'Playfair Display',serif;font-size:1.55rem;line-height:1.2;}
+  .nb-hd .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;opacity:.78;text-align:right;}
+  .nb-hd .meta span{display:block;}
+  .toc{background:var(--cream);border-bottom:2px solid var(--gold);padding:8px 26px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.76rem;font-family:'JetBrains Mono',monospace;}
+  .toc a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue);}
+  .toc a:hover{color:var(--red);}
+  .page{background:var(--paper);background-image:repeating-linear-gradient(transparent,transparent 27px,var(--rule) 27px,var(--rule) 28px);border-left:5px solid var(--blue);box-shadow:4px 6px 20px rgba(0,0,0,.16);margin-bottom:30px;border-radius:0 0 4px 4px;}
+  .sh{background:var(--blue);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;padding:8px 22px 7px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;cursor:pointer;user-select:none;transition:background .2s;}
+  .sh:hover{background:#0d2040;}
+  .sh .tog{font-size:.82rem;margin-left:auto;opacity:.7;}
+  .sb{display:grid;grid-template-columns:218px 1fr;}
+  .cue{border-right:2px solid var(--red);padding:14px 12px;background:rgba(181,40,28,.03);}
+  .ci{margin-bottom:16px;padding:7px 9px;border-left:3px solid var(--red);background:rgba(181,40,28,.06);border-radius:0 3px 3px 0;}
+  .ci strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+  .ci p{font-size:.78rem;line-height:1.42;color:var(--blue);font-weight:600;}
+  .nc{padding:14px 20px;}
+  .nc h3{font-family:'Playfair Display',serif;font-size:.93rem;color:var(--blue);margin:14px 0 5px;padding-bottom:2px;border-bottom:1px dashed var(--rule);}
+  .nc h3:first-child{margin-top:0;}
+  .dt{width:100%;border-collapse:collapse;font-size:.78rem;margin:7px 0 12px;}
+  .dt th{background:var(--blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;padding:5px 9px;text-align:left;}
+  .dt td{padding:5px 9px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4;}
+  .dt tr:nth-child(even) td{background:rgba(0,0,0,.022);}
+  .dt tr:hover td{background:var(--hl);}
+  .pills{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 10px;}
+  .pill{background:var(--tag-bg);color:var(--tag-col);font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:99px;border:1px solid #a8c0ea;white-space:nowrap;}
+  .pill.g{background:#eaf7ee;border-color:#7dba95;color:var(--green);}
+  .pill.r{background:#fff0ee;border-color:#e08080;color:#a00;}
+  .pill.au{background:#fef9e7;border-color:var(--gold);color:var(--gold);}
+  .trap{background:var(--trap-bg);border:1.5px solid var(--trap-bdr);border-radius:4px;padding:6px 11px;font-size:.76rem;margin:7px 0;line-height:1.5;}
+  .trap::before{content:"⚠ PRELIMS TRAP: ";font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;color:var(--trap-bdr);display:block;margin-bottom:2px;}
+  .hbox{background:var(--hl);border-left:3px solid var(--gold);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .gbox{background:var(--green-bg);border-left:3px solid var(--green);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .ul{padding-left:15px;margin:3px 0 9px;font-size:.8rem;line-height:1.54;}
+  .ul li{margin-bottom:3px;}
+  .ul li b{color:var(--blue);}
+  .sum{border-top:2px solid var(--red);padding:10px 20px;background:rgba(181,40,28,.04);font-size:.76rem;}
+  .sum strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:4px;}
+  .collapsed{display:none!important;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;}.tog{display:none;}.sb{display:grid!important;}}
+</style>
+</head>
+<body>
+<div class="nb">
+
+<div class="nb-hd">
+  <h1>International Relations – Lecture 3<br><small style="font-size:.62em;opacity:.72">WTO · SCO · G7 · Commonwealth · G20 · OPEC · NAM · NATO · IMEC · IPEF · GCC</small></h1>
+  <div class="meta"><span>UPSC PRELIMS 2026</span><span>Sarrthi IAS – PNP 2026</span><span>Cornell Notes</span></div>
+</div>
+<div class="toc">
+  <a href="#wto">WTO</a><a href="#reports">Reports Master Table</a><a href="#sco">SCO</a>
+  <a href="#g7">G7</a><a href="#commonwealth">Commonwealth</a><a href="#cis">CIS &amp; EAEU</a>
+  <a href="#g20">G20</a><a href="#g77">G-77 &amp; OPEC</a><a href="#nam">NAM &amp; VOGSS</a>
+  <a href="#ops">India's Operations</a><a href="#nato">NATO</a><a href="#imec">IMEC &amp; Corridors</a>
+  <a href="#ipef">IPEF &amp; IPOI</a><a href="#gcc">India-GCC</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. WTO
+══════════════════════════════════════ -->
+<div class="page" id="wto">
+  <div class="sh" onclick="tog(this)"><span>1 · World Trade Organization (WTO)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>WTO formation: agreement, year, predecessor?</p></div>
+      <div class="ci"><strong>Q2</strong><p>MC14: host, agenda, India's prerequisite?</p></div>
+      <div class="ci"><strong>Q3</strong><p>WTO Peace Clause: what is it, origin, India's goal?</p></div>
+      <div class="ci"><strong>Q4</strong><p>3 subsidy boxes in Agriculture Agreement?</p></div>
+      <div class="ci"><strong>Q5</strong><p>India's stance on e-commerce moratorium?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Est: <b>1995</b> (Marrakesh Agreement, 15 Apr 1994)</span>
+        <span class="pill">Preceded by: <b>GATT</b> (since 1948)</span>
+        <span class="pill"><b>166</b> members</span>
+        <span class="pill">HQ: Geneva, Switzerland</span>
+        <span class="pill">Top body: Ministerial Conference (biennial)</span>
+      </div>
+
+      <h3>WTO Agreements (4 Pillars)</h3>
+      <div class="pills">
+        <span class="pill g">GATT – Trade in Goods</span>
+        <span class="pill g">GATS – Trade in Services</span>
+        <span class="pill g">TRIPS – Intellectual Property</span>
+        <span class="pill g">TRIMS – Trade-Related Investment Measures</span>
+      </div>
+
+      <h3>Key Current Issues & India's Stance</h3>
+      <table class="dt">
+        <tr><th>Issue</th><th>Context</th><th>India's Stance</th></tr>
+        <tr><td><b>MC14 (March 2026)</b></td><td>Host: Yaoundé, Cameroon (First WTO Ministerial in Central Africa). Agenda: Agriculture (PSH), E-commerce, Fisheries Phase 2</td><td>Prerequisite: Full restoration of Appellate Body before new "21st-century" negotiations</td></tr>
+        <tr><td><b>Investment Facilitation (IFD)</b></td><td>Plurilateral (China-led, ~120 nations). Goal: Streamline investment rules</td><td><b>BLOCKED</b>: India stopped it from entering Annex 4. Argument: "Investment is not Trade"</td></tr>
+        <tr><td><b>Fisheries Subsidies (Phase 1)</b></td><td>In force Sept 2025 (2/3rds ratified). Bans subsidies for IUU fishing</td><td>NOT Ratified. Demands 25-yr transition (vs 7 years) for developing nations</td></tr>
+        <tr><td><b>E-Commerce Moratorium</b></td><td>Ban on customs duties on electronic transmissions. Expires March 31, 2026 (MC14)</td><td>Aggressively opposing extension. Revenue loss: $5-10 Bn/year from Big Tech</td></tr>
+        <tr><td><b>CBAM (Carbon Border Adjustment)</b></td><td>EU "Carbon Tax" on steel/aluminium entered Definitive Phase in 2026</td><td>Protesting at WTO Committee on Trade &amp; Environment; labels it "Protectionist Measure"</td></tr>
+      </table>
+      <div class="trap">IFD is a PLURILATERAL agreement (not multilateral/binding on all). India blocked it from entering Annex 4 of WTO framework.</div>
+
+      <h3>WTO Peace Clause</h3>
+      <table class="dt">
+        <tr><th>Parameter</th><th>Key Fact</th><th>Trap</th></tr>
+        <tr><td>What is it?</td><td>Legal immunity protecting developing nations from action if they breach 10% subsidy limit on food procurement (MSP)</td><td>It is TEMPORARY (Interim), NOT a permanent solution</td></tr>
+        <tr><td>Origin</td><td>Bali Ministerial (2013); reaffirmed Nairobi (2015) to last indefinitely until permanent fix</td><td>Don't confuse with original Peace Clause (Article 13) which expired in 2003</td></tr>
+        <tr><td>Trigger</td><td>Public Stockholding (PSH): when govt food purchases exceed "De Minimis" limit of 10% of total production value</td><td>Limit calculated on <b>1986-88 prices</b>, not current prices — inflation makes subsidies look huge</td></tr>
+        <tr><td>Condition</td><td>Countries must prove subsidized stocks NOT exported to global markets</td><td>India faced scrutiny (US/Thailand) for allegedly exporting subsidized rice</td></tr>
+        <tr><td>India's Goal</td><td>Permanent solution: move PSH subsidies to Green Box (exempt) to avoid 10% cap entirely</td><td>Status: Stalled. No consensus at MC13 (Abu Dhabi 2024)</td></tr>
+      </table>
+
+      <h3>Agriculture Agreement — 3 Subsidy Boxes</h3>
+      <div class="pills">
+        <span class="pill g">Green Box: No distortion / no limit (e.g., R&amp;D, food stamps)</span>
+        <span class="pill au">Amber Box: 5% of production (10% for developing countries) — the "De Minimis" cap</span>
+        <span class="pill">Blue Box: Production-limiting subsidies — no limit</span>
+      </div>
+
+      <h3>3 Pillars of Agreement on Agriculture (AoA)</h3>
+      <div class="pills">
+        <span class="pill">1. Market Access (tariffication, reduction)</span>
+        <span class="pill">2. Domestic Support (AMS reduction, Green Box)</span>
+        <span class="pill">3. Export Subsidies (reduction/prohibition)</span>
+      </div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>WTO (1995, Geneva, 166 members). MC14 = Cameroon 2026. Peace Clause = temp legal immunity for PSH subsidies (Bali 2013, 10% De Minimis cap at 1986-88 prices). India blocked IFD (plurilateral), opposes e-commerce moratorium, wants 25-yr fisheries transition.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2. REPORTS MASTER TABLE
+══════════════════════════════════════ -->
+<div class="page" id="reports">
+  <div class="sh" onclick="tog(this)"><span>2 · Reports &amp; Indices Master Table</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Which reports come from World Bank vs IMF?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Global Hunger Index — which organization?</p></div>
+      <div class="ci"><strong>Q3</strong><p>World Energy Outlook vs World Oil Outlook — which is IEA, which is OPEC?</p></div>
+      <div class="ci"><strong>Q4</strong><p>3 WEF reports that mention India's rank?</p></div>
+      <div class="ci"><strong>Q5</strong><p>HDR is published by which UN body?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Report / Index</th><th>Organization</th><th>Key Focus / Trap</th></tr>
+        <tr><td>Business Ready (B-READY)</td><td><b>World Bank</b></td><td>[NEW] Replaces Ease of Doing Business. 101 economies; 3 pillars: Regulation, Public Services, Efficiency</td></tr>
+        <tr><td>World Development Report</td><td>World Bank</td><td>Annual thematic study (Data, Migrants)</td></tr>
+        <tr><td>Global Economic Prospects (GEP)</td><td>World Bank</td><td>Growth forecasts — Don't confuse with IMF's WEO</td></tr>
+        <tr><td>Migration &amp; Development Brief</td><td>World Bank</td><td>Tracks remittances (India usually ranks #1)</td></tr>
+        <tr><td>Logistics Performance Index (LPI)</td><td>World Bank</td><td>Trade logistics &amp; supply chain efficiency</td></tr>
+        <tr><td>Human Capital Index</td><td>World Bank</td><td>Health &amp; education outcomes for productivity</td></tr>
+        <tr><td>World Economic Outlook (WEO)</td><td><b>IMF</b></td><td>GDP growth projections (Jan/Apr/Jul/Oct)</td></tr>
+        <tr><td>Global Financial Stability Report</td><td>IMF</td><td>Banking stability, crypto risks, capital markets</td></tr>
+        <tr><td>Fiscal Monitor</td><td>IMF</td><td>Public debt and government deficits</td></tr>
+        <tr><td>Global Risks Report</td><td><b>WEF</b></td><td>Annual top global threats (Climate, Cyber)</td></tr>
+        <tr><td>Global Gender Gap Report</td><td>WEF</td><td>Gender parity — India's rank is key</td></tr>
+        <tr><td>Energy Transition Index (ETI)</td><td>WEF</td><td>Readiness to shift to green energy</td></tr>
+        <tr><td>Global Competitiveness Report</td><td>WEF</td><td>Drivers of productivity</td></tr>
+        <tr><td>Travel &amp; Tourism Dev. Index</td><td>WEF</td><td>Replaces old "Competitiveness" index</td></tr>
+        <tr><td>Emissions Gap Report</td><td><b>UNEP</b></td><td>Gap between promised cuts vs needed cuts</td></tr>
+        <tr><td>Adaptation Gap Report</td><td>UNEP</td><td>Finance gap for climate adaptation</td></tr>
+        <tr><td>Global Environment Outlook (GEO)</td><td>UNEP</td><td>State of the planet environment</td></tr>
+        <tr><td>Human Development Report (HDR)</td><td><b>UNDP</b></td><td>Includes HDI, PHDI, Gender Inequality Index</td></tr>
+        <tr><td>Multidimensional Poverty Index</td><td>UNDP &amp; OPHI</td><td>Measures acute poverty beyond income</td></tr>
+        <tr><td>World Investment Report</td><td><b>UNCTAD</b></td><td>Tracks FDI inflows and outflows</td></tr>
+        <tr><td>World Employment &amp; Social Outlook</td><td><b>ILO</b></td><td>Unemployment and labor market trends</td></tr>
+        <tr><td>Global Wage Report</td><td>ILO</td><td>Trends in real wages</td></tr>
+        <tr><td>State of the Global Climate</td><td><b>WMO</b></td><td>Extreme weather, temperature rise, glaciers</td></tr>
+        <tr><td>World Drug Report</td><td><b>UNODC</b></td><td>Opium/Cocaine trends (Golden Crescent/Triangle)</td></tr>
+        <tr><td>Global Innovation Index (GII)</td><td><b>WIPO</b></td><td>Intellectual property &amp; innovation ranking</td></tr>
+        <tr><td>PISA</td><td><b>OECD</b></td><td>Student assessment (Math/Science/Reading)</td></tr>
+        <tr><td>World Energy Outlook</td><td><b>IEA</b></td><td>Energy demand/supply. <b>Trap: NOT OPEC</b></td></tr>
+        <tr><td>World Oil Outlook</td><td><b>OPEC</b></td><td>Focuses specifically on Oil. <b>Trap: NOT IEA</b></td></tr>
+        <tr><td>Global Hunger Index</td><td>Concern &amp; Welthungerhilfe</td><td><b>Trap: NOT a UN report. Published by NGOs.</b></td></tr>
+        <tr><td>Press Freedom Index</td><td>Reporters Without Borders</td><td>Trap: NGO, not UN</td></tr>
+        <tr><td>Corruption Perceptions Index</td><td>Transparency International</td><td>Trap: NGO, not UN</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Key traps: Global Hunger Index = NGO (not UN). World Energy Outlook = IEA (not OPEC). World Oil Outlook = OPEC. GEP = World Bank (not IMF). WEO = IMF. HDR = UNDP. GII = WIPO. PISA = OECD.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3. SCO
+══════════════════════════════════════ -->
+<div class="page" id="sco">
+  <div class="sh" onclick="tog(this)"><span>3 · Shanghai Cooperation Organisation (SCO)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>SCO origin: predecessors, year of establishment?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Current full members (10)? Who joined last?</p></div>
+      <div class="ci"><strong>Q3</strong><p>25th SCO Summit: venue, India angle?</p></div>
+      <div class="ci"><strong>Q4</strong><p>RATS — what does it do? HQ?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Kashi (Varanasi) — what SCO distinction?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Origin: <b>Shanghai Five</b> (1996) → SCO est. <b>15 Jun 2001</b>, Shanghai</span>
+        <span class="pill"><b>10</b> full members</span>
+        <span class="pill">SCO Secretariat: <b>Beijing</b></span>
+        <span class="pill">RATS HQ: <b>Tashkent</b></span>
+        <span class="pill">UNGA observer since <b>2005</b></span>
+      </div>
+
+      <h3>Membership</h3>
+      <div class="pills">
+        <span class="pill g">India</span><span class="pill g">Iran</span><span class="pill g">Kazakhstan</span><span class="pill g">China</span>
+        <span class="pill g">Kyrgyzstan</span><span class="pill g">Pakistan</span><span class="pill g">Russia</span><span class="pill g">Tajikistan</span>
+        <span class="pill g">Uzbekistan</span><span class="pill au">Belarus (10th member)</span>
+      </div>
+      <div class="pills">
+        <span class="pill">Observers: Afghanistan, Mongolia</span>
+        <span class="pill">14 Dialogue Partners (incl. Turkey, Saudi Arabia, Sri Lanka, Nepal, Maldives)</span>
+      </div>
+
+      <h3>25th SCO Summit (Aug 31–Sep 1, 2025, Tianjin, China)</h3>
+      <div class="hbox"><b>India Angle:</b> PM Modi's first visit to China since the 2020 Galwan clash. Led to informal "RIC huddle" and the "Rio Consensus" on LAC patrols.</div>
+      <ul class="ul">
+        <li><b>Theme</b>: "Upholding the Shanghai Spirit: SCO on the Move"</li>
+        <li><b>Tianjin Declaration</b>: Advocating "Multipolar World Order" to counter Western sanctions</li>
+        <li><b>Vision 2035</b>: "SCO Development Strategy until 2035" — de-dollarization roadmap</li>
+        <li><b>RATS Upgrade</b>: RATS expanded to cover Cyber-terrorism and Crypto-financing</li>
+        <li><b>Belarus</b>: First summit as full member</li>
+        <li><b>New Partner</b>: Laos granted Dialogue Partner status</li>
+        <li><b>SCO Observer at CIS</b>: SCO granted observer status with CIS</li>
+        <li><b>New Chair</b>: Kyrgyzstan (for 2026)</li>
+      </ul>
+      <div class="gbox"><b>Kashi (Varanasi)</b> = declared the first tourism and cultural capital of the SCO.</div>
+      <div class="pills">
+        <span class="pill au">SCO = 3/5th of Eurasia, 40% world population, 20% global GDP</span>
+      </div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>SCO (2001, Beijing secretariat, 10 members). India &amp; Pakistan joined 2017 (Astana). Belarus = 10th member. Iran joined 2023. 25th Summit: Tianjin 2025. RATS expanded to cyber &amp; crypto. Kashi = SCO tourism capital. Chair 2026: Kyrgyzstan.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     4. G7 + COMMONWEALTH
+══════════════════════════════════════ -->
+<div class="page" id="g7">
+  <div class="sh" onclick="tog(this)"><span>4 · G7 &amp; The Commonwealth</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>G7 members? India member or not?</p></div>
+      <div class="ci"><strong>Q2</strong><p>51st G7 Summit: host, AI outcome, Ukraine deal?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Commonwealth: treaty-based or voluntary?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Apia Ocean Declaration — significance for SIDS?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Commonwealth Games 2026: host, India impact?</p></div>
+    </div>
+    <div class="nc">
+      <h3>G7 — Key Facts</h3>
+      <div class="pills">
+        <span class="pill">Formed: <b>1975</b></span>
+        <span class="pill">Members: Canada, France, Germany, Italy, Japan, UK, USA</span>
+        <span class="pill r">India is NOT a member</span>
+        <span class="pill r">Russia expelled in 2014 after Crimea annexation</span>
+      </div>
+
+      <h3>51st G7 Summit (Jun 15–17, 2025 | Kananaskis, Alberta, Canada)</h3>
+      <table class="dt">
+        <tr><th>Theme/Item</th><th>Details</th></tr>
+        <tr><td>Theme</td><td>"Building a More Secure, Prosperous, and Sustainable World" — 3 pillars: Security, Digital/Energy Transition, Future Partnerships</td></tr>
+        <tr><td><b>Kananaskis AI Accord</b></td><td>Combat AI-generated disinformation in elections. Mandates "watermarking" of AI content; rapid-response system for deepfakes</td></tr>
+        <tr><td><b>ERA Loans (Ukraine)</b></td><td>Extraordinary Revenue Acceleration — $50 Bn loan to Ukraine, repaid from interest on frozen Russian sovereign assets (held in Europe)</td></tr>
+        <tr><td><b>RISE Partnership</b></td><td>Resilient &amp; Inclusive Supply-chain Enhancement. Led by World Bank. Helps developing nations move from mining to processing/refining. India = Beneficiary/Partner (not donor)</td></tr>
+        <tr><td><b>Critical Minerals Alliance</b></td><td>Coordinate G7 investments to break China's monopoly on EV battery chain</td></tr>
+        <tr><td><b>Kananaskis Wildfire Charter</b></td><td>Share firefighting resources (aircraft, satellite data) for "Mega-fires"</td></tr>
+        <tr><td>India's Role</td><td>PM Modi attended Outreach Session. Raised Pahalgam Terror Attack. "Pahalgam Consensus" included in Chair's Summary.</td></tr>
+        <tr><td>Output Format</td><td><b>No Joint Communiqué</b> — issued "Chair's Summary" due to trade/climate disagreements</td></tr>
+        <tr><td>Next Summit (2026)</td><td>Host: France. Venue: Évian-les-Bains (Jun 15–17, 2026). France previously hosted G8 in 2003.</td></tr>
+      </table>
+
+      <h3>The Commonwealth</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Detail</th><th>Trap</th></tr>
+        <tr><td>Formation</td><td>London Declaration (1949). Precursor: Balfour Declaration (1926) — "British Commonwealth"</td><td>NOT treaty-based. Voluntary association of sovereign states.</td></tr>
+        <tr><td>Members</td><td><b>56 countries</b>. Recent joiners: Gabon &amp; Togo (2022). Non-British-colony members: Rwanda, Mozambique, Gabon, Togo</td><td>Maldives left (2016), rejoined (2020). Zimbabwe suspended/withdrawn.</td></tr>
+        <tr><td>Leadership</td><td>Head: King Charles III (symbolic, not hereditary). Sec-Gen: <b>Shirley Ayorkor Botchwey</b> (Ghana) — elected at Samoa CHOGM Oct 2024; office from Apr 1, 2025. First African woman in post.</td><td>King is head of Commonwealth Org, but Head of State only for 15 Commonwealth Realms. India does NOT recognize him as Sovereign.</td></tr>
+        <tr><td>CHOGM 2024</td><td>Apia, Samoa (first CHOGM in Pacific Island nation). Theme: "One Resilient Common Future." Next host: Antigua &amp; Barbuda (2026)</td><td>Communiqué acknowledged call for "meaningful conversation" on reparations for slave trade.</td></tr>
+        <tr><td><b>Apia Ocean Declaration</b></td><td>Maritime Boundaries are FIXED in perpetuity based on current charts, even if land is lost to the sea. Protects EEZ of SIDS (Tuvalu, Kiribati)</td><td>India supported this, aligning with SAGAR vision. Problem solved: EEZ would shrink if baseline recedes due to sea-level rise.</td></tr>
+        <tr><td>Commonwealth Games 2026</td><td>Glasgow, Scotland (Jul–Aug 2026). "Scaled-Down / Asset Light" model — only 10 sports (Australia's Victoria withdrew)</td><td>India impact: Cricket, Hockey, Shooting, Wrestling, Badminton DROPPED — severely hurts India's medal prospects.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>G7 (1975, 7 members). 51st Summit: Kananaskis 2025 — Kananaskis AI Accord, ERA Loans ($50Bn Ukraine), RISE (minerals processing). No joint communiqué. Next: Évian 2026. Commonwealth = 56 voluntary members. Apia Ocean Declaration = fixed maritime boundaries for SIDS. CWG 2026: Glasgow, 10 sports only.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     5. CIS + EAEU
+══════════════════════════════════════ -->
+<div class="page" id="cis">
+  <div class="sh" onclick="tog(this)"><span>5 · CIS &amp; Eurasian Economic Union (EAEU)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>CIS: year, HQ, who never joined?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Turkmenistan's special status in CIS?</p></div>
+      <div class="ci"><strong>Q3</strong><p>EAEU members (5)? "Four Freedoms"?</p></div>
+      <div class="ci"><strong>Q4</strong><p>New EAEU observer state (Dec 2024)?</p></div>
+      <div class="ci"><strong>Q5</strong><p>India's engagement with EAEU?</p></div>
+    </div>
+    <div class="nc">
+      <h3>Commonwealth of Independent States (CIS)</h3>
+      <div class="pills">
+        <span class="pill">Est: <b>1991</b> (Post-Soviet dissolution) — Alma-Ata Protocol</span>
+        <span class="pill">HQ: <b>Minsk, Belarus</b></span>
+        <span class="pill">9 current members</span>
+      </div>
+      <table class="dt">
+        <tr><th>Category</th><th>Details</th></tr>
+        <tr><td>Current Members (9)</td><td>Russia, Belarus, Kazakhstan, Kyrgyzstan, Tajikistan, Uzbekistan, Armenia, Azerbaijan, Moldova* (*Moldova initiated exit Jan 2026)</td></tr>
+        <tr><td>"The Odd One"</td><td><b>Turkmenistan</b> = Associate State only (ratified agreement, not Charter) to maintain "Permanent Neutrality"</td></tr>
+        <tr><td>Exited</td><td>Georgia (2008, after Russo-Georgian War); Ukraine (stopped 2014, formally ended 2018)</td></tr>
+        <tr><td>Never Joined</td><td>Baltic States: Estonia, Latvia, Lithuania (chose EU/NATO)</td></tr>
+        <tr><td>2025-26 Update</td><td>"CIS Plus" format proposed (Dushanbe Summit Oct 2025). Moldova's exit = critical current affair</td></tr>
+        <tr><td>CSTO</td><td>Collective Security Treaty Org (1992) — military alliance among some (not all) CIS members</td></tr>
+        <tr><td>India's Angle</td><td>Focus CIS = GoI export program. India fast-tracked EAEU FTA talks (Dec 2025)</td></tr>
+      </table>
+
+      <h3>Eurasian Economic Union (EAEU)</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Key Details</th><th>2025-26 Update</th></tr>
+        <tr><td>Genesis</td><td>Treaty on EAEU (2014); operational 2015</td><td>"Eurasian Economic Way" declaration (Dec 2025) — integration roadmap 2030-2045</td></tr>
+        <tr><td>Members (5)</td><td>Russia, Belarus, <b>Kazakhstan</b> (Chair 2026), Armenia, Kyrgyzstan</td><td>No new full members in 2025</td></tr>
+        <tr><td>Observers</td><td>Uzbekistan, Cuba, Moldova</td><td>Iran granted Observer Status (Dec 2024)</td></tr>
+        <tr><td>"Four Freedoms"</td><td>Free movement of Goods, Services, Capital, and Labour</td><td>EAEU Digital Agenda 2025 — seamless digital market</td></tr>
+        <tr><td>Active FTAs</td><td>Vietnam, Serbia, Singapore</td><td>Iran FTA: full FTA in force May 2025; Indonesia FTA signed Dec 2025</td></tr>
+        <tr><td>India's Engagement</td><td>India-EAEU FTA negotiations formally began 2025</td><td>Objective: Access $2.4 Trillion market + operationalize INSTC</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>CIS (1991, Minsk, 9 active members). Turkmenistan = Associate only. Moldova exiting (Jan 2026). EAEU (2015, 5 members). "Four Freedoms." Iran new observer (Dec 2024). Iran FTA with EAEU in force May 2025. India-EAEU FTA talks began 2025.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     6. G20
+══════════════════════════════════════ -->
+<div class="page" id="g20">
+  <div class="sh" onclick="tog(this)"><span>6 · Group of 20 (G20)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>G20 formed when? Why elevated to leaders' level?</p></div>
+      <div class="ci"><strong>Q2</strong><p>20th G20 Summit: host, theme, historic first?</p></div>
+      <div class="ci"><strong>Q3</strong><p>What happened with the US at Johannesburg?</p></div>
+      <div class="ci"><strong>Q4</strong><p>India's 6 major G20 initiatives at Johannesburg?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Current G20 Troika (2025)?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Origin: <b>1999</b> (post-Asian financial crisis) — finance ministers forum</span>
+        <span class="pill">Elevated to leaders' level: <b>2008</b> (global financial crisis)</span>
+        <span class="pill">AU joined as full member under India's 2023 presidency</span>
+      </div>
+
+      <h3>20th G20 Leaders' Summit (Nov 22–23, 2025 | Johannesburg, South Africa)</h3>
+      <div class="pills">
+        <span class="pill au">HISTORIC FIRST: First G20 on African continent</span>
+        <span class="pill">Theme: "Solidarity, Equality, and Sustainability" (Ubuntu philosophy)</span>
+      </div>
+      <ul class="ul">
+        <li><b>US Boycott</b>: Trump boycotted; Johannesburg Declaration adopted <i>without US signature</i> — "Post-American" consensus</li>
+        <li><b>Mission 300</b>: World Bank/AfDB plan to provide electricity to 300 million Africans by 2030</li>
+        <li><b>Climate Finance</b>: $1.3 Trillion/year needed for Global South (shift from "billions to trillions")</li>
+        <li><b>Debt Crisis</b>: Cost of Capital Commission launched to reform credit rating practices and reduce "African risk premium"</li>
+        <li><b>AI Compact</b>: "Human-Centric AI" framework — non-Western languages in AI datasets</li>
+        <li><b>Critical Minerals Framework</b>: Local beneficiation in developing countries</li>
+        <li><b>Nelson Mandela Bay Target</b>: Reduce youth NEET rate by 5% by 2030; 25% gender parity in labour force by 2030</li>
+      </ul>
+
+      <h3>G20 Troika (2025)</h3>
+      <div class="pills">
+        <span class="pill">Previous: <b>Brazil</b></span>
+        <span class="pill g">Current: <b>South Africa</b></span>
+        <span class="pill au">Next: <b>United States</b></span>
+      </div>
+
+      <h3>India's 6 Major G20 Initiatives (Johannesburg)</h3>
+      <table class="dt">
+        <tr><th>Initiative</th><th>Goal</th></tr>
+        <tr><td>Drug-Terror Nexus Initiative</td><td>Coordinate finance, governance, security to weaken drug-terror economy globally</td></tr>
+        <tr><td>Africa Skills Multiplier</td><td>Train 1 million certified trainers in Africa over 10 years (train-the-trainers model)</td></tr>
+        <tr><td>Global Traditional Knowledge Repository</td><td>Preserve humanity's collective wisdom — Indian Knowledge Systems foundation</td></tr>
+        <tr><td>Global Healthcare Response Team</td><td>Deploy trained medical experts from G20 nations for rapid health emergency response</td></tr>
+        <tr><td>Open Satellite Data Partnership</td><td>Make G20 space agencies' satellite data accessible and interoperable for Global South</td></tr>
+        <tr><td>Critical Minerals Circularity Initiative</td><td>Promote recycling, urban mining, and second-life batteries for sustainable clean energy transition</td></tr>
+      </table>
+      <div class="hbox"><b>ACITI Partnership:</b> India signed trilateral tech/mining pact with Australia and Canada — proving India can work with West independently of US.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>G20 (1999/2008, 21 members incl. AU). 20th Summit: Johannesburg Nov 2025 — First on African soil; US boycotted; Johannesburg Declaration without US. India's 6 initiatives incl. Africa Skills Multiplier, Drug-Terror Nexus. Troika: Brazil-South Africa-USA.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     7. G-77 + OPEC
+══════════════════════════════════════ -->
+<div class="page" id="g77">
+  <div class="sh" onclick="tog(this)"><span>7 · G-77, OPEC vs OPEC+</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>G-77: formed when, where? Current membership? Is China a member?</p></div>
+      <div class="ci"><strong>Q2</strong><p>G-77 vs NAM: key difference?</p></div>
+      <div class="ci"><strong>Q3</strong><p>OPEC: founded when, HQ, members (2026)?</p></div>
+      <div class="ci"><strong>Q4</strong><p>OPEC+ — when founded, how many members? Brazil's trap?</p></div>
+      <div class="ci"><strong>Q5</strong><p>India's status in OPEC and OPEC+?</p></div>
+    </div>
+    <div class="nc">
+      <h3>Group of 77 (G-77)</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Details</th><th>Trap</th></tr>
+        <tr><td>Formation</td><td>Founded <b>June 15, 1964</b> — "Joint Declaration of the Seventy-Seven Countries" at 1st UNCTAD Session, Geneva. First Ministerial: Algiers (1967) — Charter of Algiers</td><td>NOT formed at UNGA or by NAM. Born out of <b>UNCTAD</b>.</td></tr>
+        <tr><td>Current Chair (2026)</td><td>Uruguay (took charge Jan 14, 2026, at UN HQ, NY). Previous 2025: Iraq. 2024: Uganda (hosted 3rd South Summit)</td><td>Chairmanship rotates regionally: Africa → Asia-Pacific → Latin America</td></tr>
+        <tr><td>Membership</td><td><b>134 members</b>. Retains name "G-77" for historic significance.</td><td>China: NOT a member. It is a "Partner." Official: "G-77 and China." Russia ❌ NOT member. Turkey ❌ NOT member (OECD). India ✅ Founding member.</td></tr>
+        <tr><td>Secretariat</td><td>NONE. Work coordinated by Permanent Mission of Chair country in New York</td><td>No permanent independent secretariat</td></tr>
+        <tr><td>G-77 vs NAM</td><td>G-77: Economic focus (Trade/Development). NAM: Political focus (Sovereignty/Security)</td><td>Overlap: Most NAM members are in G-77, but G-77 is larger (includes Brazil, only observer in NAM)</td></tr>
+      </table>
+
+      <h3>OPEC vs OPEC+ Master Table</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>OPEC</th><th>OPEC+ ("Vienna Group")</th></tr>
+        <tr><td>Founded</td><td>1960 (Baghdad Conference)</td><td>2016 (Declaration of Cooperation)</td></tr>
+        <tr><td>HQ</td><td>Vienna, Austria</td><td>No separate HQ (uses OPEC Secretariat)</td></tr>
+        <tr><td>Members (2026)</td><td><b>12</b>: Saudi Arabia, UAE, Iran, Iraq, Kuwait, Algeria, Libya, Nigeria, Venezuela, Gabon, Congo, Eq. Guinea. Angola left Jan 2024.</td><td><b>22</b>: 12 OPEC + 10 partners (Russia, Kazakhstan, Mexico, Oman, Bahrain, Brunei, Malaysia, Sudan, South Sudan, Azerbaijan)</td></tr>
+        <tr><td>Goal</td><td>Coordinate oil policies to stabilize prices (usually higher)</td><td>Counter US Shale Oil boom; manage ~40% global supply</td></tr>
+        <tr><td>Brazil Trap</td><td>N/A</td><td>Brazil joined OPEC+ "Charter" Jan 2024 but refused production quotas — effectively non-binding partner</td></tr>
+        <tr><td>India's Status</td><td>NOT a member. World's <b>3rd largest importer</b>. India's interest (low price) = opposite of OPEC's (high price)</td><td>NOT a member. India attends as observer/consumer</td></tr>
+        <tr><td>Recent Exits (OPEC)</td><td>Angola (Jan 2024), Ecuador (2020), Qatar (2019)</td><td>N/A</td></tr>
+      </table>
+      <div class="hbox"><b>Five Eyes (FVEY)</b>: Formal intelligence-sharing group — Australia, Canada, New Zealand, UK, USA.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>G-77 (1964, UNCTAD, 134 members). China = Partner (not member). Russia &amp; Turkey NOT members. No secretariat. Chair 2026: Uruguay. OPEC (1960, Vienna, 12 members). OPEC+ (2016, 22 members). Brazil in OPEC+ Charter but refuses quotas. India = 3rd largest oil importer, not in either.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     8. NAM + VOGSS
+══════════════════════════════════════ -->
+<div class="page" id="nam">
+  <div class="sh" onclick="tog(this)"><span>8 · NAM &amp; Voice of Global South Summit</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>NAM founded when &amp; where? 5 founding members?</p></div>
+      <div class="ci"><strong>Q2</strong><p>19th NAM summit details? Who chairs until 2027?</p></div>
+      <div class="ci"><strong>Q3</strong><p>VOGSS — India hosted how many editions? Countries attending 3rd?</p></div>
+      <div class="ci"><strong>Q4</strong><p>What is the Global Development Compact?</p></div>
+      <div class="ci"><strong>Q5</strong><p>What is the Brandt Line?</p></div>
+    </div>
+    <div class="nc">
+      <h3>Non-Aligned Movement (NAM)</h3>
+      <div class="pills">
+        <span class="pill">Origin: <b>1961, Belgrade, Yugoslavia</b> (Cold War)</span>
+        <span class="pill">Founding members: India, Indonesia, Egypt, Ghana, Yugoslavia</span>
+        <span class="pill"><b>120</b> member countries, 17 observers, 10 observer organizations</span>
+        <span class="pill">Summit: every 3 years</span>
+        <span class="pill au">2025 = 70th anniversary of Bandung Conference (1955) — laid NAM foundation</span>
+      </div>
+      <ul class="ul">
+        <li><b>19th NAM Summit</b>: Kampala, Uganda, Jan 2024. Theme: "Deepening Cooperation for Shared Global Affluence." Uganda chairs until 2027.</li>
+        <li><b>Kampala Declaration</b>: Strong criticism of Israeli military aggression; called for UN Security Council resolution on humanitarian aid to Gaza</li>
+        <li><b>20th NAM Summit</b>: Expected to be hosted by Uzbekistan</li>
+        <li>India's EAM led delegation; emphasized sustainable solution to Gaza crisis</li>
+      </ul>
+
+      <h3>Voice of Global South Summit (VOGSS)</h3>
+      <div class="pills">
+        <span class="pill g">1st VOGSS: Jan 12-13, 2023 (Virtual)</span>
+        <span class="pill g">2nd VOGSS: Nov 17, 2023 (Virtual)</span>
+        <span class="pill g">3rd VOGSS: 2024 (Virtual) — 123 countries (excl. China &amp; Pakistan)</span>
+      </div>
+      <ul class="ul">
+        <li><b>Theme (3rd)</b>: "An Empowered Global South for a Sustainable Future"</li>
+        <li><b>Global Development Compact (GDC)</b>: 4-fold proposal — trade for development, capacity building, technology sharing, project-specific concessional finance/grants</li>
+        <li>India: USD 2.5 million fund for trade promotion + USD 1 million for capacity building in trade policy</li>
+        <li>India committed to affordable generic medicines for Global South + natural farming technology sharing</li>
+      </ul>
+
+      <h3>India as Voice of Global South — Key Actions</h3>
+      <table class="dt">
+        <tr><th>Action</th><th>Detail</th></tr>
+        <tr><td>G20 Presidency</td><td>Prioritized Global South; secured AU as full permanent G20 member</td></tr>
+        <tr><td>Covid-19</td><td>Supplied Made-in-India vaccines to 100+ countries; medicines to 150 nations = "Pharmacy of the World"</td></tr>
+        <tr><td>DAKSHIN Initiative</td><td>Global Centre for Excellence for Global South nations</td></tr>
+        <tr><td>Social Impact Fund</td><td>India contributes $25 million to accelerate DPI in Global South</td></tr>
+      </table>
+      <div class="hbox"><b>Global South</b>: Term coined by Carl Oglesby (1969). Broadly = Latin America, Asia, Africa, Oceania. Separated from Global North by the <b>Brandt Line</b> (proposed by Willy Brandt, 1970s) — based on GDP per capita divide. Doesn't include Japan, Australia, New Zealand.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>NAM (1961, Belgrade, 120 members). 19th Summit: Kampala 2024. Uganda chairs until 2027. VOGSS = India-led, 3 editions (2023-24, all virtual). 3rd VOGSS: 123 countries, excluded China &amp; Pakistan. GDC = 4-fold development compact.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     9. INDIA'S OPERATIONS
+══════════════════════════════════════ -->
+<div class="page" id="ops">
+  <div class="sh" onclick="tog(this)"><span>9 · India's Humanitarian &amp; Rescue Operations (2023–2025)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Operation Brahma — country, crisis, year?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Operation Kaveri — what was rescued from where?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Operation Dost — significance as "gold standard"?</p></div>
+      <div class="ci"><strong>Q4</strong><p>What is Project BHISHM?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Which operation was for Sudan? Haiti?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Year</th><th>Operation</th><th>Country</th><th>Purpose / Key Fact</th></tr>
+        <tr><td>2025</td><td><b>Operation Brahma</b></td><td>Myanmar</td><td>Earthquake Relief (7.7 magnitude, March 2025). NDRF teams + 200-bed field hospital; treated 2,500+ patients</td></tr>
+        <tr><td>2025</td><td><b>Medical Maitri</b></td><td>Honduras / Iraq</td><td>Medical Aid: life-saving drugs, ventilators, inhalers (Jan 2025)</td></tr>
+        <tr><td>2025</td><td><b>Operation Sindhu</b></td><td>Iran / Israel</td><td>Evacuation of Indian nationals from conflict zones</td></tr>
+        <tr><td>2024</td><td><b>Operation Sadbhav</b></td><td>Vietnam, Laos, Myanmar</td><td>Typhoon Yagi Relief: airlifted 35 tons of aid (water purification, dry rations) as "First Responder" (Sept 2024)</td></tr>
+        <tr><td>2024</td><td><b>Operation Indravati</b></td><td>Haiti</td><td>Evacuation: Rescued Indian nationals to Dominican Republic amid gang violence (March 2024)</td></tr>
+        <tr><td>2024</td><td><b>Project BHISHM</b></td><td>Ukraine</td><td>PM Modi gifted "BHISHM Cubes" (portable disaster hospitals) for treating conflict casualties (Aug 2024)</td></tr>
+        <tr><td>2023</td><td><b>Operation Ajay</b></td><td>Israel</td><td>Evacuation: Repatriated Indian citizens after Oct 7th Hamas attacks</td></tr>
+        <tr><td>2023</td><td><b>Operation Karuna</b></td><td>Myanmar</td><td>Cyclone Mocha Relief: INS Shivalik, Kamorta delivered 40 tons of aid to Rakhine state (May 2023)</td></tr>
+        <tr><td>2023</td><td><b>Operation Kaveri</b></td><td>Sudan</td><td>Evacuation: Rescued 3,800+ Indians from Sudan civil war using C-130J + INS Sumedha (Port Sudan to Jeddah) (April 2023)</td></tr>
+        <tr><td>2023</td><td><b>Operation Dost</b></td><td>Turkey &amp; Syria</td><td>"Gold standard" First Responder op. NDRF + Army Field Hospitals (60 Para) after 7.8 magnitude quake (Feb 2023)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>10 operations 2023-25. Key: Op Kaveri (Sudan evacuation 3800+), Op Dost (Turkey-Syria quake, gold standard), Op Brahma (Myanmar quake 2025), Op Sindhu (Iran/Israel), BHISHM Cubes (Ukraine). India = "First Responder" to neighborhood.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     10. NATO
+══════════════════════════════════════ -->
+<div class="page" id="nato">
+  <div class="sh" onclick="tog(this)"><span>10 · NATO</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>NATO: formed when, Article 5 principle?</p></div>
+      <div class="ci"><strong>Q2</strong><p>2025 NATO Summit: where, "5% Pledge"?</p></div>
+      <div class="ci"><strong>Q3</strong><p>What is NSATU? Where is it based?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Is India a Major Non-NATO Ally (MNNA)?</p></div>
+      <div class="ci"><strong>Q5</strong><p>2026 NATO Summit: host, venue?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Founded: <b>4 Apr 1949</b> (Washington Treaty)</span>
+        <span class="pill"><b>32</b> members (Sweden = 32nd, March 2024)</span>
+        <span class="pill r">NOT a formal military alliance like UN — it's a collective defense alliance</span>
+        <span class="pill">Article 5: Attack on one = attack on all</span>
+      </div>
+
+      <h3>2025 NATO Summit (Jun 24–25, The Hague, Netherlands)</h3>
+      <ul class="ul">
+        <li><b>"The 5% Pledge"</b>: Allies agreed to spend 5% of GDP on defense by 2035 (replaces old 2% target)</li>
+        <li><b>NSATU Operationalized</b>: NATO Security Assistance and Training for Ukraine (HQ: Wiesbaden) took over aid coordination from US to "Trump-proof" support</li>
+        <li><b>Diplomatic Shift</b>: Zelenskyy exempted from main session; focus shifted from "Ukraine Victory" to "Sustainable Defense"</li>
+      </ul>
+
+      <h3>2026 NATO Summit (Jul 7–8, Ankara, Turkey)</h3>
+      <ul class="ul">
+        <li>Venue: Beştepe Presidential Compound</li>
+        <li>Theme: "Implementation &amp; Concrete Outcomes" — monitor first year of 5% pledge</li>
+        <li>Focus: Black Sea Security architecture (post-Ukraine context)</li>
+        <li>Second time Turkey hosts (first was Istanbul 2004)</li>
+      </ul>
+
+      <h3>India–NATO Strategic Friction (2025)</h3>
+      <div class="hbox"><b>"Rutte Spat"</b>: India publicly rebuked NATO Sec-Gen Mark Rutte for claiming PM Modi acted on US pressure regarding Russia. <b>Zapad-2025</b>: NATO criticized India's participation in Russian war games; India cited "Western Hypocrisy" (NATO members also observed).</div>
+
+      <h3>Major Non-NATO Ally (MNNA) &amp; Related</h3>
+      <table class="dt">
+        <tr><th>Term</th><th>Details</th></tr>
+        <tr><td>MNNA</td><td>Designation by US law; gives defense trade/security benefits. Currently 19 countries. <b>India is NOT a member.</b> Saudi Arabia recently designated (2025).</td></tr>
+        <tr><td>NATO Plus Five</td><td>Australia, New Zealand, South Korea, Japan, and Israel</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>NATO (1949, 32 members, Article 5 collective defense). 2025 Summit: The Hague — "5% GDP pledge," NSATU declared operational. 2026 Summit: Ankara, Turkey. MNNA: 19 countries (India NOT included). Saudi Arabia new MNNA designation 2025.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     11. IMEC + CORRIDORS
+══════════════════════════════════════ -->
+<div class="page" id="imec">
+  <div class="sh" onclick="tog(this)"><span>11 · IMEC &amp; Key Economic Corridors</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>IMEC: launched when, where? 2 legs?</p></div>
+      <div class="ci"><strong>Q2</strong><p>INSTC: length, members, who mooted it?</p></div>
+      <div class="ci"><strong>Q3</strong><p>BRI: 2 components — Silk Road &amp; Maritime Silk Road?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Kaladan Multimodal route — path &amp; which river?</p></div>
+      <div class="ci"><strong>Q5</strong><p>TAPI Pipeline: route, capacity, funding by?</p></div>
+    </div>
+    <div class="nc">
+      <h3>IMEC (India-Middle East-Europe Economic Corridor)</h3>
+      <div class="pills">
+        <span class="pill">Launched: <b>G20 New Delhi, September 2023</b></span>
+        <span class="pill">Participating: India, USA, UAE, Saudi Arabia, France, Germany, Italy, EU</span>
+      </div>
+      <div class="hbox"><b>Current status:</b> Split into two realities — Eastern Leg (India-Gulf) = active; Northern Leg (Gulf-Europe via Israel) = frozen due to regional war.</div>
+      <ul class="ul">
+        <li>Infrastructure: Railroads, ship-to-rail networks, road transport, electricity cable, hydrogen pipeline, high-speed data cable</li>
+        <li>Impact: Cuts India-Europe shipment time by <b>40%</b> and costs by <b>30%</b> vs Suez Canal route</li>
+        <li>Combined GDP of IMEC nations (incl. EU): <b>$47 Trillion</b> (~40% of global GDP)</li>
+        <li>India-UAE Virtual Trade Corridor: AI-powered customs, cuts clearance from days to hours</li>
+      </ul>
+
+      <h3>Key Regional Corridors Comparison</h3>
+      <table class="dt">
+        <tr><th>Corridor</th><th>Route / Key Facts</th><th>Trap / India Angle</th></tr>
+        <tr><td><b>INSTC</b></td><td>7,200 km; mooted 2000 by India, Russia, Iran. 13 members incl. India, Iran, Russia, Azerbaijan, Armenia, Kazakhstan, Kyrgyzstan, Tajikistan, Turkey, Ukraine, Belarus, Oman, Syria. Bulgaria = Observer.</td><td>Operationalize via EAEU FTA. Connects to $2.4 Trillion EAEU market.</td></tr>
+        <tr><td><b>BRI</b></td><td>Launched 2013. Two components: Silk Road Economic Belt (land) + Maritime Silk Road (sea). Connects Asia-Africa-Europe.</td><td>India does NOT participate in BRI. IMEC = alternative to BRI in Middle East.</td></tr>
+        <tr><td><b>TITR ("Middle Corridor")</b></td><td>Launched 2017. Multi-modal: China ↔ EU via Central Asia, Caucasus, Türkiye, Eastern Europe.</td><td>Competes with Russia's northern route. Turkey is key transit nation.</td></tr>
+        <tr><td><b>Chennai–Vladivostok EMC</b></td><td>10,300 km sea route. India (Chennai) ↔ Russia (Vladivostok). Envisioned at Eastern Economic Forum 2019.</td><td>Saves up to 16 days &amp; 3,028 nautical miles vs St. Petersburg route. Passes through Sea of Japan, SCS, Malacca Strait.</td></tr>
+        <tr><td><b>TAPI Pipeline</b></td><td>Turkmenistan (Galkynysh) → Afghanistan (Herat) → Pakistan (Multan) → India (Fazilka). Capacity: 33 BCM/year.</td><td>Funded by ADB, not World Bank. Entry into India at Fazilka, Punjab. Taliban resumed land acquisition in Herat 2025. Completion pushed to 2027-28.</td></tr>
+        <tr><td><b>Kaladan Multimodal</b></td><td>Kolkata (Sea) → Sittwe, Myanmar (River: Kaladan) → Paletwa → Mizoram (Road). Goal: Connect NE India bypassing "Chicken's Neck".</td><td>Sittwe Port operational; final road link (Zorinpui) set for 2027. Sea + River + Road = Multimodal. Insurgent delays on road stretch.</td></tr>
+        <tr><td><b>Ashgabat Agreement</b></td><td>Transit: Central Asia ↔ Persian Gulf. Members: Oman, Iran, Turkmenistan, Uzbekistan, Kazakhstan, Pakistan, India. New: Armenia (May 2025).</td><td>India joined 2018. Depository: Turkmenistan. Pakistan = also member (joined 2016) — don't exclude them.</td></tr>
+      </table>
+
+      <h3>Other Infrastructure Initiatives</h3>
+      <table class="dt">
+        <tr><th>Initiative</th><th>Who</th><th>Goal</th></tr>
+        <tr><td>EU Global Gateway</td><td>European Union</td><td>€300 Bn for infrastructure, digital, climate in Africa, LatAm, Asia — alternative to BRI</td></tr>
+        <tr><td>Great Green Wall</td><td>African-led</td><td>Restore 100 million hectares across 11 Sahel countries by 2030 — combat desertification</td></tr>
+        <tr><td>Italy's Mattei Plan for Africa</td><td>Italy</td><td>Economic partnerships with Africa: energy, infra, agriculture, migration management</td></tr>
+        <tr><td>PGII</td><td>G7-led</td><td>$600 Bn by 2027 for sustainable infra in developing countries — counter BRI</td></tr>
+        <tr><td>Three Seas Initiative (3SI)</td><td>13 EU states (Baltic-Adriatic-Black Sea)</td><td>North-South connectivity (energy, transport, digital). Reduce Russian energy dependence. Austria = only neutral (non-NATO) member. Ukraine = Associated State (NOT full member). 2026 Summit: Dubrovnik, Croatia.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>IMEC (G20 2023): Eastern Leg active, Northern Leg frozen. INSTC = 7,200 km, 13 members. TAPI = ADB-funded, entry at Fazilka. Kaladan = Sea+River+Road via Kaladan River. EU Gateway (€300Bn), PGII ($600Bn), Great Green Wall = key alternatives to BRI.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     12. IPEF + IPOI
+══════════════════════════════════════ -->
+<div class="page" id="ipef">
+  <div class="sh" onclick="tog(this)"><span>12 · IPEF &amp; IPOI</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>IPEF: when launched, where, how many members?</p></div>
+      <div class="ci"><strong>Q2</strong><p>4 pillars of IPEF — which pillar India is OUT of?</p></div>
+      <div class="ci"><strong>Q3</strong><p>IPEF Supply Chain Council: who chairs, India's role?</p></div>
+      <div class="ci"><strong>Q4</strong><p>IPOI: launched when, where, based on which India vision?</p></div>
+      <div class="ci"><strong>Q5</strong><p>7 pillars of IPOI and their lead countries?</p></div>
+    </div>
+    <div class="nc">
+      <h3>Indo-Pacific Economic Framework for Prosperity (IPEF)</h3>
+      <div class="pills">
+        <span class="pill">Launched: <b>2022, Tokyo, Japan</b></span>
+        <span class="pill"><b>14 countries</b> (40% global GDP, 28% global trade)</span>
+        <span class="pill">Members: Australia, Brunei, Fiji, India, Indonesia, Japan, S. Korea, Malaysia, NZ, Philippines, Singapore, Thailand, Vietnam, USA</span>
+      </div>
+
+      <h3>4 Pillars of IPEF</h3>
+      <table class="dt">
+        <tr><th>Pillar</th><th>Focus</th><th>India's Status</th></tr>
+        <tr><td>Pillar I — Trade</td><td>Enhance trade relations, reduce barriers, inclusive trading environment</td><td><b>OUT</b> — India has NOT ratified Pillar 1</td></tr>
+        <tr><td>Pillar II — Supply Chains</td><td>Resilient, secure supply chains; reduce single-source dependency</td><td><b>IN</b> — Supply Chain Agreement now fully operational</td></tr>
+        <tr><td>Pillar III — Clean Economy</td><td>Sustainable development, clean energy, climate change</td><td><b>IN</b> — formally ratified</td></tr>
+        <tr><td>Pillar IV — Fair Economy</td><td>Anti-corruption, labour rights, fair economic practices</td><td><b>IN</b> — formally ratified</td></tr>
+      </table>
+
+      <h3>IPEF Supply Chain Bodies (3 bodies established by India + 13 partners)</h3>
+      <table class="dt">
+        <tr><th>Body</th><th>Function</th><th>Chair / Vice Chair</th></tr>
+        <tr><td>Supply Chain Council</td><td>Strengthen critical supply chains for national security, public health, economic stability</td><td>USA (Chair), <b>India (Vice Chair)</b></td></tr>
+        <tr><td>Crisis Response Network</td><td>Coordinate collective emergency responses to supply chain disruptions</td><td>Republic of Korea (Chair), Japan (Vice Chair)</td></tr>
+        <tr><td>Labour Rights Advisory Board</td><td>Enhance labour rights and workforce development</td><td>USA (Chair), Fiji (Vice Chair)</td></tr>
+      </table>
+
+      <h3>Indo-Pacific Oceans' Initiative (IPOI)</h3>
+      <div class="pills">
+        <span class="pill">Launched: <b>4 Nov 2019</b> by PM Modi at 14th East Asia Summit, Bangkok</span>
+        <span class="pill">Based on India's <b>SAGAR</b> vision (2015)</span>
+        <span class="pill">Spain joined Jan 2026; Greece joined late 2024/2025</span>
+      </div>
+      <table class="dt">
+        <tr><th>Pillar</th><th>Lead Countries</th></tr>
+        <tr><td>Maritime Security</td><td>India &amp; UK</td></tr>
+        <tr><td>Marine Ecology</td><td>Australia</td></tr>
+        <tr><td>Maritime Resources</td><td>France &amp; Indonesia</td></tr>
+        <tr><td>Capacity Building &amp; Resource Sharing</td><td>Germany</td></tr>
+        <tr><td>Disaster Risk Reduction &amp; Management</td><td>India</td></tr>
+        <tr><td>Science, Technology &amp; Academic Cooperation</td><td>Italy &amp; Singapore</td></tr>
+        <tr><td>Trade-Connectivity &amp; Maritime Transport</td><td>Japan, India &amp; USA</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>IPEF (2022, Tokyo, 14 members). India OUT of Pillar 1 (Trade), IN for Pillars 2, 3, 4. India = Vice Chair of Supply Chain Council. IPOI (2019, Bangkok, based on SAGAR). 7 pillars. Spain joined Jan 2026. India leads Disaster Risk Reduction pillar.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     13. INDIA-GCC
+══════════════════════════════════════ -->
+<div class="page" id="gcc">
+  <div class="sh" onclick="tog(this)"><span>13 · India–Gulf Cooperation Council (GCC)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>GCC: year, HQ, 6 members? Iraq/Iran/Yemen members?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India-GCC FTA status (Feb 2026)?</p></div>
+      <div class="ci"><strong>Q3</strong><p>India's defense exercises with UAE, Saudi, Oman?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Qatar LNG deal — duration, volume?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Which was India's first LCS partner in GCC?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">GCC formed: <b>1981</b> (Charter signed in Abu Dhabi; HQ in Riyadh)</span>
+        <span class="pill">6 members: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain</span>
+        <span class="pill r">Iraq, Iran, Yemen = NOT GCC members despite being on Arabian Peninsula</span>
+        <span class="pill">Trade: ~$178 Bn (India's largest regional trading partner block)</span>
+        <span class="pill">Diaspora: ~8.9 million Indians</span>
+      </div>
+
+      <h3>India-GCC Key Developments</h3>
+      <table class="dt">
+        <tr><th>Area</th><th>Key Details</th><th>Trap / Note</th></tr>
+        <tr><td><b>FTA Status</b></td><td>Feb 5, 2026: India and GCC signed Terms of Reference (ToR) in New Delhi to formally RESUME FTA negotiations (stalled since 2008)</td><td>India has NOT signed the full FTA yet. Only signed "Terms of Reference." India has separate bilateral CEPAs: UAE (2022) and Oman (Dec 2025).</td></tr>
+        <tr><td><b>Strategic Framework</b></td><td>Joint Action Plan (2024-2028) at 1st Joint Ministerial Meeting, Riyadh. Focus: Health, Trade, Security, Agriculture, Food Security</td><td>First-ever FM-level meeting for the bloc — institutionalizing the dialogue</td></tr>
+        <tr><td><b>Energy Security</b></td><td>Qatar LNG Deal: Renewed 20 years (until 2048) for 7.5 MTPA. Oman = key Green Hydrogen partner. OSOWOG: feasibility studies to connect Indian Grid to GCC Grid</td><td>India imports ~35% oil and 70% gas from GCC. Shift: "Buying Oil" → "Jointly Producing Hydrogen"</td></tr>
+        <tr><td><b>Saudi Arabia Kafala</b></td><td>Officially abolished the kafala (sponsorship) system in June 2025; new contract-based labor framework — major improvement in worker mobility for Indian diaspora</td><td>8.9 million Indians in GCC directly impacted</td></tr>
+        <tr><td><b>Connectivity &amp; Tech</b></td><td>Virtual Trade Corridor (VTC) with UAE: AI-powered customs (days → hours). IMEC Eastern Leg: active infra work on India-UAE-Saudi rail link.</td><td>IMEC bypasses Suez for part of journey: "Ship-to-Rail" model through Arabian Peninsula</td></tr>
+        <tr><td><b>Payment</b></td><td>Local Currency Settlement (LCS): Operational with UAE (INR ↔ AED). UPI live in UAE (Mashreq Bank), Oman, Qatar at varying levels.</td><td>UAE = first country to operationalize LCS with India (crude oil in Rupees/Dirhams instead of Dollars)</td></tr>
+      </table>
+
+      <h3>India–GCC Defense Exercises</h3>
+      <div class="pills">
+        <span class="pill g">Desert Cyclone — UAE (Army, Rajasthan)</span>
+        <span class="pill g">Al-Mohed Al-Hindi — Saudi Arabia (Naval)</span>
+        <span class="pill g">Naseem Al Bahr — Oman (Naval)</span>
+      </div>
+      <div class="trap">Do NOT confuse "Desert Cyclone" (UAE Army exercise) with "Desert Knight" (Air Force exercise with France/UAE).</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>GCC (1981, Riyadh HQ, 6 members). Iraq/Iran/Yemen NOT in GCC. FTA: Only ToR signed Feb 2026 (not full FTA). Bilateral CEPAs with UAE (2022) and Oman (2025). Qatar LNG: 20 yr deal until 2048 (7.5 MTPA). UAE = first LCS partner. Saudi abolished Kafala June 2025.</div>
+</div>
+
+<div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#888;padding:10px 0 22px;">
+  Sarrthi IAS · PNP 2026 · International Relations – Lecture 3 · Cornell Notes
+</div>
+</div>
+
+<script>
+  function tog(h){
+    const b=h.nextElementSibling;
+    const a=h.querySelector('.tog');
+    if(!b)return;
+    const c=b.classList.toggle('collapsed');
+    a.textContent=c?'▶':'▼';
+  }
+</script>
+</body>
+</html>

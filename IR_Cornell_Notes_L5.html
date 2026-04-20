@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR Cornell Notes – Lecture 5 | UPSC Prelims 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#12100e;--paper:#faf7f2;--cream:#f0ead8;--rule:#cfc0a8;--red:#b5281c;--blue:#14305a;--gold:#9a7200;--hl:#fff9c4;--trap-bg:#fff0ee;--trap-bdr:#d94030;--tag-bg:#e6effc;--tag-col:#14305a;--green:#1a6b3a;--green-bg:#eaf7ee;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#ddd5c5;font-family:'Source Serif 4',Georgia,serif;color:var(--ink);padding:20px 14px;}
+  .nb{max-width:1120px;margin:0 auto;}
+  .nb-hd{background:var(--blue);color:#fff;padding:18px 28px 14px;border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .nb-hd h1{font-family:'Playfair Display',serif;font-size:1.55rem;line-height:1.2;}
+  .nb-hd .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;opacity:.78;text-align:right;}
+  .nb-hd .meta span{display:block;}
+  .toc{background:var(--cream);border-bottom:2px solid var(--gold);padding:8px 26px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.76rem;font-family:'JetBrains Mono',monospace;}
+  .toc a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue);}
+  .toc a:hover{color:var(--red);}
+  .page{background:var(--paper);background-image:repeating-linear-gradient(transparent,transparent 27px,var(--rule) 27px,var(--rule) 28px);border-left:5px solid var(--blue);box-shadow:4px 6px 20px rgba(0,0,0,.16);margin-bottom:30px;border-radius:0 0 4px 4px;}
+  .sh{background:var(--blue);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;padding:8px 22px 7px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;cursor:pointer;user-select:none;transition:background .2s;}
+  .sh:hover{background:#0d2040;}
+  .sh .tog{font-size:.82rem;margin-left:auto;opacity:.7;}
+  .sb{display:grid;grid-template-columns:218px 1fr;}
+  .cue{border-right:2px solid var(--red);padding:14px 12px;background:rgba(181,40,28,.03);}
+  .ci{margin-bottom:16px;padding:7px 9px;border-left:3px solid var(--red);background:rgba(181,40,28,.06);border-radius:0 3px 3px 0;}
+  .ci strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+  .ci p{font-size:.78rem;line-height:1.42;color:var(--blue);font-weight:600;}
+  .nc{padding:14px 20px;}
+  .nc h3{font-family:'Playfair Display',serif;font-size:.93rem;color:var(--blue);margin:14px 0 5px;padding-bottom:2px;border-bottom:1px dashed var(--rule);}
+  .nc h3:first-child{margin-top:0;}
+  .dt{width:100%;border-collapse:collapse;font-size:.78rem;margin:7px 0 12px;}
+  .dt th{background:var(--blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;padding:5px 9px;text-align:left;}
+  .dt td{padding:5px 9px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4;}
+  .dt tr:nth-child(even) td{background:rgba(0,0,0,.022);}
+  .dt tr:hover td{background:var(--hl);}
+  .pills{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 10px;}
+  .pill{background:var(--tag-bg);color:var(--tag-col);font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:99px;border:1px solid #a8c0ea;white-space:nowrap;}
+  .pill.g{background:#eaf7ee;border-color:#7dba95;color:var(--green);}
+  .pill.r{background:#fff0ee;border-color:#e08080;color:#a00;}
+  .pill.au{background:#fef9e7;border-color:var(--gold);color:var(--gold);}
+  .trap{background:var(--trap-bg);border:1.5px solid var(--trap-bdr);border-radius:4px;padding:6px 11px;font-size:.76rem;margin:7px 0;line-height:1.5;}
+  .trap::before{content:"PRELIMS TRAP: ";font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;color:var(--trap-bdr);display:block;margin-bottom:2px;}
+  .hbox{background:var(--hl);border-left:3px solid var(--gold);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .gbox{background:var(--green-bg);border-left:3px solid var(--green);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .ul{padding-left:15px;margin:3px 0 9px;font-size:.8rem;line-height:1.54;}
+  .ul li{margin-bottom:3px;}
+  .ul li b{color:var(--blue);}
+  .sum{border-top:2px solid var(--red);padding:10px 20px;background:rgba(181,40,28,.04);font-size:.76rem;}
+  .sum strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:4px;}
+  .collapsed{display:none!important;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;}.tog{display:none;}.sb{display:grid!important;}}
+</style>
+</head>
+<body>
+<div class="nb">
+<div class="nb-hd">
+  <h1>International Relations – Lecture 5<br><small style="font-size:.62em;opacity:.72">MERCOSUR · CARICOM · Raisina · Africa · Central Asia · Ukraine · CPTPP · RCEP · Nuclear Treaties · Trade Agreements · Logistics · Tribes</small></h1>
+  <div class="meta"><span>UPSC PRELIMS 2026</span><span>Sarrthi IAS – PNP 2026</span><span>Cornell Notes</span></div>
+</div>
+<div class="toc">
+  <a href="#mercosur">MERCOSUR &amp; CARICOM</a><a href="#raisina">Raisina Dialogue</a><a href="#africa">India-Africa</a>
+  <a href="#centralasia">India-Central Asia</a><a href="#ukraine">Ukraine Peace</a><a href="#cptpp">CPTPP &amp; RCEP</a>
+  <a href="#nuclear">Nuclear Treaties</a><a href="#tradeterms">Trade Terms</a><a href="#ukeu">UK &amp; EU FTAs</a>
+  <a href="#otherfta">Other FTAs</a><a href="#logistics">Logistics Pacts</a><a href="#tribes">Tribes</a>
+</div>
+
+<!-- 1. MERCOSUR + CARICOM -->
+<div class="page" id="mercosur">
+  <div class="sh" onclick="tog(this)"><span>1 · India-MERCOSUR &amp; CARICOM</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>MERCOSUR HQ? Type of bloc? 5 members?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India-MERCOSUR deal type — PTA or FTA? Trap vs India-EFTA?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Bolivia's accession — when? What does it add?</p></div>
+      <div class="ci"><strong>Q4</strong><p>CARICOM 7-pillar "C.A.R.I.C.O.M" plan?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Argentina visit — how many years gap? What secured?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">HQ: <b>Montevideo, Uruguay</b></span><span class="pill">Type: <b>Customs Union</b> (Common External Tariff)</span>
+        <span class="pill g">Brazil · Argentina · Uruguay · Paraguay</span><span class="pill au">Bolivia (5th member — July 2024)</span>
+        <span class="pill r">Venezuela remains suspended</span>
+      </div>
+      <div class="trap">India-MERCOSUR = PTA (~450 tariff lines, expanded to 2000+ in Oct 2025). NOT an FTA. Do NOT confuse with India-EFTA TEPA (full FTA with binding $100Bn investment). Paraguay &amp; Bolivia = only landlocked MERCOSUR members. India cannot negotiate separately with just Brazil — must deal with whole bloc (Common External Tariff).</div>
+      <h3>India-MERCOSUR Timeline</h3>
+      <table class="dt">
+        <tr><th>Year</th><th>Event</th><th>Significance</th></tr>
+        <tr><td>2003</td><td>Framework Agreement (Asunción, Paraguay)</td><td>First formal step</td></tr>
+        <tr><td>2004</td><td>PTA Signed</td><td>Only 450 items — very shallow coverage</td></tr>
+        <tr><td>2009</td><td>PTA Entry into Force</td><td><b>Current legal framework</b></td></tr>
+        <tr><td>July 2024</td><td>Bolivia joins as Full Member</td><td>MERCOSUR gains world's largest Lithium reserves</td></tr>
+        <tr><td>Oct 2025</td><td>Expansion talks rebooted (India-Brazil G20 meets)</td><td>Expand PTA to 2000+ items; Comprehensive Economic Partnership</td></tr>
+        <tr><td>2026</td><td>KABIL begins exploration in Catamarca, Argentina</td><td>"The Lithium Push" — first major operational fruit</td></tr>
+      </table>
+      <div class="hbox">India imports: Soybean Oil (Brazil/Arg), Lithium (Arg/Bolivia), Crude Oil. India exports: Pharma, Auto Components, Textiles, Pesticides. India runs trade deficit mainly due to Edible Oil. Trade target: $20Bn by 2030 (FY25: ~$17.5Bn).</div>
+      <h3>PM Modi's Latin America Tour</h3>
+      <table class="dt">
+        <tr><th>Country</th><th>Purpose</th><th>Key Outcome / Trap</th></tr>
+        <tr><td>Brazil</td><td>17th BRICS + State Visit</td><td>Launched "Global Alliance against Hunger and Poverty." Biofuels &amp; Ethanol tech transfer.</td></tr>
+        <tr><td><b>Argentina</b></td><td>State Visit</td><td>Historic: First Indian PM visit in <b>57 years</b> (last: Indira Gandhi, 1968). Secured Lithium Blocks for KABIL in Catamarca province.</td></tr>
+        <tr><td>Trinidad &amp; Tobago</td><td>Official Visit</td><td>LNG supplies + DPI/UPI adoption. First Indian PM visit since 1999. 40% Indian origin diaspora.</td></tr>
+      </table>
+      <h3>India-CARICOM</h3>
+      <div class="pills">
+        <span class="pill">CARICOM est: <b>1973</b>. 15 Member States + 6 Associate Members</span>
+        <span class="pill">1st India-CARICOM Summit: 2019. 2nd: Georgetown, Guyana (Nov 2024)</span>
+      </div>
+      <div class="hbox"><b>"C.A.R.I.C.O.M" 7-Pillar Plan:</b> Capacity Building (ITEC), Agriculture, Renewable Energy, Innovation (DPI), Cricket, Ocean Economy, Medicine (Jan Aushadhi). Key: "25 by 2025" — reduce CARICOM food import bill by 25% via drone/soil tech.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>MERCOSUR (Customs Union, Montevideo, 5 members). India deal = PTA not FTA. Bolivia joins July 2024 = Lithium bonanza. Argentina PM Modi visit = 57-year gap; KABIL Catamarca. CARICOM (1973, 15 members). 7-pillar CARICMO plan. KABIL = Khanij Bidesh India Ltd.</div>
+</div>
+
+<!-- 2. RAISINA -->
+<div class="page" id="raisina">
+  <div class="sh" onclick="tog(this)"><span>2 · Raisina Dialogue &amp; Similar Forums</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Raisina Dialogue: hosted by whom? Location?</p></div>
+      <div class="ci"><strong>Q2</strong><p>10th edition (2025): theme, chief guest, key outcome?</p></div>
+      <div class="ci"><strong>Q3</strong><p>11th edition (2026): chief guest, significance for India-Canada ties?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Munich Security Conference: city, organizer?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Phewa Dialogue — who launched it, why named so?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">India's premier geopolitics conference — held annually in <b>New Delhi</b></span>
+        <span class="pill">Hosted by: <b>Observer Research Foundation (ORF)</b> + Ministry of External Affairs</span>
+      </div>
+      <table class="dt">
+        <tr><th>Feature</th><th>10th Edition (2025)</th><th>11th Edition (2026)</th></tr>
+        <tr><td>Dates</td><td>March 17–19, 2025</td><td>March 5–7, 2026</td></tr>
+        <tr><td>Theme</td><td>"Kālachakra: People, Peace, Planet" (Time, Sustainability, Human-Centricity)</td><td>"Deep Tech &amp; Strategic Autonomy" (Science Diplomacy, AI, Semiconductors)</td></tr>
+        <tr><td>Chief Guest</td><td>Christopher Luxon (PM, New Zealand)</td><td><b>Mark Carney</b> (PM, Canada) — marks "reset" in India-Canada ties</td></tr>
+        <tr><td>Key Outcome</td><td>Launched "Global South Development Center" (GSDC)</td><td>Launched "Raisina Science Diplomacy Initiative" (SDI) for 6G/Bio-tech co-development</td></tr>
+        <tr><td>Geopolitics</td><td>Philippines proposed India join "The Squad" (US-Japan-Australia-Philippines) to counter China</td><td>"Research Security" — protecting dual-use tech from adversaries</td></tr>
+        <tr><td>Prelims Trap</td><td><b>2025 = 10th Anniversary edition</b></td><td>2026 = first edition with dedicated <b>Science Track</b></td></tr>
+      </table>
+      <h3>Similar Global Dialogues</h3>
+      <table class="dt">
+        <tr><th>Forum</th><th>Location</th><th>Organizer</th><th>Focus</th></tr>
+        <tr><td>Munich Security Conference (MSC)</td><td>Munich, Germany</td><td>MSC Foundation</td><td>International security policy — annual</td></tr>
+        <tr><td>Shangri-La Dialogue</td><td>Singapore</td><td>IISS (Int'l Institute for Strategic Studies)</td><td>Security in Asia-Pacific</td></tr>
+        <tr><td>Oslo Freedom Forum</td><td>Oslo, Norway</td><td>Human Rights Foundation</td><td>Human rights, democracy, freedom</td></tr>
+        <tr><td>Phewa Dialogue</td><td>Pokhara, Nepal</td><td>Nepal + China initiative</td><td>South Asia Regional Economic Integration. Named after Phewa Lake, Pokhara Valley — Nepal's first official think tank forum on South Asia integration.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Raisina = ORF + MEA, New Delhi, annual. 10th (2025): "Kālachakra," NZ PM Luxon. 11th (2026): "Deep Tech," Canada PM Carney (India-Canada reset), first Science Track. MSC = Munich. Shangri-La = Singapore (IISS). Phewa Dialogue = Nepal-China, named after Phewa Lake.</div>
+</div>
+
+<!-- 3. INDIA-AFRICA -->
+<div class="page" id="africa">
+  <div class="sh" onclick="tog(this)"><span>3 · India-Africa Relations</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Nigeria award name? PM Modi = which foreign leader to receive it?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Exercise AIKEYME — full name, location, first significance?</p></div>
+      <div class="ci"><strong>Q3</strong><p>4th IAFS — year, gap since last?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Zambia Deal — what minerals, what corridor?</p></div>
+      <div class="ci"><strong>Q5</strong><p>ECOWAS — HQ, establishment year, how many members?</p></div>
+    </div>
+    <div class="nc">
+      <h3>PM Modi's Africa Visits &amp; Awards</h3>
+      <table class="dt">
+        <tr><th>Country</th><th>Date</th><th>Award / Outcome</th><th>Trap / Significance</th></tr>
+        <tr><td><b>Nigeria</b></td><td>Nov 2024</td><td>Grand Commander of the Order of the Niger (GCON). Elevated to "Strategic Partnership."</td><td>PM Modi = <b>2nd foreign leader</b> (after Queen Elizabeth II in 1969) to receive this award.</td></tr>
+        <tr><td><b>Ghana</b></td><td>July 2025</td><td>Officer of the Order of the Star of Ghana. "Comprehensive Partnership." Focus: Gold Refineries + Sahel Security.</td><td>First Indian PM visit to Ghana in <b>30 years</b>.</td></tr>
+        <tr><td><b>Namibia</b></td><td>July 2025</td><td>Order of the Most Ancient Welwitschia Mirabilis. UPI Integration launched. Joined Global Biofuels Alliance.</td><td>Key partner for <b>Green Hydrogen and Uranium</b>.</td></tr>
+        <tr><td><b>Ethiopia</b></td><td>Dec 2025</td><td>Great Honor Nishan (Highest Honour). Horn of Africa presence cemented.</td><td>Counters China's Djibouti base. Ethiopia = new BRICS member.</td></tr>
+        <tr><td><b>South Africa</b></td><td>Nov 2025</td><td>G20 Johannesburg. AU's permanent G20 seat operationalized. "Global South Debt Framework."</td><td><b>First G20 Summit on African soil.</b></td></tr>
+      </table>
+      <h3>Key India-Africa Initiatives</h3>
+      <table class="dt">
+        <tr><th>Theme</th><th>Event / Detail</th><th>Key Point</th></tr>
+        <tr><td>Defence</td><td><b>AIKEYME Exercise</b> (April 2025): Africa-India Key Maritime Engagement. Dar-es-Salaam, Tanzania. Indian Navy + 9 African Nations.</td><td>India's <b>first multi-nation "War Game" with Africa</b> (beyond PASSEX). Aikeyam = "Unity" in Sanskrit.</td></tr>
+        <tr><td>Agriculture</td><td><b>India-Africa Seed Summit</b> (Sept 2026, Hyderabad): ICAR + AFSTA. Goal: Climate-Resilient Seeds (Millets/Rice) to Sahel.</td><td>Policy Shift: "Food Aid" (Donation) → "Technology Transfer" (Food Sovereignty).</td></tr>
+        <tr><td>Critical Minerals</td><td><b>Zambia Deal</b> (Lobito Corridor): Zambia allocated 9,000 sq km for Indian exploration. Target: Copper &amp; Cobalt.</td><td>Zambia = landlocked. India using US-backed Lobito Corridor (West Coast) to balance China.</td></tr>
+        <tr><td>Summit</td><td><b>4th IAFS (IAFS-IV)</b>: Scheduled 2026 (likely Ethiopia/Mauritania).</td><td><b>10-year gap</b> — last was 2015.</td></tr>
+      </table>
+      <div class="hbox"><b>ECOWAS</b>: Established May 28, 1975 (Treaty of Lagos). HQ: Abuja, Nigeria. 15 member states. Languages: English, French, Portuguese. Objective: Economic integration and cooperation among West African countries.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Nigeria (GCON — 2nd foreign leader), Ghana (30-yr gap), Namibia (Green H2+Uranium), Ethiopia (counters Djibouti, BRICS member), S. Africa (G20 first in Africa). AIKEYME = first multi-nation naval war game with Africa. 4th IAFS = 2026 (10-yr gap). ECOWAS = 1975, Abuja, 15 members.</div>
+</div>
+
+<!-- 4. CENTRAL ASIA -->
+<div class="page" id="centralasia">
+  <div class="sh" onclick="tog(this)"><span>4 · India-Central Asia Relations</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Kazakhstan — uranium % to India, borders which 3 bodies?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Uzbekistan — "Doubly Landlocked" meaning?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Tajikistan — India's first overseas base name?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Turkmenistan — Caspian access? Neutrality status?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Ashgabat Agreement — is Pakistan a member? Is China?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Country</th><th>Recent Event (2025-26)</th><th>Static Fact / Prelims Trap</th></tr>
+        <tr><td><b>Kazakhstan</b></td><td>Uranium Pact: Renewed 10-Year Supply Pact (Jan 2026). Exercise: KAZIND (Counter-Terror).</td><td>India's <b>largest Uranium source (80%)</b> — NOT Canada/Australia. Only Central Asian country bordering Russia AND China AND Caspian Sea.</td></tr>
+        <tr><td><b>Uzbekistan</b></td><td>Exercise: DUSTLIK (Pune, April 2025). First to use Chabahar Port for commercial transit (Southern Corridor).</td><td><b>"Doubly Landlocked"</b> = surrounded only by landlocked countries. Also Uranium supplier to India (since 2019).</td></tr>
+        <tr><td><b>Kyrgyzstan</b></td><td>Exercise: KHANJAR (High-Altitude Special Forces). Antimony &amp; Gold mining talks advanced 2025.</td><td>Does NOT border Caspian Sea or Afghanistan. Often confused with Tajikistan.</td></tr>
+        <tr><td><b>Tajikistan</b></td><td>India maintains <b>Farkhor Air Base</b> (India's first overseas military base). Key anti-terror intel partner (Afghan border).</td><td><b>"The Water Tower"</b>: Controls 60% of Central Asia's water resources (Amu Darya source). Does NOT border Caspian Sea.</td></tr>
+        <tr><td><b>Turkmenistan</b></td><td>TAPI Pipeline discussions revived 2026 (stalled). Key link in Ashgabat Agreement.</td><td>Borders Caspian Sea AND Iran. <b>Permanently Neutral State</b> (UN recognized). CIS Associate member only (not full member).</td></tr>
+      </table>
+      <div class="trap">Ashgabat Agreement members: Oman, Iran, Turkmenistan, Uzbekistan, Kazakhstan, Pakistan, India. Pakistan IS a member. China is NOT. India joined 2018.</div>
+      <div class="hbox">2nd India-Central Asia Summit scheduled for 2026 in India (Head of State level). India-Central Asia Dialogue = Foreign Minister level (different from Summit). India-Central Asia Secretariat established in New Delhi. KABIL: Active acquiring Lithium &amp; Tungsten in region (2025-26). Eastern INSTC operationalized late 2025 via "Southern Corridor" (Iran-Turkmenistan route).</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Kazakhstan = 80% India's Uranium (KAZIND). Uzbekistan = Doubly Landlocked + first Chabahar user (DUSTLIK). Kyrgyzstan = KHANJAR (doesn't border Caspian). Tajikistan = Farkhor Air Base + Water Tower. Turkmenistan = Caspian border + Permanent Neutrality. Ashgabat: Pakistan IN, China OUT.</div>
+</div>
+
+<!-- 5. UKRAINE -->
+<div class="page" id="ukraine">
+  <div class="sh" onclick="tog(this)"><span>5 · Ukraine-Russia War &amp; Peace Efforts</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>1st Peace Summit: where? India attended but did what?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India's "Vishwa Bandhu" — PM Modi's 2 key visits?</p></div>
+      <div class="ci"><strong>Q3</strong><p>RELOS agreement — with whom, when ratified?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Kursk — in Ukraine or Russia? Zaporizhzhia NPP — which river?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Normandy Format — 4 members?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills"><span class="pill au">India's shift: "Passive Neutrality" → "Active Facilitation" (Vishwa Bandhu Diplomacy)</span></div>
+      <h3>Peace Frameworks</h3>
+      <table class="dt">
+        <tr><th>Framework</th><th>Details</th><th>India's Stance</th></tr>
+        <tr><td><b>1st Peace Summit</b><br>(Bürgenstock, Switzerland, June 2024)</td><td>Communiqué on Nuclear Safety, Food Security, Humanitarian issues. Russia NOT invited.</td><td>Attended but <b>REFUSED to sign</b>. "Sustainable peace requires both parties at the table."</td></tr>
+        <tr><td><b>2nd Peace Summit</b> (2026 — Stalled)</td><td>Ukraine proposed India or Saudi Arabia as venue. Goal: "Just Peace" based on UN Charter.</td><td>Proposed as potential venue — shows India as neutral facilitator.</td></tr>
+        <tr><td><b>Zelenskyy's "Victory Plan"</b><br>(→ "20-Point Proposal")</td><td>Core: "Peace through Strength." Demands: NATO Invitation, long-range strikes, security guarantees. 2026: "NATO umbrella first, territory later."</td><td>"Noted" the plan but opposes Ukraine joining NATO (fearing escalation). Supported by NATO/G7.</td></tr>
+        <tr><td><b>"Friends of Peace"</b><br>(China-Brazil, May 2024)</td><td>"Freeze and Talk." No battlefield expansion; immediate ceasefire at current lines. Six-Point Consensus.</td><td>Attended as Observer. Did NOT join formal group (to avoid China-led blocs).</td></tr>
+        <tr><td><b>Normandy Format</b></td><td>Group to resolve conflict in Eastern Ukraine.</td><td>Members: Germany, Russia, Ukraine, France.</td></tr>
+      </table>
+      <h3>India's Vishwa Bandhu Diplomacy</h3>
+      <ul class="ul">
+        <li>PM Modi visited <b>Moscow (July 2024)</b> and <b>Kyiv (Aug 2024)</b> — only major power trusted by both sides; "Shuttle Diplomacy"</li>
+        <li>Putin visited India (Dec 2025) — 23rd India-Russia Annual Summit; RELOS formally ratified</li>
+        <li><b>RELOS</b> (Reciprocal Exchange of Logistics Support) with Russia — gives India access to Arctic ports (Murmansk) &amp; Vladivostok</li>
+        <li><b>BHISHM Cubes</b> gifted to Ukraine (Bharat Health Initiative for Sahyog Hita &amp; Maitri — compact mobile medical units, Aug 2024)</li>
+      </ul>
+      <h3>Strategic Locations</h3>
+      <table class="dt">
+        <tr><th>Location</th><th>Country</th><th>Why in News</th><th>Map Pointer</th></tr>
+        <tr><td>Kursk Region</td><td><b>Russia</b></td><td>Ukraine captured territory (Aug 2024). Buffer zone for land swap bargaining.</td><td>Inside Russia, NORTH of Ukraine's Sumy region. Trap: It is in Russia, not Ukraine.</td></tr>
+        <tr><td>Pokrovsk</td><td>Ukraine (Donetsk)</td><td>Critical logistics hub (road/rail). Epicenter 2026. If it falls, Ukraine's eastern supply lines collapse.</td><td>Donbas region.</td></tr>
+        <tr><td>Zaporizhzhia NPP</td><td>South Ukraine (Russian-controlled)</td><td>Europe's largest nuclear plant. IAEA-monitored.</td><td>On banks of <b>Dnipro River</b>.</td></tr>
+        <tr><td>Abu Dhabi</td><td>UAE</td><td>"Back-channel" peace talks (Feb 2026). Prisoner swaps + energy infrastructure ceasefires.</td><td>Capital of UAE; on Persian Gulf.</td></tr>
+        <tr><td>Rybka &amp; Kandalaksha</td><td>Russia</td><td>Russia building new bases to counter NATO's northern expansion (Finland/Sweden).</td><td>Near Finland border (Arctic/Karelia).</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>India = "Active Facilitation." 1st Peace Summit Bürgenstock (India attended, didn't sign). PM Modi: Moscow July 2024 + Kyiv Aug 2024. RELOS with Russia (Dec 2025). BHISHM Cubes to Ukraine. Kursk = inside Russia (not Ukraine). Zaporizhzhia NPP = Dnipro River, IAEA-monitored. Normandy Format = Germany+Russia+Ukraine+France.</div>
+</div>
+
+<!-- 6. CPTPP + RCEP -->
+<div class="page" id="cptpp">
+  <div class="sh" onclick="tog(this)"><span>6 · CPTPP &amp; RCEP</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>CPTPP: how many members? UK joined when? Chair 2026?</p></div>
+      <div class="ci"><strong>Q2</strong><p>US in CPTPP — yes or no?</p></div>
+      <div class="ci"><strong>Q3</strong><p>RCEP: signed when? Members (15)? India exit date?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Auckland Principles — 3 criteria. Who can block China?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Why did India exit RCEP? 2 reasons?</p></div>
+    </div>
+    <div class="nc">
+      <h3>CPTPP</h3>
+      <div class="pills">
+        <span class="pill"><b>12</b> members (original 11 + UK)</span>
+        <span class="pill">Chair 2026: <b>Vietnam</b> (from Australia)</span>
+        <span class="pill r">USA NOT a member (withdrew from TPP 2017)</span>
+        <span class="pill r">India NOT a member</span>
+        <span class="pill au">UK = 12th member (Dec 15, 2024) — first European, first non-founding member</span>
+      </div>
+      <div class="pills">
+        <span class="pill">Americas: Canada, Mexico, Peru, Chile</span>
+        <span class="pill">Asia-Pacific: Japan, Vietnam, Malaysia, Singapore, Brunei, Australia, New Zealand</span>
+        <span class="pill">Europe: UK</span>
+      </div>
+      <div class="trap">Pact now spans the Atlantic (via UK) — no longer just "Trans-Pacific." China &amp; Taiwan both applied 2021 — stalled. Auckland Principles require CONSENSUS, so any member (Japan/Canada) can block China's entry. India prefers bilateral deals (UK, EU, Peru). India opposes ISDS mechanism in CPTPP.</div>
+      <h3>Auckland Principles (3 Criteria)</h3>
+      <div class="pills">
+        <span class="pill g">1. High standards (must match existing rules)</span>
+        <span class="pill g">2. Track record of trade compliance</span>
+        <span class="pill g">3. Consensus of all existing members</span>
+      </div>
+      <h3>RCEP</h3>
+      <table class="dt">
+        <tr><th>Parameter</th><th>Details</th></tr>
+        <tr><td>Formation</td><td>Talks: Nov 2012 (Cambodia). Signed: Nov 15, 2020 (Vietnam). In force: Jan 1, 2022. Philippines = last founding member to ratify (June 2023).</td></tr>
+        <tr><td>Members (15)</td><td>ASEAN (10): Brunei, Cambodia, Indonesia, Laos, Malaysia, Myanmar, Philippines, Singapore, Thailand, Vietnam. Partners (5): China, Japan, South Korea, Australia, New Zealand.</td></tr>
+        <tr><td>Scale</td><td>~30% Global GDP + ~30% Global Population. <b>Largest FTA in history.</b></td></tr>
+        <tr><td>Secretariat</td><td>Jakarta, Indonesia (within ASEAN Secretariat complex)</td></tr>
+        <tr><td>India's Exit</td><td><b>Nov 4, 2019</b> (Bangkok Summit). Reason 1 (Auto-Trigger): India demanded automatic tariff hike if Chinese imports surged — RCEP rejected. Reason 2 (Ratchet Mechanism): India opposed mechanism preventing nations from raising tariffs once lowered.</td></tr>
+        <tr><td>Expansion (2026)</td><td>New members can join from July 2023. Active: Sri Lanka. Pending: Hong Kong.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>CPTPP: 12 members (UK = 12th, Dec 2024). Chair 2026: Vietnam. US &amp; India NOT members. Auckland Principles = consensus → any member blocks China. RCEP: 15 members (largest FTA), in force Jan 2022. India exited Nov 4, 2019 (Auto-Trigger + Ratchet). RCEP Secretariat: Jakarta.</div>
+</div>
+
+<!-- 7. NUCLEAR TREATIES -->
+<div class="page" id="nuclear">
+  <div class="sh" onclick="tog(this)"><span>7 · Nuclear Treaties &amp; Arms Control</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>New START: expired when? Warhead cap?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India rejects NPT — reason? Rejects TPNW — reason?</p></div>
+      <div class="ci"><strong>Q3</strong><p>CTBT: why "Zombie"? India a signatory?</p></div>
+      <div class="ci"><strong>Q4</strong><p>PTBT: India ratified? Did India's 1974/1998 tests violate it?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Export control: MTCR, WA, AG — India member? NSG?</p></div>
+    </div>
+    <div class="nc">
+      <div class="hbox">New START expired <b>Feb 5, 2026</b>. For first time since 1972, ZERO limits on US-Russia nuclear arsenals. India concern: will trigger China-US arms race, forcing India to expand its own arsenal.</div>
+      <table class="dt">
+        <tr><th>Treaty</th><th>Status (2026)</th><th>Key Mandate</th><th>India's Stance &amp; Reason</th></tr>
+        <tr><td><b>New START</b></td><td>DEAD (Feb 5, 2026)</td><td>Capped deployed strategic warheads at 1,550 each. 18 on-site inspections/year.</td><td>N/A — bilateral US-Russia. India not a party.</td></tr>
+        <tr><td><b>NPT</b> (1970)</td><td>Active — "Cornerstone"</td><td>"Grand Bargain": Non-nuclear states never get nukes; P5 disarm; peaceful energy use allowed.</td><td><b>Rejects.</b> "Discriminatory" — permanent "Nuclear Haves" (P5) vs. "Have-nots." India demands universal disarmament.</td></tr>
+        <tr><td><b>TPNW</b> (2021)</td><td>Active — "Ban Treaty"</td><td>Total Ban: possession, use, or threat of nukes illegal. Driven by small nations (Austria, Mexico).</td><td><b>Rejects.</b> Bypasses Conference on Disarmament (CD). Disarmament must involve nuclear states, not just a ban by non-nuclear ones.</td></tr>
+        <tr><td><b>CTBT</b> (1996)</td><td>ZOMBIE — never in force</td><td>Zero Yield: Bans ALL nuclear explosions. Needs 44 "Annex 2" states (India, US, China, Pakistan included).</td><td><b>Non-Signatory.</b> Not time-bound. Locks in P5's simulation advantage; bans India's physical testing.</td></tr>
+        <tr><td><b>PTBT</b> (1963)</td><td>Active</td><td>Bans testing in atmosphere, outer space, underwater. Loophole: Allows underground tests.</td><td><b>Signatory (Ratified).</b> India's 1974 &amp; 1998 tests were underground — did NOT violate PTBT.</td></tr>
+        <tr><td><b>FMCT</b></td><td>Proposed — stalled</td><td>"The Tap" Ban: Bans future production of HEU and Plutonium for weapons.</td><td><b>Supports</b> — ONLY if non-discriminatory &amp; universal. Accepts ban on future production, NOT on existing stockpiles.</td></tr>
+      </table>
+      <h3>India's Export Control Regime Memberships</h3>
+      <div class="pills">
+        <span class="pill g">MTCR (2016) — Missile &amp; UAV proliferation. China NOT a member.</span>
+        <span class="pill g">Wassenaar Arrangement (2017) — Conventional arms &amp; dual-use tech.</span>
+        <span class="pill g">Australia Group (2018) — Chemical &amp; biological weapons non-proliferation.</span>
+        <span class="pill r">NSG — NOT a member. Blocked due to non-NPT signatory status.</span>
+      </div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>New START DEAD (Feb 5, 2026). India: Rejects NPT (discriminatory), Rejects TPNW (bypasses CD), Non-signatory CTBT (not time-bound), Ratified PTBT (underground tests = no violation), Supports FMCT (future only). Export Control: MTCR+WA+AG member. NSG = NOT yet.</div>
+</div>
+
+<!-- 8. TRADE TERMS -->
+<div class="page" id="tradeterms">
+  <div class="sh" onclick="tog(this)"><span>8 · Trade Agreement Hierarchy &amp; Key Terms</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Hierarchy: shallowest → deepest (PTA → Economic Union)?</p></div>
+      <div class="ci"><strong>Q2</strong><p>CEPA vs TEPA — key difference?</p></div>
+      <div class="ci"><strong>Q3</strong><p>BIT — does it reduce tariffs? Recent BITs signed by India?</p></div>
+      <div class="ci"><strong>Q4</strong><p>SPS measures — what are they? Used by whom against India?</p></div>
+      <div class="ci"><strong>Q5</strong><p>India's 8 FTAs since 2021 — name in order.</p></div>
+    </div>
+    <div class="nc">
+      <h3>Hierarchy (Shallowest → Deepest)</h3>
+      <div class="pills">
+        <span class="pill">PTA</span><span class="pill">FTA</span><span class="pill">CECA</span><span class="pill">CEPA</span>
+        <span class="pill au">Customs Union</span><span class="pill au">Common Market</span><span class="pill r">Economic Union (Deepest)</span>
+      </div>
+      <table class="dt">
+        <tr><th>Term</th><th>Full Form</th><th>One-Liner</th><th>Trap / Example</th></tr>
+        <tr><td><b>FTA</b></td><td>Free Trade Agreement</td><td>Reduce/eliminate tariffs on "Negative List" basis</td><td>Usually covers Goods; Services less comprehensive than CEPA. Ex: India-ASEAN FTA.</td></tr>
+        <tr><td><b>CECA</b></td><td>Comprehensive Economic Cooperation Agreement</td><td>"Tariffs + Cooperation": FTA + customs/standards cooperation</td><td>Deeper than FTA, less than CEPA. Ex: India-Singapore CECA.</td></tr>
+        <tr><td><b>CEPA</b></td><td>Comprehensive Economic Partnership Agreement</td><td>"The Gold Standard": Goods + Services + Investment + IPR + Competition Law + Govt Procurement</td><td>Treats partner almost like domestic state. Ex: India-UAE CEPA, India-Japan CEPA.</td></tr>
+        <tr><td><b>TEPA</b></td><td>Trade and Economic Partnership Agreement</td><td>"Investment-Led": CEPA-like + unique binding $100Bn investment commitment</td><td>Only Indian deal with legally binding "Investment Target" from partner. Ex: India-EFTA TEPA.</td></tr>
+        <tr><td><b>BIT</b></td><td>Bilateral Investment Treaty</td><td>"Protection Only": Protects FDI from expropriation. Does NOT lower tariffs on goods.</td><td>Israel = first OECD country to adopt India's new BIT model. Recent BITs: Uzbekistan (2024), UAE (2024), Kyrgyzstan (2025).</td></tr>
+        <tr><td><b>SPS</b></td><td>Sanitary and Phytosanitary Measures</td><td>"Health Barriers": Rules to protect human/animal/plant health</td><td>Used by EU/USA as Non-Tariff Barrier to reject Indian agri-exports (e.g., Alphonso mango ban).</td></tr>
+        <tr><td><b>NTB</b></td><td>Non-Tariff Barrier</td><td>"Invisible Wall": Any trade barrier that is not a tax</td><td>As tariffs fall (WTO), NTBs rise as new protection method. Includes quotas, SPS norms, labeling.</td></tr>
+      </table>
+      <h3>India's 8 FTAs Since 2021</h3>
+      <div class="pills">
+        <span class="pill g">1. Mauritius CECPA (Apr 2021) — 1st Africa FTA</span>
+        <span class="pill g">2. UAE CEPA (May 2022) — 88 days record</span>
+        <span class="pill g">3. Australia ECTA (Dec 2022)</span>
+        <span class="pill g">4. EFTA TEPA (Oct 2025) — $100Bn FDI</span>
+        <span class="pill g">5. Oman CEPA (Dec 2025) — GCC gateway</span>
+        <span class="pill g">6. UK CETA (2025, signed)</span>
+        <span class="pill g">7. New Zealand FTA (Dec 2025, concluded)</span>
+        <span class="pill g">8. EU FTA (Jan 2026, concluded)</span>
+      </div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Hierarchy: PTA→FTA→CECA→CEPA→Customs Union→Common Market→Economic Union. TEPA unique for binding investment target ($100Bn). BIT = no tariff cuts (protection only). SPS = health barrier used as NTB. 8 FTAs in 6 years: Mauritius→UAE→Australia→EFTA→Oman→UK→NZ→EU.</div>
+</div>
+
+<!-- 9. UK + EU FTAs -->
+<div class="page" id="ukeu">
+  <div class="sh" onclick="tog(this)"><span>9 · India-UK CETA &amp; India-EU BTIA</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>UK whisky tariff path: 150% → ? DCC saves Indian IT how much?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India dairy protection — UK deal and EU deal?</p></div>
+      <div class="ci"><strong>Q3</strong><p>EU BTIA: 3 separate treaties — which needs all 27 ratifications?</p></div>
+      <div class="ci"><strong>Q4</strong><p>CBAM "Future Parity" clause — what protection does it give?</p></div>
+      <div class="ci"><strong>Q5</strong><p>GI Pillar: Basmati protected where? What must India relabel?</p></div>
+    </div>
+    <div class="nc">
+      <h3>India-UK CETA</h3>
+      <div class="pills"><span class="pill">Signed 2025; ratification in UK Parliament pending</span><span class="pill au">India-UK Vision 2035 adopted</span></div>
+      <table class="dt">
+        <tr><th>Feature</th><th>Provision</th><th>Trap</th></tr>
+        <tr><td>Social Security DCC</td><td>Indian professionals in UK &lt;3 years = exempt from host country social security. Saves Indian IT ~12% cost.</td><td>Does NOT refund past contributions. Only stops future double taxation.</td></tr>
+        <tr><td>UK Exports — Scotch Whisky</td><td>150% → 75% (immediate) → 40% (10 years)</td><td>Applies only to premium bottles (above certain price). Cheap Indian liquor remains protected.</td></tr>
+        <tr><td>UK Exports — Automobiles</td><td>100% → 10% (EVs/luxury, subject to quotas)</td><td>—</td></tr>
+        <tr><td>India Exports — Textiles/Leather</td><td>Immediate zero duty in UK</td><td>Helps compete with Bangladesh (losing LDC duty-free 2026/29)</td></tr>
+        <tr><td>India Exports — Marine Products</td><td>Zero duty on shrimps/prawns</td><td>Targets market dominated by Vietnam</td></tr>
+        <tr><td>Visas (Young Professionals)</td><td>3,000/year for ages 18-30, 2-year work visas</td><td>NO "Free Movement of People." Strictly "Trade-related Mobility."</td></tr>
+        <tr><td>Rules of Origin ("Melt and Pour")</td><td>Substantial Transformation required. Steel: raw metal must be melted in country of origin.</td><td>Prevents Chinese steel rerouted via UK into India.</td></tr>
+        <tr><td>Negative List (India Protected)</td><td>Dairy (Milk/Cheese), Agriculture (Wheat/Rice), Govt Procurement (limited access for UK firms)</td><td>Protects Amul and Indian MSMEs.</td></tr>
+        <tr><td>Investment BIT</td><td>NOT part of FTA. Separate track.</td><td>Don't confuse CETA (trade) with BIT (investment).</td></tr>
+      </table>
+      <h3>India-EU BTIA (3 Separate Treaties)</h3>
+      <div class="pills">
+        <span class="pill">History: 2007 launched, 2013 suspended, 2022 resumed</span>
+        <span class="pill au">Concluded: Jan 27, 2026 (not yet in force)</span>
+      </div>
+      <table class="dt">
+        <tr><th>Treaty</th><th>Ratification</th><th>Key Provisions / Trap</th></tr>
+        <tr><td>Trade FTA (Fast-Track)</td><td>EU Parliament only (Brussels) — NOT all 27 states</td><td>Goods + Services + Digital Trade + Govt Procurement. Scope: 144 sub-sectors open to Indian firms.</td></tr>
+        <tr><td>Investment Pillar IPA (Slow-Track)</td><td>All 27 member states individually</td><td>Investment = "Shared Competence." Replaces ISDS with Investment Court System (ICS). India gave up "Exhaust Local Remedies" stand.</td></tr>
+        <tr><td>GI Pillar ("Basmati vs Feta")</td><td>—</td><td>Mutual GI protection. Indian Basmati/Darjeeling Tea protected in EU. EU Champagne/Feta/Parmesan protected in India. Indian companies cannot sell generic "Parmesan" — must relabel as "Hard Cheese."</td></tr>
+        <tr><td>CBAM (Carbon Tax)</td><td>—</td><td>"Future Parity" Clause: India didn't get blanket waiver. If EU grants exemption to another country, India gets it automatically. India still pays Carbon Tax from 2026 unless production is greened. EU committed €500 Mn to help Indian steel mills decarbonize.</td></tr>
+        <tr><td>Dairy (India Protected)</td><td>—</td><td>Small/budget cars + Milk/Cheese/Butter EXCLUDED — protecting Maruti Suzuki and Amul.</td></tr>
+        <tr><td>Services &amp; Mobility</td><td>—</td><td>NO "Visa Liberalization." Immigration = "National Subject" (Germany decides for Germany, not the EU).</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>India-UK CETA: Whisky 150%→40%, DCC (12% IT saving), dairy fully excluded, 3000 Young Professionals visas. India-EU BTIA: 3 treaties (Trade = EU Parliament fast; Investment = 27 states slow). CBAM = "Future Parity" not waiver. GI: Basmati safe in EU; can't sell "Parmesan" or "Champagne" in India.</div>
+</div>
+
+<!-- 10. OTHER FTAs -->
+<div class="page" id="otherfta">
+  <div class="sh" onclick="tog(this)"><span>10 · India-NZ FTA &amp; Other Strategic Trade Agreements</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>India-NZ FTA: concluded when? Dairy trap?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India-UAE CEPA: negotiated in how many days? Gold TRQ?</p></div>
+      <div class="ci"><strong>Q3</strong><p>India-EFTA TEPA: binding investment amount? Gold trap?</p></div>
+      <div class="ci"><strong>Q4</strong><p>India-Australia ECTA: active since? Wine duty trap?</p></div>
+      <div class="ci"><strong>Q5</strong><p>India-Oman CEPA: signed when? Which port access?</p></div>
+    </div>
+    <div class="nc">
+      <h3>India-New Zealand FTA</h3>
+      <div class="pills"><span class="pill">Concluded: Dec 22, 2025. Signing: First half 2026. NOT in force yet ("Legal Scrubbing" phase).</span></div>
+      <table class="dt">
+        <tr><th>Feature</th><th>Provision</th><th>Trap</th></tr>
+        <tr><td><b>Dairy Wall</b> (Most Critical)</td><td>Total Exclusion. Milk, Cheese, Butter, Yoghurt, Whey = OUT. NZ accepted this for Fruit &amp; Timber access instead.</td><td>NZ = world's largest dairy exporter. False to assume India gave some dairy access. Amul fully protected.</td></tr>
+        <tr><td>India Exports to NZ</td><td>100% duty-free from Day 1: Textiles, Leather, Pharma, Jewelry</td><td>Helps compete with China in Pacific market.</td></tr>
+        <tr><td>India Imports from NZ</td><td>NZ Logs/Timber, Kiwifruit/Avocados, Sheep Meat (duty reduced). Apples &amp; Wheat EXCLUDED.</td><td>Apples excluded to protect J&amp;K/Himachal farmers.</td></tr>
+        <tr><td>Investment</td><td>NZ committed $20 Billion FDI over 15 years (Agri-tech, Food Processing, Renewable Energy)</td><td>Mirrors EFTA model — trade access linked to investment dollars.</td></tr>
+        <tr><td>Services</td><td>200 visas/year for Chefs &amp; Yoga. Students: longer post-study work visas (up to 3 years). India offered 118 sub-sectors. NZ university discussions for GIFT City campus.</td><td>Unlike UK/US, NZ deal focuses heavily on "Student Mobility."</td></tr>
+      </table>
+      <h3>Other Strategic Trade Agreements</h3>
+      <table class="dt">
+        <tr><th>Agreement</th><th>Status</th><th>Key Provision / Trap</th></tr>
+        <tr><td><b>India-Australia ECTA</b></td><td>Active: Dec 29, 2022. Full CECA under negotiation.</td><td>Wine duty: ONLY bottles costing &gt;$5 reduced. Zero duty on Coal &amp; Lithium. Dairy excluded. 1,800 Yoga Teachers &amp; Chefs quota/yr.</td></tr>
+        <tr><td><b>India-UAE CEPA</b></td><td>Active: May 1, 2022. Negotiated in <b>88 days</b> (record).</td><td>Gold TRQ: 200 tonnes at 1% concessional duty. Zero duty on Indian jewelry. IIT Delhi campus in Abu Dhabi. "Melt and Pour" for Silver/Platinum (prevents China routing via Dubai).</td></tr>
+        <tr><td><b>India-EFTA TEPA</b></td><td>Active: Oct 1, 2025. Partners: Switzerland, Norway, Iceland, Liechtenstein.</td><td>Binding <b>$100 Bn FDI</b> over 15 years. No "Data Exclusivity" (protects Indian generics). <b>Gold EXCLUDED</b> (Switzerland = India's top gold source; excluded to prevent revenue loss).</td></tr>
+        <tr><td><b>India-Oman CEPA</b></td><td>Signed: Dec 18, 2025. Role: GCC gateway.</td><td>Access to <b>Duqm Port</b> for Indian naval/logistics. India-GCC bloc deal stalled → India uses Oman + UAE deals to access Gulf market.</td></tr>
+        <tr><td><b>India-Mauritius CECPA</b></td><td>Active: April 2021. First FTA with Africa.</td><td>"Archipelago Strategy": Mauritius = financial/investment hub for Indian firms entering mainland Africa. Textiles: 40,000 garments at zero duty. Automatic safeguard snap-back mechanism.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>India-NZ FTA: Dairy TOTAL exclusion. 100% duty-free for India exports. UAE CEPA = 88 days record; Gold TRQ 200 tonnes. EFTA TEPA = $100Bn FDI binding but Gold excluded (Switzerland gold excluded). Australia ECTA = wine only &gt;$5. Oman CEPA = Duqm Port. Mauritius CECPA = Archipelago strategy for Africa.</div>
+</div>
+
+<!-- 11. LOGISTICS PACTS -->
+<div class="page" id="logistics">
+  <div class="sh" onclick="tog(this)"><span>11 · India's Strategic Logistics Pacts (2026)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>RELOS with Russia — when, what does it uniquely cover?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Seychelles Assumption Island — stalled why?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Australia pact — which islands, purpose?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Japan pact terminology — what is ACSA?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Chabahar — commercial or military? 10-yr contract when?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Country</th><th>Agreement / Facility</th><th>Year</th><th>Strategic Purpose / Key Trap</th></tr>
+        <tr><td><b>USA</b></td><td>LEMOA (Logistics Exchange Memorandum of Agreement)</td><td>2016</td><td>Access to Djibouti, Diego Garcia, Guam, Subic Bay. Trap: Does NOT allow stationing of troops.</td></tr>
+        <tr><td><b>France</b></td><td>Reciprocal Logistics Support Agreement</td><td>2018</td><td>Access to Reunion Island (South Indian Ocean) + Djibouti. Crucial for Mozambique Channel monitoring.</td></tr>
+        <tr><td><b>South Korea</b></td><td>Agreement on Mutual Logistics Support</td><td>2019</td><td>Extends reach near South China Sea. Naval interoperability.</td></tr>
+        <tr><td><b>Australia</b></td><td>Mutual Logistics Support Agreement</td><td>2020</td><td>Access to <b>Cocos Keeling Islands</b> — critical for monitoring Chinese submarines in Eastern Indian Ocean.</td></tr>
+        <tr><td><b>Japan</b></td><td>ACSA (Acquisition and Cross-Servicing Agreement)</td><td>2020</td><td>Access to Japanese base in Djibouti. Trap: Japan uses "ACSA" terminology, unlike other nations.</td></tr>
+        <tr><td><b>Singapore</b></td><td>Mutual Logistics Support Agreement</td><td>2020</td><td>Vital for Malacca Strait. Indian Navy access to <b>Changi Naval Base</b>.</td></tr>
+        <tr><td><b>Vietnam</b></td><td>MoU on Mutual Logistics Support</td><td>2022</td><td>First major logistics pact with a communist SEA nation. Critical for South China Sea presence.</td></tr>
+        <tr><td><b>Russia</b></td><td>RELOS (Reciprocal Exchange of Logistics Agreement)</td><td>2025–26 [NEW]</td><td>Grants access to Arctic ports (Murmansk) + Vladivostok. <b>Only pact covering the Arctic region.</b></td></tr>
+        <tr><td><b>Oman</b></td><td>Duqm Port</td><td>Active</td><td>Main naval support. Dry Dock for ship repairs. <b>Trap: Long-term maintenance, not just refueling.</b></td></tr>
+        <tr><td><b>Mauritius</b></td><td>Agalega Islands</td><td>Active</td><td>Surveillance post. 3000m airstrip + jetty inaugurated Feb 2024 for P-8I patrol aircraft.</td></tr>
+        <tr><td><b>Iran</b></td><td>Chabahar Port (Shahid Beheshti)</td><td>Active</td><td>Connectivity hub. 10-year contract signed <b>May 2024</b>. <b>Trap: Commercial port, NOT a military base.</b></td></tr>
+        <tr><td><b>Indonesia</b></td><td>Sabang Port</td><td>Active</td><td>Choke point. Deep-sea port at entrance of Malacca Strait. Closest to Andaman Islands.</td></tr>
+        <tr><td><b>Myanmar</b></td><td>Sittwe Port</td><td>Active</td><td>Part of Kaladan Project. Commercial but strategic foothold near Kyaukpyu (China).</td></tr>
+        <tr><td><b>Seychelles</b></td><td>Assumption Island</td><td><b>STALLED</b></td><td>Deal to build coast guard facility blocked by their Parliament. Non-operational for India.</td></tr>
+        <tr><td><b>United Kingdom</b></td><td>Logistics Support Agreement</td><td>In Talks</td><td>Negotiations separate from FTA. India seeks UK facilities in Atlantic and Indian Ocean.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Russia RELOS (2025-26) = ONLY Arctic pact (Murmansk + Vladivostok). Seychelles Assumption Island = STALLED (Parliament blocked). Australia = Cocos Keeling (Chinese sub monitoring). Japan = ACSA (unique name). Chabahar = commercial port 10-yr May 2024. Sabang (Indonesia) = closest to Malacca entrance.</div>
+</div>
+
+<!-- 12. TRIBES -->
+<div class="page" id="tribes">
+  <div class="sh" onclick="tog(this)"><span>12 · Communities &amp; Tribes in News (2024-26)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Houthis — Zaydi Shia sect, what region, why attacking Red Sea?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Kurds — "world's largest stateless nation" — majority religion?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Masalit — which conflict, how is it framed?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Tuareg — "Blue Men of the Desert"? What independent state do they demand?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Yanomami — country, illegal mining threat, communal house type?</p></div>
+    </div>
+    <div class="nc">
+      <h3>West Asia Communities</h3>
+      <table class="dt">
+        <tr><th>Community</th><th>Region</th><th>Why in News</th><th>Key Characteristics</th></tr>
+        <tr><td><b>Bedouins</b></td><td>Israel (Negev), West Bank, Syria</td><td>Displacement: "unrecognized" Bedouin villages (Umm al-Hiran) facing demolition in Israel. Clashed with Druze militias in As-Suwayda (Syria).</td><td>Semi-nomadic Arab tribes known for pastoralism. In Israel = citizens but face land rights issues.</td></tr>
+        <tr><td><b>Druze</b></td><td>Syria (As-Suwayda), Israel (Golan), Lebanon</td><td>Led 2024-25 anti-regime protests in As-Suwayda. Hezbollah rocket hit Majdal Shams (Golan) killing Druze children.</td><td>Esoteric ethno-religious group (offshoot of Ismailism). Known for loyalty to state they reside in (Israeli Druze serve in IDF).</td></tr>
+        <tr><td><b>Houthis</b></td><td>Yemen (North)</td><td>Red Sea Attacks (Ansar Allah) on global shipping in solidarity with Gaza. Drew US/UK airstrikes 2024-25.</td><td><b>Zaydi Shia sect</b> (fiver Shias). Control Sana'a and most of Northern Yemen.</td></tr>
+        <tr><td><b>Kurds</b></td><td>Turkey, Syria, Iraq, Iran</td><td>Turkish airstrikes against Kurdish positions in Syria (Rojava) and Iraq. Key US allies vs ISIS; existential threats from Turkey.</td><td><b>World's largest stateless nation.</b> Majority Sunni Muslims but distinct ethnicity/language.</td></tr>
+      </table>
+      <h3>Africa Communities</h3>
+      <table class="dt">
+        <tr><th>Community</th><th>Region</th><th>Why in News</th><th>Key Characteristics</th></tr>
+        <tr><td><b>Masalit</b></td><td>Sudan (West Darfur)</td><td>Genocide: Primary victims of 2024-25 massacres in El Geneina by RSF (Rapid Support Forces) and Janjaweed militias.</td><td>Non-Arab African farming community. Conflict = "Arab Herders (RSF) vs. African Farmers (Masalit)".</td></tr>
+        <tr><td><b>Tutsis</b></td><td>DR Congo (Eastern)</td><td>M23 Rebellion: M23 rebels (defending Tutsis against Hutu militias/FDLR) launched offensives in North Kivu 2024-25.</td><td>Ethnic group in Rwanda, Burundi, DRC. Historically pastoralists; central to 1994 Rwanda genocide narrative.</td></tr>
+        <tr><td><b>Tuareg</b></td><td>Mali, Niger (Sahel)</td><td>Separatism: Tuareg rebels in Northern Mali (Azawad) inflicted heavy defeats on Malian army + Wagner Group (Tinzaouaten battle, mid-2024).</td><td>Semi-nomadic Berber group, <b>"Blue Men of the Desert"</b> (indigo robes). Demand independent state called <b>Azawad</b>.</td></tr>
+      </table>
+      <h3>Rest of the World</h3>
+      <table class="dt">
+        <tr><th>Community</th><th>Region</th><th>Why in News</th><th>Key Characteristics</th></tr>
+        <tr><td><b>Yanomami</b></td><td>Brazil (Amazon)</td><td>Illegal Mining: Brazilian govt launched 2024-25 operations to expel "Garimpeiros" (illegal gold miners) who caused mercury poisoning/malnutrition humanitarian crisis.</td><td>One of largest relatively isolated tribes in South America. Live in circular communal houses called <b>Shabonos</b>.</td></tr>
+        <tr><td><b>Sami</b></td><td>Scandinavia (Arctic)</td><td>"Green Colonialism": Protesting huge wind farm projects in Norway/Sweden disrupting traditional reindeer grazing lands.</td><td>Indigenous people of the Arctic (Lapland). Traditionally reindeer herders.</td></tr>
+        <tr><td><b>Rohingya</b></td><td>Myanmar (Rakhine)</td><td>Forced Conscription (2024-25): Myanmar military junta began forcibly conscripting Rohingya men to fight rebel groups despite denying them citizenship.</td><td>Stateless Muslim minority in Myanmar's Rakhine state. Subject of military crackdown in 2017.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>West Asia: Bedouins (semi-nomadic, land rights), Druze (Ismaili offshoot, IDF loyalty), Houthis (Zaydi Shia, Red Sea), Kurds (world's largest stateless nation). Africa: Masalit (Darfur genocide), Tutsis (M23/DRC), Tuareg (Blue Men, demand Azawad). Others: Yanomami (Shabonos, Garimpeiros), Sami (Arctic reindeer), Rohingya (stateless, forced conscription).</div>
+</div>
+
+<div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#888;padding:10px 0 22px;">
+  Sarrthi IAS · PNP 2026 · International Relations – Lecture 5 · Cornell Notes
+</div>
+</div>
+<script>
+  function tog(h){const b=h.nextElementSibling;const a=h.querySelector('.tog');if(!b)return;const c=b.classList.toggle('collapsed');a.textContent=c?'▶':'▼';}
+</script>
+</body>
+</html>

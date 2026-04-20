@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR Cornell Notes – Lecture 2 | UPSC Prelims 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #12100e;
+    --paper: #faf7f2;
+    --cream: #f0ead8;
+    --rule: #cfc0a8;
+    --red: #b5281c;
+    --blue: #14305a;
+    --gold: #9a7200;
+    --hl: #fff9c4;
+    --trap-bg: #fff0ee;
+    --trap-bdr: #d94030;
+    --tag-bg: #e6effc;
+    --tag-col: #14305a;
+    --green: #1a6b3a;
+    --green-bg: #eaf7ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#ddd5c5;font-family:'Source Serif 4',Georgia,serif;color:var(--ink);padding:20px 14px;}
+
+  /* notebook wrapper */
+  .nb{max-width:1120px;margin:0 auto;}
+
+  /* top header */
+  .nb-hd{background:var(--blue);color:#fff;padding:18px 28px 14px;border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .nb-hd h1{font-family:'Playfair Display',serif;font-size:1.55rem;line-height:1.2;}
+  .nb-hd .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;opacity:.78;text-align:right;}
+  .nb-hd .meta span{display:block;}
+
+  /* TOC */
+  .toc{background:var(--cream);border-bottom:2px solid var(--gold);padding:8px 26px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.76rem;font-family:'JetBrains Mono',monospace;}
+  .toc a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue);}
+  .toc a:hover{color:var(--red);}
+
+  /* page card */
+  .page{background:var(--paper);background-image:repeating-linear-gradient(transparent,transparent 27px,var(--rule) 27px,var(--rule) 28px);border-left:5px solid var(--blue);box-shadow:4px 6px 20px rgba(0,0,0,.16);margin-bottom:30px;border-radius:0 0 4px 4px;}
+
+  /* section head */
+  .sh{background:var(--blue);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;padding:8px 22px 7px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;cursor:pointer;user-select:none;transition:background .2s;}
+  .sh:hover{background:#0d2040;}
+  .sh .tog{font-size:.82rem;margin-left:auto;opacity:.7;}
+
+  /* body grid */
+  .sb{display:grid;grid-template-columns:218px 1fr;}
+
+  /* cue column */
+  .cue{border-right:2px solid var(--red);padding:14px 12px;background:rgba(181,40,28,.03);}
+  .ci{margin-bottom:16px;padding:7px 9px;border-left:3px solid var(--red);background:rgba(181,40,28,.06);border-radius:0 3px 3px 0;}
+  .ci strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+  .ci p{font-size:.78rem;line-height:1.42;color:var(--blue);font-weight:600;}
+
+  /* notes column */
+  .nc{padding:14px 20px;}
+  .nc h3{font-family:'Playfair Display',serif;font-size:.93rem;color:var(--blue);margin:14px 0 5px;padding-bottom:2px;border-bottom:1px dashed var(--rule);}
+  .nc h3:first-child{margin-top:0;}
+
+  /* table */
+  .dt{width:100%;border-collapse:collapse;font-size:.78rem;margin:7px 0 12px;}
+  .dt th{background:var(--blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;padding:5px 9px;text-align:left;}
+  .dt td{padding:5px 9px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4;}
+  .dt tr:nth-child(even) td{background:rgba(0,0,0,.022);}
+  .dt tr:hover td{background:var(--hl);}
+
+  /* pills */
+  .pills{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 10px;}
+  .pill{background:var(--tag-bg);color:var(--tag-col);font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:99px;border:1px solid #a8c0ea;white-space:nowrap;}
+  .pill.g{background:#eaf7ee;border-color:#7dba95;color:var(--green);}
+  .pill.r{background:#fff0ee;border-color:#e08080;color:#a00;}
+  .pill.au{background:#fef9e7;border-color:var(--gold);color:var(--gold);}
+
+  /* boxes */
+  .trap{background:var(--trap-bg);border:1.5px solid var(--trap-bdr);border-radius:4px;padding:6px 11px;font-size:.76rem;margin:7px 0;line-height:1.5;}
+  .trap::before{content:"⚠ PRELIMS TRAP: ";font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;color:var(--trap-bdr);display:block;margin-bottom:2px;}
+  .hbox{background:var(--hl);border-left:3px solid var(--gold);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .gbox{background:var(--green-bg);border-left:3px solid var(--green);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+
+  /* list */
+  .ul{padding-left:15px;margin:3px 0 9px;font-size:.8rem;line-height:1.54;}
+  .ul li{margin-bottom:3px;}
+  .ul li b{color:var(--blue);}
+
+  /* summary */
+  .sum{border-top:2px solid var(--red);padding:10px 20px;background:rgba(181,40,28,.04);font-size:.76rem;}
+  .sum strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:4px;}
+
+  /* collapse */
+  .collapsed{display:none!important;}
+
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;}.tog{display:none;}.sb{display:grid!important;}}
+</style>
+</head>
+<body>
+<div class="nb">
+
+<!-- HEADER -->
+<div class="nb-hd">
+  <h1>International Relations – Lecture 2<br><small style="font-size:.62em;opacity:.72">SAARC · QUAD · AUKUS · AIIB · World Bank · IMF</small></h1>
+  <div class="meta"><span>UPSC PRELIMS 2026</span><span>Sarrthi IAS – PNP 2026</span><span>Cornell Notes</span></div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <a href="#saarc">SAARC</a>
+  <a href="#sasec">SASEC</a>
+  <a href="#quad">QUAD</a>
+  <a href="#minilaterals">Minilaterals</a>
+  <a href="#2plus2">2+2 Dialogues</a>
+  <a href="#artemis">Artemis Accords</a>
+  <a href="#aukus">AUKUS</a>
+  <a href="#aiib">AIIB</a>
+  <a href="#worldbank">World Bank</a>
+  <a href="#imf">IMF</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. SAARC
+══════════════════════════════════════ -->
+<div class="page" id="saarc">
+  <div class="sh" onclick="tog(this)"><span>1 · SAARC</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Mnemonic for 8 SAARC members?</p></div>
+      <div class="ci"><strong>Q2</strong><p>9 Observer states of SAARC?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Last summit held? Next summit status?</p></div>
+      <div class="ci"><strong>Q4</strong><p>What is "SAARC Minus One"? Who proposed it?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Key SAARC initiatives with years & locations?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Est: <b>8 Dec 1985</b></span>
+        <span class="pill">Signed: Dhaka</span>
+        <span class="pill">Secretariat: <b>Kathmandu, Nepal</b></span>
+        <span class="pill">8 Members</span>
+        <span class="pill">9 Observers</span>
+      </div>
+
+      <h3>Members – Mnemonic: MBBS PAIN</h3>
+      <div class="pills">
+        <span class="pill g">Maldives</span><span class="pill g">Bangladesh</span><span class="pill g">Bhutan</span><span class="pill g">Sri Lanka</span>
+        <span class="pill g">Pakistan</span><span class="pill g">Afghanistan</span><span class="pill g">India</span><span class="pill g">Nepal</span>
+      </div>
+      <div class="pills">
+        <span class="pill r">Last member: Afghanistan (2007, 14th Summit, New Delhi)</span>
+      </div>
+
+      <h3>Key Status Facts</h3>
+      <table class="dt">
+        <tr><th>Parameter</th><th>Detail</th></tr>
+        <tr><td>Current Chair</td><td><b>Nepal</b> (since 2014 — longest in SAARC history due to Summit freeze)</td></tr>
+        <tr><td>Secretary-General</td><td>Md. Golam Sarwar (Bangladesh); term expires March 2026</td></tr>
+        <tr><td>Last Summit</td><td>18th Summit (2014), Kathmandu</td></tr>
+        <tr><td>Next Summit</td><td>19th Summit (Islamabad) — Cancelled/Indefinitely Postponed since 2016</td></tr>
+        <tr><td>Observers (9)</td><td>US, China, EU, Iran, Japan, Korea, Australia, Mauritius, Myanmar</td></tr>
+      </table>
+
+      <h3>SAARC "Minus One" Controversy (June 2025)</h3>
+      <div class="hbox"><b>Kunming Trilateral:</b> Pakistan + China + Bangladesh met in Kunming, China proposing "SAARC Minus India" or "SAARC Plus China" — operating on <b>Variable Geometry</b> (countries join specific projects without full consensus), integrating region into BRI.</div>
+      <div class="trap">India has consistently VETOED upgrading China from "Observer" to "Full Member" — SAARC is for South Asian identity, not external powers.</div>
+
+      <h3>Key SAARC Initiatives</h3>
+      <table class="dt">
+        <tr><th>Initiative</th><th>Year</th><th>Location</th></tr>
+        <tr><td>South Asian Free Trade Agreement (SAFTA)</td><td>2006</td><td>—</td></tr>
+        <tr><td>SAARC Development Fund (SDF)</td><td>2010</td><td>Thimphu, Bhutan</td></tr>
+        <tr><td>SAARC Arbitration Council (SARCO)</td><td>2010</td><td>Islamabad, Pakistan</td></tr>
+        <tr><td>SAARC Food Bank</td><td>2007</td><td>Kathmandu, Nepal</td></tr>
+        <tr><td>SAARC Agriculture Centre (SAC)</td><td>1988</td><td>Dhaka, Bangladesh</td></tr>
+        <tr><td>South Asian University (SAU)</td><td>2010</td><td>New Delhi, India</td></tr>
+        <tr><td>SAARC Disaster Management Centre (SDMC)</td><td>2006</td><td>Gurugram, India</td></tr>
+        <tr><td>SAARC Energy Centre (SEC)</td><td>2006</td><td>Islamabad, Pakistan</td></tr>
+        <tr><td>SAARC TB &amp; HIV/AIDS Centre</td><td>1992</td><td>Kathmandu, Nepal</td></tr>
+        <tr><td>SAARC Satellite</td><td>2017</td><td>Launched by India</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>SAARC (1985, Kathmandu secretariat, 8 members). Mnemonic: MBBS PAIN. Last summit: 18th (2014). 19th Islamabad cancelled. "SAARC Minus One" = Kunming 2025 China-Pak-BD proposal via Variable Geometry to bypass India's veto.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2. SASEC
+══════════════════════════════════════ -->
+<div class="page" id="sasec">
+  <div class="sh" onclick="tog(this)"><span>2 · SASEC &amp; Comparison Table</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>SASEC secretariat? Nature of body?</p></div>
+      <div class="ci"><strong>Q2</strong><p>SASEC members — who is OUT vs. SAARC?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Compare SAARC vs BIMSTEC vs SASEC on Pakistan/Myanmar/Afghanistan.</p></div>
+      <div class="ci"><strong>Q4</strong><p>SASEC mnemonic?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Est: <b>2001</b> (Project-based)</span>
+        <span class="pill">Secretariat: <b>ADB, Manila</b></span>
+        <span class="pill">7 Members</span>
+        <span class="pill r">NOT an international org / treaty body</span>
+      </div>
+
+      <h3>Members – Mnemonic: BBIN + MMS</h3>
+      <div class="pills">
+        <span class="pill g">Bangladesh</span><span class="pill g">Bhutan</span><span class="pill g">India</span><span class="pill g">Nepal</span>
+        <span class="pill g">Maldives</span><span class="pill g">Myanmar</span><span class="pill g">Sri Lanka</span>
+      </div>
+      <div class="trap">SASEC does NOT have its own independent secretariat in a member country (unlike SAARC in Kathmandu). The ADB (Manila) serves as secretariat. Pakistan &amp; Afghanistan are NOT SASEC members.</div>
+
+      <h3>SASEC vs. SAARC vs. BIMSTEC</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>SAARC</th><th>BIMSTEC</th><th>SASEC</th></tr>
+        <tr><td>Established</td><td>1985 (Charter-based)</td><td>1997 (Bangkok Decl.)</td><td>2001 (Project-based)</td></tr>
+        <tr><td>Secretariat</td><td>Kathmandu, Nepal</td><td>Dhaka, Bangladesh</td><td>ADB, Manila</td></tr>
+        <tr><td>Pakistan?</td><td>✅ YES</td><td>❌ NO</td><td>❌ NO</td></tr>
+        <tr><td>Myanmar?</td><td>❌ NO</td><td>✅ YES</td><td>✅ YES</td></tr>
+        <tr><td>Afghanistan?</td><td>✅ YES</td><td>❌ NO</td><td>❌ NO</td></tr>
+        <tr><td>Focus</td><td>Political + Economic</td><td>Technical + Economic</td><td>Infrastructure + Connectivity</td></tr>
+      </table>
+      <div class="hbox">SASEC 2025 update: Operating under APSI (Action Plan for SASEC Initiatives) 2024-2026. PM Modi laid foundation stone for Assam road projects under SASEC Corridor Connectivity scheme (Jan 2025).</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>SASEC (2001, ADB Manila, 7 members = BBIN+MMS). Pakistan &amp; Afghanistan excluded. Not a treaty body. Key trap: no secretariat in member country.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3. QUAD
+══════════════════════════════════════ -->
+<div class="page" id="quad">
+  <div class="sh" onclick="tog(this)"><span>3 · QUAD</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>QUAD members? When formed?</p></div>
+      <div class="ci"><strong>Q2</strong><p>What is MAITRI? What does it do?</p></div>
+      <div class="ci"><strong>Q3</strong><p>What is IPMDA? What is "Dark Shipping"?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Pahalgam Consensus significance?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Quad-at-Sea Ship Observer Mission: what type of exercise?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill g">Australia</span><span class="pill g">India</span><span class="pill g">Japan</span><span class="pill g">USA</span>
+        <span class="pill">Formed: <b>2007</b></span>
+        <span class="pill">First Quad talks: Manila 2017</span>
+        <span class="pill">Focus: Indo-Pacific stability &amp; prosperity</span>
+      </div>
+
+      <h3>2025 Quad Leaders' Summit (India hosted) – Key Outcomes</h3>
+      <ul class="ul">
+        <li><b>Pahalgam Consensus</b> – Strongest-ever condemnation of cross-border terrorism; first time Quad named a specific terror incident on Indian soil (Pahalgam Attack 2025)</li>
+        <li><b>MAITRI</b> – Maritime Initiative for Training in the Indo-Pacific; India hosted inaugural workshop to train ASEAN &amp; Pacific Island nations in EEZ monitoring via satellite</li>
+        <li><b>Quad Indo-Pacific Logistics Network</b> – Pilot to share airlift capacity for HADR (disaster relief); precursor to military interoperability</li>
+        <li><b>Ports of the Future Partnership</b> – Conference in Mumbai (Oct 2025); "green port" investments in Indo-Pacific to counter debt-trap diplomacy</li>
+        <li><b>Quad Critical Minerals Initiative</b> – Diversify EV battery supply chains; reduce Chinese processing dependence</li>
+        <li><b>Cancer Moonshot</b> – India supplied 40 million cervical cancer vaccine doses to Indo-Pacific under Quad banner</li>
+      </ul>
+
+      <h3>Quad Initiatives Table</h3>
+      <table class="dt">
+        <tr><th>Initiative</th><th>Domain</th><th>Key Fact</th></tr>
+        <tr><td><b>Quad-at-Sea Ship Observer Mission</b></td><td>Defense</td><td>First-ever "Quad Coast Guard" mission (June 2025). Observer mission (NOT combat like Malabar). Coast Guard officers board US vessel.</td></tr>
+        <tr><td><b>IPMDA</b> (Indo-Pacific Partnership for Maritime Domain Awareness)</td><td>Tech/Security</td><td>Near-real-time satellite data to track "Dark Shipping" (illegal fishing/militia vessels that turn off AIS). Extended to IOR in 2025.</td></tr>
+        <tr><td><b>Bio-Explore Initiative</b></td><td>Science</td><td>Joint funding for AI in Biological Systems (crop resilience, disease vectors)</td></tr>
+        <tr><td><b>Indo-Pacific Logistics Network</b></td><td>Disaster</td><td>Pilot: shared airlift capacity for rapid HADR response</td></tr>
+        <tr><td><b>Quad STEM Fellowship</b></td><td>Education</td><td>Now open to ASEAN students (previously only Quad citizens)</td></tr>
+        <tr><td><b>Cable Connectivity &amp; Resilience</b></td><td>Digital</td><td>Securing Undersea Cables (carry 95% of internet traffic) from sabotage/espionage</td></tr>
+        <tr><td><b>AI-ENGAGE</b></td><td>Agriculture</td><td>Advancing Innovations for Empowering NextGen Agriculture. AI &amp; robotics for farming yields in Indo-Pacific.</td></tr>
+      </table>
+
+      <h3>Pacific Islands Forum (PIF) – Related</h3>
+      <ul class="ul">
+        <li>Established 1971 as South Pacific Forum (SPF); renamed 1999</li>
+        <li><b>18 member states</b>; HQ Suva, Fiji; UNGA observer</li>
+        <li>India is NOT a member; India is a <b>Dialogue Partner</b></li>
+        <li>Biketawa Declaration (regional peacekeeping); Pacific Resilience Facility (PRF) for climate</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>QUAD = Australia, India, Japan, USA (2007). 2025 India-hosted summit: Pahalgam Consensus (named terror attack), MAITRI (EEZ training), Logistics Network (HADR). IPMDA tracks Dark Shipping. Quad-at-Sea = Observer mission, not combat.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     4. MINILATERALS
+══════════════════════════════════════ -->
+<div class="page" id="minilaterals">
+  <div class="sh" onclick="tog(this)"><span>4 · India's Strategic Minilaterals &amp; Trilaterals</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>I2U2 members &amp; 6 pillars? Is it military?</p></div>
+      <div class="ci"><strong>Q2</strong><p>JAI vs QUAD — what's excluded in JAI?</p></div>
+      <div class="ci"><strong>Q3</strong><p>SCRI members — is USA a member?</p></div>
+      <div class="ci"><strong>Q4</strong><p>RIC revival — where, when?</p></div>
+      <div class="ci"><strong>Q5</strong><p>IFA Trilateral — what derailed it in 2021?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Minilateral</th><th>Members</th><th>Core Focus</th><th>Key Trap / Update 2025-26</th></tr>
+        <tr>
+          <td><b>I2U2</b><br><i>("West Asian Quad")</i></td>
+          <td>India, Israel, UAE, USA</td>
+          <td>Geo-economics &amp; Tech. 6 pillars: Water, Energy, Transport, Space, Health, Food Security</td>
+          <td><b>Military Trap:</b> I2U2 is strictly an economic/tech partnership, NOT a security/military alliance. Recent: integrated food parks in India + "AIM for Climate" initiative.</td>
+        </tr>
+        <tr>
+          <td><b>UFI Trilateral</b></td>
+          <td>UAE, France, India</td>
+          <td>Maritime &amp; Energy Security. Arabian Sea/Indian Ocean, nuclear/solar energy, defense interoperability</td>
+          <td>Dec 2025: Trilateral Air Combat Drill over Arabian Sea — major operational upgrade.</td>
+        </tr>
+        <tr>
+          <td><b>RIC</b><br><i>(Russia-India-China)</i></td>
+          <td>Russia, India, China</td>
+          <td>Eurasian Security &amp; Multipolarity. Continental trade, de-dollarization, balancing West</td>
+          <td><b>Tianjin Revival (Sept 2025):</b> Modi+Putin+Xi informal "RIC huddle" at SCO Summit. Driven by India-China border pacts + pushback against US tariffs. Dormant since 2020 Galwan clash.</td>
+        </tr>
+        <tr>
+          <td><b>JAI</b><br><i>(Japan-America-India)</i></td>
+          <td>Japan, USA, India</td>
+          <td>Indo-Pacific Stability (FOIP), maritime security, critical technologies</td>
+          <td><b>Quad Trap:</b> JAI strictly EXCLUDES Australia. Coined by PM Modi ("Victory"). Core of Malabar naval exercises. Focus: trusted AI &amp; semiconductor security.</td>
+        </tr>
+        <tr>
+          <td><b>IFA Trilateral</b></td>
+          <td>India, France, Australia</td>
+          <td>Maritime Domain Awareness (MDA), keeping Indo-Pacific free &amp; open, combating illegal resource extraction</td>
+          <td>Derailed by AUKUS submarine dispute (2021); rebounded via Exercise La Perouse (Jan 2025).</td>
+        </tr>
+        <tr>
+          <td><b>SCRI</b><br><i>(Supply Chain Resilience Initiative)</i></td>
+          <td>India, Japan, Australia</td>
+          <td>De-risking trade; reducing China dependence via resilient supply chains in Indo-Pacific</td>
+          <td><b>US Trap:</b> USA is NOT a member. Strictly India-Japan-Australia economic initiative.</td>
+        </tr>
+        <tr>
+          <td><b>IBSA</b></td>
+          <td>India, Brazil, South Africa</td>
+          <td>South-South Cooperation; traditional trilateral of large democracies from 3 continents</td>
+          <td>Relevance Surge: Three nations held sequential G20 Presidency (India 2023, Brazil 2024, S.Africa 2025) → "IBSA Troika" to amplify Global South issues.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>I2U2 = economic (not military). JAI excludes Australia (Malabar core). SCRI = India-Japan-Australia only (no USA). RIC revived Tianjin Sept 2025. IBSA = G20 Troika 2023-25. IFA Trilateral revived post-AUKUS dispute via La Perouse.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     5. 2+2 DIALOGUES
+══════════════════════════════════════ -->
+<div class="page" id="2plus2">
+  <div class="sh" onclick="tog(this)"><span>5 · India's 2+2 Dialogues &amp; Artemis Accords</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Which countries have Ministerial-level 2+2 with India?</p></div>
+      <div class="ci"><strong>Q2</strong><p>UK's 2+2 — Ministerial or Official level?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Which was India's first Latin American 2+2 Ministerial partner?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Artemis Accords — treaty or non-binding?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Ax-4 Mission — who went to ISS? Year?</p></div>
+    </div>
+    <div class="nc">
+      <h3>2+2 Dialogue Status (FM + Defence Minister)</h3>
+      <table class="dt">
+        <tr><th>Level</th><th>Countries</th><th>Trap / Note</th></tr>
+        <tr><td><b>Ministerial</b><br><i>(FM + DefMin)</i></td><td>1. <b>USA</b> (First)<br>2. Japan<br>3. Australia<br>4. <b>Russia</b> (First non-Quad)<br>5. <b>Brazil</b> (Newest — March 2024)</td><td>All Quad members have Ministerial 2+2. Russia = only non-Quad major power with Ministerial 2+2. Brazil = first Latin American partner.</td></tr>
+        <tr><td><b>Official/Secretary</b><br><i>(FS + DefSec)</i></td><td>1. United Kingdom<br>2. Vietnam</td><td><b>UK Trap:</b> India's 2+2 with UK is at OFFICIAL (Secretary) level, NOT Ministerial. Do not mark UK if question specifies "Ministerial."</td></tr>
+      </table>
+
+      <h3>Artemis Accords</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Key Detail</th><th>Trap</th></tr>
+        <tr><td>Nature</td><td>Non-binding principles for civil space exploration &amp; sustainable use of Moon/Mars resources</td><td>NOT a treaty or UN document. US-led political arrangement grounded in Outer Space Treaty 1967.</td></tr>
+        <tr><td>Membership</td><td><b>61 signatories</b> (Jan 2026). Recent: Oman (61st), Bangladesh, Hungary (late 2025)</td><td>China &amp; Russia NOT members; they lead rival ILRS bloc.</td></tr>
+        <tr><td>India's status</td><td>Signed <b>June 2023</b> (27th signatory)</td><td>India also signed Moon Agreement 1979 (space = "Common Heritage"). Artemis treats resources as extractable assets. India is balancing both.</td></tr>
+        <tr><td>India's participation</td><td>Ax-4 Mission (June-July 2025): Gp. Capt. <b>Shubhanshu Shukla</b> sent to ISS</td><td>First tangible outcome of India signing Accords. India's return to human spaceflight after 41 years (Rakesh Sharma).</td></tr>
+        <tr><td>Rival bloc (ILRS)</td><td>Led by China &amp; Russia. Members: Pakistan, Egypt, Thailand, South Africa, Venezuela</td><td>Thailand &amp; Pakistan → ILRS; India &amp; Japan → Artemis. Countries now choosing camps.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Ministerial 2+2: USA, Japan, Australia, Russia, Brazil. UK = only Secretary level. Artemis Accords: non-binding, 61 members. India signed Jun 2023. Ax-4 = Shubhanshu Shukla to ISS (2025). Rival: ILRS (China+Russia+Pakistan etc.).</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     6. AUKUS
+══════════════════════════════════════ -->
+<div class="page" id="aukus">
+  <div class="sh" onclick="tog(this)"><span>6 · AUKUS</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>AUKUS members &amp; date of establishment?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Pillar I vs Pillar II — what does each cover?</p></div>
+      <div class="ci"><strong>Q3</strong><p>What is SRF-West? Where?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Japan's role in AUKUS 2025?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Geelong Treaty — what is it?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill g">Australia</span><span class="pill g">United Kingdom</span><span class="pill g">United States</span>
+        <span class="pill">Est: <b>15 Sep 2021</b></span>
+        <span class="pill r">NOT a formal military alliance like NATO</span>
+      </div>
+
+      <h3>Two Pillars</h3>
+      <table class="dt">
+        <tr><th>Pillar</th><th>Focus</th><th>Key Note</th></tr>
+        <tr><td><b>Pillar I</b></td><td>Nuclear-powered conventional submarines for Australia</td><td>Does NOT involve transfer of nuclear WEAPONS to Australia</td></tr>
+        <tr><td><b>Pillar II</b></td><td>8 advanced military capability domains: AI, Quantum, Cyber, Undersea, Hypersonic, Counter-hypersonic, Information Sharing, Electronic Warfare</td><td>Japan invited to join specific Pillar II projects (AI, Quantum, Autonomous Systems)</td></tr>
+      </table>
+
+      <h3>AUKUS Leaders' Meeting 2025 (Washington D.C., Oct 20)</h3>
+      <ul class="ul">
+        <li><b>"Trump" Seal of Approval</b> – Trump endorsed "Full Steam Ahead," ending uncertainty about potential withdrawal under "America First"</li>
+        <li><b>Pillar I — "Sovereign Ready" Roadmap</b>: Dredging starts at HMAS Stirling (Perth) to host US/UK nuclear subs by 2027. USS Vermont (Virginia-class) successfully maintained in Australia — proving Australian workers can fix nuclear vessels</li>
+        <li><b>Pillar II — Japan Expansion</b>: Japan formally invited to join Pillar II AI, Quantum, and Autonomous Systems projects; integrates Japanese robotics &amp; sensor tech into AUKUS undersea surveillance network</li>
+        <li><b>Strategic Mining Framework</b>: Signed to break China's monopoly on Rare Earth Elements (REEs) for submarine batteries &amp; magnets</li>
+      </ul>
+      <div class="hbox"><b>Geelong Treaty:</b> Australia and UK signed a 50-year defence agreement under AUKUS. SRF-West (Submarine Rotational Force-West) = rotation of US/UK nuclear subs through HMAS Stirling, Perth.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>AUKUS (15 Sep 2021, Australia+UK+USA). Pillar I = nuclear subs (no nuclear weapons). Pillar II = 8 advanced tech domains. 2025: Trump reaffirmed; Japan enters Pillar II; Geelong Treaty (50-yr pact); SRF-West at HMAS Stirling by 2027.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     7. AIIB
+══════════════════════════════════════ -->
+<div class="page" id="aiib">
+  <div class="sh" onclick="tog(this)"><span>7 · Asian Infrastructure Investment Bank (AIIB)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>AIIB HQ? Total members? Newest member?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Voting power: China, India, Russia?</p></div>
+      <div class="ci"><strong>Q3</strong><p>USA &amp; Japan in AIIB — yes or no?</p></div>
+      <div class="ci"><strong>Q4</strong><p>India's status in AIIB? Total financing?</p></div>
+      <div class="ci"><strong>Q5</strong><p>What is CPBF? How does it differ from standard loans?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">HQ: <b>Beijing, China</b></span>
+        <span class="pill"><b>111</b> members (late 2025)</span>
+        <span class="pill au">Newest: Colombia (Nov 2025)</span>
+        <span class="pill r">USA &amp; Japan: NOT members</span>
+        <span class="pill">57 founding members</span>
+      </div>
+
+      <h3>Voting Power</h3>
+      <div class="pills">
+        <span class="pill r">China: <b>26.5%</b> (Largest — effective VETO at 75% supermajority threshold)</span>
+        <span class="pill au">India: <b>7.6%</b> (2nd largest)</span>
+        <span class="pill">Russia: <b>5.9%</b> (3rd largest)</span>
+      </div>
+      <div class="trap">Major decisions require 75% supermajority. China at 26.5% effectively has a veto. India does NOT have veto power.</div>
+
+      <h3>Key AIIB Facts</h3>
+      <table class="dt">
+        <tr><th>Category</th><th>Key Facts</th><th>Trap / Note</th></tr>
+        <tr><td>Headquarters</td><td>Beijing, China</td><td>2025 meeting theme: "Connecting for Development, Collaborating for Prosperity"</td></tr>
+        <tr><td>Governance</td><td>Non-Resident Board (directors meet quarterly/virtually, do NOT live in Beijing)</td><td>Unlike World Bank/ADB where directors live in DC/Manila. Lean structure.</td></tr>
+        <tr><td>President</td><td>Elected by Governors for 5-yr term. Process to succeed Jin Liqun began 2025.</td><td>—</td></tr>
+        <tr><td>India status</td><td>Largest Borrower: total ≈$12 Billion (₹99,000 Cr) by mid-2025. Mr. Ajay Bhushan Pandey = VP Investment Solutions (April 2025)</td><td>India is the 2nd largest shareholder AND largest borrower.</td></tr>
+        <tr><td>Strategic Shift</td><td>50% climate financing goal surpassed in 2025. New tool: <b>CPBF</b> (Climate-Focused Policy-Based Financing)</td><td>CPBF gives money for policy reforms (changing laws), not construction — moves AIIB into World Bank territory.</td></tr>
+        <tr><td>Russia</td><td>3rd largest shareholder. Russia's projects "On Hold" due to war.</td><td>Russia has NOT been expelled from AIIB.</td></tr>
+      </table>
+
+      <h3>India's AIIB Projects (2025-26)</h3>
+      <div class="pills">
+        <span class="pill g">MERIT: Multi-sector Energy Transition</span>
+        <span class="pill g">Assam: Intra-State Transmission Phase II</span>
+        <span class="pill g">Chennai: Sustainable Urban Services</span>
+        <span class="pill">₹13,012.5 Cr in Aditya Birla Capital (renewable + e-mobility)</span>
+      </div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>AIIB (HQ Beijing, 111 members). China 26.5% = de facto veto. USA &amp; Japan NOT members. India = 2nd largest shareholder + largest borrower ($12Bn). CPBF = policy reform financing. Russia 3rd shareholder, projects on hold.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     8. WORLD BANK
+══════════════════════════════════════ -->
+<div class="page" id="worldbank">
+  <div class="sh" onclick="tog(this)"><span>8 · World Bank Group</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>5 arms of World Bank Group — full forms?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India's status in ICSID?</p></div>
+      <div class="ci"><strong>Q3</strong><p>New flagship report replacing Ease of Doing Business?</p></div>
+      <div class="ci"><strong>Q4</strong><p>World Bank President — tradition for nomination?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Updated poverty lines (2021 PPP) — India's % below each?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Founded: <b>1944</b> (Bretton Woods Conference)</span>
+        <span class="pill">Operations: June 1946 (as IBRD)</span>
+        <span class="pill">HQ: <b>Washington D.C.</b></span>
+        <span class="pill"><b>189</b> members (IBRD)</span>
+        <span class="pill">India = Founding Member + Largest Borrower</span>
+        <span class="pill">US = largest shareholder (16.41%)</span>
+      </div>
+
+      <h3>World Bank Group – 5 Arms</h3>
+      <table class="dt">
+        <tr><th>Arm</th><th>Full Form</th><th>Function</th><th>India's Status</th></tr>
+        <tr><td><b>IBRD</b></td><td>Int. Bank for Reconstruction &amp; Dev</td><td>Loans to Middle-Income countries (market-like interest)</td><td>Founding Member; Largest Borrower</td></tr>
+        <tr><td><b>IDA</b></td><td>Int. Development Association</td><td>Loans to Poorest countries (interest-free/grants)</td><td>Graduated (no longer qualifies for IDA grants; gets transitional support)</td></tr>
+        <tr><td><b>IFC</b></td><td>Int. Finance Corporation</td><td>Loans to Private companies (Tata, Mahindra — not Govt)</td><td>Member</td></tr>
+        <tr><td><b>MIGA</b></td><td>Multilateral Investment Guarantee Agency</td><td>Insurance against war/nationalization for investors</td><td>Member</td></tr>
+        <tr><td><b>ICSID</b></td><td>Int. Centre for Settlement of Investment Disputes</td><td>Legal court for disputes between Govts and MNCs</td><td><b>NOT a Member</b> (India believes it favors developed nations)</td></tr>
+      </table>
+      <div class="trap">IBRD + IDA = "World Bank." IBRD + IDA + IFC + MIGA + ICSID = "World Bank Group." To join WB, a country MUST first join the IMF.</div>
+
+      <h3>Key Updates (2025-26)</h3>
+      <table class="dt">
+        <tr><th>Parameter</th><th>Update</th></tr>
+        <tr><td>President</td><td><b>Ajay Banga</b> (US citizen). Tradition: US nominates WB President; Europe nominates IMF chief.</td></tr>
+        <tr><td>New flagship report</td><td><b>B-READY (Business Ready) 2025</b> — replaced "Ease of Doing Business" (discontinued 2021). 101 economies; 3 pillars: Regulation, Public Services, Efficiency.</td></tr>
+        <tr><td>Mission change</td><td>"Ending poverty on a <b>livable planet</b>" — adding climate to core mandate.</td></tr>
+        <tr><td>Newest member</td><td><b>Nauru</b> became newest member of IMF and World Bank (IBRD).</td></tr>
+        <tr><td>Corporate Scorecard 2025</td><td>New impact measurement using 22 indicators (under Ajay Banga)</td></tr>
+      </table>
+
+      <h3>Poverty Lines (2021 PPP) — India's Status</h3>
+      <table class="dt">
+        <tr><th>Category</th><th>New Line (2021 PPP)</th><th>India's %</th></tr>
+        <tr><td>Extreme Poverty (IPL)</td><td>$3.00/day</td><td>5.3% below this line</td></tr>
+        <tr><td>Lower Middle-Income (LMIC)</td><td>$4.20/day</td><td>23.9% below (most relevant for India)</td></tr>
+        <tr><td>Upper Middle-Income (UMIC)</td><td>$8.30/day</td><td>Majority of India below this</td></tr>
+      </table>
+      <div class="gbox">Spring 2025 Poverty Brief: India lifted <b>171 million people</b> out of extreme poverty between 2011-12 and 2022-23.</div>
+
+      <h3>World Bank Projects in India (2025)</h3>
+      <table class="dt">
+        <tr><th>Project</th><th>State/Sector</th><th>Key Point</th></tr>
+        <tr><td>Clean Air Management Program</td><td>Haryana &amp; UP</td><td>First-ever "Airshed" approach (regional atmosphere financing, not city-specific)</td></tr>
+        <tr><td>SHORE Project</td><td>Tamil Nadu &amp; Karnataka</td><td>Coastal resilience; prevents coastal erosion &amp; plastic pollution</td></tr>
+        <tr><td>POISE Project</td><td>Punjab</td><td>Punjab Outcomes-Acceleration in School Education; learning outcomes via tech</td></tr>
+        <tr><td>POCRA Phase II</td><td>Maharashtra</td><td>Climate Resilient Agriculture for small/marginal farmers in Marathwada/Vidarbha</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>World Bank (1944, HQ DC, 189 IBRD members). 5 arms: IBRD+IDA+IFC+MIGA+ICSID. India NOT in ICSID. President Ajay Banga. New report: B-READY 2025. Mission: "Ending poverty on a livable planet." India lifted 171 million from poverty (2011-22).</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     9. IMF
+══════════════════════════════════════ -->
+<div class="page" id="imf">
+  <div class="sh" onclick="tog(this)"><span>9 · International Monetary Fund (IMF)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>IMF established when? When did operations begin?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India's IMF data grade 2025? What does it mean?</p></div>
+      <div class="ci"><strong>Q3</strong><p>IMF's 3 lending accounts: GRA vs PRGT vs RST?</p></div>
+      <div class="ci"><strong>Q4</strong><p>What is SDR? On how many currencies is it based?</p></div>
+      <div class="ci"><strong>Q5</strong><p>New GDP base year &amp; CPI base year for India?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Established: <b>July 1944</b> (Bretton Woods, New Hampshire)</span>
+        <span class="pill">Formal existence: <b>Dec 1945</b></span>
+        <span class="pill">Operations began: <b>1 Mar 1947</b></span>
+        <span class="pill">HQ: <b>Washington D.C.</b></span>
+        <span class="pill"><b>190</b> member countries</span>
+        <span class="pill g">India = Founding Member</span>
+      </div>
+
+      <h3>IMF Data Quality — India's Grade 2025</h3>
+      <table class="dt">
+        <tr><th>Country</th><th>Median Rating</th><th>National Accounts</th></tr>
+        <tr><td>Brazil</td><td>A</td><td>A</td></tr>
+        <tr><td>China</td><td>B</td><td>C</td></tr>
+        <tr><td><b>India</b></td><td><b>B</b></td><td><b>C</b></td></tr>
+        <tr><td>South Africa</td><td>B</td><td>A</td></tr>
+        <tr><td>UK</td><td>A</td><td>A</td></tr>
+        <tr><td>US</td><td>A</td><td>A</td></tr>
+      </table>
+      <div class="hbox">India's 'C' grade for National Accounts = "shortcomings that somewhat hamper surveillance." Grading scale: A (Adequate) → D (Serious Shortcomings).</div>
+
+      <h3>Weaknesses Identified &amp; Corrective Action</h3>
+      <ul class="ul">
+        <li><b>Outdated Base Year</b>: India still uses 2011-12 (misrepresents digital economy)</li>
+        <li><b>Deflation Method</b>: Uses WPI + Single Deflation. Should use PPI + Double Deflation</li>
+        <li><b>Data Divergence</b>: Unexplained gaps between Production-side &amp; Expenditure-side GDP</li>
+        <li><b>IMF Recommendation</b>: Population Census immediately (delayed since 2021); Statistical Audit Authority; boost NSO resources</li>
+        <li><b>Corrective Action</b>: New series Feb 2026 — GDP base year → 2022-23; CPI base year → 2024</li>
+      </ul>
+
+      <h3>SDR (Special Drawing Rights)</h3>
+      <ul class="ul">
+        <li>International reserve assets created by IMF; valued on <b>5 currencies</b></li>
+        <li>Currency basket: USD (42%), Euro (31%), RMB (11%), Yen (8%), Pound (8%)</li>
+        <li>Allocated to members in proportion to IMF share; exchangeable for hard currencies</li>
+      </ul>
+
+      <h3>IMF Lending Toolkit (3 Accounts)</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>GRA (General Resources Account)</th><th>PRGT (Poverty Reduction &amp; Growth Trust)</th><th>RST (Resilience &amp; Sustainability Trust)</th></tr>
+        <tr><td>Target</td><td>All members (typically middle/high income)</td><td>Low-Income Countries (LICs) only</td><td>Low-Income + Vulnerable Middle-Income</td></tr>
+        <tr><td>Interest</td><td>Market rate + surcharges (non-concessional)</td><td>Zero or subsidised (concessional)</td><td>Affordable/capped (long-term concessional)</td></tr>
+        <tr><td>Key Facility</td><td>EFF (Extended Fund Facility); SBA (Stand-By Arrangement)</td><td>ECF (Extended Credit Facility); SCF (Standby Credit Facility)</td><td>RSF (Resilience &amp; Sustainability Facility)</td></tr>
+        <tr><td>Primary Focus</td><td>BoP Crisis Management (short-medium term)</td><td>Poverty Reduction &amp; BoP (medium-long term)</td><td>Long-term structural: Climate Change &amp; Pandemics</td></tr>
+        <tr><td>Conditionality</td><td>High (austerity, structural reforms)</td><td>Moderate to high (poverty/growth focus)</td><td>Concurrent GRA/PRGT program required</td></tr>
+      </table>
+
+      <h3>Emergency Tools: RFI &amp; RCF</h3>
+      <div class="gbox"><b>RFI (Rapid Financing Instrument)</b>: Available to ALL IMF members. Non-concessional, short-term, low conditionality, no full program needed.<br><b>RCF (Rapid Credit Facility)</b>: For Low-Income Countries only. Concessional (zero/low interest), longer repayment, limited conditionality.<br>Both used for: natural disasters, conflicts, commodity price shocks, pandemics.</div>
+
+      <h3>IMF 5 Key Reports</h3>
+      <div class="pills">
+        <span class="pill">World Economic Outlook</span>
+        <span class="pill">Regional Economic Outlook</span>
+        <span class="pill">Global Financial Stability Report</span>
+        <span class="pill">Fiscal Monitor Report</span>
+        <span class="pill">External Sector Report</span>
+      </div>
+
+      <h3>WB vs IMF</h3>
+      <table class="dt">
+        <tr><th>Parameter</th><th>World Bank</th><th>IMF</th></tr>
+        <tr><td>Focus</td><td>Development support to developing countries</td><td>Stabilize international monetary system; monitor currencies</td></tr>
+        <tr><td>HQ</td><td>Washington D.C.</td><td>Washington D.C.</td></tr>
+        <tr><td>Leadership tradition</td><td>US nominates President</td><td>Europe nominates Managing Director</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>IMF (1944/1947, 190 members, DC). India = Founding Member; 'C' grade National Accounts 2025. 3 lending accounts: GRA (all nations), PRGT (LICs), RST (climate/pandemics). SDR = 5 currencies (USD 42%, Euro 31%, RMB 11%, Yen 8%, GBP 8%). India new base years: GDP→2022-23, CPI→2024.</div>
+</div>
+
+<div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#888;padding:10px 0 22px;">
+  Sarrthi IAS · PNP 2026 · International Relations – Lecture 2 · Cornell Notes
+</div>
+
+</div><!-- /.nb -->
+
+<script>
+  function tog(h){
+    const b=h.nextElementSibling;
+    const a=h.querySelector('.tog');
+    if(!b) return;
+    const c=b.classList.toggle('collapsed');
+    a.textContent=c?'▶':'▼';
+  }
+</script>
+</body>
+</html>

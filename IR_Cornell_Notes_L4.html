@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR Cornell Notes – Lecture 4 | UPSC Prelims 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12100e;--paper:#faf7f2;--cream:#f0ead8;--rule:#cfc0a8;
+    --red:#b5281c;--blue:#14305a;--gold:#9a7200;--hl:#fff9c4;
+    --trap-bg:#fff0ee;--trap-bdr:#d94030;--tag-bg:#e6effc;--tag-col:#14305a;
+    --green:#1a6b3a;--green-bg:#eaf7ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#ddd5c5;font-family:'Source Serif 4',Georgia,serif;color:var(--ink);padding:20px 14px;}
+  .nb{max-width:1120px;margin:0 auto;}
+  .nb-hd{background:var(--blue);color:#fff;padding:18px 28px 14px;border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .nb-hd h1{font-family:'Playfair Display',serif;font-size:1.55rem;line-height:1.2;}
+  .nb-hd .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;opacity:.78;text-align:right;}
+  .nb-hd .meta span{display:block;}
+  .toc{background:var(--cream);border-bottom:2px solid var(--gold);padding:8px 26px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.76rem;font-family:'JetBrains Mono',monospace;}
+  .toc a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue);}
+  .toc a:hover{color:var(--red);}
+  .page{background:var(--paper);background-image:repeating-linear-gradient(transparent,transparent 27px,var(--rule) 27px,var(--rule) 28px);border-left:5px solid var(--blue);box-shadow:4px 6px 20px rgba(0,0,0,.16);margin-bottom:30px;border-radius:0 0 4px 4px;}
+  .sh{background:var(--blue);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;padding:8px 22px 7px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;cursor:pointer;user-select:none;transition:background .2s;}
+  .sh:hover{background:#0d2040;}
+  .sh .tog{font-size:.82rem;margin-left:auto;opacity:.7;}
+  .sb{display:grid;grid-template-columns:218px 1fr;}
+  .cue{border-right:2px solid var(--red);padding:14px 12px;background:rgba(181,40,28,.03);}
+  .ci{margin-bottom:16px;padding:7px 9px;border-left:3px solid var(--red);background:rgba(181,40,28,.06);border-radius:0 3px 3px 0;}
+  .ci strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+  .ci p{font-size:.78rem;line-height:1.42;color:var(--blue);font-weight:600;}
+  .nc{padding:14px 20px;}
+  .nc h3{font-family:'Playfair Display',serif;font-size:.93rem;color:var(--blue);margin:14px 0 5px;padding-bottom:2px;border-bottom:1px dashed var(--rule);}
+  .nc h3:first-child{margin-top:0;}
+  .dt{width:100%;border-collapse:collapse;font-size:.78rem;margin:7px 0 12px;}
+  .dt th{background:var(--blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;padding:5px 9px;text-align:left;}
+  .dt td{padding:5px 9px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4;}
+  .dt tr:nth-child(even) td{background:rgba(0,0,0,.022);}
+  .dt tr:hover td{background:var(--hl);}
+  .pills{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 10px;}
+  .pill{background:var(--tag-bg);color:var(--tag-col);font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:99px;border:1px solid #a8c0ea;white-space:nowrap;}
+  .pill.g{background:#eaf7ee;border-color:#7dba95;color:var(--green);}
+  .pill.r{background:#fff0ee;border-color:#e08080;color:#a00;}
+  .pill.au{background:#fef9e7;border-color:var(--gold);color:var(--gold);}
+  .trap{background:var(--trap-bg);border:1.5px solid var(--trap-bdr);border-radius:4px;padding:6px 11px;font-size:.76rem;margin:7px 0;line-height:1.5;}
+  .trap::before{content:"⚠ PRELIMS TRAP: ";font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;color:var(--trap-bdr);display:block;margin-bottom:2px;}
+  .hbox{background:var(--hl);border-left:3px solid var(--gold);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .gbox{background:var(--green-bg);border-left:3px solid var(--green);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .ul{padding-left:15px;margin:3px 0 9px;font-size:.8rem;line-height:1.54;}
+  .ul li{margin-bottom:3px;}
+  .ul li b{color:var(--blue);}
+  .sum{border-top:2px solid var(--red);padding:10px 20px;background:rgba(181,40,28,.04);font-size:.76rem;}
+  .sum strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:4px;}
+  .collapsed{display:none!important;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;}.tog{display:none;}.sb{display:grid!important;}}
+</style>
+</head>
+<body>
+<div class="nb">
+
+<div class="nb-hd">
+  <h1>International Relations – Lecture 4<br><small style="font-size:.62em;opacity:.72">Indian Ocean · MAHASAGAR · Arctic · CSTO · ICC · ISA · WHO · AI Summit · UPI · BBNJ · UNCLOS</small></h1>
+  <div class="meta"><span>UPSC PRELIMS 2026</span><span>Sarrthi IAS – PNP 2026</span><span>Cornell Notes</span></div>
+</div>
+<div class="toc">
+  <a href="#ioc">Indian Ocean (Three Sisters)</a>
+  <a href="#mahasagar">MAHASAGAR</a>
+  <a href="#arctic">Arctic Council</a>
+  <a href="#csto">CSTO</a>
+  <a href="#icc">ICC vs ICJ</a>
+  <a href="#isa">ISA</a>
+  <a href="#who">WHO</a>
+  <a href="#ai">India AI Summit 2026</a>
+  <a href="#digital">Digital Diplomacy</a>
+  <a href="#upi">UPI Global</a>
+  <a href="#bbnj">BBNJ / High Seas Treaty</a>
+  <a href="#unclos">UNCLOS &amp; SCS</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. THREE SISTERS
+══════════════════════════════════════ -->
+<div class="page" id="ioc">
+  <div class="sh" onclick="tog(this)"><span>1 · The "Three Sisters" of the Indian Ocean</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>IOC 8th edition: host, theme, nature of diplomacy?</p></div>
+      <div class="ci"><strong>Q2</strong><p>IOC 9th edition: host, when, theme?</p></div>
+      <div class="ci"><strong>Q3</strong><p>IORA: secretariat location, membership, Pakistan trap?</p></div>
+      <div class="ci"><strong>Q4</strong><p>IONS: what type of forum? Who is current chair?</p></div>
+      <div class="ci"><strong>Q5</strong><p>China's status in all three forums?</p></div>
+    </div>
+    <div class="nc">
+      <h3>Indian Ocean Conference (IOC)</h3>
+      <div class="pills">
+        <span class="pill">Origin: <b>2016</b>, Singapore — by India Foundation (MEA)</span>
+        <span class="pill">Track <b>1.5</b> Diplomacy (Ministers + Diplomats + Think Tanks)</span>
+        <span class="pill r">No secretariat. No permanent membership.</span>
+      </div>
+      <table class="dt">
+        <tr><th>Edition</th><th>8th (Latest)</th><th>9th (Upcoming)</th></tr>
+        <tr><td>Host</td><td>Oman (Muscat)</td><td><b>Mauritius</b></td></tr>
+        <tr><td>Dates</td><td>Feb 16–17, 2025</td><td>April 10–12, 2026</td></tr>
+        <tr><td>Theme</td><td>"Voyage to New Horizons of Maritime Partnership"</td><td>"Collective Stewardship for Indian Ocean Governance"</td></tr>
+        <tr><td>Organizers</td><td>India Foundation + MFA Oman + RSIS Singapore</td><td>India Foundation + Govt of Mauritius</td></tr>
+        <tr><td>Focus</td><td>Connectivity (India-ME ports) + Maritime Safety (Red Sea crisis)</td><td>Governance + Blue Economy Stewardship</td></tr>
+      </table>
+
+      <h3>Comparative Matrix: IORA vs IONS vs IOC</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>IORA</th><th>IONS</th><th>IOC</th></tr>
+        <tr><td>Formation</td><td><b>1997</b> (Charter signed in Mauritius). Origin: Nelson Mandela's vision (1995).</td><td><b>2008</b> (New Delhi). Launched by Indian Navy.</td><td><b>2016</b> (Singapore). India Foundation/MEA.</td></tr>
+        <tr><td>Type</td><td>Track 1 — Inter-Governmental. Official meeting of Foreign Ministers.</td><td>Military/Naval Forum. Meeting of <b>Navy Chiefs only</b>.</td><td>Track 1.5 — Hybrid. Ministers + Diplomats + Think Tanks.</td></tr>
+        <tr><td>Secretariat</td><td><b>Mauritius (Ebene)</b>. Permanent secretariat + Secretary-General.</td><td>Revolving — moves with Chair. Currently <b>India</b>.</td><td>None. Organized by India Foundation (Delhi).</td></tr>
+        <tr><td>Membership</td><td><b>23 States</b> bordering the ocean. Newest: France (2020).</td><td><b>25 Member Navies + 9 Observers</b>.</td><td>None. Conference (not a bloc). 30–40 nations attend.</td></tr>
+        <tr><td>Pakistan Trap</td><td><b>EXCLUDED</b> — Pakistan NOT a member of IORA.</td><td><b>INCLUDED</b> — Pakistan IS a member of IONS (littoral state).</td><td><b>EXCLUDED</b> — Pakistan NOT invited to this India-led forum.</td></tr>
+        <tr><td>China Trap</td><td>Dialogue Partner. China NOT a member (not a littoral).</td><td>Observer. China NOT a member (not a littoral).</td><td>Invited. Chinese delegates attend but it's an India-centric platform.</td></tr>
+        <tr><td>2026 Chair/Status</td><td><b>India (2025–27)</b> — took over from Sri Lanka.</td><td><b>India (2025–27)</b> — took over from Thailand.</td><td>Host: Mauritius (9th edition, April 2026).</td></tr>
+        <tr><td>Key 2026 Event</td><td>Council of Ministers (COM) — hosted by India (EAM).</td><td>9th Conclave of Chiefs — India (Visakhapatnam, Feb 2026). Alongside MILAN Naval Exercise.</td><td>9th IOC — Mauritius. Theme: "Collective Stewardship."</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>IOC (2016, Track 1.5, India Foundation). 8th: Oman Feb 2025; 9th: Mauritius Apr 2026. IORA (1997, Mauritius secretariat, 23 members) — Pakistan OUT. IONS (2008, naval chiefs, revolving) — Pakistan IN. China = Dialogue Partner/Observer in both, Invited to IOC. India chairs IORA and IONS (2025–27).</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2. MAHASAGAR
+══════════════════════════════════════ -->
+<div class="page" id="mahasagar">
+  <div class="sh" onclick="tog(this)"><span>2 · MAHASAGAR</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Full form of MAHASAGAR (both versions)?</p></div>
+      <div class="ci"><strong>Q2</strong><p>IOR-10 members — Myanmar/Indonesia included?</p></div>
+      <div class="ci"><strong>Q3</strong><p>SAGAR vs MAHASAGAR — policy shift?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Exercise AIKEYME — significance?</p></div>
+      <div class="ci"><strong>Q5</strong><p>How did MAHASAGAR expand the CSC?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill au">Navy (2023): <b>M</b>aritime <b>H</b>eads for <b>A</b>ctive <b>S</b>ecurity <b>A</b>nd <b>G</b>rowth for <b>A</b>ll in the <b>R</b>egion</span>
+        <span class="pill au">National Vision (2025): <b>M</b>utual <b>A</b>nd <b>H</b>olistic <b>A</b>dvancement for <b>S</b>ecurity <b>A</b>nd <b>G</b>rowth <b>A</b>cross <b>R</b>egions</span>
+      </div>
+      <div class="hbox">Mandate: "Regional Solutions for Regional Problems." A <b>Consultative Mechanism</b> (NOT a military alliance like QUAD) — focuses on non-traditional threats: Drugs, Disasters (HADR), Piracy.</div>
+
+      <h3>IOR-10 Members</h3>
+      <div class="pills">
+        <span class="pill g">Bangladesh</span><span class="pill g">Sri Lanka</span><span class="pill g">Maldives</span><span class="pill g">Seychelles</span><span class="pill g">Mauritius</span>
+        <span class="pill g">Comoros</span><span class="pill g">Madagascar</span><span class="pill g">Kenya</span><span class="pill g">Tanzania</span><span class="pill g">Mozambique</span>
+      </div>
+      <div class="trap">Myanmar, Thailand, and Indonesia are NOT members of MAHASAGAR. Focus is strictly on Western &amp; Central Indian Ocean — not Southeast Asian littorals.</div>
+
+      <h3>SAGAR → MAHASAGAR Evolution</h3>
+      <table class="dt">
+        <tr><th>Policy</th><th>Year</th><th>Focus</th><th>Approach</th></tr>
+        <tr><td><b>SAGAR</b></td><td>2015</td><td>Immediate neighborhood (Indian Ocean)</td><td>"Net Security Provider" (Unilateral)</td></tr>
+        <tr><td><b>MAHASAGAR</b></td><td>2025</td><td>Broader Global South (Africa + Pacific)</td><td>"Preferred Security Partner" (Collaborative)</td></tr>
+      </table>
+
+      <h3>Key Operational Outcomes</h3>
+      <ul class="ul">
+        <li><b>Exercise AIKEYME (2025)</b>: First India-Africa maritime exercise under MAHASAGAR banner — held in Tanzania</li>
+        <li><b>SESEL Vision (2026)</b>: Pact with Seychelles for sustainability &amp; security</li>
+        <li><b>CSC Expansion</b>: Through MAHASAGAR outreach, Seychelles &amp; Bangladesh joined Colombo Security Conclave (CSC) as full members — expanding it beyond India-Sri Lanka-Maldives-Mauritius to 6 members</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>MAHASAGAR = 10-nation consultative mechanism (Western &amp; Central IOR). NOT a military alliance. Myanmar/Thailand/Indonesia excluded. Evolution from SAGAR (2015, unilateral) to MAHASAGAR (2025, collaborative). AIKEYME = first India-Africa maritime exercise. CSC now has 6 members.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3. ARCTIC COUNCIL
+══════════════════════════════════════ -->
+<div class="page" id="arctic">
+  <div class="sh" onclick="tog(this)"><span>3 · Arctic Council: Arctic 5 vs Arctic 8</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Arctic 5 — which 5 countries border the Arctic Ocean?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Arctic 8 = Arctic 5 + which 3?</p></div>
+      <div class="ci"><strong>Q3</strong><p>When did India join Arctic Council? As what status?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Membership rule for Arctic Council full membership?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Sweden &amp; Finland — do they border the Arctic Ocean?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Category</th><th>Countries</th><th>Key Trap / Clarification</th></tr>
+        <tr><td><b>Arctic 5</b><br>(Littoral States)</td><td>1. Russia<br>2. Canada<br>3. USA (via Alaska)<br>4. Denmark (via Greenland)<br>5. Norway</td><td>These 5 countries physically border the Arctic Ocean. <b>Sweden, Finland, and Iceland DO NOT have direct coastlines on the central Arctic Ocean.</b></td></tr>
+        <tr><td><b>Arctic 8</b><br>(Arctic Council Members)</td><td>Arctic 5 PLUS:<br>6. Sweden<br>7. Finland<br>8. Iceland</td><td>Membership rule: Country must have territory <b>crossing the Arctic Circle (66°33′ N)</b>. All 8 meet this criteria.</td></tr>
+        <tr><td><b>Observer States</b><br>(13 nations)</td><td>India (2013), China, Japan, South Korea, Singapore, UK, France, Germany, etc.</td><td>Observers have NO voting rights. To join, India had to formally recognize "sovereign rights and jurisdiction" of the Arctic 8 over the region.</td></tr>
+      </table>
+      <div class="hbox"><b>India's Arctic Policy (2022):</b> "India and the Arctic: Building a Partnership for Sustainable Development." India has <b>Himadri</b> (research station at Svalbard, Norway) and <b>IndARC</b> (moored underwater observatory in Kongsfjorden).</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Arctic 5 = countries with Arctic Ocean coastline (Russia, Canada, USA, Denmark/Greenland, Norway). Arctic 8 = Arctic Council full members (add Sweden, Finland, Iceland — territory above Arctic Circle). India = Observer since 2013 (no voting rights). Himadri station at Svalbard.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     4. CSTO
+══════════════════════════════════════ -->
+<div class="page" id="csto">
+  <div class="sh" onclick="tog(this)"><span>4 · CSTO &amp; Nagorno-Karabakh</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>CSTO: formed when, where? Article 4 vs NATO's Article 5?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Current 6 CSTO members? Armenia's status?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Former CSTO members (3)?</p></div>
+      <div class="ci"><strong>Q4</strong><p>What is the TRIPP Deal 2025?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Zangezur Corridor — what, where?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Origin: Collective Security Treaty (CST) signed <b>15 May 1992</b>, Tashkent ("Tashkent Treaty")</span>
+        <span class="pill">Came into force: <b>20 Apr 1994</b></span>
+        <span class="pill">HQ: <b>Moscow, Russia</b></span>
+        <span class="pill r">6 current members</span>
+      </div>
+      <div class="trap">CSTO uses <b>Article 4</b> for collective defense (attack on one = attack on all). NATO uses <b>Article 5</b>. Don't confuse the article numbers.</div>
+
+      <h3>Membership</h3>
+      <div class="pills">
+        <span class="pill g">Russia</span><span class="pill g">Belarus</span><span class="pill g">Kazakhstan</span><span class="pill g">Kyrgyzstan</span><span class="pill g">Tajikistan</span>
+        <span class="pill r">Armenia* — De Jure member, De Facto out (stopped paying dues, boycotts meetings, NOT formally withdrawn)</span>
+      </div>
+      <div class="pills">
+        <span class="pill r">Former members: Azerbaijan, Georgia, Uzbekistan</span>
+      </div>
+      <div class="trap">If a question lists Uzbekistan or Azerbaijan as CURRENT members — mark it wrong.</div>
+
+      <h3>2025–26 Updates</h3>
+      <table class="dt">
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td>Secretary General</td><td>Taalatbek Masadykov (Kyrgyzstan) — took charge Jan 1, 2026 (replaced Imangali Tasmagambetov)</td></tr>
+        <tr><td>Latest Summit (2025)</td><td>Bishkek, Kyrgyzstan (Nov 27, 2025). Outcome: "CSTO Collective Security Strategy through 2030." Armenia boycotted.</td></tr>
+        <tr><td>Next Summit (2026)</td><td>Armenia's turn (rotational presidency) but they refused. Summit likely moves to Russia or Belarus.</td></tr>
+      </table>
+
+      <h3>Nagorno-Karabakh &amp; TRIPP Deal</h3>
+      <ul class="ul">
+        <li>Two wars over Nagorno-Karabakh (recognized as Azerbaijani but populated by Armenians)</li>
+        <li>Azerbaijan regained control in 2020; most Armenians fled</li>
+        <li><b>Zangezur Corridor</b>: Proposed 43-km transport route through Armenia's Syunik Province connecting Azerbaijan to Nakhchivan</li>
+      </ul>
+      <div class="hbox"><b>TRIPP Deal (2025)</b> — "Trump Route for International Peace and Prosperity": US-led consortium granted <b>99-year lease on Zangezur Corridor</b>. Goal: Route Caspian gas to Europe, bypassing Russia and isolating Iran. In exchange for conceding Nagorno-Karabakh to Azerbaijan, Armenia receives US security guarantees. Effectively replaces Russia with Washington as primary power broker in South Caucasus.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>CSTO (1992 Tashkent, 1994 in force, HQ Moscow). Article 4 (not 5 like NATO). 6 members — Armenia De Jure in but De Facto out. Former: Azerbaijan, Georgia, Uzbekistan. Bishkek Summit 2025. TRIPP Deal 2025: US 99-yr lease on Zangezur Corridor; Armenia gets US security guarantees replacing Russia.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     5. ICC vs ICJ
+══════════════════════════════════════ -->
+<div class="page" id="icc">
+  <div class="sh" onclick="tog(this)"><span>5 · ICC vs ICJ &amp; IOMed</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>ICC vs ICJ: who can each try?</p></div>
+      <div class="ci"><strong>Q2</strong><p>How many ICC members? Ukraine's status?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Which 3 African nations withdrew from ICC in 2025?</p></div>
+      <div class="ci"><strong>Q4</strong><p>ICC: 4 crimes under jurisdiction?</p></div>
+      <div class="ci"><strong>Q5</strong><p>IOMed: HQ, who leads it? India member?</p></div>
+    </div>
+    <div class="nc">
+      <h3>ICC vs ICJ Comparison</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>ICC</th><th>ICJ</th></tr>
+        <tr><td>Full Name</td><td>International Criminal Court</td><td>International Court of Justice</td></tr>
+        <tr><td>Established</td><td><b>2002</b>, by the Rome Statute</td><td><b>1945</b>, by the UN Charter</td></tr>
+        <tr><td>Location</td><td>The Hague, Netherlands</td><td>The Hague, Netherlands</td></tr>
+        <tr><td>Jurisdiction</td><td><b>Individuals</b></td><td><b>States</b></td></tr>
+        <tr><td>Legal Basis</td><td>Rome Statute (independent body)</td><td>UN Charter + ICJ Statute (UN body)</td></tr>
+        <tr><td>Cases</td><td>Genocide, war crimes, crimes against humanity, crime of aggression</td><td>State-to-state disputes, advisory opinions</td></tr>
+        <tr><td>Structure</td><td>Presidency, Judicial Divisions, Prosecutor, Registry. <b>18 judges</b>, 9-yr terms.</td><td><b>15 Judges</b>, 9-yr terms.</td></tr>
+        <tr><td>Membership</td><td><b>125</b> State Parties (Rome Statute)</td><td>All UN member states</td></tr>
+        <tr><td>Enforcement</td><td>Requires domestic law enforcement; can ask UNSC to step in</td><td>Through UNSC resolutions</td></tr>
+        <tr><td>India's Status</td><td>NOT a member of ICC</td><td>UN member (cases heard here)</td></tr>
+      </table>
+
+      <h3>Current Context (2025-26)</h3>
+      <ul class="ul">
+        <li><b>Ukraine</b>: Formally welcomed as 125th State Party to the Rome Statute of the ICC</li>
+        <li><b>Burkina Faso, Mali, Niger</b>: Jointly announced withdrawal from ICC, calling it a "neo-colonial tool of imperialism"</li>
+        <li><b>Trump's USA</b>: Re-imposed sanctions on ICC officials (2025) — ICC issued arrest warrants for Israeli PM Netanyahu and Hamas leaders</li>
+      </ul>
+
+      <h3>IOMed (International Organization for Mediation)</h3>
+      <div class="hbox">World's first intergovernmental organization dedicated exclusively to resolving international disputes via <b>Mediation</b> (negotiation). HQ: <b>Hong Kong, China</b>. China-led. Designed as alternative to Western legal bodies (ICJ/Hague) for the Global South. <b>India is NOT a member.</b></div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>ICC (2002, Rome Statute, The Hague, 125 members) — tries Individuals. ICJ (1945, UN Charter, The Hague) — tries States. India NOT in ICC. Ukraine = 125th ICC member. Burkina Faso+Mali+Niger withdrew. IOMed = China-led mediation body in HK; India NOT a member.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     6. ISA
+══════════════════════════════════════ -->
+<div class="page" id="isa">
+  <div class="sh" onclick="tog(this)"><span>6 · International Solar Alliance (ISA)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>ISA HQ? Director General? India's Presidency co-partner?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Eligibility for ISA membership — old rule vs new?</p></div>
+      <div class="ci"><strong>Q3</strong><p>ISA "Towards 1000" strategy — 3 targets by 2030?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Mauritius CPF — 4th country to sign. Order of first 4?</p></div>
+      <div class="ci"><strong>Q5</strong><p>SUNRISE Network — full form, goal?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">HQ: <b>Gurugram, Haryana</b> (NISE Campus)</span>
+        <span class="pill">DG: <b>Ashish Khanna</b> (India; took charge Jan 2026, replaced Dr. Ajay Mathur)</span>
+        <span class="pill">President: <b>India</b>; Co-President: <b>France</b> (re-elected 2024–26)</span>
+        <span class="pill r">NOT a UN Specialized Agency — has UN Observer Status since 2021</span>
+        <span class="pill">120+ Signatories, <b>107+</b> Full Members</span>
+      </div>
+
+      <h3>Membership Milestones</h3>
+      <div class="pills">
+        <span class="pill g">100th member: Paraguay (June 2024)</span>
+        <span class="pill g">107th member: Moldova (Aug 2025)</span>
+        <span class="pill r">USA withdrew: Jan 2026 (~1% of funds — manageable)</span>
+      </div>
+      <div class="trap">Eligibility AMENDED in 2020: Now open to ALL UN Member States. Previously restricted to Tropics only (sunshine countries between Tropics of Cancer and Capricorn). Target year for "Towards 1000" = <b>2030</b>, not 2050.</div>
+
+      <h3>Mauritius CPF — Country Partnership Framework</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Details</th></tr>
+        <tr><td>CPF Signatories order</td><td>1. Bangladesh → 2. Bhutan → 3. Cuba → <b>4. Mauritius</b> (April 2025)</td></tr>
+        <tr><td>Significance</td><td>First African nation + 4th globally to sign. CPF → CPS: Framework (agreement) leads to Country Partnership Strategy (action plan).</td></tr>
+        <tr><td>Duration</td><td>3 years. Cooperative framework, NOT a binding treaty with sanctions.</td></tr>
+        <tr><td>SIDS Focus</td><td>ISA's "STAR-C" initiative for SIDS — helps island nations reduce expensive diesel imports via solar</td></tr>
+      </table>
+
+      <h3>"Towards 1000" Strategy (by 2030)</h3>
+      <div class="pills">
+        <span class="pill g">Mobilize <b>$1,000 Billion</b> investments</span>
+        <span class="pill g">Energy access to <b>1,000 Million</b> people</span>
+        <span class="pill g">Install <b>1,000 GW</b> solar capacity</span>
+      </div>
+
+      <h3>8th ISA Assembly Highlights (New Delhi, Oct 2025)</h3>
+      <table class="dt">
+        <tr><th>Initiative</th><th>Full Form / Details</th></tr>
+        <tr><td><b>SUNRISE Network</b></td><td>Solar Upcycling Network for Recycling, Innovation &amp; Stakeholder Engagement. Solar waste management; recovers Silver/Silicon; creates "Green Jobs."</td></tr>
+        <tr><td><b>Global Capability Centre (GCC)</b></td><td>"Silicon Valley for Solar" established in India — shares global R&amp;D</td></tr>
+        <tr><td><b>ISA Academy</b></td><td>AI-based e-learning platform for global solar skills training</td></tr>
+        <tr><td><b>GSF</b></td><td>Global Solar Facility — payment guarantee fund; piloted in DRC &amp; Ethiopia (2025) to unlock private capital. Primarily targets Africa.</td></tr>
+        <tr><td><b>OSOWOG</b></td><td>One Sun One World One Grid — practical arm of "Green Grids" initiative (launched with UK). Transmission links across Asia, ME, Europe, Africa.</td></tr>
+        <tr><td><b>SIDS Platform</b></td><td>16 SIDS signed MoU with World Bank for joint solar procurement</td></tr>
+      </table>
+
+      <h3>Investment Trend</h3>
+      <div class="gbox">Global Energy Transition (2024): <b>$2,083 Billion</b> total. Solar share: <b>$521 Billion</b> — now the <b>leading renewable sector globally</b>, surpassing wind. ISA members contributed $861.2 Billion.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>ISA (HQ Gurugram; DG Ashish Khanna Jan 2026; India + France lead; NOT UN specialized agency). 107+ members. USA withdrew Jan 2026. Mauritius = 4th CPF signer (1st African). "Towards 1000" targets all by 2030. SUNRISE = solar waste recycling. Solar = #1 global renewable investment.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     7. WHO
+══════════════════════════════════════ -->
+<div class="page" id="who">
+  <div class="sh" onclick="tog(this)"><span>7 · World Health Organization (WHO)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>WHO established when? HQ? Members?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Pandemic Agreement: status (2026)? PABS system?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Amended IHR: in force since when? New "Pandemic Emergency" level?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Mpox 2026 status? R21 vaccine — 1st or 2nd malaria vaccine?</p></div>
+      <div class="ci"><strong>Q5</strong><p>WHO "3 by 35" Initiative — what does it target?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Est: <b>7 Apr 1948</b> (World Health Day)</span>
+        <span class="pill">HQ: <b>Geneva, Switzerland</b></span>
+        <span class="pill"><b>194</b> members (all UN members except Liechtenstein; plus Cook Islands &amp; Niue)</span>
+        <span class="pill">First UN agency where all members subscribed</span>
+        <span class="pill">DG: Elected by WHA; serves 5 yrs; can be re-appointed once</span>
+        <span class="pill au">WHO "3 by 35": Raise tobacco/alcohol/sugary drinks prices ≥50% by 2035 via taxes</span>
+      </div>
+
+      <h3>The "Big Two" Legal Frameworks (2025)</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Pandemic Agreement ("Accord")</th><th>Amended IHR</th></tr>
+        <tr><td>Status (2026)</td><td><b>ADOPTED</b> May 20, 2025. In ratification phase — needs 60 countries to ratify for entry into force.</td><td><b>IN FORCE</b> Sept 19, 2025. Implementation phase.</td></tr>
+        <tr><td>Key Innovation</td><td><b>PABS System</b>: Pathogen Access and Benefit Sharing — if country shares virus sample (Pathogen), it gets guaranteed access to vaccines/medicines (Benefit).</td><td><b>"Pandemic Emergency"</b>: New alert level HIGHER than PHEIC. Triggers rapid global mobilization.</td></tr>
+        <tr><td>Legal Nature</td><td>New Treaty (under Article 19 of WHO Constitution)</td><td>Amendments to existing treaty (IHR 2005)</td></tr>
+        <tr><td>India's Stance</td><td>Strong supporter of PABS. Insisted on "Common but Differentiated Responsibilities" (CBDR) in text.</td><td>Accepted amendments to streamline reporting.</td></tr>
+      </table>
+      <div class="trap">PHEIC = Public Health Emergency of International Concern. "Pandemic Emergency" (new) is HIGHER than PHEIC. These are different alert levels. Past PHEICs: H1N1 (2009), Ebola (2014/2019), Polio resurgence (2014), Zika (2016), COVID-19 (2020), Mpox (2024).</div>
+
+      <h3>Disease Updates (2026)</h3>
+      <table class="dt">
+        <tr><th>Disease</th><th>2026 Status</th></tr>
+        <tr><td><b>Mpox</b></td><td>Jan 22, 2026: Africa CDC officially lifted "Public Health Emergency" status (vaccine rollout success). WHO advises continued surveillance.</td></tr>
+        <tr><td><b>Malaria</b></td><td>R21/Matrix-M Vaccine in full rollout across Africa (2025-26). It is the <b>second</b> malaria vaccine (after Mosquirix/RTS,S) — cheaper and easier to produce.</td></tr>
+        <tr><td><b>Tuberculosis</b></td><td>"End TB Strategy": WHO admitted global goal to end TB by 2030 is off-track. India's domestic TB goal (2025) also extended.</td></tr>
+      </table>
+
+      <h3>India–WHO Key Partnerships</h3>
+      <ul class="ul">
+        <li><b>WHO Global Centre for Traditional Medicine</b>: Located in <b>Jamnagar, Gujarat</b> (India–WHO partnership)</li>
+        <li><b>National Digital Health Blueprint</b>: WHO supports India's digital health ecosystem development</li>
+        <li>TB, malaria elimination, HIV/AIDS collaboration; Pradhan Mantri Surakshit Matritva Abhiyan</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>WHO (1948, Geneva, 194 members). Two 2025 frameworks: Pandemic Agreement (ADOPTED May 2025, needs 60 ratifications) + Amended IHR (IN FORCE Sept 2025). PABS = pathogen sharing → vaccine access. "Pandemic Emergency" = new level above PHEIC. Mpox emergency lifted Jan 2026. R21 = 2nd malaria vaccine. WHO GCTM = Jamnagar.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     8. INDIA AI SUMMIT
+══════════════════════════════════════ -->
+<div class="page" id="ai">
+  <div class="sh" onclick="tog(this)"><span>8 · India AI Impact Summit 2026</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Global AI Summit sequence: UK→Korea→France→India. What keyword per summit?</p></div>
+      <div class="ci"><strong>Q2</strong><p>India summit: venue, dates, theme?</p></div>
+      <div class="ci"><strong>Q3</strong><p>3 Sutras of New Delhi Declaration?</p></div>
+      <div class="ci"><strong>Q4</strong><p>7 Chakras — specific action tracks?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Project MANAV — what is it?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill au">4th Global AI Summit — first in Global South</span>
+        <span class="pill">Venue: Bharat Mandapam, <b>New Delhi</b></span>
+        <span class="pill">Dates: Feb 16–20, 2026</span>
+        <span class="pill">Theme: <b>"People, Planet, and Progress"</b></span>
+        <span class="pill g">Endorsed by <b>91 countries</b> and international organizations</span>
+      </div>
+
+      <h3>Global AI Summit Sequence</h3>
+      <table class="dt">
+        <tr><th>Summit</th><th>Location</th><th>Year</th><th>Focus Keyword</th></tr>
+        <tr><td>1st</td><td>Bletchley Park, <b>UK</b></td><td>2023</td><td><b>Safety</b> (Existential risk)</td></tr>
+        <tr><td>2nd</td><td><b>Seoul</b>, Korea</td><td>2024</td><td><b>Innovation</b></td></tr>
+        <tr><td>3rd</td><td><b>Paris</b>, France</td><td>Feb 2025</td><td><b>Action</b></td></tr>
+        <tr><td>4th</td><td><b>New Delhi</b>, India</td><td>Feb 2026</td><td><b>Impact</b> (Applied AI)</td></tr>
+      </table>
+      <div class="hbox"><b>Significance:</b> Unlike previous summits focused on "Safety/Existential Risk" (Western concerns), India's summit focuses on <b>"Applied AI"</b> — Health, Agriculture, Governance — more relevant to developing nations. Core philosophy: "Sarvajan Hitaya, Sarvajan Sukhaya" + "Vasudhaiva Kutumbakam".</div>
+
+      <h3>3 Sutras (Foundational Pillars)</h3>
+      <div class="pills">
+        <span class="pill g">1. People (Inclusive AI) — societal inclusion, language barriers, Bhashini</span>
+        <span class="pill g">2. Planet (Green AI) — energy-efficient compute, environmental footprint</span>
+        <span class="pill g">3. Progress (Democratizing Access) — AIRAWAT cloud infrastructure, high-performance compute</span>
+      </div>
+
+      <h3>7 Chakras (Action Tracks)</h3>
+      <div class="pills">
+        <span class="pill">1. Health</span><span class="pill">2. Agriculture</span><span class="pill">3. Education</span><span class="pill">4. Smart Cities</span>
+        <span class="pill">5. Cyber Security</span><span class="pill">6. Governance (DPI, court translations)</span><span class="pill">7. Ethics (Trusted AI Commons)</span>
+      </div>
+
+      <h3>Key Outcomes</h3>
+      <ul class="ul">
+        <li><b>Project MANAV</b>: Human-centric initiative for massive workforce reskilling, public AI literacy, job transitions in AI economy</li>
+        <li><b>Investments</b>: ~$250 Billion in compute/infrastructure pledges + ~$20 Billion in deep-tech VC funding</li>
+        <li><b>Pax Silica</b>: India formally joined the coalition to secure global semiconductor supply chains</li>
+        <li><b>GPAI Council Meeting</b>: Annual council of Global Partnership on AI (29 members; India = Founding Member) held Feb 20, 2026</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>4th Global AI Summit: UK(Safety)→Seoul(Innovation)→Paris(Action)→India(Impact). New Delhi, Bharat Mandapam, Feb 16–20 2026, 91 countries. 3 Sutras: People/Planet/Progress. 7 Chakras: Health/Agriculture/Education/Smart Cities/CyberSec/Governance/Ethics. Project MANAV = workforce reskilling. $250Bn pledged.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     9. DIGITAL DIPLOMACY
+══════════════════════════════════════ -->
+<div class="page" id="digital">
+  <div class="sh" onclick="tog(this)"><span>9 · Digital Diplomacy &amp; Strategic Alliances</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>DiGi Framework: members, India's role, Australia in or out?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Chip 4 Alliance: members, India in or out?</p></div>
+      <div class="ci"><strong>Q3</strong><p>iCET: bilateral with which country?</p></div>
+      <div class="ci"><strong>Q4</strong><p>UN Cybercrime Convention vs Budapest Convention?</p></div>
+      <div class="ci"><strong>Q5</strong><p>GPAI: how many members? India's role?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Initiative</th><th>Members</th><th>Focus</th><th>India's Status / Trap</th></tr>
+        <tr><td><b>DiGi Framework</b><br>(Digital Infrastructure Growth Initiative)</td><td>USA (DFC), Japan (JBIC), South Korea (KEXIM)</td><td>Fund Hard Infra (5G, 6G, Submarine Cables); break reliance on Huawei/ZTE. Open RAN + AI Compute.</td><td><b>Australia is NOT a member.</b> US-Japan-Korea trilateral. India = Beneficiary (recipient of funds), not donor/signatory.</td></tr>
+        <tr><td><b>iCET</b><br>(Initiative on Critical &amp; Emerging Tech)</td><td>India + USA (Bilateral)</td><td>Technology Transfer: Jet Engines, Space, Quantum, Chips</td><td>India = Partner (Co-developer). Distinct from DiGi (which is just money).</td></tr>
+        <tr><td><b>Chip 4 Alliance</b></td><td>USA, Japan, South Korea, Taiwan</td><td>Securing semiconductor supply chains, containing China</td><td><b>India is NOT a member.</b></td></tr>
+        <tr><td><b>Quad</b></td><td>India, USA, Japan, Australia</td><td>Public goods, maritime security, vaccines, HADR</td><td>India = Member. Australia IS present here (unlike DiGi).</td></tr>
+        <tr><td><b>MSP</b><br>(Mineral Security Partnership)</td><td>14 Countries + EU</td><td>Lithium/Cobalt/Graphite supply chains</td><td>India = Member (joined 2023).</td></tr>
+        <tr><td><b>UN Cybercrime Convention</b></td><td>UN Member States (Global)</td><td>First legally binding global treaty. Cross-border access to e-evidence for "Serious Crimes."</td><td>Distinct from Budapest Convention (Council of Europe). India voted <b>IN FAVOUR</b>.</td></tr>
+        <tr><td><b>Global Digital Compact (GDC)</b></td><td>UN General Assembly</td><td>Non-binding. Norms for "Open Internet." Proposes "IPCC for AI" (scientific panel).</td><td>Adopted as part of "Pact for the Future" (2024).</td></tr>
+        <tr><td><b>GPAI</b><br>(Global Partnership on AI)</td><td>29 Members</td><td>Applied AI projects (Agriculture/Health). Integrating with OECD 2025–26.</td><td>India = <b>Founding Member</b>. India hosted 2024 Summit as Lead Chair.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>DiGi = US-Japan-Korea trilateral (Australia OUT; India = beneficiary). Chip 4 = USA+Japan+Korea+Taiwan (India NOT member). iCET = India-USA bilateral tech transfer. UN Cybercrime Convention ≠ Budapest Convention. GPAI = 29 members (India Founding Member). India IN: Quad, MSP, GPAI. India OUT: Chip 4.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     10. UPI GLOBAL
+══════════════════════════════════════ -->
+<div class="page" id="upi">
+  <div class="sh" onclick="tog(this)"><span>10 · UPI Global Presence (2026)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>First country to adopt UPI officially?</p></div>
+      <div class="ci"><strong>Q2</strong><p>First P2P UPI linkage — which country?</p></div>
+      <div class="ci"><strong>Q3</strong><p>First European country to accept UPI?</p></div>
+      <div class="ci"><strong>Q4</strong><p>First non-Asian country to launch RuPay + UPI together?</p></div>
+      <div class="ci"><strong>Q5</strong><p>First African and South American countries linked to UPI?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Country</th><th>Status</th><th>Key Fact</th></tr>
+        <tr><td><b>Bhutan</b></td><td>Merchant Acceptance</td><td><b>First country</b> to officially adopt UPI standards (BHIM-UPI QR)</td></tr>
+        <tr><td><b>Singapore</b></td><td>Merchant + Remittance</td><td><b>First P2P Linkage</b>: India's UPI ↔ Singapore's PayNow for instant cross-border transfers</td></tr>
+        <tr><td><b>France</b></td><td>Merchant Acceptance</td><td><b>First European country</b>. Accepted at Eiffel Tower &amp; Galeries Lafayette (via Lyra)</td></tr>
+        <tr><td><b>UAE</b></td><td>Merchant Acceptance</td><td>Accepted at NEOPAY terminals (Mashreq Bank). JAYWAN card = RuPay-based</td></tr>
+        <tr><td><b>Nepal</b></td><td>Merchant Acceptance</td><td>Cross-border QR payments via Fonepay (NIPL partnership)</td></tr>
+        <tr><td><b>Sri Lanka</b></td><td>Merchant Acceptance</td><td>Launched officially Feb 2024 for Indian tourists</td></tr>
+        <tr><td><b>Mauritius</b></td><td>Merchant Acceptance</td><td>Launched Feb 2024. <b>First non-Asian country</b> to launch RuPay &amp; UPI together</td></tr>
+        <tr><td><b>Namibia</b></td><td>Tech Adoption</td><td><b>First African country</b> to partner with NIPL to build their own instant payment system using UPI stack</td></tr>
+        <tr><td><b>Peru</b></td><td>Tech Adoption</td><td><b>First South American country</b> to adopt UPI technology for national payment system</td></tr>
+        <tr><td>Malaysia</td><td>Merchant Acceptance</td><td>Via PayNet partnership</td></tr>
+        <tr><td>Oman</td><td>Merchant Acceptance</td><td>OmanNet QR codes</td></tr>
+        <tr><td>Qatar</td><td>Merchant Acceptance</td><td>Commercial outlets via QNB partnership</td></tr>
+        <tr><td>Russia</td><td>Discussion Stage</td><td>Integration with Russia's FPS (Fast Payment System) ongoing — not fully live yet</td></tr>
+      </table>
+      <div class="hbox"><b>UN 50-in-5 Campaign</b>: Goal to get 50 countries to launch at least 1 DPI component in 5 years. India's India Stack exports (UPI, Aadhaar-model) driving this globally.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>UPI "Firsts": Bhutan (1st adopter), Singapore (1st P2P = UPI↔PayNow), France (1st European), Mauritius (1st non-Asian RuPay+UPI together), Namibia (1st African tech adoption), Peru (1st South American tech adoption). Russia = discussion stage only. UAE JAYWAN = RuPay-based card.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     11. BBNJ / HIGH SEAS TREATY
+══════════════════════════════════════ -->
+<div class="page" id="bbnj">
+  <div class="sh" onclick="tog(this)"><span>11 · High Seas Treaty (BBNJ Agreement)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>BBNJ full form? What is it developed under?</p></div>
+      <div class="ci"><strong>Q2</strong><p>How many implementing agreements under UNCLOS? List all 3.</p></div>
+      <div class="ci"><strong>Q3</strong><p>Treaty enters into force after how many ratifications? Current status?</p></div>
+      <div class="ci"><strong>Q4</strong><p>High seas = what % of ocean surface?</p></div>
+      <div class="ci"><strong>Q5</strong><p>4 objectives of the BBNJ Treaty?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill au">Full form: <b>Biodiversity Beyond National Jurisdiction</b> Agreement</span>
+        <span class="pill">Developed under: <b>UNCLOS</b></span>
+        <span class="pill">Coverage: Beyond <b>200 nautical miles</b> (beyond EEZ)</span>
+        <span class="pill">India: Signed (25 Sep 2024) but NOT ratified</span>
+        <span class="pill r">As of Nov 2024: 105 signed, only 15 ratified</span>
+      </div>
+
+      <h3>UNCLOS Implementing Agreements (3 total)</h3>
+      <div class="pills">
+        <span class="pill g">1. 1994 Part XI Implementation Agreement — seabed minerals</span>
+        <span class="pill g">2. 1995 UN Fish Stocks Agreement — migratory fish conservation</span>
+        <span class="pill au">3. BBNJ Agreement (2023) — high seas biodiversity [NEW]</span>
+      </div>
+
+      <h3>Key Facts</h3>
+      <ul class="ul">
+        <li>High seas cover <b>64% of ocean surface</b> and <b>43% of Earth's area</b></li>
+        <li>Host <b>2.2 million marine species</b> and vast microbial life</li>
+        <li>17 million tonnes of plastic dumped in oceans in 2021</li>
+        <li>Enters international law <b>120 days after 60 countries ratify</b></li>
+        <li>Supports <b>SDG 14</b> (Life Below Water)</li>
+      </ul>
+
+      <h3>4 Objectives of BBNJ</h3>
+      <table class="dt">
+        <tr><th>Objective</th><th>Details</th></tr>
+        <tr><td><b>Marine Protected Areas (MPAs)</b></td><td>Establish conservation zones to protect ecosystems from human activities and climate change</td></tr>
+        <tr><td><b>Marine Genetic Resources</b></td><td>Equitable sharing of benefits from marine genetic discoveries (e.g., drug development) with open access to research</td></tr>
+        <tr><td><b>Environmental Impact Assessments (EIA)</b></td><td>Prior EIAs mandated for activities that could harm marine ecosystems, with public disclosure</td></tr>
+        <tr><td><b>Capacity Building &amp; Technology Transfer</b></td><td>Supports small island and landlocked nations in conservation efforts and sustainable resource use</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>BBNJ = Biodiversity Beyond National Jurisdiction. 3rd UNCLOS implementing agreement (after 1994 Seabed minerals + 1995 Fish Stocks). Covers beyond 200nm EEZ. High seas = 64% ocean surface, 43% Earth's area. Enters into force 120 days after 60 ratifications (only 15 ratified as of Nov 2024). India signed Sep 2024, not ratified.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     12. UNCLOS + SCS
+══════════════════════════════════════ -->
+<div class="page" id="unclos">
+  <div class="sh" onclick="tog(this)"><span>12 · UNCLOS 1982 &amp; South China Sea Dispute</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>UNCLOS: adopted when, where? In force when?</p></div>
+      <div class="ci"><strong>Q2</strong><p>5 maritime zones + distances? Which has no airspace jurisdiction?</p></div>
+      <div class="ci"><strong>Q3</strong><p>3 institutions created by UNCLOS?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Spratly, Paracel, Scarborough Shoal — who claims each?</p></div>
+      <div class="ci"><strong>Q5</strong><p>What is China's "Nine-Dash Line"? What % of SCS does it claim?</p></div>
+    </div>
+    <div class="nc">
+      <div class="pills">
+        <span class="pill">Adopted: <b>10 Dec 1982</b>, Montego Bay, Jamaica</span>
+        <span class="pill">In force: <b>16 Nov 1994</b> (after 60 ratifications)</span>
+        <span class="pill">168 parties. India = State Party.</span>
+        <span class="pill">AKA "Constitution for the Oceans"</span>
+      </div>
+
+      <h3>5 Maritime Zones</h3>
+      <table class="dt">
+        <tr><th>Zone</th><th>Distance</th><th>Rights</th><th>Airspace?</th></tr>
+        <tr><td><b>Internal Waters</b></td><td>Landward of baseline</td><td>Full sovereignty (bays, ports, rivers). NO right of innocent passage.</td><td>Yes (full sovereignty)</td></tr>
+        <tr><td><b>Territorial Sea</b></td><td><b>12 nm</b></td><td>Full sovereignty over surface, seabed, subsoil. Allows innocent passage.</td><td>Yes</td></tr>
+        <tr><td><b>Contiguous Zone</b></td><td><b>24 nm</b></td><td>Limited control — fiscal, immigration, sanitary, customs laws only.</td><td><b>NO airspace jurisdiction</b></td></tr>
+        <tr><td><b>EEZ</b></td><td><b>200 nm</b></td><td>Sovereign rights for resource exploration, conservation, energy production. Does NOT restrict navigation or overflight.</td><td>No (international airspace)</td></tr>
+        <tr><td><b>High Seas</b></td><td>Beyond EEZ</td><td>Open to all states for peaceful purposes. "Common heritage of all mankind."</td><td>International airspace</td></tr>
+      </table>
+      <div class="hbox"><b>Continental Shelf</b>: Beyond 200nm EEZ up to 350nm — coastal state has sovereign rights over seabed/subsoil resources (managed by CLCS).</div>
+
+      <h3>3 Institutions Created by UNCLOS</h3>
+      <div class="pills">
+        <span class="pill g">1. ITLOS (International Tribunal for the Law of the Sea) — disputes on UNCLOS interpretation</span>
+        <span class="pill g">2. ISA (International Seabed Authority) — protects marine environment from deep-seabed activities</span>
+        <span class="pill g">3. CLCS (Commission on the Limits of the Continental Shelf) — sets outer limits of continental shelf beyond 200nm</span>
+      </div>
+
+      <h3>South China Sea Disputes</h3>
+      <table class="dt">
+        <tr><th>Feature</th><th>Claimants</th></tr>
+        <tr><td><b>Spratly Islands</b></td><td>China, Vietnam, Philippines, Malaysia, Brunei, Taiwan</td></tr>
+        <tr><td><b>Paracel Islands</b></td><td>China, Vietnam, Taiwan</td></tr>
+        <tr><td><b>Scarborough Shoal</b></td><td>China, Philippines, Taiwan</td></tr>
+        <tr><td><b>Nine-Dash Line</b></td><td>China's claim encompassing ~<b>90%</b> of South China Sea (based on historical maps). NOT recognized by international law. Permanent Court of Arbitration (2016): ruled against China — China rejected the ruling.</td></tr>
+        <tr><td><b>Grey Zone Tactics</b></td><td>China uses Coast Guard + maritime militia for aggressive maneuvers, vessel harassment — altering status quo without direct warfare.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>UNCLOS (adopted 10 Dec 1982, in force 16 Nov 1994). 5 zones: Internal Waters → TS (12nm) → CZ (24nm, no airspace) → EEZ (200nm) → High Seas. 3 institutions: ITLOS, ISA, CLCS. South China Sea: Spratlys (6 claimants), Paracel (3), Scarborough Shoal (3). Nine-Dash Line = ~90% SCS claim, rejected by international law.</div>
+</div>
+
+<div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#888;padding:10px 0 22px;">
+  Sarrthi IAS · PNP 2026 · International Relations – Lecture 4 · Cornell Notes
+</div>
+</div>
+
+<script>
+  function tog(h){
+    const b=h.nextElementSibling;
+    const a=h.querySelector('.tog');
+    if(!b)return;
+    const c=b.classList.toggle('collapsed');
+    a.textContent=c?'▶':'▼';
+  }
+</script>
+</body>
+</html>

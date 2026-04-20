@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR Cornell Notes – Lecture 6 | UPSC Prelims 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#12100e;--paper:#faf7f2;--cream:#f0ead8;--rule:#cfc0a8;--red:#b5281c;--blue:#14305a;--gold:#9a7200;--hl:#fff9c4;--trap-bg:#fff0ee;--trap-bdr:#d94030;--tag-bg:#e6effc;--tag-col:#14305a;--green:#1a6b3a;--green-bg:#eaf7ee;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#ddd5c5;font-family:'Source Serif 4',Georgia,serif;color:var(--ink);padding:20px 14px;}
+  .nb{max-width:1120px;margin:0 auto;}
+  .nb-hd{background:var(--blue);color:#fff;padding:18px 28px 14px;border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .nb-hd h1{font-family:'Playfair Display',serif;font-size:1.55rem;line-height:1.2;}
+  .nb-hd .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;opacity:.78;text-align:right;}
+  .nb-hd .meta span{display:block;}
+  .toc{background:var(--cream);border-bottom:2px solid var(--gold);padding:8px 26px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.76rem;font-family:'JetBrains Mono',monospace;}
+  .toc a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue);}
+  .toc a:hover{color:var(--red);}
+  .page{background:var(--paper);background-image:repeating-linear-gradient(transparent,transparent 27px,var(--rule) 27px,var(--rule) 28px);border-left:5px solid var(--blue);box-shadow:4px 6px 20px rgba(0,0,0,.16);margin-bottom:30px;border-radius:0 0 4px 4px;}
+  .sh{background:var(--blue);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;padding:8px 22px 7px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;cursor:pointer;user-select:none;transition:background .2s;}
+  .sh:hover{background:#0d2040;}
+  .sh .tog{font-size:.82rem;margin-left:auto;opacity:.7;}
+  .sb{display:grid;grid-template-columns:218px 1fr;}
+  .cue{border-right:2px solid var(--red);padding:14px 12px;background:rgba(181,40,28,.03);}
+  .ci{margin-bottom:16px;padding:7px 9px;border-left:3px solid var(--red);background:rgba(181,40,28,.06);border-radius:0 3px 3px 0;}
+  .ci strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+  .ci p{font-size:.78rem;line-height:1.42;color:var(--blue);font-weight:600;}
+  .nc{padding:14px 20px;}
+  .nc h3{font-family:'Playfair Display',serif;font-size:.93rem;color:var(--blue);margin:14px 0 5px;padding-bottom:2px;border-bottom:1px dashed var(--rule);}
+  .nc h3:first-child{margin-top:0;}
+  .dt{width:100%;border-collapse:collapse;font-size:.78rem;margin:7px 0 12px;}
+  .dt th{background:var(--blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;padding:5px 9px;text-align:left;}
+  .dt td{padding:5px 9px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4;}
+  .dt tr:nth-child(even) td{background:rgba(0,0,0,.022);}
+  .dt tr:hover td{background:var(--hl);}
+  .pills{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 10px;}
+  .pill{background:var(--tag-bg);color:var(--tag-col);font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:99px;border:1px solid #a8c0ea;white-space:nowrap;}
+  .pill.g{background:#eaf7ee;border-color:#7dba95;color:var(--green);}
+  .pill.r{background:#fff0ee;border-color:#e08080;color:#a00;}
+  .pill.au{background:#fef9e7;border-color:var(--gold);color:var(--gold);}
+  .trap{background:var(--trap-bg);border:1.5px solid var(--trap-bdr);border-radius:4px;padding:6px 11px;font-size:.76rem;margin:7px 0;line-height:1.5;}
+  .trap::before{content:"PRELIMS TRAP: ";font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;color:var(--trap-bdr);display:block;margin-bottom:2px;}
+  .hbox{background:var(--hl);border-left:3px solid var(--gold);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .gbox{background:var(--green-bg);border-left:3px solid var(--green);padding:6px 11px;font-size:.79rem;margin:7px 0;line-height:1.5;border-radius:0 3px 3px 0;}
+  .ul{padding-left:15px;margin:3px 0 9px;font-size:.8rem;line-height:1.54;}
+  .ul li{margin-bottom:3px;}
+  .ul li b{color:var(--blue);}
+  .sum{border-top:2px solid var(--red);padding:10px 20px;background:rgba(181,40,28,.04);font-size:.76rem;}
+  .sum strong{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:4px;}
+  .collapsed{display:none!important;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;}.tog{display:none;}.sb{display:grid!important;}}
+</style>
+</head>
+<body>
+<div class="nb">
+<div class="nb-hd">
+  <h1>International Relations – Lecture 6<br><small style="font-size:.62em;opacity:.72">Defense Systems · Military Ops · Awards · Diplomatic Accords · Global Initiatives</small></h1>
+  <div class="meta"><span>UPSC PRELIMS 2026</span><span>Sarrthi IAS – PNP 2026</span><span>Cornell Notes</span></div>
+</div>
+<div class="toc">
+  <a href="#russia">Russian Systems</a><a href="#israel">Israeli Systems</a><a href="#india">Indian Systems</a>
+  <a href="#others">Other Systems</a><a href="#ops_israel">Ops: Israel-Iran</a><a href="#ops_maritime">Ops: Maritime/Europe</a>
+  <a href="#awards24">Awards 2024</a><a href="#awards25">Awards 2025</a>
+  <a href="#accords">Diplomatic Accords</a><a href="#initiatives">Global Initiatives</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. RUSSIAN DEFENSE SYSTEMS
+══════════════════════════════════════ -->
+<div class="page" id="russia">
+  <div class="sh" onclick="tog(this)"><span>1 · Russian Defense Systems</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>S-550 vs S-500 vs S-400 — what does each defend against?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Su-57 Felon — India's status with it?</p></div>
+      <div class="ci"><strong>Q3</strong><p>S-550 entered combat duty in 2025 to counter which US asset?</p></div>
+      <div class="ci"><strong>Q4</strong><p>S-500 first regiment deployed where?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Su-57 export: which country received first batch?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>System</th><th>Function</th><th>Key Capability</th><th>2025-26 Update / Trap</th></tr>
+        <tr><td><b>S-550</b></td><td>Space Defense / ASAT</td><td>Mobile system; Anti-Satellite + intercepts ICBMs in space</td><td>Entered combat duty 2025 to counter US <b>X-37B spaceplanes</b>. Trap: Distinct from S-500 (both space-capable, different targets). Often confused with Su-57 (jet fighter).</td></tr>
+        <tr><td><b>S-500 Prometheus</b></td><td>Space Defense (Replaces S-400)</td><td>Intercepts ICBMs AND satellites in Low Earth Orbit (LEO)</td><td>First regiment deployed 2025 to protect Moscow. Claimed to stop US "Dark Eagle" hypersonic missiles. Key distinction: S-400 = aerial/cruise missiles; S-500 = ICBMs + space targets.</td></tr>
+        <tr><td><b>Su-57 Felon</b></td><td>5th Generation Stealth Fighter</td><td>Russia's rival to F-35. Super-cruise + internal weapons bays.</td><td>Trap: India withdrew from FGFA (Su-57 derivative) program in <b>2018</b>; it is NOT inducted by India. Export: Algeria reportedly received first batch in late 2025.</td></tr>
+      </table>
+
+      <h3>Russian System Quick Ladder</h3>
+      <div class="pills">
+        <span class="pill">S-300 → S-400 → S-500 → S-550 (increasing altitude/space capability)</span>
+        <span class="pill r">S-550 = ASAT + ICBM (Space). S-500 = ICBMs + LEO. S-400 = Air + Cruise + Ballistic. S-300 = Air/Ballistic only.</span>
+      </div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>S-550 = ASAT/space (counters X-37B, 2025). S-500 = ICBMs+LEO satellites, first regiment Moscow 2025. S-550 ≠ S-500 ≠ Su-57. Su-57 Felon = 5th Gen jet; India withdrew from FGFA 2018. Algeria first export customer for Su-57.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2. ISRAELI DEFENSE SYSTEMS
+══════════════════════════════════════ -->
+<div class="page" id="israel">
+  <div class="sh" onclick="tog(this)"><span>2 · Israeli Defense Systems — The Full "Layered Shield"</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Iron Dome vs Iron Beam — kinetic vs what? Cost per shot?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Arrow-3 — what range? First combat use against whom?</p></div>
+      <div class="ci"><strong>Q3</strong><p>David's Sling — "Magic Wand", fills gap between what and what?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Barak Magen — installed on which corvettes? Purpose?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Iron Sting — what type of weapon, what warfare context?</p></div>
+    </div>
+    <div class="nc">
+      <h3>Israel's Layered Air Defense Architecture</h3>
+      <table class="dt">
+        <tr><th>System</th><th>Range / Layer</th><th>Function</th><th>2025-26 Note / Trap</th></tr>
+        <tr><td><b>Iron Beam</b></td><td>Short-range (DEW)</td><td>Laser Defense. 100kW lasers destroy rockets/drones for ~<b>$2 per shot</b>.</td><td>Game Changer: Officially deployed Dec 2025 alongside Iron Dome. Neutralizes cheap drone swarms without wasting $50k missiles. DEW = Directed Energy Weapon.</td></tr>
+        <tr><td><b>Iron Dome</b></td><td>Short-range (Kinetic, 0-70km)</td><td>Intercepts rockets, mortars, drones</td><td>Used in Op True Promise 3 (June 2025) — overwhelmed by ~500 Iranian missiles. Complemented by Iron Beam now.</td></tr>
+        <tr><td><b>David's Sling</b></td><td>Medium-range (40-300km)</td><td>Fills gap between Iron Dome (short) and Arrow (long). "Magic Wand."</td><td>Successfully intercepted "Khaibar-Shekan" (Iran's advanced ballistic missile).</td></tr>
+        <tr><td><b>Arrow-3</b></td><td>Long-range / Exo-atmospheric</td><td>Destroys ballistic missiles in <b>space</b> (hypersonic speeds). 1600km range.</td><td>Combat Proven: First ever combat use of space-warfare interceptors — shot down Houthi missiles from Yemen. Iran's Fattah-2 was designed specifically to counter Arrow-3.</td></tr>
+        <tr><td><b>Barak Magen</b></td><td>Naval (Sea-based)</td><td>Naval Iron Dome. Ship-borne interceptor on <b>Sa'ar 6 corvettes</b>.</td><td>Protected Israel's offshore gas rigs (Karish + Leviathan) from Hezbollah drone attacks. Energy security application.</td></tr>
+        <tr><td><b>Iron Sting</b></td><td>Precision Mortar</td><td>Laser-guided 120mm mortar. Hits specific rooms/windows without collapsing buildings.</td><td>Urban Warfare tool. Used in Gaza. "Surgical precision" = minimizes civilian collateral.</td></tr>
+      </table>
+      <div class="hbox"><b>Order from ground-up:</b> Iron Beam (DEW, close-in) → Iron Dome (0-70km) → David's Sling (40-300km) → Arrow-2 (Endo-atmospheric) → Arrow-3 (Exo-atmospheric, space).</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Israel's layered shield: Iron Beam (laser, $2/shot, Dec 2025) + Iron Dome (kinetic, short) + David's Sling (medium, "Magic Wand") + Arrow-3 (exo-atmospheric, space, combat proven vs Houthis). Barak Magen = naval version on Sa'ar 6 corvettes. Iron Sting = precision mortar for urban warfare.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3. INDIAN DEFENSE SYSTEMS
+══════════════════════════════════════ -->
+<div class="page" id="india">
+  <div class="sh" onclick="tog(this)"><span>3 · Indian Defense Systems &amp; Inductions</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Project Kusha — full form, 3-layer ranges, DRDO program?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Agni-Prime — range, canisterized? Railway launcher significance?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Zorawar — weight, designed for where, counters which Chinese tank?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Drishti-10 — who manufactured it (private sector milestone)?</p></div>
+      <div class="ci"><strong>Q5</strong><p>C-295 — replaces what? Factory location?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>System</th><th>Category</th><th>Key Specification</th><th>2025-26 Update / Trap</th></tr>
+        <tr><td><b>Project Kusha</b></td><td>Long Range Air Defense (LR-SAM)</td><td>India's indigenous "S-400 Rival" (DRDO). 3-layer shield at 150km / 250km / 350km. Neutralizes stealth jets.</td><td>Firing trials began 2026. Addresses gap post-S-400 induction (complements it for deeper coverage).</td></tr>
+        <tr><td><b>Agni-Prime</b></td><td>New Gen Ballistic Missile</td><td>Canisterized, solid-fuel, 2000 km range. Two-stage missile.</td><td>Successfully test-fired from <b>Railway-based Launcher</b> (Sept 2025) — makes it harder to track/target. Canisterized = road mobile + rail mobile.</td></tr>
+        <tr><td><b>Zorawar</b></td><td>Light Tank (25 Ton)</td><td>Designed for High Altitude (Ladakh). Amphibious + air-transportable.</td><td>User trials started <b>Feb 2026</b>. Indigenous design to counter China's <b>Type-15 Light Tank</b>. 25 tons vs regular MBT (50+ tons) for mountain mobility.</td></tr>
+        <tr><td><b>Drishti-10</b></td><td>MALE UAV (Medium Altitude Long Endurance)</td><td>Indigenous version of Israeli Hermes 900.</td><td>Milestone: First major UAV manufactured by <b>private sector (Adani Defence)</b> inducted by the Indian Navy. Signals opening of defence manufacturing to private firms.</td></tr>
+        <tr><td><b>Igla-S</b></td><td>VSHORADS (Man-Portable, Very Short Range)</td><td>Man-portable missile for low-flying threats (helicopters, drones, aircraft).</td><td>Made in India: First batch of Indian-assembled Igla-S missiles (Adani Defence) delivered late 2025 — replaces older Igla-1M.</td></tr>
+        <tr><td><b>MH-60R Seahawk</b></td><td>Anti-Submarine Helicopter (ASW)</td><td>"The Romeo." Armed with Hellfire + torpedoes. 24 helicopters from USA.</td><td>India signed ₹7,995 Cr deal (Dec 2025) for long-term maintenance contract. Critical for anti-submarine warfare in IOR.</td></tr>
+        <tr><td><b>AH-64E Apache</b></td><td>Attack Helicopter</td><td>"Tank Killer" with Longbow Radar. USA-origin.</td><td>Indian Army (NOT just Air Force) operationalized first squadron (<b>451 Squadron</b>) in Jodhpur. Trap: Army, not just IAF, now has Apache.</td></tr>
+        <tr><td><b>C-295</b></td><td>Tactical Transport Aircraft</td><td>Spain/India (Tata-Airbus). Replaces Avro-748. Uses short airstrips.</td><td>First "Made in India" unit from Tata-Airbus factory in <b>Vadodara</b> rolls out Sept 2026. First major military aircraft manufactured in India by private sector.</td></tr>
+        <tr><td><b>HAMMER</b></td><td>Precision Guided Munition (France/India)</td><td>Rocket-boosted kit turning gravity bombs into 70km stand-off missiles.</td><td>BEL + Safran JV (Nov 2025) to manufacture in India. Gives <b>Tejas LCA</b> stand-off capability — can now attack without entering enemy airspace.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Project Kusha = indigenous LR-SAM (3 layers: 150/250/350km). Agni-Prime = railway launcher Sept 2025. Zorawar = 25T light tank (vs China's Type-15). Drishti-10 = first private sector (Adani) MALE UAV inducted by Navy. C-295 = first Made-in-India military aircraft (Vadodara, Sept 2026). AH-64E Apache = Indian Army 451 Sqn Jodhpur.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     4. OTHER NATIONS' SYSTEMS
+══════════════════════════════════════ -->
+<div class="page" id="others">
+  <div class="sh" onclick="tog(this)"><span>4 · Other Nations' Defense Systems</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>HQ-19 (China) — what is it? Pakistan connection?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Typhon System (USA) — deployed where? What missiles does it fire?</p></div>
+      <div class="ci"><strong>Q3</strong><p>FrankenSAM — who uses it, why "Frankenstein"?</p></div>
+      <div class="ci"><strong>Q4</strong><p>VAMPIRE — full form, what threat does it counter?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Fattah-2 (Iran) — what is MaRV? Why designed?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>System</th><th>Country</th><th>Function</th><th>Key Strategic Note / Trap</th></tr>
+        <tr><td><b>HQ-19</b></td><td>China</td><td>Anti-Ballistic Missile. China's version of US THAAD. Intercepts missiles <b>outside the atmosphere</b>.</td><td>"Pakistan" Angle: Pakistan plans to induct HQ-19 (June 2025) to counter India's Agni missiles. Also deployed to deter US carriers near Taiwan.</td></tr>
+        <tr><td><b>Typhon System</b></td><td>USA</td><td>Mid-Range Ground Launcher. Fires <b>Tomahawk</b> (Land Attack) and <b>SM-6</b> (Anti-Ship) missiles.</td><td>"Missile Crisis of the East": Permanently deployed in Philippines (Luzon Island) in 2025 — provoked China, as it can strike the Chinese mainland. Analogous to NATO missiles in Europe.</td></tr>
+        <tr><td><b>FrankenSAM</b></td><td>Ukraine / USA</td><td>Hybrid Air Defense. "Frankenstein" system: Fits Western missiles (Sidewinder) on Soviet launchers (Buk).</td><td>"Jugaad of War" (2025 innovation): Keeps Ukraine's defense active despite shortage of Soviet-standard ammunition. Combines best of both Western and Soviet technology.</td></tr>
+        <tr><td><b>VAMPIRE</b></td><td>USA</td><td>Anti-Drone Kit. Full form: <b>Vehicle-Agnostic Modular Palletized ISR Rocket Equipment</b>.</td><td>Low-Cost portable laser-guided rocket kit for pickup trucks. Sent to Ukraine to kill cheap Iranian Shahed-136 drones. Democratizes anti-drone capability.</td></tr>
+        <tr><td><b>Fattah-2</b></td><td>Iran</td><td>Hypersonic Missile. Features a maneuverable re-entry vehicle (<b>MaRV</b>).</td><td>Escalation Tool: Unveiled as direct response to Israel's Arrow-3 shield. MaRV = can change direction during re-entry, making interception harder.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>HQ-19 (China) = exo-atmospheric ABM (like THAAD); Pakistan inducting to counter Agni missiles. Typhon (USA) = Tomahawk + SM-6 launcher; in Philippines Luzon, can hit Chinese mainland. FrankenSAM = Ukraine hybrid (Western missile + Soviet launcher). VAMPIRE = anti-drone kit vs Shahed-136. Fattah-2 (Iran) = hypersonic + MaRV, counters Arrow-3.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     5. MILITARY OPERATIONS: ISRAEL-IRAN
+══════════════════════════════════════ -->
+<div class="page" id="ops_israel">
+  <div class="sh" onclick="tog(this)"><span>5 · Military Operations: Israel-Iran-Proxy Conflict</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Op True Promise 3 — belligerent, target, warning given?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Op Midnight Hammer — who carried it, what bomb type, target?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Op Northern Arrows — target, goal, what drone tactic used?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Op Swords of Iron — what is this overall campaign?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Op Epic Fury / Lion's Roar — Feb 2026 escalation details?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Operation</th><th>Belligerent</th><th>Target &amp; Timeline</th><th>Strategic Outcome / Key Note</th></tr>
+        <tr><td><b>Op True Promise 3</b></td><td>Iran</td><td>Israel (June 2025). 3rd and largest direct Iran→Israel attack. ~500 ballistic/hypersonic missiles.</td><td>Escalation: Unlike versions 1 &amp; 2, NOT warned in advance. Overwhelmed parts of Iron Dome; hits near Dimona (nuclear site).</td></tr>
+        <tr><td><b>Op Midnight Hammer</b></td><td>USA &amp; Israel</td><td>Iran (June 2025). Coordinated airstrikes on nuclear sites, especially <b>Fordow</b>.</td><td>"Bunker Buster" Raid: US B-2 stealth bombers dropped GBU-57 MOPs (Massive Ordnance Penetrators) to collapse underground uranium enrichment facilities.</td></tr>
+        <tr><td><b>Op Rising Lion</b></td><td>Israel (IDF)</td><td>Iran + West Bank (Jenin). Name used for two distinct raids.</td><td>Iran Context: Preemptive strikes on missile silos (2025). West Bank Context: Drone-led raid on "Jenin Battalion" (armed group).</td></tr>
+        <tr><td><b>Op Northern Arrows</b></td><td>Israel (IDF)</td><td>Lebanon (Sept-Oct 2025). Ground invasion to the <b>Litani River</b>.</td><td>Goal: Enforce UN Resolution 1701 (requires Hezbollah withdrawal north of Litani). Heavy use of "Quadcopter Swarms" against Hezbollah positions.</td></tr>
+        <tr><td><b>Op Days of Repentance</b></td><td>Israel</td><td>Iran. Retaliatory strikes on S-300 air defense batteries.</td><td>Specifically targeted <b>Parchin military complex</b> (Iran's missile fuel factory).</td></tr>
+        <tr><td><b>Op Gideon's Chariots</b></td><td>Israel (IDF)</td><td>Gaza, Northern Gaza (March 2025).</td><td>Significance: Proved the failure of "Clear-Hold-Build" strategy — Hamas regrouped in previously cleared zones, showing military approach alone is insufficient.</td></tr>
+        <tr><td><b>Op Swords of Iron</b></td><td>Israel (IDF)</td><td>Gaza (overarching campaign since Oct 7, 2023).</td><td>The official name of the entire Israel-Gaza war campaign. Ongoing.</td></tr>
+        <tr><td><b>Op Epic Fury (US) / Op Lion's Roar (Israel)</b></td><td>USA &amp; Israel vs. Iran</td><td>Feb 27-28, 2026. Coordinated massive airstrikes on Iran's nuclear facilities, IRGC command centers, Tehran and Isfahan.</td><td>"2026 Escalation": Most intense regional escalation in decades. US cited "regime change" objective. Iran retaliated: ballistic missiles at Israel + US bases in Bahrain, UAE, Qatar.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Op True Promise 3 (Iran→Israel, June 2025, unwarned, ~500 missiles). Op Midnight Hammer (US+Israel→Fordow, GBU-57 MOPs). Op Northern Arrows (Litani River, Quadcopter swarms). Op Swords of Iron = overall Gaza war name. Op Epic Fury/Lion's Roar (Feb 2026) = most intense US-Israel vs Iran escalation; regime change objective.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     6. MARITIME + EUROPEAN OPS
+══════════════════════════════════════ -->
+<div class="page" id="ops_maritime">
+  <div class="sh" onclick="tog(this)"><span>6 · Global Maritime &amp; European Military Operations</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Op Prosperity Guardian — who leads it? India's role?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Op Aspides — what does "Aspides" mean? Does it bomb Yemen?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Op Atlantic Resolve — NATO's purpose?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Operation</th><th>Belligerent</th><th>Target / Context</th><th>Strategic Note</th></tr>
+        <tr><td><b>Op Prosperity Guardian</b></td><td>US-led Coalition</td><td>Red Sea. Defense against Houthi attacks on global shipping lanes.</td><td>India's Role: Deployed destroyers independently (INS Visakhapatnam etc.) but did <b>NOT join the US-led coalition structure</b>. India maintained "strategic autonomy" while protecting Indian ships.</td></tr>
+        <tr><td><b>Op Aspides</b></td><td>European Union (EU)</td><td>Red Sea. A strictly <b>defensive</b> naval mission.</td><td>Aspides = "Shield" in Greek. Unlike US/UK who bomb Houthi targets in Yemen, EU conducts only defensive interceptions. Does NOT bomb Yemen. Purpose: Protect European commercial shipping.</td></tr>
+        <tr><td><b>Op Atlantic Resolve</b></td><td>NATO</td><td>Eastern Europe. US armored brigades permanently stationed in Poland and Romania.</td><td>Deterrence against Russian expansion post-Ukraine war. Started 2014 (post-Crimea), expanded 2022. Shows NATO Article 5 commitment in Eastern flank.</td></tr>
+      </table>
+      <div class="hbox"><b>India + Red Sea:</b> India adopted a "go-alone" approach — deployed naval vessels to escort/protect Indian-flagged ships AND responded to distress calls from non-Indian vessels, but avoided formal US coalition membership to maintain strategic autonomy vis-à-vis Iran.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Op Prosperity Guardian = US coalition (Red Sea); India deployed independently but didn't join coalition. Op Aspides = EU defensive mission ("Shield"); does NOT bomb Yemen. Op Atlantic Resolve = NATO deterrence in Eastern Europe (Poland/Romania) vs Russia.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     7. AWARDS 2024
+══════════════════════════════════════ -->
+<div class="page" id="awards24">
+  <div class="sh" onclick="tog(this)"><span>7 · Awards Conferred on PM Modi in 2024</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Bhutan award — name? First ever for which category?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Russia award — significance for India-Russia ties?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Nigeria GCON — Modi is which numbered foreign recipient?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Guyana award — context of conferral?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Kuwait award — focused on which sector?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Date</th><th>Country</th><th>Award Name</th><th>Significance / Key Trap</th></tr>
+        <tr><td>Mar 22</td><td><b>Bhutan</b></td><td>Order of the Druk Gyalpo</td><td>Highest Civilian Honour. Unique: First foreign Head of Government to receive it (Announced 2021, conferred 2024).</td></tr>
+        <tr><td>July 9</td><td><b>Russia</b></td><td>Order of St. Andrew the Apostle</td><td>Highest State Honour. Context: For fostering the "Special and Privileged Strategic Partnership" (Announced 2019, conferred 2024 during Modi-Putin Moscow summit).</td></tr>
+        <tr><td>Nov 17</td><td><b>Nigeria</b></td><td>Grand Commander of the Order of the Niger (GCON)</td><td>Second Highest Nigerian Honour (NOT the highest). Fact: Only the <b>second foreign leader</b> to receive this after Queen Elizabeth II in 1969.</td></tr>
+        <tr><td>Nov 20</td><td><b>Guyana</b></td><td>The Order of Excellence</td><td>Highest National Award of Guyana. Conferred during India-CARICOM Summit in Georgetown (2nd Summit).</td></tr>
+        <tr><td>Nov 21</td><td><b>Dominica</b></td><td>Dominica Award of Honour</td><td>Highest National Award. Context: Recognition for India's "Vaccine Maitri" support during COVID-19.</td></tr>
+        <tr><td>Dec 22</td><td><b>Kuwait</b></td><td>Order of Mubarak Al-Kabeer</td><td>Highest Civilian Award of Kuwait. Focus: Strengthening energy and trade security in the Gulf. PM Modi = first Indian PM to visit Kuwait in 43 years.</td></tr>
+      </table>
+      <div class="trap">Nigeria's GCON is the "Second Highest" honour, NOT the highest Bhutan's Order of the Druk Gyalpo = Highest CIVILIAN (not state) honour. Russia's Order of St. Andrew = Highest STATE honour.</div>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>2024 Awards: Bhutan (Druk Gyalpo — first foreign Head of Govt), Russia (Order of St. Andrew — highest state honour), Nigeria (GCON — 2nd highest; 2nd foreign leader after Queen Elizabeth II 1969), Guyana (Order of Excellence — at CARICOM Summit), Dominica (Vaccine Maitri), Kuwait (Mubarak Al-Kabeer — 43-yr first visit).</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     8. AWARDS 2025
+══════════════════════════════════════ -->
+<div class="page" id="awards25">
+  <div class="sh" onclick="tog(this)"><span>8 · Awards Conferred on PM Modi in 2025</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Sri Lanka award — name? What category is this?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Brazil award — given during which event?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Trinidad &amp; Tobago award — connection to Indian diaspora?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Namibia award — which is Welwitschia Mirabilis?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Which 2025 award recognizes Caribbean outreach continuation?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Date</th><th>Country</th><th>Award Name</th><th>Key Detail</th></tr>
+        <tr><td>Mar 5</td><td><b>Barbados</b></td><td>Honorary Order of Freedom</td><td>Caribbean outreach continuation. Part of India's CARICOM engagement.</td></tr>
+        <tr><td>Mar 12</td><td><b>Mauritius</b></td><td>Grand Commander of the Order of the Star and Key</td><td>Conferred during National Day celebrations (Mauritius Day). Part of India-Mauritius strategic partnership.</td></tr>
+        <tr><td>Apr 5</td><td><b>Sri Lanka</b></td><td>Sri Lanka Mitra Vibhushana</td><td>Highest honour for foreign dignitaries in Sri Lanka. Reflects "Neighbourhood First" policy.</td></tr>
+        <tr><td>June 16</td><td><b>Cyprus</b></td><td>Grand Cross of the Order of Makarios III</td><td>Highest order of merit of Cyprus. PM Modi = first Indian PM to visit Cyprus.</td></tr>
+        <tr><td>July 2</td><td><b>Ghana</b></td><td>Officer of the Order of the Star of Ghana</td><td>Part of West Africa engagement. First Indian PM visit to Ghana in 30 years.</td></tr>
+        <tr><td>July 4</td><td><b>Trinidad &amp; Tobago</b></td><td>The Order of the Republic</td><td>Highest honour of T&amp;T. Links to Indian diaspora (Girmityas — indentured labourers). First Indian PM visit since 1999.</td></tr>
+        <tr><td>July 8</td><td><b>Brazil</b></td><td>Grand Collar of the National Order of the Southern Cross</td><td>Highest Order for Foreigners in Brazil. Conferred during bilateral visit ahead of 17th BRICS Summit.</td></tr>
+        <tr><td>July 9</td><td><b>Namibia</b></td><td>Order of the Most Ancient Welwitschia Mirabilis</td><td>Highest honour of Namibia. Named after Welwitschia Mirabilis — one of world's oldest plants (endemic to Namibia). Reflects India-Namibia Strategic Partnership.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>2025 Awards: Barbados (Caribbean), Mauritius (National Day), Sri Lanka (Mitra Vibhushana — Neighbourhood First), Cyprus (first Indian PM visit), Ghana (30-yr gap), T&amp;T (Girmityas/Indian diaspora), Brazil (BRICS visit), Namibia (Welwitschia Mirabilis — oldest plant of Namibia). 8 awards in 2025 alone.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     9. DIPLOMATIC ACCORDS
+══════════════════════════════════════ -->
+<div class="page" id="accords">
+  <div class="sh" onclick="tog(this)"><span>9 · Major Diplomatic Accords &amp; Declarations</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>Chagos Agreement — Diego Garcia trap: does the base close?</p></div>
+      <div class="ci"><strong>Q2</strong><p>Washington Accords (2025) vs Washington Declaration (2023) — confusing pair?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Saudi-Pakistan SMDA — NATO Article 5 trap?</p></div>
+      <div class="ci"><strong>Q4</strong><p>Argyle Declaration — Essequibo region: what % of Guyana?</p></div>
+      <div class="ci"><strong>Q5</strong><p>Windsor Framework — Green vs Red Lanes, what is Stormont Brake?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Accord / Declaration</th><th>Signatories</th><th>Context &amp; Outcome</th><th>Prelims Trap / Note</th></tr>
+        <tr><td><b>UK-Mauritius Treaty</b><br>(Chagos Agreement)<br>May 2025</td><td>UK + Mauritius (India &amp; USA supportive)</td><td>Decolonization: UK transfers sovereignty of <b>Chagos Archipelago</b> to Mauritius — ending "last colony in Africa."</td><td>"Base" Trap: Diego Garcia military base does NOT close. Leased back to UK/USA for <b>99 years</b>. India wins: supports ally Mauritius while keeping US presence to counter China in IOR.</td></tr>
+        <tr><td><b>Washington Accords 2025</b></td><td>DRC (Congo) + Rwanda (brokered by USA)</td><td>Peace &amp; Minerals. Ended conflict in North Kivu. Framework for joint exploitation of Cobalt/Coltan — replaces conflict with trade.</td><td>Confusing Pair: Washington <b>Accords</b> (2025) = DRC-Rwanda peace deal. Washington <b>Declaration</b> (2023) = US-South Korea nuclear deterrence. Different years, different parties.</td></tr>
+        <tr><td><b>Saudi-Pakistan SMDA</b><br>Sept 2025</td><td>Saudi Arabia + Pakistan</td><td>Collective Security: "Aggression against one = aggression against both." First formal Gulf State + Nuclear Power defense pact.</td><td>NATO Trap: Uses NATO Article 5-like language but is BILATERAL (not multilateral). Focuses on internal stability (regime security) as much as external threats.</td></tr>
+        <tr><td><b>Beijing Declaration</b><br>July 2024</td><td>Palestinian Factions (Fatah, Hamas, etc.)</td><td>Palestinian Unity: Agreed to form "Interim National Reconciliation Government" for post-war Gaza.</td><td>Significance: China's rising mediator role in West Asia (follows Saudi-Iran Deal brokered by China). Beijing as peacemaker challenges US dominance.</td></tr>
+        <tr><td><b>Argyle Declaration</b><br>Dec 2023/24</td><td>Guyana + Venezuela (hosted by St. Vincent)</td><td>Territorial Dispute: Both agreed NOT to use force over the Essequibo Region.</td><td>Essequibo = 2/3rds of Guyana's landmass + massive ExxonMobil offshore oil. Venezuela claims it as "Essequibo State."</td></tr>
+        <tr><td><b>Atlantic Declaration</b><br>June 2024</td><td>USA + UK</td><td>Economic Security: Partnership on AI, Clean Energy, Critical Minerals to reduce China dependence.</td><td>NOT a FTA. It is a targeted economic security pact only. No tariff reductions.</td></tr>
+        <tr><td><b>Jeddah Declaration</b></td><td>Sudan (SAF vs RSF)</td><td>Humanitarian Access: Commitment to protect civilians + allow aid in Sudan Civil War.</td><td>Parties: SAF = Sudan Armed Forces (Government). RSF = Rapid Support Forces (Paramilitary). Conflict context: Darfur genocide against Masalit people.</td></tr>
+        <tr><td><b>Brasilia Consensus</b></td><td>South American Nations (led by Brazil)</td><td>Regional Integration: Roadmap to revive UNASUR + coordinate on climate/trade.</td><td>Shift: Marks return of "Pink Tide" (Leftist governments) cooperating in Latin America.</td></tr>
+        <tr><td><b>Bletchley Park Declaration</b></td><td>28 nations incl. India, China, US</td><td>AI Safety: First global pact to manage risks of Frontier AI models.</td><td>India's Stance: Signed it, emphasizing "sovereign AI" and democratization of technology.</td></tr>
+        <tr><td><b>Windsor Framework</b></td><td>UK + EU</td><td>Post-Brexit Trade: Fixed Northern Ireland Protocol. Introduced "Stormont Brake" (allows N. Ireland to object to new EU laws).</td><td>Green/Red Lanes: Goods staying in N. Ireland = Green Lane. Goods going to Ireland/EU = Red Lane (full customs checks).</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>Chagos: UK→Mauritius sovereignty but Diego Garcia base stays (99-yr lease). Washington Accords 2025 = DRC-Rwanda peace (NOT the 2023 US-Korea nuclear deal). Saudi-Pakistan SMDA = bilateral (not NATO). Argyle Declaration = no force over Essequibo. Bletchley = first AI safety pact (28 nations). Windsor = Green/Red Lanes + Stormont Brake.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     10. GLOBAL INITIATIVES
+══════════════════════════════════════ -->
+<div class="page" id="initiatives">
+  <div class="sh" onclick="tog(this)"><span>10 · Major Global Initiatives &amp; Alliances (2024-2026)</span><span class="tog">▼</span></div>
+  <div class="sb">
+    <div class="cue">
+      <div class="ci"><strong>Q1</strong><p>UN Spotlight Initiative — EU is primary funder or implementer?</p></div>
+      <div class="ci"><strong>Q2</strong><p>IBCA — 7 big cats listed. India funding, Russia's update?</p></div>
+      <div class="ci"><strong>Q3</strong><p>Global Alliance Against Hunger — launched where, mechanism?</p></div>
+      <div class="ci"><strong>Q4</strong><p>RECEIC — industry-led or government? Launched where?</p></div>
+      <div class="ci"><strong>Q5</strong><p>GRCA — secretariat body? Where launched?</p></div>
+    </div>
+    <div class="nc">
+      <table class="dt">
+        <tr><th>Initiative</th><th>Launch / Partners</th><th>Key Mandate</th><th>Prelims Trap / Update</th></tr>
+        <tr><td><b>UN Spotlight Initiative</b></td><td>2017 (Renewed 2024-26). Partners: EU (main funder) + UN (UNDP/UN Women)</td><td>"World's largest targeted effort to end violence against women." Goal: Eliminate VAWG by 2030. Focus: Domestic violence, trafficking, femicide, SGBV. Mechanism: Multi-Partner Trust Fund.</td><td>"EU" Trap: While <b>implemented by the UN</b> (UNDP/UN Women), the <b>European Union</b> is the PRIMARY DONOR (€500M+). Not a UN-funded programme. "Spotlight 2.0" extended to Africa/LatAm 2025.</td></tr>
+        <tr><td><b>International Big Cat Alliance (IBCA)</b></td><td>April 2023 (Approved 2024). India (HQ), 97 Range Countries. India committed ₹150 Cr.</td><td>Conservation of 7 Big Cats: Tiger, Lion, Leopard, Snow Leopard, Cheetah, Jaguar, Puma.</td><td>Major Update (Dec 2025): <b>Russia officially joined as 19th Member</b>. 2026: India to host "Global Big Cats Summit" in New Delhi. 7 cats = "The Big Seven" — note: not all are from Asia.</td></tr>
+        <tr><td><b>Global Alliance Against Hunger &amp; Poverty</b></td><td>G20 Rio Summit (Nov 2024). Led by Brazil. 80+ nations.</td><td>Accelerate ending hunger (SDG 1 &amp; 2) by 2030. Mechanism: "Policy Basket" of successful social schemes (like Brazil's Bolsa Família) for adoption by other countries.</td><td>Membership surge: Crossed <b>100 countries</b> by early 2026. New members: Czech Republic, Nigeria, Indonesia. NOT a traditional fund — it's a "Policy Matchmaker."</td></tr>
+        <tr><td><b>Global Digital Compact (GDC)</b></td><td>UN Summit of the Future (Sept 2024). All UN member states.</td><td>Framework for open, free, secure digital future. Key Pillars: Digital Public Infrastructure (DPI) + AI Governance.</td><td>India's Win: Successfully included DPI (like UPI) as a core pillar. 2025 Update: Launched "Global Dialogue on AI Governance" Sept 2025. Adopted as part of "Pact for the Future."</td></tr>
+        <tr><td><b>RECEIC</b><br>(Resource Efficiency Circular Economy Industry Coalition)</td><td>G20 Chennai (2023). India-led. 50+ MNCs. New members: Apple, Tata Steel (2025).</td><td>Promote resource efficiency and circular economy globally. Focus: Plastics, Steel, Aluminum recycling.</td><td>Industry-Led: Unlike other initiatives, this is a <b>Private Sector</b> (Industry) alliance, NOT a government-to-government arrangement.</td></tr>
+        <tr><td><b>Alliance for Global Good – Gender Equity</b></td><td>WEF Davos (Jan 2024). India (Lead), WEF, Gates Foundation. Anchor: CII.</td><td>Promote "Women-led Development" in health, ed-tech, and enterprise.</td><td>Not a Govt Body: Anchored by WEF and CII (Confederation of Indian Industry). Differentiates it from UN bodies. India leading a non-governmental global gender alliance.</td></tr>
+        <tr><td><b>Global River Cities Alliance (GRCA)</b></td><td>COP28 Dubai (Dec 2023). India (NMCG-led), Egypt, Denmark, etc. 275+ river cities globally.</td><td>Sustainable river-centric urban development.</td><td>Secretariat: <b>National Mission for Clean Ganga (NMCG)</b> serves as the secretariat. Expansion: Mississippi River Cities (USA) joined dialogue 2025.</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sum"><strong>Summary</strong>UN Spotlight = EU primary DONOR (not just implementer); UNDP/UN Women implement it. IBCA (7 cats, India HQ, Russia joined Dec 2025 as 19th member). Global Alliance against Hunger = Policy Basket mechanism, 100+ countries. GDC = India got DPI included. RECEIC = private sector (not govt). GRCA = NMCG secretariat. Alliance for Gender Equity = CII-anchored (not UN body).</div>
+</div>
+
+<div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#888;padding:10px 0 22px;">
+  Sarrthi IAS · PNP 2026 · International Relations – Lecture 6 (Self Reading) · Cornell Notes
+</div>
+</div>
+<script>
+  function tog(h){const b=h.nextElementSibling;const a=h.querySelector('.tog');if(!b)return;const c=b.classList.toggle('collapsed');a.textContent=c?'▶':'▼';}
+</script>
+</body>
+</html>

@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cornell Notes — International Relations | PNP 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --paper: #fdfaf4;
+    --ink: #1a1208;
+    --accent: #b5451b;
+    --accent2: #2c5f8a;
+    --accent3: #3d7a4f;
+    --rule: #d4c9b0;
+    --cue-bg: #1a1208;
+    --cue-text: #f5f0e8;
+    --tag-bg: #b5451b;
+    --tag-text: #fff;
+    --highlight: #fde68a;
+    --summary-bg: #1a1208;
+    --summary-text: #f5f0e8;
+    --trap-bg: #fef3c7;
+    --trap-border: #d97706;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Source Serif 4', serif;
+    --display: 'Playfair Display', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: var(--serif);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 24px 16px 60px;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, #ddd5c0 27px, #ddd5c0 28px);
+    background-size: 100% 28px;
+    background-attachment: fixed;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 28px 32px 24px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .page-header::before {
+    content: 'IR';
+    position: absolute;
+    right: -10px;
+    top: -20px;
+    font-family: var(--display);
+    font-size: 160px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .page-header .meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 8px;
+  }
+  .page-header h1 {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .page-header .subtitle {
+    font-size: 13px;
+    color: #c8bfa8;
+    font-style: italic;
+  }
+  .header-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #f5f0e8;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  /* ── NAVIGATION TABS ── */
+  .nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 1100px;
+    margin: 0 auto 20px;
+  }
+  .nav-tab {
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-radius: 2px;
+    color: var(--ink);
+  }
+  .nav-tab:hover, .nav-tab.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  /* ── CORNELL LAYOUT ── */
+  .cornell-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    margin-top: 36px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  .cornell-block {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    margin-bottom: 16px;
+    border-radius: 2px;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .cue-col {
+    background: var(--cue-bg);
+    color: var(--cue-text);
+    padding: 16px 14px;
+    border-right: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cue-col .cue-number {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #777;
+    text-transform: uppercase;
+  }
+  .cue-col .cue-title {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #f5f0e8;
+  }
+  .cue-col .cue-subtitle {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #aaa;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .cue-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+  .cue-tag.blue { background: var(--accent2); }
+  .cue-tag.green { background: var(--accent3); }
+
+  .notes-col {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .note-item {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .note-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .note-item .note-head {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .note-item p {
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .note-item ul {
+    padding-left: 18px;
+    margin-top: 4px;
+  }
+  .note-item ul li {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 3px;
+  }
+
+  /* highlight inline */
+  .hi { background: var(--highlight); padding: 0 2px; border-radius: 2px; }
+  .bold { font-weight: 600; }
+  .accent { color: var(--accent); font-weight: 600; }
+  .accent2 { color: var(--accent2); font-weight: 600; }
+  .accent3 { color: var(--accent3); font-weight: 600; }
+
+  /* TRAP BOX */
+  .trap-box {
+    background: var(--trap-bg);
+    border-left: 3px solid var(--trap-border);
+    padding: 10px 12px;
+    border-radius: 0 3px 3px 0;
+    margin-top: 8px;
+  }
+  .trap-box .trap-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--trap-border);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .trap-box p { font-size: 12.5px; color: #78350f; }
+
+  /* SUMMARY STRIP */
+  .summary-strip {
+    background: var(--summary-bg);
+    color: var(--summary-text);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    border-left: 6px solid var(--accent);
+  }
+  .summary-strip .sum-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .summary-strip p {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #e8e0d0;
+  }
+  .summary-strip ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+  .summary-strip ul li {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #d4c9b0;
+    margin-bottom: 3px;
+  }
+
+  /* QUICK MATCH TABLE */
+  .match-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-top: 6px;
+  }
+  .match-table th {
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 7px 10px;
+    text-align: left;
+  }
+  .match-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .match-table tr:last-child td { border-bottom: none; }
+  .match-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+  .match-table td:first-child { font-weight: 600; font-family: var(--mono); font-size: 11px; color: var(--accent2); }
+
+  /* SECTION DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 16px;
+  }
+  .divider-line { flex: 1; height: 1.5px; background: var(--rule); }
+  .divider-text {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  /* HIDDEN SECTIONS */
+  .section-content { display: block; }
+  .section-content.hidden { display: none; }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .nav-tabs { display: none; }
+    .cornell-block { break-inside: avoid; }
+    .section-content.hidden { display: block !important; }
+  }
+
+  @media (max-width: 680px) {
+    .cornell-block { grid-template-columns: 1fr; }
+    .cue-col { border-right: none; border-bottom: 2px solid var(--accent); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="meta">PNP 2026 · Prelims Navigator Program · Lecture 7</div>
+  <h1>International Relations<br>— Cornell Notes</h1>
+  <div class="subtitle">India's Bilateral Relations with Neighbouring & Major Powers (2025–26)</div>
+  <div class="header-pills">
+    <span class="pill">India–Pakistan</span>
+    <span class="pill">IWT</span>
+    <span class="pill">Bangladesh</span>
+    <span class="pill">Myanmar</span>
+    <span class="pill">Nepal</span>
+    <span class="pill">Sri Lanka</span>
+    <span class="pill">Maldives</span>
+    <span class="pill">Bhutan</span>
+    <span class="pill">USA · Russia · China</span>
+    <span class="pill">Japan · France · Germany</span>
+    <span class="pill">EU</span>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('neighbours')">Neighbourhood</button>
+  <button class="nav-tab" onclick="showSection('southeast')">SE Asia</button>
+  <button class="nav-tab" onclick="showSection('major')">Major Powers</button>
+  <button class="nav-tab" onclick="showSection('europe')">Europe</button>
+  <button class="nav-tab" onclick="showSection('exercises')">Exercise Master</button>
+  <button class="nav-tab" onclick="showSection('ops')">Operations</button>
+</div>
+
+<div class="cornell-wrap">
+
+<!-- ═══════════════════════════════════════
+     SECTION 1: NEIGHBOURHOOD
+     ═══════════════════════════════════════ -->
+<div class="section-content" id="neighbours">
+
+<div class="section-label">India & Immediate Neighbourhood</div>
+
+<!-- INDIA–PAKISTAN SUMMARY -->
+<div class="summary-strip">
+  <div class="sum-label">📌 Summary — India–Pakistan (2025–26)</div>
+  <p>Bilateral relations at their lowest point following the <strong>April 2025 Pahalgam terror attack</strong> and India's retaliatory <strong>Operation Sindoor (May 2025)</strong>. Formal trade is <strong>completely frozen</strong> (200% duty on indirect goods). Diplomatic engagement limited to multilateral forums (SCO). Kartarpur Corridor remains the sole open channel.</p>
+</div>
+
+<!-- OP SINDOOR -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">01</div>
+    <div class="cue-title">Operation Sindoor</div>
+    <div class="cue-subtitle">May 2025 · Cross-border precision strikes</div>
+    <span class="cue-tag">Security</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Key Facts</div>
+      <ul>
+        <li>Triggered by deadly terror attack in <span class="hi">April 2025</span></li>
+        <li>India precision-struck <span class="bold">LeT HQ (Muridke)</span> & <span class="bold">JeM HQ (Bahawalpur)</span> — Rafales with SCALP-EG ALCMs, no LoC crossing</li>
+        <li>Pakistan retaliated with swarm drones/UCAVs — foiled by <span class="accent3">Akash & QRSAM</span></li>
+        <li>S-400 locked airspace during 114-aircraft standoff; PAF jets shot down</li>
+      </ul>
+    </div>
+    <div class="trap-box">
+      <div class="trap-label">⚠ Nomenclature Trap</div>
+      <p>Operation <strong>Sindoor</strong> (2025, LoC strike) ≠ Operation <strong>Bandar</strong> (2019, Balakot airstrikes) ≠ Operation <strong>Sunrise</strong> (India–Myanmar joint op)</p>
+    </div>
+  </div>
+</div>
+
+<!-- IWT -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">02</div>
+    <div class="cue-title">Indus Waters Treaty</div>
+    <div class="cue-subtitle">Signed 19 Sept 1960, Karachi</div>
+    <span class="cue-tag">Water Diplomacy</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">River Division</div>
+      <ul>
+        <li><span class="accent3">India (Eastern):</span> Sutlej, Beas, Ravi → <span class="hi">~20% water</span></li>
+        <li><span class="accent">Pakistan (Western):</span> Indus, Jhelum, Chenab → <span class="hi">~80% water</span></li>
+        <li>India allowed <strong>domestic use, limited agriculture & run-of-river hydropower</strong> from Western rivers</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Key Projects (J&K)</div>
+      <ul>
+        <li><span class="bold">Kishenganga</span> — 330 MW, Bandipora, Jhelum tributary; Pakistan contests drawdown flushing</li>
+        <li><span class="bold">Ratle</span> — 850 MW, Kishtwar, Chenab; under construction; Pakistan objects to freeboard height</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Dispute Resolution (Graded)</div>
+      <ul>
+        <li>PIC → Neutral Expert (NE) → Court of Arbitration (CoA)</li>
+        <li><span class="hi">2025 ruling:</span> NE Michel Lino confirmed jurisdiction — validates India's graded approach</li>
+        <li>India served modification notices under <strong>Art. XII(3)</strong> (Jan 2023, Aug 2024) citing climate change, terrorism, demographic shifts</li>
+      </ul>
+    </div>
+    <div class="trap-box">
+      <div class="trap-label">⚠ Key Traps</div>
+      <p><strong>No unilateral exit</strong> (Art. XII). World Bank = signatory for dispute settlement only, <strong>not</strong> a guarantor of water flow. "Abeyance" ≠ "Modification."</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA–BANGLADESH -->
+<div class="section-label" style="margin-top:24px;">India–Bangladesh</div>
+
+<div class="summary-strip" style="border-left-color: var(--accent2);">
+  <div class="sum-label" style="color: var(--accent2);">📌 Summary — Bangladesh (2024–26)</div>
+  <p>Political earthquake (July–Aug 2024): student protests → PM Hasina fled to India → Interim Govt under <strong>Dr. Muhammad Yunus</strong>. BNP won Feb 2026 elections; Awami League banned. Bangladesh seeks Hasina's extradition. Bilateral ties hostile — visa freeze, Indian missions attacked.</p>
+</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">03</div>
+    <div class="cue-title">Regime Change & Elections</div>
+    <div class="cue-subtitle">2024–2026</div>
+    <span class="cue-tag blue">Politics</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Timeline</div>
+      <ul>
+        <li><span class="bold">July 2024:</span> Student protests against job quota → uprising</li>
+        <li><span class="bold">Aug 2024:</span> PM Hasina resigned, fled to India</li>
+        <li>Army (Gen. Waker-Uz-Zaman) → Interim Govt under Nobel laureate <span class="hi">Dr. Muhammad Yunus</span></li>
+        <li><span class="bold">Feb 2026:</span> BNP + allies (Jamaat-e-Islami) landslide; Awami League <strong>banned</strong> from participating</li>
+        <li><span class="bold">"July Charter" Referendum:</span> 10-year PM term limit, Bicameral Parliament, Caretaker Govt restored</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Extradition Issue</div>
+      <ul>
+        <li>ICT plans to seek Hasina's extradition (murder + crimes against humanity)</li>
+        <li>India can invoke <strong>Art. 6</strong> — "political offence" exception — BUT murder/terrorism explicitly excluded</li>
+        <li><span class="hi">2016 Amendment:</span> Removed need to provide concrete evidence; valid arrest warrant now sufficient</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">04</div>
+    <div class="cue-title">Trans-Boundary Rivers</div>
+    <div class="cue-subtitle">54 shared rivers</div>
+    <span class="cue-tag blue">Hydro-diplomacy</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <table class="match-table">
+        <tr><th>River / Treaty</th><th>Key Point</th></tr>
+        <tr><td>Ganga (1996)</td><td>30-yr treaty expires <span class="hi">Dec 2026</span>; measured at Farakka Barrage; renegotiation stalled</td></tr>
+        <tr><td>Teesta</td><td>Originates Sikkim (Pahunri glacier); 2011 draft unsigned — WB govt opposition; Water is State subject</td></tr>
+        <tr><td>Gumti</td><td>Originates Tripura; 2024 floods falsely blamed on Dumbur Dam release — info warfare</td></tr>
+        <tr><td>Kushiyara</td><td>MoU 2022 — <span class="hi">first major water pact since 1996 Ganga Treaty</span>; branches from Barak (Assam)</td></tr>
+      </table>
+    </div>
+    <div class="note-item">
+      <div class="note-head">China Factor — Teesta Project Trap</div>
+      <p>China offered <span class="hi">$1 Billion Teesta River Comprehensive Management Project</span> — seeks infrastructure footprint near Siliguri Corridor ("Chicken's Neck", 22 km wide).</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA–MYANMAR -->
+<div class="section-label" style="margin-top:24px;">India–Myanmar</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">05</div>
+    <div class="cue-title">FMR Scrapping & Border Fencing</div>
+    <div class="cue-subtitle">1,643 km border</div>
+    <span class="cue-tag">Security</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">FMR Facts</div>
+      <ul>
+        <li>FMR implemented <strong>1968</strong>; allowed 16 km cross-border movement without visa</li>
+        <li>Scrapped by <strong>MHA</strong>; entire border to be fenced; biometric verification + border passes (7 days) replacing FMR</li>
+        <li>Reasons: demographic shifts, insurgent safe havens, narcotics (Golden Triangle), weapons</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Key Projects & Issues</div>
+      <ul>
+        <li><span class="bold">Kaladan Multi-Modal:</span> Kolkata → Sittwe (sea) → Paletwa (Kaladan river) → Mizoram. Severely delayed — Arakan Army captured Paletwa 2024–25</li>
+        <li><span class="bold">IMT Trilateral Highway:</span> Moreh (Manipur) → Mae Sot (Thailand); stalled — Sagaing Region conflict zone</li>
+        <li>Over <span class="hi">2,100 Indians</span> rescued from cyber slavery camps since 2022</li>
+        <li><span class="bold">Operation Brahma:</span> India's humanitarian aid during March 2025 Myanmar earthquake</li>
+      </ul>
+    </div>
+    <div class="trap-box">
+      <div class="trap-label">⚠ Operation Trap</div>
+      <p><strong>Operation Sunrise</strong> = 2019 joint India–Myanmar Army op to bust insurgent camps (now impossible — Tatmadaw lost border control).</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA–NEPAL -->
+<div class="section-label" style="margin-top:24px;">India–Nepal</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">06</div>
+    <div class="cue-title">Nepal: Political Reset & Key Issues</div>
+    <div class="cue-subtitle">2025–26</div>
+    <span class="cue-tag green">Neighbourhood</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Political</div>
+      <ul>
+        <li>Sept 2025: Gen-Z protests → PM K.P. Sharma Oli resigned; Former CJ <span class="hi">Sushila Karki</span> = Interim PM</li>
+        <li>Gorkha recruitment freeze: Agnipath violates <strong>1947 Tripartite Agreement</strong> (India–Nepal–UK) per Nepal</li>
+        <li><span class="bold">1950 Treaty of Peace & Friendship:</span> 75 years; open border (no passport/visa); Nepal nationalists call it "unequal"</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Geoeconomics</div>
+      <ul>
+        <li>10,000 MW hydropower export pact; West Seti 800 MW given to <span class="hi">NHPC</span> (was with China)</li>
+        <li><span class="bold">RBI INR Reforms (Oct 2025):</span> Indian banks can lend in INR to Nepalese entities → reduces USD dependency</li>
+        <li><span class="bold">Rail & Transit Treaty (Nov 2025):</span> Jogbani–Biratnagar freight; access to Kolkata & Visakhapatnam ports</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Border Disputes</div>
+      <ul>
+        <li><span class="bold">Kalapani–Limpiyadhura–Lipulekh:</span> Trijunction India–Nepal–China. Dispute over origin of River Kali (Treaty of Sagauli 1816)</li>
+        <li><span class="bold">Susta:</span> Gandak River (Narayani); dispute from river course shifts</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA–SRI LANKA -->
+<div class="section-label" style="margin-top:24px;">India–Sri Lanka</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">07</div>
+    <div class="cue-title">Sri Lanka: Key Developments</div>
+    <div class="cue-subtitle">2025–26 Reset</div>
+    <span class="cue-tag green">Neighbourhood</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">High Points</div>
+      <ul>
+        <li>PM Modi visited Colombo (April 2025) — 7 MoUs; Dissanayake visited Delhi (Feb 2026) — India–AI Summit</li>
+        <li>Ties deepened despite Dissanayake's Marxist, historically anti-India roots → "Neighbourhood First" success</li>
+        <li><span class="bold">Debt:</span> India was <span class="hi">first official creditor globally</span> to give IMF financing assurances (beat China & Paris Club)</li>
+        <li><span class="bold">Trincomalee:</span> India–Sri Lanka–UAE trilateral MoU for deep-water port as energy hub (5th largest natural harbour)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Katchatheevu</div>
+      <ul>
+        <li>285-acre islet ceded to Sri Lanka in <strong>1974</strong>; political flashpoint in Tamil Nadu</li>
+        <li><span class="hi">Trap:</span> 1974 agreement allowed Indian fishermen access for rest/drying nets only — <strong>did NOT grant fishing rights</strong> in surrounding waters</li>
+        <li>Sri Lanka's main grievance: <strong>Bottom Trawling</strong> (banned 2017)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Joint Exercises — Matching</div>
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Type</th></tr>
+        <tr><td>SLINEX</td><td>Joint Naval</td></tr>
+        <tr><td>Mitra Shakti</td><td>Joint Army</td></tr>
+        <tr><td>Dosti</td><td>Trilateral Coast Guard (India–Sri Lanka–Maldives)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA–MALDIVES -->
+<div class="section-label" style="margin-top:24px;">India–Maldives</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">08</div>
+    <div class="cue-title">Maldives: "India Out" → "First Responder"</div>
+    <div class="cue-subtitle">The 2025 Diplomatic Reset</div>
+    <span class="cue-tag green">Neighbourhood</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Political Reset</div>
+      <ul>
+        <li>Muizzu demanded troop exit → by May 2024 India withdrew <strong>uniformed military</strong> staff</li>
+        <li><span class="hi">Trap:</span> India did NOT abandon assets — helicopters/Dorniers still operated by Indian civilian technical personnel</li>
+        <li>PM Modi visited Malé (July 2025) for 60th Independence Day — "Comprehensive Economic and Maritime Security Partnership"</li>
+        <li>China couldn't provide emergency liquidity → Maldives did pragmatic U-turn</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Geoeconomics</div>
+      <ul>
+        <li><span class="bold">$400M Currency Swap</span> (RBI + MMA) + INR 30 billion — saved Maldives from sovereign default (Fitch noted)</li>
+        <li>Debt restructured July 2025 — <span class="hi">40% reduction</span> in annual repayments; FTA negotiations launched</li>
+        <li>RuPay launched; UPI–Favara integration by mid-2026 → bypass USD</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Infrastructure</div>
+      <ul>
+        <li><span class="bold">GMCP ($500M):</span> India's counter to China-built Sinamalé Bridge — connects Malé to Villingili, Gulhifalhu, Thilafushi</li>
+        <li><span class="bold">UTF (Uthuru Thila Falhu):</span> Coast Guard facility (MNDF), built with Indian aid — NOT an Indian naval base</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA–BHUTAN -->
+<div class="section-label" style="margin-top:24px;">India–Bhutan</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">09</div>
+    <div class="cue-title">Bhutan: PM Modi's 2025 State Visit</div>
+    <div class="cue-subtitle">Nov 2025 + GMC + Doklam</div>
+    <span class="cue-tag green">Neighbourhood</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Key Outcomes</div>
+      <ul>
+        <li><span class="bold">Gelephu Mindfulness City (GMC):</span> 2,600 sq km, world's first "carbon-negative" mega-city; Royal Charter; independent judiciary/executive</li>
+        <li><span class="bold">Cross-border rail:</span> Kokrajhar → Gelephu (Assam) | Banarhat → Samtse (West Bengal)</li>
+        <li><span class="bold">Punatsangchhu-II (1020 MW)</span> inaugurated; Punatsangchhu-I (1200 MW) work resumed</li>
+        <li>₹4,000 crore LoC (energy) + ₹10,000 crore for 13th Five Year Plan (2024–29)</li>
+        <li>PM Modi conferred <span class="hi">Order of the Druk Gyalpo</span> — first foreign head of government to receive it</li>
+        <li>India accounts for ~<span class="hi">80%</span> of Bhutan's trade</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Doklam & Siliguri Vulnerability</div>
+      <ul>
+        <li>China building "rear roads" bypassing 2017 standoff point → approaching Jampheri Ridge</li>
+        <li>Control of Jampheri Ridge = direct line of sight over <span class="hi">22 km Siliguri Corridor</span></li>
+        <li>India's position: Doklam is a <strong>tri-junction</strong> — status can only be resolved trilaterally</li>
+        <li>BRO inaugurated all-weather highway to <strong>Haa</strong> (closest Bhutanese city to Doklam; houses IMTRAT)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- /neighbours -->
+
+<!-- ═══════════════════════════════════════
+     SECTION 2: SE ASIA
+     ═══════════════════════════════════════ -->
+<div class="section-content hidden" id="southeast">
+
+<div class="section-label">India & Southeast Asia</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">10</div>
+    <div class="cue-title">India–Malaysia</div>
+    <div class="cue-subtitle">Feb 2026 Putrajaya Summit</div>
+    <span class="cue-tag">SE Asia</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Strategic</div>
+      <ul>
+        <li>CSP operationalized (upgraded 2024); 11 key agreements signed</li>
+        <li>Malaysia backed India's BRICS Chairmanship (2026); backed India's UNSC permanent membership</li>
+        <li>Unresolved: Malaysia refuses to extradite <span class="hi">Zakir Naik</span></li>
+        <li>ADMM-Plus Counter-Terrorism Co-Chair (India–Malaysia, 2024–2027)</li>
+        <li>Malaysia sits astride <span class="bold">Strait of Malacca</span> — ~40% of global trade</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Geoeconomics</div>
+      <ul>
+        <li>UPI ↔ PayNet (DuitNow) linkage; INR–Ringgit trade settlement</li>
+        <li>Trade ~$20B but <span class="hi">heavily skewed in Malaysia's favour</span> (palm oil, crude imports)</li>
+        <li>Semiconductor cooperation pact; AITIGA review 2026–27 to fix inverted duties</li>
+        <li>PIOs: <span class="hi">~7%</span> of Malaysia's population (2nd largest Indian diaspora in SE Asia after Myanmar)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Exercises — Matching</div>
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Service</th></tr>
+        <tr><td>Harimau Shakti</td><td>Army (5th ed., Dec 2025, Rajasthan)</td></tr>
+        <tr><td>Samudra Laksamana</td><td>Navy</td></tr>
+        <tr><td>Udara Shakti</td><td>Air Force</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">11</div>
+    <div class="cue-title">India–Indonesia</div>
+    <div class="cue-subtitle">Republic Day 2025 Chief Guest</div>
+    <span class="cue-tag">SE Asia</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Key Points</div>
+      <ul>
+        <li>Prabowo Subianto: Chief Guest at 76th Republic Day (75th anniv. of diplomatic ties)</li>
+        <li><span class="bold">Sabang Port</span> (Aceh): ~700 km from A&N Islands; gives India naval vantage over Strait of Malacca</li>
+        <li>BrahMos export to Indonesia: under negotiation (NOT signed; Philippines deal 2024 was signed)</li>
+        <li>EEZ delimitation in Andaman Sea: still not finalized (continental shelf settled 1970s)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Exercises — Nomenclature Trap</div>
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Countries</th></tr>
+        <tr><td>Garuda Shakti</td><td>India + Indonesia (Special Forces)</td></tr>
+        <tr><td>Samudra Shakti</td><td>India + Indonesia (Naval)</td></tr>
+        <tr><td>Garuda</td><td>India + France (Air Force) — NOT Indonesia</td></tr>
+        <tr><td>Mitra Shakti</td><td>India + Sri Lanka (Army) — NOT Indonesia</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /southeast -->
+
+<!-- ═══════════════════════════════════════
+     SECTION 3: MAJOR POWERS
+     ═══════════════════════════════════════ -->
+<div class="section-content hidden" id="major">
+
+<div class="section-label">Major Powers</div>
+
+<!-- USA -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">12</div>
+    <div class="cue-title">India–USA</div>
+    <div class="cue-subtitle">COMPACT + Interim Trade Agreement</div>
+    <span class="cue-tag">Major Powers</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">COMPACT (Feb 2025 Modi visit)</div>
+      <ul>
+        <li>"Catalyzing Opportunities for Military Partnership, Accelerated Commerce & Technology"</li>
+        <li>10-year Defence Framework (2025–2035); Javelin ATGMs + Stryker ICV co-production</li>
+        <li>Mission 500: double bilateral trade to $500B by 2030 (currently $132B FY25)</li>
+        <li>US-India TRUST (critical tech); iCET: GE Aerospace + HAL → F414 engines in India (NSCs nodal, NOT ministries)</li>
+        <li>NISAR (NASA–ISRO SAR satellite); India signed <span class="hi">Artemis Accords</span> (shifted from Russia space diplomacy)</li>
+        <li>Tahawwur Rana extradition approved (26/11 link)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">2026 Interim Trade Agreement (NOT FTA)</div>
+      <ul>
+        <li>US tariffs on Indian goods slashed from 50% → <span class="hi">18%</span> (0% for gems, pharma, silk)</li>
+        <li>Russian oil penalty (extra 25%) lifted</li>
+        <li>India reduced tariffs on US industrial goods + select agri (tree nuts, apples, wine)</li>
+        <li><span class="bold">India's red lines:</span> Dairy, Poultry, Cereals (Rice/Wheat), Cotton — fully protected</li>
+        <li>DDGS import allowed but US corn/maize & fuel ethanol <strong>banned</strong></li>
+        <li>India to "intend" (not commit) to procure $500B of US goods over 5 years</li>
+        <li>GSP revoked 2019 — <span class="hi">NOT yet restored</span></li>
+        <li>FORGE: US-led critical minerals initiative targeting China's rare earth monopoly (~70% mining, ~90% processing)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Other Key Points</div>
+      <ul>
+        <li>SOSA Pact: Non-binding industrial supply chain mechanism; India = US's <span class="hi">18th SOSA partner</span></li>
+        <li>H-1B: Random lottery scrapped, massive fee hikes; restricting Indian STEM talent</li>
+        <li>China's counter: K-Visa (no employer sponsorship needed, unlike H-1B)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- RUSSIA -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">13</div>
+    <div class="cue-title">India–Russia</div>
+    <div class="cue-subtitle">25 Years of Strategic Partnership</div>
+    <span class="cue-tag">Major Powers</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Status & Diplomacy</div>
+      <ul>
+        <li>Designation since 2010: <span class="hi">"Special and Privileged Strategic Partnership"</span> — India's highest classification</li>
+        <li>23rd Annual Summit (Dec 2025): 25th anniv. of Declaration of Strategic Partnership (signed 2000)</li>
+        <li>RELOS Pact ratified (Dec 2025): India–Russia equivalent of LEMOA (US); gives Indian Navy access to Murmansk & Vladivostok</li>
+        <li>SIPRI: Russia still top supplier but share dropped to <span class="hi">36%</span> (no longer >50%)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Economy & Connectivity</div>
+      <ul>
+        <li>Record bilateral trade: <span class="hi">$68.7 Bn</span> FY25; import $63.8B (oil, fertilizers) vs export only $4.9B</li>
+        <li>RBI (Aug 2025): Russian entities can invest Rupee balances (Vostro accounts) in Indian G-Secs and infra bonds</li>
+        <li><span class="bold">INSTC:</span> Mumbai → Moscow via Iran (Chabahar) + Caspian, bypasses Suez</li>
+        <li><span class="bold">Chennai–Vladivostok Corridor:</span> passes through Strait of Malacca + South China Sea</li>
+        <li>Kudankulam NPP: VVER-1000 reactors; shifting to co-develop SMRs</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CHINA -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">14</div>
+    <div class="cue-title">India–China</div>
+    <div class="cue-subtitle">75th anniversary of diplomatic ties</div>
+    <span class="cue-tag">Major Powers</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Border Sectors</div>
+      <ul>
+        <li><span class="bold">Western (Ladakh):</span> India — Johnson Line (1865); China — Macartney-MacDonald Line (1899)</li>
+        <li><span class="bold">Middle (HP, Uttarakhand):</span> Largely undisputed</li>
+        <li><span class="bold">Eastern (Arunachal):</span> China claims as "South Tibet"</li>
+        <li>Depsang & Demchok patrolling resumed Oct 2024 (14–15 troops, twice/month); Galwan/Pangong/Gogra buffer zones remain</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Key Developments 2024–26</div>
+      <ul>
+        <li><span class="bold">Yarlung Tsangpo Mega-Dam:</span> China approved 60 GW dam (Medog/Motuo); India countering with 10 GW Siang Upper Multipurpose Project (SUMP) in Arunachal</li>
+        <li><span class="bold">DAP Export Curb 2025:</span> China restricted DAP exports → India pivoted to Saudi Arabia (Ma'aden 5-yr deal July 2025) + Nano-DAP push</li>
+        <li>China = Largest trading partner (FY25): $127.7B but <span class="hi">$99B trade deficit</span></li>
+        <li>Press Note 3 review (2020 FDI curbs) under consideration — PLI schemes need Chinese capital/components</li>
+        <li>Modi–Xi at BRICS Kazan (Oct 2024) + SCO Tianjin (Aug 2025); 24th SR talks resumed</li>
+        <li>Kailash Mansarovar Yatra to resume 2026; air services pact under discussion</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Key Timeline — Border Steps</div>
+      <table class="match-table">
+        <tr><th>Year</th><th>Agreement</th></tr>
+        <tr><td>1993</td><td>Maintenance of Peace and Tranquillity</td></tr>
+        <tr><td>1996</td><td>Confidence Building Measures (CBM) in Military Field along LAC</td></tr>
+        <tr><td>2005</td><td>Protocol on Modalities for CBM Implementation</td></tr>
+        <tr><td>2012</td><td>WMCC (Working Mechanism for Consultation & Coordination)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CANADA -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">15</div>
+    <div class="cue-title">India–Canada</div>
+    <div class="cue-subtitle">Political Reset Post-Trudeau</div>
+    <span class="cue-tag">Major Powers</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Reset Context</div>
+      <ul>
+        <li>PM Mark Carney elected → Nov 2025 G20 — ties formally thawed; CEPA negotiations relaunched</li>
+        <li>"Compartmentalization": neither side retracted Nijjar stance — purely pragmatic economic reset</li>
+        <li>Vienna Convention trap: Canada cannot unilaterally revoke diplomatic immunity — <strong>only sending state (India)</strong> can waive it</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Key Developments</div>
+      <ul>
+        <li><span class="bold">$2.8B Uranium Deal:</span> Cameco → India's PHWRs (10-year). Canada cut nuclear ties post-1974 test (CIRUS reactor used); resumed via 2015 bilateral pact despite India not signing NPT</li>
+        <li>CPPIB scaled Indian assets to <span class="hi">$30B</span> by 2026 (NHITs — classified as long-term, not volatile FPI)</li>
+        <li>Five Eyes membership: USA, UK, Canada, Australia, New Zealand — India <strong>NOT</strong> a member</li>
+        <li>OCI trap: OCI ≠ dual citizenship (prohibited under <strong>Article 9</strong> of Indian Constitution); OCIs cannot vote or buy agricultural land</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- JAPAN -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">16</div>
+    <div class="cue-title">India–Japan</div>
+    <div class="cue-subtitle">15th Annual Summit, Aug 2025</div>
+    <span class="cue-tag">Major Powers</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Key Facts</div>
+      <ul>
+        <li>Status: <span class="hi">"Special Strategic and Global Partnership"</span></li>
+        <li>Japan = India's absolute largest bilateral donor of <strong>ODA</strong></li>
+        <li>CEPA (since 2011) under review; Bullet Train (MAHSR) timeline pushed to 2028</li>
+        <li>Renesas + CG Power: OSAT facility in Gujarat (C2S program)</li>
+        <li>AAGC: explicit BRI counter — transparent, debt-free alternative</li>
+        <li>SCRI: India, Australia, Japan founding members — reduces Indo-Pacific dependency on China</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Exercises</div>
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Service</th></tr>
+        <tr><td>Dharma Guardian</td><td>Army (6th ed., Mt Fuji, Feb–Mar 2025)</td></tr>
+        <tr><td>JIMEX</td><td>Navy</td></tr>
+        <tr><td>Veer Guardian</td><td>Air Force</td></tr>
+        <tr><td>Shinyuu Maitri</td><td>Air Force</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- AUSTRALIA -->
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">17</div>
+    <div class="cue-title">India–Australia</div>
+    <div class="cue-subtitle">6th anniv. Comprehensive Strategic Partnership</div>
+    <span class="cue-tag">Major Powers</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Key Points</div>
+      <ul>
+        <li>ECTA (2022) "early harvest" → negotiating broader <span class="hi">CECA</span>; 100% Australian tariff lines at zero for Indian exports by Jan 2026</li>
+        <li>Australia tracking facilities at <span class="bold">Cocos (Keeling) Islands</span> used for Gaganyaan trajectory monitoring</li>
+        <li>MATES scheme: specialized temporary pathway for Indian STEM graduates — <strong>NOT permanent residency</strong></li>
+        <li>India holds 2+2 Ministerial Dialogue with all Quad nations including Australia</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Exercises</div>
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Service</th></tr>
+        <tr><td>AUSTRAHIND</td><td>Bilateral Army (4th ed., Perth, Oct 2025)</td></tr>
+        <tr><td>AUSINDEX</td><td>Bilateral Navy</td></tr>
+        <tr><td>Pitch Black</td><td>Multinational Air Force (Australia-hosted)</td></tr>
+        <tr><td>Talisman Sabre</td><td>US–Australia-led; India participated 2025</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /major -->
+
+<!-- ═══════════════════════════════════════
+     SECTION 4: EUROPE
+     ═══════════════════════════════════════ -->
+<div class="section-content hidden" id="europe">
+
+<div class="section-label">India & Europe</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">18</div>
+    <div class="cue-title">EU & Eurozone Dynamics</div>
+    <div class="cue-subtitle">Key Developments 2025–26</div>
+    <span class="cue-tag blue">Europe</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Structural Facts</div>
+      <ul>
+        <li>EU = 27 members; established <strong>1 Nov 1993</strong> (Maastricht Treaty)</li>
+        <li>Eurozone: 21 members (Bulgaria joined <span class="hi">1 Jan 2026</span> — replaced Lev; 21st Eurozone member)</li>
+        <li>Schengen: Romania & Bulgaria became full members <span class="hi">1 Jan 2025</span></li>
+        <li>Schengen ≠ EU: Non-EU Schengen = Switzerland, Norway, Iceland, Liechtenstein; EU not in Schengen = <strong>Ireland & Cyprus</strong></li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">CBAM (Carbon Border Adjustment Mechanism)</div>
+      <ul>
+        <li>Definitive phase: <span class="hi">1 Jan 2026</span> — EU importers pay carbon tax on carbon-intensive goods</li>
+        <li>6 targeted sectors: <span class="bold">Iron & Steel, Aluminium, Cement, Fertilizers, Electricity, Hydrogen</span></li>
+        <li>India's steel & aluminium exports heavily impacted</li>
+        <li>India protested at WTO as non-tariff barrier; invokes <strong>CBDR principle</strong> (Common But Differentiated Responsibilities)</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">India–EU Key Mechanisms</div>
+      <ul>
+        <li>TTC (Trade & Technology Council): EU holds TTC with only <span class="hi">2 countries</span> — US and India</li>
+        <li>BTIA negotiations active; blocked by EU refusing India "Data Secure Nation" status under GDPR</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">19</div>
+    <div class="cue-title">India–Germany</div>
+    <div class="cue-subtitle">25 Years Strategic Partnership; Jan 2026 Chancellor Merz Visit</div>
+    <span class="cue-tag blue">Europe</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Key Developments</div>
+      <ul>
+        <li><span class="bold">Project-75I submarine:</span> MDL + TKMS JV — 6 submarines with <span class="hi">AIP (Air-Independent Propulsion)</span></li>
+        <li>Germany confirmed participation in MILAN (Naval) & Tarang Shakti (Air Force) 2026 — no dedicated bilateral exercise</li>
+        <li>Uniper signed 500,000-tonne Green Ammonia offtake; GSDP (€10B total, €5B used)</li>
+        <li>Germany: India's largest trade partner in Europe; bilateral trade $33.33B (2023); 9th in FDI to India</li>
+        <li>Rhine River → North Sea (near Rotterdam) — NOT Baltic Sea (map trap)</li>
+        <li>Visa-free airport transit for Indian passports (Jan 2026) — does NOT grant Schengen entry</li>
+        <li>Semiconductor Ecosystem Partnership; India joined US-led MSP (2023)</li>
+      </ul>
+    </div>
+    <div class="trap-box">
+      <div class="trap-label">⚠ Hydrogen Colour Trap</div>
+      <p><strong>Green</strong> = water electrolysis + renewable energy (zero emissions). <strong>Grey</strong> = from natural gas (no capture). <strong>Blue</strong> = natural gas + carbon capture. Do NOT confuse in UPSC.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">20</div>
+    <div class="cue-title">India–France</div>
+    <div class="cue-subtitle">"Special Global Strategic Partnership"; Macron Feb 2026</div>
+    <span class="cue-tag blue">Europe</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <div class="note-head">Defence Manufacturing</div>
+      <ul>
+        <li>Tata + Airbus: India's first <strong>private sector helicopter Final Assembly Line</strong> (H125, Karnataka)</li>
+        <li>BEL + Safran JV: HAMMER missiles manufactured in India</li>
+        <li>INS Vagsheer (6th & final Scorpène): received Jan 2025</li>
+        <li>26 <span class="hi">Rafale-Marine</span> jets finalized — modified with reinforced undercarriage + tailhook for ski-jump carriers</li>
+      </ul>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Exercises — Matching Trap</div>
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Service</th></tr>
+        <tr><td>Shakti</td><td>India–France Army</td></tr>
+        <tr><td>Varuna</td><td>India–France Navy</td></tr>
+        <tr><td>Garuda</td><td>India–France Air Force</td></tr>
+      </table>
+    </div>
+    <div class="note-item">
+      <div class="note-head">Other</div>
+      <ul>
+        <li>2026 = India–France Year of Innovation</li>
+        <li>Jaitapur (9,900 MW, Maharashtra) talks ongoing (EPRs use Light Water + enriched uranium; Indian PHWRs use Heavy Water + natural uranium)</li>
+        <li>SMR co-development Declaration of Intent (2025)</li>
+        <li>Target: 30,000 Indian students/year in France by 2030</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- /europe -->
+
+<!-- ═══════════════════════════════════════
+     SECTION 5: EXERCISE MASTER TABLE
+     ═══════════════════════════════════════ -->
+<div class="section-content hidden" id="exercises">
+
+<div class="section-label">Exercise Master Quick-Reference</div>
+
+<div class="summary-strip">
+  <div class="sum-label">📌 How to use this</div>
+  <p>UPSC Prelims frequently tests matching exercises to countries. Use this as your definitive one-stop reference. Pay special attention to similar-sounding names (Garuda = France/Air Force, Garuda Shakti = Indonesia/Army).</p>
+</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">EX</div>
+    <div class="cue-title">All Major Joint Exercises</div>
+    <div class="cue-subtitle">India's Bilateral & Multilateral</div>
+    <span class="cue-tag">Master Table</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <table class="match-table">
+        <tr><th>Exercise</th><th>Country</th><th>Service</th></tr>
+        <tr><td>Harimau Shakti</td><td>Malaysia</td><td>Army</td></tr>
+        <tr><td>Samudra Laksamana</td><td>Malaysia</td><td>Navy</td></tr>
+        <tr><td>Udara Shakti</td><td>Malaysia</td><td>Air Force</td></tr>
+        <tr><td>Garuda Shakti</td><td>Indonesia</td><td>Army/Special Forces</td></tr>
+        <tr><td>Samudra Shakti</td><td>Indonesia</td><td>Navy</td></tr>
+        <tr><td>Garuda</td><td>France</td><td>Air Force</td></tr>
+        <tr><td>Shakti</td><td>France</td><td>Army</td></tr>
+        <tr><td>Varuna</td><td>France</td><td>Navy</td></tr>
+        <tr><td>Dharma Guardian</td><td>Japan</td><td>Army</td></tr>
+        <tr><td>JIMEX</td><td>Japan</td><td>Navy</td></tr>
+        <tr><td>Veer Guardian</td><td>Japan</td><td>Air Force</td></tr>
+        <tr><td>Shinyuu Maitri</td><td>Japan</td><td>Air Force</td></tr>
+        <tr><td>SLINEX</td><td>Sri Lanka</td><td>Navy</td></tr>
+        <tr><td>Mitra Shakti</td><td>Sri Lanka</td><td>Army</td></tr>
+        <tr><td>Dosti</td><td>India–SL–Maldives</td><td>Trilateral Coast Guard</td></tr>
+        <tr><td>Ekuverin</td><td>Maldives</td><td>Army</td></tr>
+        <tr><td>Ekatha</td><td>Maldives</td><td>Navy</td></tr>
+        <tr><td>AUSTRAHIND</td><td>Australia</td><td>Army</td></tr>
+        <tr><td>AUSINDEX</td><td>Australia</td><td>Navy</td></tr>
+        <tr><td>Yudh Abhyas</td><td>USA</td><td>Army</td></tr>
+        <tr><td>Tiger Triumph</td><td>USA</td><td>Tri-Service HADR</td></tr>
+        <tr><td>Vajra Prahar</td><td>USA</td><td>Special Forces</td></tr>
+        <tr><td>Cope India</td><td>USA</td><td>Air Force</td></tr>
+        <tr><td>Malabar</td><td>Quad (India–US–Japan–Aus)</td><td>Multilateral Naval</td></tr>
+        <tr><td>IMBAX</td><td>Myanmar</td><td>Army (historical)</td></tr>
+        <tr><td>CORPAT</td><td>Myanmar</td><td>Navy (historical)</td></tr>
+        <tr><td>Hand-in-Hand</td><td>China</td><td>Army (suspended post-2020)</td></tr>
+        <tr><td>Tasman Saber</td><td>Australia–USA led</td><td>India participated 2025</td></tr>
+        <tr><td>MILAN</td><td>Multilateral Naval</td><td>India-hosted</td></tr>
+        <tr><td>Tarang Shakti</td><td>Multilateral Air</td><td>India-hosted</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /exercises -->
+
+<!-- ═══════════════════════════════════════
+     SECTION 6: OPERATIONS MASTER
+     ═══════════════════════════════════════ -->
+<div class="section-content hidden" id="ops">
+
+<div class="section-label">India's Operations — Master Quick-Reference</div>
+
+<div class="cornell-block">
+  <div class="cue-col">
+    <div class="cue-number">OP</div>
+    <div class="cue-title">All Major Operations</div>
+    <div class="cue-subtitle">Humanitarian + Military</div>
+    <span class="cue-tag">Operations</span>
+  </div>
+  <div class="notes-col">
+    <div class="note-item">
+      <table class="match-table">
+        <tr><th>Operation</th><th>Context / Purpose</th></tr>
+        <tr><td>Sindoor</td><td>May 2025 — Precision strikes on LeT/JeM launchpads after Pahalgam attack</td></tr>
+        <tr><td>Brahma</td><td>March 2025 Myanmar earthquake — humanitarian aid + field hospitals</td></tr>
+        <tr><td>Sagar Bandhu</td><td>Cyclone Ditwah (Sri Lanka) — disaster relief + $450M reconstruction pledge</td></tr>
+        <tr><td>Karuna</td><td>Myanmar — Cyclone Mocha disaster relief</td></tr>
+        <tr><td>Sadbhav</td><td>Vietnam — disaster relief (do NOT confuse with Sri Lanka or Myanmar)</td></tr>
+        <tr><td>Sunrise</td><td>2019 — Joint India–Myanmar Army op to bust insurgent camps</td></tr>
+        <tr><td>Bandar</td><td>2019 — Balakot airstrikes (Pakistan)</td></tr>
+        <tr><td>Maitri</td><td>2015 Nepal earthquake — relief & rescue</td></tr>
+        <tr><td>Raahat</td><td>2015 — Evacuate Indians from Yemen conflict</td></tr>
+        <tr><td>Samudra Setu</td><td>COVID-19 — repatriate stranded Indians abroad</td></tr>
+        <tr><td>Dost</td><td>2023 Turkey–Syria earthquake — S&R assistance</td></tr>
+        <tr><td>Ganga</td><td>2022 — Evacuate Indians from Ukraine (Russia–Ukraine war)</td></tr>
+        <tr><td>Kaveri</td><td>2023 — Evacuate Indians from Sudan conflict</td></tr>
+        <tr><td>Chakra</td><td>CBI + INTERPOL + FBI — combat cyber-enabled financial crime</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /ops -->
+
+<!-- FOOTER SUMMARY -->
+<div class="divider"><div class="divider-line"></div><div class="divider-text">End of Cornell Notes · Lecture 7 · IR</div><div class="divider-line"></div></div>
+
+<div class="summary-strip" style="margin-bottom:0;">
+  <div class="sum-label">🎯 Recall — Key Prelims Numbers to Memorize</div>
+  <ul>
+    <li>IWT signed: <strong>19 Sept 1960</strong> | Modification notice: Jan 2023, Aug 2024 | Ganga Treaty expiry: Dec 2026</li>
+    <li>Kartarpur Corridor: <strong>4.7 km</strong> | Sir Creek: 96 km | Indo-Myanmar border: 1,643 km | India–Bhutan border: 699 km | India–China border: 3,488 km</li>
+    <li>India MFN to Pakistan: 1996 | Revoked: 2019 | Shimla Agreement: 1972 | Lahore Declaration: 1999</li>
+    <li>Katchatheevu ceded: <strong>1974</strong> | Trincomalee: 5th largest natural deep-water harbour</li>
+    <li>GMCP (Maldives): <strong>$500M</strong> | Maldives currency swap: $400M + INR 30B | Bhutan 13th FYP: ₹10,000 crore + ₹4,000 crore LoC</li>
+    <li>India–China trade FY25: <strong>$127.7B</strong>, deficit $99B | India–Russia trade: $68.7B</li>
+    <li>Eurozone members: <strong>21</strong> (Bulgaria joined Jan 2026) | Schengen: 29 countries</li>
+    <li>FATF HQ: OECD, Paris | Five Eyes: USA, UK, Canada, Australia, New Zealand</li>
+  </ul>
+</div>
+
+</div><!-- /cornell-wrap -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.remove('hidden');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

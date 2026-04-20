@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>International Relations – Cornell Notes | UPSC Prelims 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #faf6ef;
+    --cream: #f2ead8;
+    --rule: #c9b99a;
+    --red-margin: #c0392b;
+    --blue-cue: #1a3a6b;
+    --gold: #b8860b;
+    --highlight: #fff3b0;
+    --trap: #fff0f0;
+    --trap-border: #e74c3c;
+    --tag-bg: #e8f0fe;
+    --tag-text: #1a3a6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e8e0d0;
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--ink);
+    padding: 24px 16px;
+  }
+
+  /* ── Page container ─────────────────────────────────── */
+  .notebook {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── Header strip ───────────────────────────────────── */
+  .nb-header {
+    background: var(--blue-cue);
+    color: #fff;
+    padding: 20px 32px 16px;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .nb-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: .02em;
+    line-height: 1.2;
+  }
+  .nb-header .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    opacity: .8;
+    text-align: right;
+  }
+  .nb-header .meta span { display: block; }
+
+  /* ── TOC ────────────────────────────────────────────── */
+  .toc-bar {
+    background: var(--cream);
+    border-bottom: 2px solid var(--gold);
+    padding: 10px 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    font-size: .78rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .toc-bar a {
+    color: var(--blue-cue);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--blue-cue);
+    padding-bottom: 1px;
+  }
+  .toc-bar a:hover { color: var(--red-margin); }
+
+  /* ── Cornell page ───────────────────────────────────── */
+  .page {
+    background: var(--paper);
+    background-image:
+      repeating-linear-gradient(transparent, transparent 27px, var(--rule) 27px, var(--rule) 28px);
+    border-left: 5px solid var(--blue-cue);
+    box-shadow: 4px 6px 20px rgba(0,0,0,.18);
+    padding: 0;
+    margin-bottom: 32px;
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* ── Section heading (topic label) ─────────────────── */
+  .section-head {
+    background: var(--blue-cue);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    padding: 8px 24px 7px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s;
+  }
+  .section-head:hover { background: #122b54; }
+  .section-head .toggle { font-size: .85rem; margin-left: auto; opacity: .7; }
+
+  .section-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 0;
+  }
+
+  /* ── Cue column ─────────────────────────────────────── */
+  .cue-col {
+    border-right: 2px solid var(--red-margin);
+    padding: 16px 14px;
+    background: rgba(192,57,43,.03);
+  }
+  .cue-col .cue-item {
+    margin-bottom: 18px;
+    padding: 8px 10px;
+    border-left: 3px solid var(--red-margin);
+    background: rgba(192,57,43,.06);
+    border-radius: 0 3px 3px 0;
+  }
+  .cue-col .cue-item strong {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    color: var(--red-margin);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 4px;
+  }
+  .cue-col .cue-item p {
+    font-size: .8rem;
+    line-height: 1.45;
+    color: var(--blue-cue);
+    font-weight: 600;
+  }
+
+  /* ── Notes column ───────────────────────────────────── */
+  .notes-col {
+    padding: 16px 22px;
+  }
+  .notes-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: .95rem;
+    color: var(--blue-cue);
+    margin: 14px 0 6px;
+    padding-bottom: 2px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .notes-col h3:first-child { margin-top: 0; }
+
+  /* ── Data table ─────────────────────────────────────── */
+  .dt {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .8rem;
+    margin: 8px 0 14px;
+  }
+  .dt th {
+    background: var(--blue-cue);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 5px 10px;
+    text-align: left;
+  }
+  .dt td {
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .dt tr:nth-child(even) td { background: rgba(0,0,0,.025); }
+  .dt tr:hover td { background: var(--highlight); }
+
+  /* ── Fact pills / tags ──────────────────────────────── */
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 12px;
+  }
+  .fact {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    padding: 3px 9px;
+    border-radius: 99px;
+    border: 1px solid #adc4f0;
+    white-space: nowrap;
+  }
+  .fact.gold { background: #fef9e7; border-color: var(--gold); color: #7a5c00; }
+  .fact.red { background: #fdecea; border-color: #e57373; color: #a00; }
+
+  /* ── Trap box ───────────────────────────────────────── */
+  .trap {
+    background: var(--trap);
+    border: 1.5px solid var(--trap-border);
+    border-radius: 4px;
+    padding: 7px 12px;
+    font-size: .78rem;
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+  .trap::before {
+    content: "⚠ PRELIMS TRAP: ";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--trap-border);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ── Highlight box ──────────────────────────────────── */
+  .hbox {
+    background: var(--highlight);
+    border-left: 3px solid var(--gold);
+    padding: 7px 12px;
+    font-size: .8rem;
+    margin: 8px 0;
+    line-height: 1.5;
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* ── Bullet list ────────────────────────────────────── */
+  .nb-list {
+    padding-left: 16px;
+    margin: 4px 0 10px;
+    font-size: .82rem;
+    line-height: 1.55;
+  }
+  .nb-list li { margin-bottom: 3px; }
+  .nb-list li b { color: var(--blue-cue); }
+
+  /* ── Summary strip ──────────────────────────────────── */
+  .summary-strip {
+    border-top: 2px solid var(--red-margin);
+    padding: 12px 22px;
+    background: rgba(192,57,43,.04);
+    font-size: .78rem;
+  }
+  .summary-strip strong {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--red-margin);
+    margin-bottom: 5px;
+  }
+
+  /* ── Print ──────────────────────────────────────────── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; }
+    .section-head .toggle { display: none; }
+    .collapsible { display: grid !important; }
+  }
+
+  /* ── Collapse toggle ────────────────────────────────── */
+  .collapsible { transition: none; }
+  .collapsed { display: none !important; }
+
+  /* keyword */
+  b.k { color: var(--blue-cue); }
+  b.r { color: var(--red-margin); }
+</style>
+</head>
+<body>
+<div class="notebook">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="nb-header">
+    <h1>International Relations<br><small style="font-size:.65em;opacity:.75">International Organisations &amp; Groupings</small></h1>
+    <div class="meta">
+      <span>UPSC PRELIMS 2026</span>
+      <span>Sarrthi IAS – PNP 2026</span>
+      <span>Cornell Notes</span>
+    </div>
+  </div>
+
+  <!-- ═══ TOC ═══ -->
+  <div class="toc-bar">
+    <a href="#un">United Nations</a>
+    <a href="#unga">UNGA</a>
+    <a href="#unsc">UNSC</a>
+    <a href="#peacekeepers">UN Peacekeepers</a>
+    <a href="#ungscf">UN-GSCF</a>
+    <a href="#unctad">UNCTAD</a>
+    <a href="#unescap">UNESCAP</a>
+    <a href="#brics">BRICS</a>
+    <a href="#asean">ASEAN</a>
+    <a href="#bimstec">BIMSTEC</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       1. UNITED NATIONS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="un">
+    <div class="section-head" onclick="toggle(this)">
+      <span>1 · United Nations (UN)</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <!-- CUE COL -->
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>When &amp; where was UN established?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>How many member states? Any recent additions?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>Six principal organs — name them.</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>What is the UN Summit of the Future &amp; its 3 key outcomes?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>What are the UN International Years 2026 &amp; lead agencies?</p></div>
+      </div>
+      <!-- NOTES COL -->
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">Est: <b>24 Oct 1945</b></span>
+          <span class="fact">HQ: <b>New York City</b></span>
+          <span class="fact"><b>193</b> member states</span>
+          <span class="fact gold">India joined UN-CEBD (31-member big data body)</span>
+        </div>
+
+        <h3>Six Principal Organs</h3>
+        <table class="dt">
+          <tr><th>Organ</th><th>Role / Key Note</th></tr>
+          <tr><td><b>General Assembly</b></td><td>Deliberative; all 193 members; equal vote; 2/3 majority for important issues</td></tr>
+          <tr><td><b>Security Council</b></td><td>15 members (5 P5 veto); primary peace &amp; security body</td></tr>
+          <tr><td><b>ICJ</b></td><td>Judicial organ; settles disputes between states</td></tr>
+          <tr><td><b>Secretariat</b></td><td>Day-to-day work; headed by Secretary-General</td></tr>
+          <tr><td><b>ECOSOC</b></td><td>Coordinates economic, social, development work</td></tr>
+          <tr><td><b>Trusteeship Council</b></td><td>Suspended since 1994; oversaw trust territories</td></tr>
+        </table>
+
+        <h3>UN Summit of the Future (2024)</h3>
+        <div class="facts">
+          <span class="fact">Theme: <i>Multilateral Solutions for a Better Tomorrow</i></span>
+        </div>
+        <ul class="nb-list">
+          <li><b>Pact for the Future</b> – accelerates SDGs; just transition from fossil fuels</li>
+          <li><b>Global Digital Compact</b> – first universal AI governance agreement; Independent International Scientific Panel on AI within UN</li>
+          <li><b>Declaration on Future Generations</b> – nuclear disarmament; ban autonomous weapons; prevent arms race in outer space</li>
+        </ul>
+        <div class="hbox"><b>India's stance:</b> Advocated UNSC reform + expanded permanent membership; pushed cyber/maritime/space security frameworks; backed Pact for the Future &amp; DPI cooperation.</div>
+
+        <h3>UN International Years 2026</h3>
+        <table class="dt">
+          <tr><th>Year</th><th>Lead Agency</th><th>Core Concept</th></tr>
+          <tr><td>Rangelands &amp; Pastoralists (IYRP)</td><td>FAO (proposed by Mongolia)</td><td>Grasslands as carbon sinks; correct "forest-centric" bias in UNFCCC</td></tr>
+          <tr><td>Woman Farmer (IYWF)</td><td>FAO</td><td>Gender-responsive social protection + land tenure for rural women</td></tr>
+          <tr><td>Volunteers for Sustainable Dev (IVY)</td><td>UN Volunteers (UNV)</td><td>Volunteerism as SDG accelerator for 2030 Agenda</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      UN (1945) has 193 states &amp; 6 organs. Summit of the Future 2024 delivered 3 key pacts. IYRP/IYWF/IVY are the 3 UN International Years for 2026, all FAO-led except IVY (UNV).
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       2. UNGA
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="unga">
+    <div class="section-head" onclick="toggle(this)">
+      <span>2 · UN General Assembly (UNGA)</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>What is the 80th session theme?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>What is UN80 Initiative? 3 pillars?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What are "Zombie Mandates"?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>India's stance on UN80?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>Six main committees of UNGA?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact"><b>80th Session</b> – NY (2025)</span>
+          <span class="fact">Theme: <i>"Better Together: 80 years…"</i></span>
+          <span class="fact">Observers: Holy See, Palestine (no vote)</span>
+        </div>
+
+        <h3>Decision-Making</h3>
+        <ul class="nb-list">
+          <li>Simple majority for most decisions</li>
+          <li><b>2/3 majority</b> for important issues (budget, membership, peace &amp; security)</li>
+          <li>Sessions: annually Sept–Dec; special/emergency sessions possible</li>
+        </ul>
+
+        <h3>Six Main Committees</h3>
+        <div class="facts">
+          <span class="fact">1. Disarmament &amp; Security</span>
+          <span class="fact">2. Economic &amp; Financial</span>
+          <span class="fact">3. Social, Humanitarian &amp; Cultural</span>
+          <span class="fact">4. Special Political &amp; Decolonisation</span>
+          <span class="fact">5. Administrative &amp; Budgetary</span>
+          <span class="fact">6. Legal</span>
+        </div>
+
+        <h3>UN80 Initiative (Internal Reform Plan, Mar 2025)</h3>
+        <div class="trap">UN80 ≠ Summit of the Future. UN80 = operational/financial internal reform. Summit of the Future = diplomatic/political event (2024).</div>
+        <table class="dt">
+          <tr><th>Pillar</th><th>Details</th></tr>
+          <tr><td>Efficiency</td><td>Cut admin costs by 20%; back-offices to Nairobi/Kuala Lumpur</td></tr>
+          <tr><td>Mandate Review</td><td>Use <b>AI to scan 40,000+ resolutions</b>; purge "Zombie Mandates" (obsolete tasks)</td></tr>
+          <tr><td>Structural Re-alignment</td><td>Merge overlapping agencies (e.g., human rights offices)</td></tr>
+        </table>
+        <h3>New UN80 Mechanisms</h3>
+        <ul class="nb-list">
+          <li><b>UN System Data Commons</b> – unified data ecosystem; ends "Silo Culture" between WHO/UNDP/UNICEF</li>
+          <li><b>Technology Accelerator Platform</b> – scales digital solutions for SDGs in urban governance</li>
+          <li><b>New Humanitarian Compact</b> – "Anticipatory Action" before disasters; multi-year flexible funding</li>
+        </ul>
+        <div class="hbox"><b>India's stance (via G-77):</b> Backs efficiency; opposes "budget cuts disguised as reform"; insists Development/SDG funding must not be cut; argues real reform requires UNSC expansion.</div>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      UNGA 80th session (2025). UN80 = 3-pillar internal reform (AI used to kill "Zombie Mandates"). India via G-77 warns UN80 must not slash SDG funds.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       3. UNSC
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="unsc">
+    <div class="section-head" onclick="toggle(this)">
+      <span>3 · UN Security Council (UNSC)</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>Composition of UNSC? P5 members?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>New non-permanent members (Jan 2026)?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What is G4? What does it propose?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>What is "Coffee Club" / UfC?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>How is the UN Secretary-General appointed? Can GA bypass UNSC?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">15 members total</span>
+          <span class="fact red">P5 have VETO power</span>
+          <span class="fact">HQ: New York</span>
+          <span class="fact">Est: 1945</span>
+        </div>
+
+        <h3>P5 Permanent Members</h3>
+        <div class="facts">
+          <span class="fact">China</span><span class="fact">France</span><span class="fact">Russia</span><span class="fact">UK</span><span class="fact">USA</span>
+        </div>
+
+        <h3>Non-Permanent Members (Jan 2026 – Jan 2028)</h3>
+        <div class="facts">
+          <span class="fact gold">Bahrain</span><span class="fact gold">Colombia</span><span class="fact gold">DRC</span><span class="fact gold">Latvia</span><span class="fact gold">Liberia</span>
+        </div>
+        <p style="font-size:.78rem;margin-bottom:8px;">Continuing (elected 2024): Denmark, Greece, Pakistan, Panama, Somalia. <b>Pakistan</b> – Chair of UNSC 1988 Taliban Sanctions Committee 2025; Algeria chairs CTC.</p>
+
+        <h3>Decision-Making</h3>
+        <ul class="nb-list">
+          <li>Substantive issues: <b>9/15 votes required + all P5 must concur</b> (no veto)</li>
+          <li>Procedural matters: simple 9-vote majority</li>
+        </ul>
+        <div class="trap">To adopt a resolution: 9 of 15 must vote FOR AND none of the P5 can veto it.</div>
+
+        <h3>UNSC Reform – Key Groups</h3>
+        <table class="dt">
+          <tr><th>Group</th><th>Members / Position</th></tr>
+          <tr><td><b>G4</b></td><td>India, Brazil, Germany, Japan — support each other's bid for permanent seats; formed 2005; propose 15→25/26 members</td></tr>
+          <tr><td><b>C10 / African Union</b></td><td>Algeria, Equatorial Guinea, Congo, Kenya, Libya, Namibia, Senegal, Sierra Leone, Uganda, Zambia — Africa's common position (Ezulwini Consensus)</td></tr>
+          <tr><td><b>L69 Group</b></td><td>32 developing countries from Africa, LatAm, Caribbean, Asia, Pacific — comprehensive UNSC reforms</td></tr>
+          <tr><td><b>Coffee Club (UfC)</b></td><td>~12 members (Italy, Spain, Pakistan, S. Korea, Canada, Mexico…) — oppose new permanent seats</td></tr>
+        </table>
+
+        <h3>UN Secretary-General Appointment</h3>
+        <table class="dt">
+          <tr><th>Dimension</th><th>Key Fact</th><th>Trap</th></tr>
+          <tr><td>Constitutional basis</td><td>Article 97 – GA appoints on UNSC recommendation</td><td>Charter doesn't mention term limits/qualifications/gender — all custom</td></tr>
+          <tr><td>UNSC role</td><td>Recommends ONE candidate; needs 9/15 + no P5 veto</td><td>P5 veto applies (substantive issue)</td></tr>
+          <tr><td>Straw Polls</td><td>Secret ballot: Encourage/Discourage/No Opinion; later rounds color-coded</td><td>Color-coded shows if P5 discourages = fatal</td></tr>
+          <tr><td>Term limit</td><td>5 years; usually renewed once. Guterres ends <b>Dec 31, 2026</b></td><td>No legal limit in Charter; by custom max 2 terms</td></tr>
+          <tr><td>2026 Race</td><td>Michelle Bachelet (Chile), Rafael Grossi (Argentina); push for female SG</td><td>P5 citizens NEVER allowed; no woman SG in 80 yrs</td></tr>
+        </table>
+        <div class="trap">GA CANNOT bypass UNSC. Cannot appoint a candidate without UNSC's formal recommendation.</div>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      UNSC: 15 members (P5 veto + 10 elected for 2 yrs). 5 new non-permanent from Jan 2026. G4 wants expansion to 25-26. SG: Article 97, 5-yr term, no P5 citizen, no woman yet. Guterres ends Dec 2026.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       4. UN PEACEKEEPERS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="peacekeepers">
+    <div class="section-head" onclick="toggle(this)">
+      <span>4 · UN Peacekeepers</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>First UN peacekeeping mission? Year?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>3 core principles of peacekeeping?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What is AUSSOM?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>What is the "Group of Friends"?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>Factors diminishing peacekeeping?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">Nickname: <b>"Blue Helmets"</b></span>
+          <span class="fact">First mission: <b>UNTSO 1948</b> (Israel-Arab)</span>
+          <span class="fact"><b>100,000</b> personnel</span>
+          <span class="fact"><b>125</b> contributing countries</span>
+          <span class="fact"><b>14</b> active operations</span>
+          <span class="fact">~14% civilians</span>
+        </div>
+
+        <h3>3 Core Principles</h3>
+        <div class="facts">
+          <span class="fact gold">Consent of host</span>
+          <span class="fact gold">Impartiality</span>
+          <span class="fact gold">Minimum use of force</span>
+        </div>
+
+        <h3>Recent Development</h3>
+        <div class="hbox"><b>AUSSOM:</b> UNSC endorsed the African Union Peace and Security Council's initiative (AUSSOM) at the UN Peacekeeping Ministerial 2025 in Berlin, Germany.</div>
+
+        <h3>Group of Friends (2022)</h3>
+        <ul class="nb-list">
+          <li><b>40 member states</b></li>
+          <li>Co-chairs: India, Bangladesh, Egypt, France, Morocco, Nepal</li>
+          <li>Goal: Promote accountability for crimes against peacekeepers; mobilize resources for peacekeeper safety</li>
+        </ul>
+
+        <h3>Factors Diminishing Peacekeeping's Role</h3>
+        <table class="dt">
+          <tr><th>Factor</th><th>Example</th></tr>
+          <tr><td>P5 veto deadlocks</td><td>Russia-Ukraine, Israel-Hamas</td></tr>
+          <tr><td>Funding shortfalls</td><td>UNIFIL in Lebanon</td></tr>
+          <tr><td>Sovereignty concerns</td><td>Sudan ejected UNAMID; Mali removed MINUSMA</td></tr>
+          <tr><td>Credibility issues</td><td>Failures in Rwanda, Srebrenica, Haiti cholera</td></tr>
+          <tr><td>Changing conflict nature</td><td>Urban warfare, cyber threats, hybrid conflicts</td></tr>
+          <tr><td>Regional alternatives</td><td>AU, Arab League increasingly lead operations</td></tr>
+        </table>
+
+        <h3>Major Militant Groups in UN Mission Areas</h3>
+        <table class="dt">
+          <tr><th>Group</th><th>Region</th><th>Allegiance</th><th>Key Trait</th></tr>
+          <tr><td>M23</td><td>DRC</td><td>Ethnic/Political</td><td>Conventional rebel army</td></tr>
+          <tr><td>Al-Shabaab</td><td>Somalia</td><td>Al-Qaeda</td><td>Controls territory; taxes</td></tr>
+          <tr><td>JNIM</td><td>Sahel</td><td>Al-Qaeda</td><td>Umbrella; Mali-Burkina border</td></tr>
+          <tr><td>ADF</td><td>DRC/Uganda</td><td>ISIS</td><td>Most lethal in E. Congo</td></tr>
+          <tr><td>ISWAP</td><td>Nigeria</td><td>ISIS</td><td>Split from Boko Haram</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      Blue Helmets since 1948 (UNTSO). 3 principles: consent, impartiality, min force. 100k personnel, 14 missions. AUSSOM endorsed 2025. Group of Friends (40 states, India co-chair) for peacekeeper accountability.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       5. UN-GSCF & CRITICAL MINERALS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="ungscf">
+    <div class="section-head" onclick="toggle(this)">
+      <span>5 · UN-GSCF &amp; Critical Minerals</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>Where was inaugural UN-GSCF held? Who hosted?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>What is "Pax Silica"? Initial 9 members?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What is KABIL? India's role in MSP?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>Lobito Corridor — connect the dots.</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>Critical Minerals Ministerial 2026: host, goal?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">1st UN-GSCF: <b>May 2024, Barbados</b></span>
+          <span class="fact">Host: <b>UNCTAD</b></span>
+          <span class="fact">2nd edition: Saudi Arabia, Nov 2026</span>
+        </div>
+
+        <h3>Key Issues at UN-GSCF</h3>
+        <ul class="nb-list">
+          <li>Supply chain resilience; shipping delays → higher GHG emissions</li>
+          <li>Low-Carbon Freight Manifesto (zero-emission fuels)</li>
+          <li>Trade-and-Transport Dataset (World Bank; 100+ commodities)</li>
+          <li>Blockchain traceability + automated customs</li>
+        </ul>
+
+        <h3>Critical Minerals Ministerial (Feb 2026, Washington D.C.)</h3>
+        <table class="dt">
+          <tr><th>Parameter</th><th>Detail</th></tr>
+          <tr><td>Host</td><td>USA (Secretary of State Marco Rubio)</td></tr>
+          <tr><td>India rep.</td><td>Dr. S. Jaishankar (EAM)</td></tr>
+          <tr><td>Goal</td><td>Break China's monopoly on Lithium, Cobalt, Rare Earths</td></tr>
+          <tr><td>Key outcome</td><td>"Pax Silica" launched; MSP Finance Network operationalised</td></tr>
+        </table>
+
+        <h3>Pax Silica ("Silicon Peace")</h3>
+        <div class="hbox">Creates "Silicon Shield" against China by securing semiconductor + AI + critical mineral supply chains.</div>
+        <div class="facts">
+          <span class="fact">USA</span><span class="fact">Japan</span><span class="fact">S. Korea</span><span class="fact">Netherlands (ASML)</span>
+          <span class="fact">Singapore</span><span class="fact">UK</span><span class="fact">Israel (AI)</span><span class="fact">UAE (G42)</span><span class="fact">Australia</span>
+        </div>
+        <div class="trap">India is NOT a founding member of Pax Silica but has recently signed &amp; joined.</div>
+
+        <h3>Other Critical Minerals Initiatives</h3>
+        <table class="dt">
+          <tr><th>Initiative</th><th>Concept</th><th>India Status</th></tr>
+          <tr><td>MSP Finance Network</td><td>DFIs from 15 MSP nations; fund mining in friendly nations</td><td>Member (joined MSP 2023); uses KABIL overseas</td></tr>
+          <tr><td>Lobito Corridor</td><td>Railway: Angola(Port Lobito)↔DRC↔Zambia; Copper/Cobalt to Atlantic bypassing China</td><td>Observer/Potential Investor</td></tr>
+          <tr><td>Critical Minerals Production Alliance (G7)</td><td>Midstream processing focus; tech transfer for refining</td><td>Beneficiary; seeks Lithium refining tech</td></tr>
+        </table>
+
+        <h3>Colombo Security Conclave (CSC) – 2025 Update</h3>
+        <div class="facts">
+          <span class="fact">Secretariat: <b>Colombo, Sri Lanka</b></span>
+          <span class="fact">6 members (Seychelles joined 2025 as 6th)</span>
+        </div>
+        <p style="font-size:.8rem">Members: India, Sri Lanka, Maldives, Mauritius, Bangladesh, Seychelles.</p>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      UN-GSCF: 1st in Barbados 2024 (UNCTAD). Pax Silica = 9-member "Silicon Shield" (India joined but not founder). Lobito Corridor = Angola↔DRC↔Zambia rail. KABIL = India's overseas minerals arm.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       6. UNCTAD
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="unctad">
+    <div class="section-head" onclick="toggle(this)">
+      <span>6 · UNCTAD &amp; Sevilla Forum</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>UNCTAD: HQ, year, membership?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>What is the Sevilla Forum on Debt? Parent event?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>Sevilla Hierarchy: 3 levels?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>What is a "Debt Pause Clause"?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>3 reports published by UNCTAD?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">Est: <b>30 Dec 1964</b></span>
+          <span class="fact">HQ: <b>Geneva, Switzerland</b> (Palais des Nations)</span>
+          <span class="fact"><b>195</b> member states</span>
+          <span class="fact gold">Recent report: "A World of Debt 2025"</span>
+        </div>
+
+        <h3>Key Reports</h3>
+        <div class="facts">
+          <span class="fact">Trade &amp; Development Report</span>
+          <span class="fact">World Investment Report</span>
+          <span class="fact">Least Developed Countries Report</span>
+        </div>
+
+        <h3>Sevilla Forum on Debt</h3>
+        <div class="trap">Forum was ANNOUNCED at FfD4 (Sevilla, June 2025) but LAUNCHED at UNCTAD 16 (Oct 2025). Don't confuse the venues.</div>
+        <ul class="nb-list">
+          <li>Lead Country: <b>Spain</b> (bridge EU creditors ↔ LatAm/Africa debtors)</li>
+          <li>Support: UNCTAD &amp; UN DESA</li>
+          <li>Mandate: Permanent dialogue space between Creditors &amp; Global South Borrowers</li>
+          <li>Unlike G20 Common Framework (rigid), this focuses on "Soft Diplomacy"</li>
+        </ul>
+
+        <h3>Sevilla Hierarchy</h3>
+        <table class="dt">
+          <tr><th>Level</th><th>Name</th><th>What it is</th></tr>
+          <tr><td>1</td><td>Sevilla Commitment</td><td>"The What" — political pledge to close $4 Trillion SDG financing gap</td></tr>
+          <tr><td>2</td><td>Sevilla Platform for Action</td><td>"The How" — 130+ initiatives list</td></tr>
+          <tr><td>3</td><td>Sevilla Forum on Debt</td><td>"The Who" — the institution (one specific initiative)</td></tr>
+        </table>
+
+        <h3>4 Key Outcomes of FfD4</h3>
+        <ul class="nb-list">
+          <li><b>Sevilla Forum on Debt</b> – dialogue</li>
+          <li><b>Debt Swaps Hub</b> – global centre for "Debt-for-Nature" swaps</li>
+          <li><b>Debt-for-Development Swap Programme</b> – Italian-led fund (€230m)</li>
+          <li><b>Debt Pause Clause Alliance</b> – pause repayment for 2 yrs during climate disasters (borrows from Barbados's Bridgetown Initiative)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      UNCTAD (1964, Geneva, 195 members). Sevilla Forum: announced FfD4 Sevilla → launched UNCTAD 16. Hierarchy: Commitment(What) → Platform(How) → Forum(Who). Debt Pause Clause = 2-yr pause on repayment during disasters.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       7. UNESCAP + UNESCO updates
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="unescap">
+    <div class="section-head" onclick="toggle(this)">
+      <span>7 · UNESCAP &amp; India–UNESCO Updates</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>UNESCAP: HQ, year, coverage?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>India's new World Heritage Site (2025)?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What did Lucknow get from UNESCO 2025?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>What is AIBD? India's role?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>India elected to ECOSOC for which period?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">UNESCAP est: <b>28 Mar 1947</b></span>
+          <span class="fact">HQ: <b>Bangkok, Thailand</b></span>
+          <span class="fact"><b>53</b> members + 9 associate members</span>
+          <span class="fact">Covers <b>4.1 bn people</b> (2/3 world pop.)</span>
+          <span class="fact gold">India elected to ECOSOC 2026–28 (from 1 Jan 2026)</span>
+        </div>
+
+        <h3>India – UNESCO Additions 2025</h3>
+        <table class="dt">
+          <tr><th>Category</th><th>Addition</th><th>Key Detail</th></tr>
+          <tr><td>World Heritage Site</td><td><b>Maratha Military Landscapes</b></td><td>Cultural; 12 forts (Raigad, Shivneri, Gingee*); showcases guerrilla warfare &amp; Sahyadri terrain. *Gingee = Tamil Nadu; rest = Maharashtra</td></tr>
+          <tr><td>Intangible Heritage</td><td><b>Deepavali (Diwali)</b></td><td>Inscribed late 2025 as "Living Tradition"</td></tr>
+          <tr><td>Memory of the World</td><td>Srimad Bhagavad Gita &amp; Natyashastra</td><td>UNESCO documentary heritage register 2025</td></tr>
+          <tr><td>Creative Cities</td><td><b>Lucknow</b></td><td>City of Gastronomy (joins Hyderabad)</td></tr>
+        </table>
+
+        <h3>Asia-Pacific Institute for Broadcasting Development (AIBD)</h3>
+        <table class="dt">
+          <tr><th>Feature</th><th>Detail</th></tr>
+          <tr><td>Type</td><td>Inter-Governmental Org; under UNESCO (1977); now independent</td></tr>
+          <tr><td>HQ</td><td><b>Kuala Lumpur, Malaysia</b></td></tr>
+          <tr><td>Membership</td><td>45 countries, 92 member organisations</td></tr>
+          <tr><td>India rep.</td><td>Prasar Bharati (MIB); India is <b>Founding Member</b></td></tr>
+          <tr><td>2025 update</td><td>India elected Chairman at 23rd General Conference (Thailand)</td></tr>
+        </table>
+        <div class="trap">HQ = Kuala Lumpur, NOT Bangkok (conference venue) or New Delhi.</div>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      UNESCAP (1947, Bangkok, 53 members). India 2025 UNESCO gains: Maratha Landscapes (WHS), Diwali (ICH), Gita+Natyashastra (Memory of World), Lucknow (Gastronomy City). AIBD chair India (HQ: KL).
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       8. BRICS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="brics">
+    <div class="section-head" onclick="toggle(this)">
+      <span>8 · BRICS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>Current BRICS members? Who is 10th?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>17th BRICS Summit: where, theme, India's 2026 chairship theme?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What is "The Unit"? Composition?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>NDB HQ? What is CRA?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>What is IBSA? BASIC?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">Acronym coined: <b>2001</b></span>
+          <span class="fact">South Africa joined: <b>Dec 2010</b></span>
+          <span class="fact">No permanent secretariat; chair rotates</span>
+          <span class="fact gold">Indonesia = 10th member (Jan 2025)</span>
+          <span class="fact red">Saudi Arabia yet to formalise membership</span>
+          <span class="fact red">Argentina backed out (2024)</span>
+        </div>
+
+        <h3>Current Members (10 Full)</h3>
+        <div class="facts">
+          <span class="fact">Brazil</span><span class="fact">Russia</span><span class="fact">India</span><span class="fact">China</span><span class="fact">South Africa</span>
+          <span class="fact">Egypt</span><span class="fact">Ethiopia</span><span class="fact">Iran</span><span class="fact">UAE</span><span class="fact gold">Indonesia</span>
+        </div>
+
+        <h3>Partner Countries (9 total)</h3>
+        <p style="font-size:.79rem;margin-bottom:8px">Nigeria (9th), + Belarus, Bolivia, Cuba, Kazakhstan, Malaysia, Thailand, Uganda, Uzbekistan.</p>
+        <div class="trap">Partner country = invited to summits/ministerial meetings; NO membership status or formal decision-making power.</div>
+
+        <h3>17th BRICS Summit (Jul 6-7, 2025 – Rio de Janeiro, Brazil)</h3>
+        <div class="facts">
+          <span class="fact">Theme: "Strengthening Global South Cooperation for More Inclusive &amp; Sustainable Governance"</span>
+        </div>
+        <ul class="nb-list">
+          <li><b>Rio Declaration</b> – strongest call yet for UNSC reform; "Zero Tolerance" on terrorism; condemned Pahalgam Attack 2025</li>
+          <li><b>AI Sovereignty</b> – non-Western AI datasets framework</li>
+          <li><b>NDB Innovation</b> – Multilateral Guarantee Mechanism (BMG) for private infra projects</li>
+          <li><b>Interoperability</b> – link UPI, Pix, SPFS, Shetab for cross-border remittances</li>
+          <li><b>Climate</b> – Tropical Forests Forever Facility (TFFF): $125Bn for forest conservation (pre-COP30)</li>
+          <li><b>Health</b> – BRICS Alliance on Socially Determined Diseases (TB, Malaria)</li>
+          <li><b>India gains</b>: 2026 BRICS chair; "Rio Consensus" with China on LAC; India Stack in declaration</li>
+        </ul>
+        <div class="hbox"><b>India 2026 BRICS Chairship Theme:</b> "Building for Resilience, Innovation, Cooperation, and Sustainability"</div>
+
+        <h3>"The Unit" – BRICS Digital Settlement Token</h3>
+        <table class="dt">
+          <tr><th>Feature</th><th>Details</th></tr>
+          <tr><td>Pilot launch</td><td>Oct 31, 2025</td></tr>
+          <tr><td>Developer</td><td>IRIAS (Russia-based think tank); not NDB directly</td></tr>
+          <tr><td>Composition</td><td>40% Physical Gold + 60% BRICS currencies (12% each: Rupee, Yuan, Ruble, Real, Rand)</td></tr>
+          <tr><td>Nature</td><td>Settlement Token (govts/central banks only); NOT legal tender for citizens</td></tr>
+          <tr><td>Technology</td><td>Blockchain (Permissioned Ledger); bypasses SWIFT</td></tr>
+        </table>
+
+        <h3>Key BRICS Institutions</h3>
+        <div class="facts">
+          <span class="fact">NDB HQ: <b>Shanghai, China</b></span>
+          <span class="fact">CRA: Contingent Reserve Arrangement (short-term balance of payments support)</span>
+        </div>
+
+        <h3>Related: IBSA &amp; BASIC</h3>
+        <table class="dt">
+          <tr><th>Group</th><th>Members</th><th>Purpose</th></tr>
+          <tr><td>IBSA</td><td>India, Brazil, South Africa</td><td>Est. 2003; governance reforms, WTO, climate, counter-terror; IBSAMAR naval exercise</td></tr>
+          <tr><td>BASIC</td><td>Brazil, South Africa, India, China</td><td>Est. 2009; climate justice; CBDR-RC; Copenhagen Accord negotiations</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      BRICS = 10 members (Indonesia = 10th, Jan 2025). 17th Summit: Rio 2025. "The Unit" = 40% Gold + 60% BRICS currencies settlement token. India's 2026 chair theme: Resilience, Innovation, Cooperation, Sustainability. NDB HQ: Shanghai.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       9. ASEAN
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="asean">
+    <div class="section-head" onclick="toggle(this)">
+      <span>9 · ASEAN</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>ASEAN: founded when, by whom?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>Who is the 11th full member?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>What is DEFA? Why significant?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>47th ASEAN Summit: key outcomes?</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>Look East vs Act East Policy?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">Est: <b>8 Aug 1967</b> (Bangkok Declaration)</span>
+          <span class="fact">Secretariat: <b>Jakarta, Indonesia</b></span>
+          <span class="fact">11 full members now (Timor-Leste 2025)</span>
+          <span class="fact">11 Dialogue Partners</span>
+        </div>
+
+        <h3>Founding Members + Expansion</h3>
+        <div class="facts">
+          <span class="fact">Founding (1967): Indonesia, Malaysia, Philippines, Singapore, Thailand</span>
+          <span class="fact">Expanded: Brunei, Vietnam, Laos, Myanmar, Cambodia, <b>Timor-Leste (2025)</b></span>
+        </div>
+
+        <h3>ASEAN Evolution (Key Dates)</h3>
+        <table class="dt">
+          <tr><th>Year</th><th>Milestone</th></tr>
+          <tr><td>1967</td><td>Bangkok Declaration – formally established ASEAN</td></tr>
+          <tr><td>1976</td><td>Treaty of Amity &amp; Cooperation (TAC); 1st ASEAN Summit</td></tr>
+          <tr><td>1992</td><td>ASEAN Free Trade Area (AFTA)</td></tr>
+          <tr><td>2008</td><td>ASEAN Charter (legal framework)</td></tr>
+          <tr><td>2015</td><td>ASEAN Economic Community (AEC)</td></tr>
+          <tr><td>2020</td><td>RCEP (regional free trade)</td></tr>
+          <tr><td>2025</td><td>Timor-Leste = 11th full member</td></tr>
+        </table>
+
+        <h3>47th ASEAN Summit (Oct 2025, Kuala Lumpur)</h3>
+        <ul class="nb-list">
+          <li><b>ASEAN Community Vision 2045</b> – Inclusivity &amp; Sustainability; Connectivity as 4th pillar</li>
+          <li><b>DEFA</b> – Digital Economy Framework Agreement; world's first regional pact harmonising AI &amp; data laws; target $2 Trillion digital economy by 2030</li>
+          <li><b>Troika Mechanism</b> (Laos, Malaysia, Philippines) – permanent Myanmar crisis management</li>
+          <li><b>Green Supply Chain Pact</b> – EV battery standards; "China Plus One" hub</li>
+          <li>South China Sea COC stalled over China's "Ten-Dash Line"</li>
+        </ul>
+
+        <h3>22nd ASEAN-India Summit (Oct 2025, KL)</h3>
+        <ul class="nb-list">
+          <li>Co-chairs: PM Anwar Ibrahim + PM Modi (virtual)</li>
+          <li>Theme: "Strengthening Comprehensive Strategic Partnership for a Shared Future"</li>
+          <li><b>ASEAN-India Plan of Action 2026-2030</b> – focus: DPI, Renewable Energy, Health Security</li>
+          <li><b>2026 = ASEAN-India Year of Maritime Cooperation</b></li>
+          <li>India to host East Asia Summit Maritime Heritage Festival at <b>Lothal, Gujarat</b></li>
+        </ul>
+        <div class="trap">AITIGA = ASEAN-India Trade in Goods Agreement. India got stricter "Rules of Origin" to stop Chinese goods re-routing through ASEAN.</div>
+
+        <h3>Look East → Act East Policy</h3>
+        <div class="facts">
+          <span class="fact">Look East: <b>P.V. Narasimha Rao</b>, early 1990s</span>
+          <span class="fact">Act East: <b>PM Modi, 2014</b> – more proactive</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      ASEAN (1967, Jakarta Secretariat) = 11 members (Timor-Leste 2025). 47th Summit: DEFA (world's 1st AI+data regional pact), Vision 2045, Timor-Leste induction. 2026 = ASEAN-India Year of Maritime Cooperation.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       10. BIMSTEC
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="bimstec">
+    <div class="section-head" onclick="toggle(this)">
+      <span>10 · BIMSTEC</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="section-body collapsible">
+      <div class="cue-col">
+        <div class="cue-item"><strong>Q1</strong><p>Full form of BIMSTEC? Members?</p></div>
+        <div class="cue-item"><strong>Q2</strong><p>6th BIMSTEC Summit: where, when, theme?</p></div>
+        <div class="cue-item"><strong>Q3</strong><p>Bangkok Vision 2030 – what does it aim?</p></div>
+        <div class="cue-item"><strong>Q4</strong><p>India's "10-Point" offer: name 4 items.</p></div>
+        <div class="cue-item"><strong>Q5</strong><p>BIMSTEC secretariat location?</p></div>
+      </div>
+      <div class="notes-col">
+        <div class="facts">
+          <span class="fact">Est: <b>6 Jun 1997</b> (Bangkok Declaration)</span>
+          <span class="fact">Full form: Bay of Bengal Initiative for Multi-Sectoral Technical &amp; Economic Cooperation</span>
+          <span class="fact">Secretariat: <b>Dhaka, Bangladesh</b></span>
+          <span class="fact">7 members</span>
+        </div>
+
+        <h3>Members &amp; Sector Leads</h3>
+        <table class="dt">
+          <tr><th>Member</th><th>Lead Sector</th></tr>
+          <tr><td>Bangladesh</td><td>Trade, Investment &amp; Development; Blue Economy</td></tr>
+          <tr><td>Bhutan</td><td>Environment &amp; Climate Change; Mountain Economy</td></tr>
+          <tr><td>India</td><td>Security (counter-terrorism, disaster mgmt, energy)</td></tr>
+          <tr><td>Myanmar</td><td>Agriculture, Fisheries &amp; Livestock</td></tr>
+          <tr><td>Nepal</td><td>People-to-People; Culture, Tourism, Poverty Alleviation</td></tr>
+          <tr><td>Sri Lanka</td><td>Science, Technology &amp; Innovation; Health</td></tr>
+          <tr><td>Thailand</td><td>Connectivity</td></tr>
+        </table>
+
+        <h3>6th BIMSTEC Summit (4 Apr 2025, Bangkok)</h3>
+        <div class="facts">
+          <span class="fact">Theme: <i>"Prosperous, Resilient and Open (PRO) BIMSTEC"</i></span>
+          <span class="fact gold">New Chair: <b>Bangladesh</b> (2025-2027)</span>
+        </div>
+        <ul class="nb-list">
+          <li><b>Bangkok Vision 2030</b> – integrate Bay of Bengal into single economic market by 2030</li>
+          <li><b>Maritime Transport Agreement (AMTC)</b> – preferential port rates for member ships</li>
+          <li><b>Rules of Procedure</b> – first formal adoption to standardise summit operations</li>
+        </ul>
+
+        <h3>India's 10-Point Offer</h3>
+        <ul class="nb-list">
+          <li><b>BODHI Initiative</b> – skilling &amp; scholarships for regional youth</li>
+          <li><b>BIMSTEC Games 2027</b> – India to host inaugural edition</li>
+          <li><b>DPI (India Stack / UPI)</b> – offered to members as free public good</li>
+          <li><b>New centres</b> for Traditional Medicine &amp; Disaster Management in India</li>
+        </ul>
+
+        <h3>Sectoral Progress</h3>
+        <ul class="nb-list">
+          <li><b>Connectivity</b>: Push to extend Trilateral Highway (India-Myanmar-Thailand) to Laos/Vietnam</li>
+          <li><b>Energy</b>: Grid Interconnection Master Plan operationalised (Nepal-Bangladesh electricity via India)</li>
+          <li><b>Crisis</b>: Joint disaster relief statement (March 2025 Myanmar earthquake)</li>
+        </ul>
+
+        <h3>Evolution of Name</h3>
+        <div class="facts">
+          <span class="fact">Start: BIST-EC (Bangladesh, India, Sri Lanka, Thailand)</span>
+          <span class="fact">Myanmar joined → BIMST-EC</span>
+          <span class="fact">Nepal &amp; Bhutan added <b>2004</b> → BIMSTEC</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <strong>Summary</strong>
+      BIMSTEC (1997, Dhaka secretariat, 7 members). 6th Summit: Bangkok Apr 2025; Theme PRO-BIMSTEC; Bangladesh new chair. Bangkok Vision 2030 = Bay of Bengal single economic market. India's BODHI + BIMSTEC Games 2027.
+    </div>
+  </div>
+
+  <div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#888;padding:12px 0 24px">
+    Sarrthi IAS · PNP 2026 · International Relations · Cornell Notes
+  </div>
+
+</div><!-- /.notebook -->
+
+<script>
+  function toggle(head) {
+    const body = head.nextElementSibling;
+    const arrow = head.querySelector('.toggle');
+    const collapsed = body.classList.toggle('collapsed');
+    arrow.textContent = collapsed ? '▶' : '▼';
+  }
+</script>
+</body>
+</html>
