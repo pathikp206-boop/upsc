@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC Prelims — Cornell Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1c1610;
+    --bg2: #231d15;
+    --bg3: #2a2318;
+    --parchment: #f2ead8;
+    --parchment2: #e8dfc8;
+    --parchment3: #ddd3bb;
+    --gold: #c9a84c;
+    --gold2: #e8c76a;
+    --copper: #b87333;
+    --ink: #2c1f0e;
+    --ink2: #3d2e1a;
+    --red: #8b1a1a;
+    --green: #1a4a2e;
+    --blue: #1a2a4a;
+    --purple: #3a1a4a;
+    --teal: #1a3a3a;
+    --border: #4a3a28;
+    --border2: #c9a84c44;
+    --shadow: 0 4px 20px rgba(0,0,0,0.5);
+    --shadow2: 0 8px 40px rgba(0,0,0,0.6);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--parchment);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.03) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(184,115,51,0.04) 0%, transparent 50%);
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: linear-gradient(135deg, #0e0b08 0%, #1c1610 40%, #231d15 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 28px 40px 22px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: var(--shadow2);
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .logo-area h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    color: var(--gold2);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+  .logo-area h1 span { color: var(--parchment); font-weight: 400; }
+  .logo-area p {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem; color: var(--copper); letter-spacing: 0.15em;
+    margin-top: 3px; text-transform: uppercase;
+  }
+  .stats-bar {
+    display: flex; gap: 20px; align-items: center;
+  }
+  .stat {
+    text-align: center;
+    border: 1px solid var(--border2);
+    padding: 6px 14px; border-radius: 4px;
+    background: rgba(201,168,76,0.06);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.6rem; color: var(--parchment3); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── CONTROLS ─── */
+  .controls {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    position: sticky; top: 100px; z-index: 99;
+  }
+  .controls-inner { max-width: 1400px; margin: 0 auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  
+  .search-box {
+    position: relative; flex: 1; min-width: 220px;
+  }
+  .search-box input {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--parchment);
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    padding: 8px 16px 8px 38px;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input:focus { border-color: var(--gold); }
+  .search-box input::placeholder { color: var(--parchment3); opacity: 0.5; }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--gold); font-size: 1rem;
+  }
+
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 3px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--parchment3);
+    cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--gold); color: var(--ink);
+    border-color: var(--gold); font-weight: 700;
+  }
+
+  .view-toggle { display: flex; gap: 6px; margin-left: auto; }
+  .view-btn {
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--parchment3); padding: 6px 12px;
+    border-radius: 3px; cursor: pointer; font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .view-btn.active, .view-btn:hover {
+    background: var(--gold); color: var(--ink); border-color: var(--gold);
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .main { max-width: 1400px; margin: 0 auto; padding: 32px 40px 60px; }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 36px 0 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-heading::before {
+    content: ''; display: block;
+    width: 32px; height: 2px; background: var(--gold);
+  }
+  .section-heading::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+  .section-heading .section-count {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem; color: var(--copper);
+    background: var(--bg3); border: 1px solid var(--border2);
+    padding: 2px 8px; border-radius: 2px;
+  }
+
+  /* ─── NOTE GRID ─── */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+    gap: 20px;
+  }
+  .notes-grid.list-view {
+    grid-template-columns: 1fr;
+  }
+
+  /* ─── CORNELL CARD ─── */
+  .cornell-card {
+    background: var(--parchment);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: var(--ink);
+    border: 1px solid var(--parchment3);
+    position: relative;
+  }
+  .cornell-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow2), 0 0 0 1px var(--gold);
+  }
+
+  /* Category color stripe */
+  .cornell-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+  .cornell-card.cat-env::before { background: #2d7a45; }
+  .cornell-card.cat-agri::before { background: #7a6b2d; }
+  .cornell-card.cat-polity::before { background: #7a2d2d; }
+  .cornell-card.cat-history::before { background: #7a4a2d; }
+  .cornell-card.cat-economy::before { background: #2d5a7a; }
+  .cornell-card.cat-geo::before { background: #2d6a7a; }
+  .cornell-card.cat-ir::before { background: #5a2d7a; }
+  .cornell-card.cat-science::before { background: #2d7a6a; }
+
+  /* Card Header */
+  .card-header {
+    background: var(--ink2);
+    padding: 10px 16px 10px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-header-left { display: flex; align-items: center; gap: 10px; }
+  .topic-num {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem; color: var(--gold);
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    padding: 2px 7px; border-radius: 2px;
+    min-width: 38px; text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .topic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--parchment); line-height: 1.3;
+  }
+  .card-meta {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cat-badge {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.6rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 2px 7px;
+    border-radius: 2px;
+  }
+  .cat-env .cat-badge { background: rgba(45,122,69,0.3); color: #7dcea0; }
+  .cat-agri .cat-badge { background: rgba(122,107,45,0.3); color: #d4ac5a; }
+  .cat-polity .cat-badge { background: rgba(122,45,45,0.3); color: #e07070; }
+  .cat-history .cat-badge { background: rgba(122,74,45,0.3); color: #e09060; }
+  .cat-economy .cat-badge { background: rgba(45,90,122,0.3); color: #60a8e0; }
+  .cat-geo .cat-badge { background: rgba(45,106,122,0.3); color: #60c8e0; }
+  .cat-ir .cat-badge { background: rgba(90,45,122,0.3); color: #b060e0; }
+  .cat-science .cat-badge { background: rgba(45,122,106,0.3); color: #60e0c8; }
+
+  .toggle-icon {
+    color: var(--gold); font-size: 0.8rem;
+    transition: transform 0.3s;
+  }
+  .cornell-card.open .toggle-icon { transform: rotate(180deg); }
+
+  /* Cornell Body */
+  .card-body {
+    display: none;
+  }
+  .cornell-card.open .card-body { display: block; }
+
+  .cornell-layout {
+    display: flex;
+    border-top: 1px solid var(--parchment3);
+  }
+
+  /* CUE COLUMN */
+  .cue-col {
+    width: 190px;
+    min-width: 190px;
+    background: #e8dfc8;
+    border-right: 2px solid var(--ink2);
+    padding: 14px 14px;
+  }
+  .cue-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--copper);
+    margin-bottom: 10px; border-bottom: 1px solid var(--parchment3);
+    padding-bottom: 6px;
+  }
+  .cue-item {
+    font-size: 0.82rem; line-height: 1.5;
+    color: var(--ink);
+    padding: 4px 0;
+    border-bottom: 1px dotted rgba(44,31,14,0.2);
+    font-weight: 500;
+  }
+  .cue-item:last-child { border-bottom: none; }
+  .cue-question {
+    font-style: italic; font-size: 0.8rem;
+    color: var(--red); line-height: 1.4;
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: rgba(139,26,26,0.06);
+    border-left: 3px solid var(--red);
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* NOTES COLUMN */
+  .notes-col {
+    flex: 1;
+    padding: 14px 18px;
+    background: var(--parchment);
+  }
+
+  .note-section { margin-bottom: 12px; }
+  .note-section:last-child { margin-bottom: 0; }
+
+  .ns-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--copper);
+    margin-bottom: 4px;
+  }
+  .ns-content {
+    font-size: 0.88rem; line-height: 1.65;
+    color: var(--ink);
+  }
+  .ns-content strong { color: var(--ink2); font-weight: 600; }
+  .ns-content em { color: var(--red); font-style: italic; }
+
+  /* Mini table */
+  .mini-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.78rem; margin: 6px 0;
+  }
+  .mini-table th {
+    background: var(--ink2); color: var(--gold);
+    padding: 5px 8px; text-align: left;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem; letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+  .mini-table td {
+    padding: 4px 8px; color: var(--ink);
+    border-bottom: 1px solid var(--parchment3);
+    vertical-align: top;
+  }
+  .mini-table tr:last-child td { border-bottom: none; }
+  .mini-table tr:nth-child(even) td { background: rgba(44,31,14,0.04); }
+
+  /* List items */
+  .note-list {
+    list-style: none; padding: 0;
+  }
+  .note-list li {
+    font-size: 0.88rem; color: var(--ink);
+    padding: 2px 0 2px 16px;
+    position: relative; line-height: 1.5;
+  }
+  .note-list li::before {
+    content: '◆'; position: absolute; left: 0;
+    color: var(--gold); font-size: 0.5rem;
+    top: 5px;
+  }
+
+  /* UPSC Trap Box */
+  .trap-box {
+    background: rgba(139,26,26,0.08);
+    border: 1px solid rgba(139,26,26,0.3);
+    border-left: 3px solid var(--red);
+    border-radius: 0 4px 4px 0;
+    padding: 8px 12px; margin: 8px 0;
+    font-size: 0.82rem; color: var(--ink);
+    line-height: 1.5;
+  }
+  .trap-box .trap-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    color: var(--red); text-transform: uppercase;
+    font-weight: 700; margin-bottom: 3px;
+  }
+
+  /* Memory anchor */
+  .memory-box {
+    background: rgba(45,122,69,0.08);
+    border: 1px solid rgba(45,122,69,0.25);
+    border-left: 3px solid #2d7a45;
+    padding: 8px 12px; margin: 8px 0;
+    font-size: 0.82rem; font-style: italic;
+    color: var(--ink);
+  }
+  .memory-box .mem-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.6rem; color: #2d7a45;
+    text-transform: uppercase; font-style: normal;
+    font-weight: 700; margin-bottom: 2px;
+  }
+
+  /* SUMMARY ROW */
+  .summary-row {
+    background: var(--ink2);
+    border-top: 2px solid var(--gold);
+    padding: 10px 18px 10px;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .sum-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.6rem; color: var(--gold);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    white-space: nowrap; padding-top: 2px;
+  }
+  .sum-text {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem; color: var(--parchment2);
+    font-style: italic; line-height: 1.5;
+  }
+  .sum-text strong { color: var(--gold); font-style: normal; }
+
+  /* Tags */
+  .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+  .tag {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.58rem; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 6px; border-radius: 2px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+  }
+
+  /* ─── NO RESULTS ─── */
+  .no-results {
+    text-align: center; padding: 80px 40px;
+    color: var(--parchment3);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-style: italic;
+  }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 28px;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-text {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem; color: var(--parchment3);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+  /* PRINT */
+  @media print {
+    .header, .controls { position: static; }
+    .cornell-card { page-break-inside: avoid; }
+    .card-body { display: block !important; }
+    body { background: white; color: black; }
+  }
+
+  @media (max-width: 700px) {
+    .main, .controls, .header { padding-left: 16px; padding-right: 16px; }
+    .notes-grid { grid-template-columns: 1fr; }
+    .cornell-layout { flex-direction: column; }
+    .cue-col { width: 100%; min-width: unset; border-right: none; border-bottom: 2px solid var(--ink2); }
+    .stats-bar { display: none; }
+  }
+
+  /* Results counter */
+  .results-bar {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem; color: var(--parchment3);
+    letter-spacing: 0.08em;
+    padding: 8px 0; text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .results-bar span { color: var(--gold); }
+
+  /* Expand All button */
+  .expand-all {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--parchment3); padding: 6px 14px;
+    border-radius: 3px; transition: all 0.2s;
+    margin-left: auto;
+  }
+  .expand-all:hover {
+    border-color: var(--gold); color: var(--gold);
+  }
+</style>
+</head>
+<body>
+
+<!-- ───── HEADER ───── -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo-area">
+        <h1>Cornell Notes <span>— UPSC Prelims</span></h1>
+        <p>General Studies · Q. 1–100 · Complete Syllabus Coverage</p>
+      </div>
+      <div class="stats-bar">
+        <div class="stat"><div class="stat-num">100</div><div class="stat-label">Topics</div></div>
+        <div class="stat"><div class="stat-num">8</div><div class="stat-label">Subjects</div></div>
+        <div class="stat"><div class="stat-num">PYQ</div><div class="stat-label">2013–2025</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── CONTROLS ───── -->
+<div class="controls">
+  <div class="controls-inner">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search topics, keywords, acts..." oninput="filterNotes()">
+    </div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterCat(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-env')">🌿 Environment</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-agri')">🌾 Agriculture</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-polity')">⚖️ Polity</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-history')">🗿 History</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-economy')">📈 Economy</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-geo')">🌍 Geography</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-ir')">🌐 Int. Relations</button>
+      <button class="filter-btn" onclick="filterCat(this,'cat-science')">🔬 Science</button>
+    </div>
+    <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')">▦</button>
+    <button class="view-btn" id="listViewBtn" onclick="setView('list')">☰</button>
+    <button class="expand-all" onclick="expandAll()">Expand All</button>
+  </div>
+</div>
+
+<!-- ───── MAIN ───── -->
+<div class="main">
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#2d7a45"></div><div class="legend-text">Environment & Biodiversity</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7a6b2d"></div><div class="legend-text">Agriculture & Water</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7a2d2d"></div><div class="legend-text">Indian Polity</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7a4a2d"></div><div class="legend-text">History & Culture</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2d5a7a"></div><div class="legend-text">Economy & Finance</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2d6a7a"></div><div class="legend-text">Geography & Climatology</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5a2d7a"></div><div class="legend-text">International Relations</div></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2d7a6a"></div><div class="legend-text">Science & Technology</div></div>
+  </div>
+  <div class="results-bar" id="resultsBar">Showing <span id="resultsCount">100</span> of 100 topics</div>
+  <div class="notes-grid" id="notesGrid"></div>
+  <div class="no-results" id="noResults" style="display:none">No topics match your search.</div>
+</div>
+
+<script>
+const notes = [
+  // ── ENV & BIODIVERSITY ──
+  {
+    num:"01", cat:"cat-env", title:"Indian Pangolin & Similar Mammals",
+    cues:["Manis crassicaudata","Keratin scales","IUCN Endangered","WPA Schedule I","Rolls into ball"],
+    question:"How does Indian Pangolin differ from Chinese Pangolin?",
+    sections:[
+      {label:"Key ID Features",content:"Only mammal fully covered in <strong>keratin scales</strong> (11–13 rows). Terminal scale present on underside of tail — <em>key differentiator</em> from Chinese Pangolin. Rolls into ball when threatened."},
+      {label:"Protection Status",content:"<strong>IUCN: Endangered</strong> · WPA 1972: Schedule I (highest) · CITES: Appendix I · Distribution: Pan-India except arid, NE & high Himalaya."},
+      {label:"Comparison Table",table:{head:["Animal","Covering","Roll?","IUCN","Endemic?"],rows:[["Indian Pangolin","Keratin scales","✅ Yes","Endangered","India+Sri Lanka"],["Indian Hedgehog","Spines/quills","✅ Yes","Least Concern","India+Pak"],["Madras Hedgehog","Spines/quills","✅ Yes","Least Concern","Peninsular India"],["Honey Badger","Thick loose skin","❌ No","Least Concern","Pan-India"]]}},
+    ],
+    trap:"Honey Badger does NOT roll up. Desert/Madras Hedgehog is Endemic to Peninsular India (red-sand dune ecosystems).",
+    memory:"Pangolin = keratin SCALES (like nails). Hedgehog = SPINES. Honey Badger = NEITHER rolls.",
+    summary:"<strong>Indian Pangolin</strong> = only scaled mammal, Schedule I, IUCN Endangered. Terminal tail scale distinguishes it from Chinese Pangolin. Honey Badger never rolls up.",
+    tags:["WPA 1972","CITES","IUCN","Mammals"]
+  },
+  {
+    num:"02", cat:"cat-env", title:"Protected Areas — Keibul Lamjao, Desert NP, Bhitarkanika",
+    cues:["Floating NP","Loktak Lake","Sangai deer","GIB habitat","Olive Ridley"],
+    question:"Which is the world's only floating national park?",
+    sections:[
+      {label:"Key PAs",table:{head:["Protected Area","State","Key Feature","Species"],rows:[["Keibul Lamjao NP","Manipur","World's only FLOATING NP on Loktak Lake","Sangai (Brow-antlered deer) — State Animal"],["Desert NP","Rajasthan (Jaisalmer-Barmer)","Largest NP in India + fossil park","GIB — critically endangered; State Bird of Rajasthan"],["Bhitarkanika NP","Odisha","2nd largest mangroves after Sundarbans","Olive Ridley Sea Turtle; saltwater crocodiles"]]}},
+    ],
+    trap:"Bhitarkanika is also a RAMSAR site. GIB = State Bird of Rajasthan. Keibul Lamjao = FLOATING is the identifier.",
+    summary:"<strong>Keibul Lamjao</strong> = floating NP, Manipur, Sangai. <strong>Desert NP</strong> = largest NP, GIB. <strong>Bhitarkanika</strong> = mangroves + Ramsar, Olive Ridley.",
+    tags:["National Parks","WPA","Ramsar","GIB","Sangai"]
+  },
+  {
+    num:"03", cat:"cat-env", title:"Mangroves — Coastal Protection & Blue Carbon",
+    cues:["Blue Carbon","Pneumatophores","Wave attenuation 75%","India 4992 km²","Carbon 4× forest"],
+    question:"Why do mangrove roots INCREASE carbon sequestration?",
+    sections:[
+      {label:"Blue Carbon Facts",content:"Mangroves store <strong>up to 4× more carbon per unit area</strong> than terrestrial forests. Carbon stored in above-ground biomass AND in anaerobic sediments (locked for thousands of years). India = 3rd largest mangrove cover in Asia (~4,992 km²)."},
+      {label:"Root Types",content:"<strong>Prop roots (Rhizophora)</strong>: Anchor in waterlogged soil · <strong>Pneumatophores (Avicennia)</strong>: Pencil-like vertical roots for gas exchange in anaerobic soil. Both root types trap sediment → MORE carbon sequestration."},
+      {label:"Coastal Protection",content:"Act as first line of defence against cyclones, storm surges, tsunamis. Reduce wave energy by up to <strong>75%</strong>. Stabilise shorelines. Example: Cyclone Amphan (2020), Odisha mangroves."},
+    ],
+    trap:"Statement 'mangrove roots hinder carbon sequestration' is FALSE — they INCREASE it by trapping organic matter and preventing decomposition.",
+    summary:"Mangroves = 4× C-storage than forests, wave energy –75%, pneumatophores + prop roots both trap sediment → MORE carbon. <strong>Blue carbon ecosystem.</strong>",
+    tags:["Blue Carbon","Mangroves","Cyclone","Ramsar"]
+  },
+  {
+    num:"04", cat:"cat-env", title:"Aquatic Mammals — Ganges Dolphin, Dugong, Irrawaddy",
+    cues:["National Aquatic Animal","Echolocation","Seagrass herbivore","Chilika Lake","Platanista gangetica"],
+    question:"Which aquatic mammal cannot use echolocation?",
+    sections:[
+      {label:"Comparison",table:{head:["Feature","Ganges Dolphin","Dugong","Irrawaddy Dolphin"],rows:[["Scientific","Platanista gangetica","Dugong dugon","Orcaella brevirostris"],["IUCN","Endangered","Vulnerable","Endangered"],["Habitat","Ganges-Brahmaputra river","Shallow coastal seagrass","Estuaries, Chilika Lake"],["Echolocation","✅ Yes (functionally blind)","❌ No","✅ Yes"],["Special","National Aquatic Animal","Only herbivorous marine mammal","Found in Chilika Lake, Odisha"]]}},
+    ],
+    trap:"Dugong has NO echolocation. Dugong is threatened primarily by seagrass loss + boat strikes. State Animal of Andaman & Nicobar Islands.",
+    memory:"Dugong = Dumb (no sonar) + Digs seagrass (herbivore). Dolphin = Darts using sonar.",
+    summary:"<strong>Dugong</strong> = no echolocation, herbivore, Vulnerable. <strong>Ganges Dolphin</strong> = National Aquatic Animal, Endangered, Schedule I, functionally blind uses sonar.",
+    tags:["WPA Schedule I","Aquatic Mammals","IUCN","A&N Islands"]
+  },
+  {
+    num:"05", cat:"cat-env", title:"Wildlife Protection Act 1972 — Key Provisions",
+    cues:["Schedule I–IV","Post-2022 amendment","Vermin Schedule IV","No Joint Sitting","Section 62"],
+    question:"Which WPA Schedule was reorganised in 2022? What changed?",
+    sections:[
+      {label:"Schedule Structure (Post-2022)",table:{head:["Schedule","Protection Level","Examples"],rows:[["Schedule I","Highest — hunting banned","Tiger, Elephant, Rhino, GIB, Ganges Dolphin, Gharial"],["Schedule II","High protection","Crocodile, Hyena"],["Schedule III","Protected plants","Beddome's cycad, Blue Vanda orchid, Kuth"],["Schedule IV","Vermin — can be hunted","Rats, common crows, fruit bats"]]}},
+      {label:"2022 Amendment Key Changes",content:"Old Schedules I & II → New <strong>Schedule I</strong>. Old III & IV → New <strong>Schedule II</strong>. Old Schedule V (Vermin) → New <strong>Schedule IV</strong>. Old Schedule VI (Plants) → New <strong>Schedule III</strong>."},
+      {label:"Legal Points",content:"No Joint Sitting under WPA. Central Govt can declare Schedule II species as vermin under <strong>Section 62</strong> for specific area + period. Hunting of Schedule I = absolutely prohibited even with licence."},
+    ],
+    trap:"WPA is an ordinary parliamentary act — No President's recommendation needed. Section 62 vermin power exists — this can make Schedule II species temporarily huntable in specific areas.",
+    summary:"Post-2022: WPA has 4 Schedules. <strong>Schedule I = highest protection</strong> (merged old I+II). Schedule IV = vermin. Plants in Schedule III. Section 62 = vermin power for Central Govt.",
+    tags:["WPA 1972","Wildlife Protection","Amendment 2022"]
+  },
+  {
+    num:"06", cat:"cat-env", title:"Wildlife Technology — eDNA, Bio-logging, Acoustic Monitoring",
+    cues:["Environmental DNA","Ancient eDNA","Bio-logging sensors","Satellite FIRMS","Non-invasive"],
+    question:"What can eDNA detect that it CANNOT do?",
+    sections:[
+      {label:"Technologies",table:{head:["Technology","Function","UPSC Note"],rows:[["eDNA","Detects species from water/soil DNA","Cannot revive extinct species; CAN detect ancient DNA in sediment"],["Bio-logging","Sensors on animals track movement/physiology","Used in migratory birds, marine mammals"],["Acoustic Monitoring","Records sound to ID species","Non-invasive; ideal for bats, birds, dolphins"],["FIRMS","NASA satellite fire detection","Near real-time forest fire detection"]]}},
+    ],
+    trap:"eDNA can detect EXTINCT species' DNA in ancient sediment layers — but CANNOT synthesize or revive extinct species.",
+    summary:"<strong>eDNA</strong> = detects presence from DNA shed into environment; ancient eDNA ≠ resurrection. <strong>FIRMS</strong> = NASA fire detection. Acoustic monitoring = non-invasive species ID.",
+    tags:["Wildlife Technology","eDNA","Conservation Science"]
+  },
+  {
+    num:"07", cat:"cat-env", title:"Kunming-Montreal Global Biodiversity Framework (GBF)",
+    cues:["30×30 Target","COP15 CBD 2022","23 action targets","Aichi replacement","$200bn biodiversity finance"],
+    question:"What is the 30×30 target and what was it replaced?",
+    sections:[
+      {label:"Key Details",content:"Adopted at <strong>COP15 of CBD, December 2022, Montreal, Canada</strong>. Replaces Aichi Biodiversity Targets (2010–2020). Structure: 4 Goals (2050) + 23 Action Targets (2030)."},
+      {label:"Key 2030 Targets",table:{head:["Target","Content"],rows:[["Target 3 (30×30)","Protect 30% of land, inland water, coastal & marine areas"],["Target 2","Restore 30% of degraded ecosystems"],["Target 5","Reduce invasive alien species by 30%"],["Target 18","Reduce harmful subsidies by US$500bn/year"],["Finance","Mobilise US$200bn/year for biodiversity"]]}},
+    ],
+    trap:"Currently only ~17% of land and ~10% of oceans protected — far short of 30% target. GBF replaces Aichi Targets (NOT Paris Agreement targets — those are climate, not biodiversity).",
+    summary:"GBF 2022 = <strong>30×30 target</strong> (protect 30% land + ocean by 2030), $200bn/yr biodiversity finance. Replaces Aichi Targets. 23 action targets for 2030.",
+    tags:["CBD","Biodiversity","COP15","Aichi Targets"]
+  },
+
+  // ── AGRICULTURE ──
+  {
+    num:"08", cat:"cat-agri", title:"Virtual Water — MSP, Irrigation Subsidy & Water Economy",
+    cues:["Virtual water trade","2500L per kg rice","India = largest exporter","MSP distortion","Groundwater depletion"],
+    question:"How does MSP contribute to India's virtual water exports?",
+    sections:[
+      {label:"Virtual Water Concept",content:"Water embedded in goods during production. When exported, water is 'exported' too. <strong>1 kg rice ≈ 2,500 litres of water</strong>. India = world's largest rice exporter (~40% global share) = world's <strong>largest virtual water exporter</strong>."},
+      {label:"Policy Problem",content:"MSP for water-intensive crops (rice, sugarcane) incentivises cultivation even in semi-arid regions. Free/subsidised irrigation power removes market signal → overextraction of groundwater. Result: India exports water scarcity."},
+      {label:"Reforms Needed",content:"Virtual water tax on water-intensive exports · Crop diversification to millets/maize · Revision of MSP to reflect environmental cost."},
+    ],
+    trap:"Assertion (rice exports → groundwater depletion) = TRUE. Reason (MSP + irrigation subsidy incentivise water-intensive crops in semi-arid regions) = TRUE and is the CORRECT explanation.",
+    summary:"India's rice exports = <strong>virtual water export</strong>. MSP + power subsidy incentivise water-intensive crops in wrong regions → groundwater crisis. 1 kg rice = 2,500L water.",
+    tags:["Virtual Water","MSP","Groundwater","Agriculture Policy"]
+  },
+  {
+    num:"09", cat:"cat-agri", title:"Agriculture Technology — SRI, Vertical Farming, Hydroponics",
+    cues:["85% less water SRI","95% less water vertical","Young single seedlings","Soilless cultivation","Aquaponics"],
+    question:"What distinguishes SRI from conventional paddy cultivation?",
+    sections:[
+      {label:"Comparison",table:{head:["Technology","Core Principle","Water Saving","Key Feature"],rows:[["SRI","Fewer seeds, wider spacing, intermittent irrigation","85% less water","2 kg/ha seed vs 30 kg/ha; transplants young single seedlings"],["Vertical Farming","Stacked layers, artificial light indoors","95% less water","Year-round; no soil; high capex"],["Hydroponics","Soilless — roots in nutrient-water solution","Up to 90% less","11× faster growth; 13× higher yield per unit area"]]}},
+    ],
+    trap:"Vertical farming ≠ Hydroponics. Vertical farming = structural concept (stacking). Hydroponics = growing medium. Aquaponics = Hydroponics + fish farming in closed system.",
+    summary:"<strong>SRI</strong>: –85% water, single young seedling, 2kg/ha seed. <strong>Hydroponics</strong>: soilless, 13× yield. <strong>Vertical farming</strong>: indoor stacked, –95% water. All three: NO conventional soil needed.",
+    tags:["SRI","Hydroponics","Vertical Farming","Water Conservation"]
+  },
+  {
+    num:"10", cat:"cat-agri", title:"Coal Resources in India — Types & Locations",
+    cues:["Gondwana coalfields","Anthracite J&K","Lignite Neyveli","Damodar Valley","98% reserves bituminous"],
+    question:"Which type of coal has highest carbon % and where is it found in India?",
+    sections:[
+      {label:"Coal Types (ascending quality)",table:{head:["Type","Carbon %","Calorific Value","Occurrence in India"],rows:[["Lignite (Brown Coal)","25–35%","Lowest","Tamil Nadu (Neyveli)"],["Sub-bituminous","35–45%","Low-medium","NE India"],["Bituminous","45–86%","High","Jharkhand, Odisha, WB, MP, CG"],["Anthracite",">86%","Highest","J&K (Jammu) — RARE"]]}},
+    ],
+    trap:"India has VERY LIMITED anthracite — only in J&K. Gondwana coalfields (Damodar Valley) = ~98% of India's coal, mostly BITUMINOUS. Tertiary coalfields (Assam, Meghalaya) = sub-bituminous/lignite.",
+    memory:"Rank: Lignite → Sub-bituminous → Bituminous → Anthracite. Higher rank = more carbon = higher calorific value = less ash.",
+    summary:"India's coal: <strong>~98% in Gondwana coalfields</strong> (Damodar Valley), mostly bituminous. Anthracite = rare, J&K only. Lignite = Tamil Nadu (Neyveli). Higher rank = more carbon.",
+    tags:["Coal","Minerals","Gondwana","Energy Resources"]
+  },
+  {
+    num:"11", cat:"cat-agri", title:"Critical Minerals — India's List & Supply Chains",
+    cues:["30 minerals India list 2023","100% import lithium+cobalt","China 60% REE","KABIL","NCMM"],
+    question:"What are the two qualifying criteria for a mineral to be 'critical'?",
+    sections:[
+      {label:"Definition & Criteria",content:"1. <strong>Economic & security importance</strong> — vital for defense, EVs, electronics, clean energy. 2. <strong>Supply chain risk</strong> — concentrated extraction/processing in few countries."},
+      {label:"Key Minerals by Use",table:{head:["Use","Minerals"],rows:[["EV Batteries","Lithium, Cobalt, Nickel, Graphite, Manganese"],["Clean Energy","Rare Earth Elements (REEs), Vanadium"],["Electronics","Gallium, Germanium, Indium"]]}},
+      {label:"India's Gaps + Response",content:"India imports <strong>100% of Lithium and Cobalt</strong> requirements. China controls >60% REE production + ~80% REE processing + ~70% cobalt refining. India's response: <strong>NCMM</strong> (National Critical Mineral Mission) + <strong>KABIL</strong> (acquires mines abroad) + <strong>Mineral Security Partnership (MSP)</strong> — joined 2023."},
+    ],
+    trap:"Graphite is critical despite being more abundant than lithium — because China dominates ~65% of graphite production. Criticality = economic importance + supply chain risk, not just scarcity.",
+    summary:"Critical mineral = important + supply risk. India: 30 minerals listed, 100% import of Li + Co. China dominates REE/cobalt/graphite. Response: <strong>KABIL</strong> (overseas mines) + <strong>NCMM</strong>.",
+    tags:["Critical Minerals","EV","REE","KABIL","Supply Chain"]
+  },
+  {
+    num:"12", cat:"cat-agri", title:"PM-KUSUM Scheme",
+    cues:["MNRE 2019","Component A/B/C","Barren land solar","60% subsidy","25-year PPA"],
+    question:"Which entities can participate in KUSUM Component A?",
+    sections:[
+      {label:"Three Components",table:{head:["Component","Target","Description"],rows:[["A","10,000 MW","Solar plants on barren/fallow/degraded land; farmers get land lease revenue"],["B","17.5 lakh pumps","Standalone off-grid solar pumps (up to 7.5 HP) replacing diesel pumps"],["C","10 lakh pumps","Solarisation of grid-connected pumps; surplus power sold to DISCOM"]]}},
+      {label:"Eligibility & Subsidy",content:"Component A eligible: Individual farmers, groups of farmers, cooperatives, panchayats, <strong>FPOs</strong> (Farmer Producer Organisations), <strong>PACS</strong> (Primary Agricultural Credit Societies). Subsidy: <strong>60% (Centre+State) + 30% bank loan + 10% farmer contribution</strong>. Power purchase: DISCOMs via 25-year PPAs."},
+    ],
+    trap:"Component A allows solar plants on FALLOW land — not only on cultivated land. Creates dual income for farmers: land lease rent + electricity sale proceeds.",
+    summary:"KUSUM: A=barren land solar (10GW), B=off-grid pumps (17.5L), C=grid pump solarisation (10L). <strong>60% subsidy</strong>. FPOs + PACS eligible for A. 25-year PPAs with DISCOMs.",
+    tags:["PM-KUSUM","Solar Energy","MNRE","Farmer Income"]
+  },
+  {
+    num:"13", cat:"cat-agri", title:"Sand Mining — Legal Status & Environmental Impacts",
+    cues:["Minor Mineral MMDR Act","State jurisdiction","Desert sand unusable","Riverbed erosion","Saltwater intrusion"],
+    question:"Why is desert sand UNUSABLE for construction despite being abundant?",
+    sections:[
+      {label:"Legal Framework",content:"Sand = <strong>Minor Mineral</strong> under <strong>Mines and Minerals (Development and Regulation) Act, 1957 (MMDR Act)</strong>. State Governments have jurisdiction over minor minerals."},
+      {label:"Environmental Impacts",content:"<strong>Groundwater depletion</strong> — removes aquifer material, lowers water table · <strong>Riverbed erosion</strong> — destabilises banks and bridges · <strong>Loss of biodiversity</strong> — destroys fish spawning grounds and riverine bird nesting · <strong>Saltwater intrusion</strong> in coastal areas · SC declared sand mining criminal offence without environmental clearance."},
+    ],
+    trap:"Desert sand = wind-eroded grains = too SMOOTH and ROUND for concrete (no angular surfaces to bind). Construction sand must be angular. River sand is angular. Desert sand is spherical.",
+    summary:"Sand = Minor Mineral, MMDR Act, State jurisdiction. Desert sand = unusable (smooth/round grains). River sand mining = groundwater depletion + erosion + saltwater intrusion. <strong>SC requires EC.</strong>",
+    tags:["Sand Mining","MMDR Act","Minor Minerals","Environment"]
+  },
+
+  // ── POLITY ──
+  {
+    num:"14", cat:"cat-polity", title:"Constitutional Amendment — Article 368",
+    cues:["Special majority","State ratification ½","No Joint Sitting","No pocket veto","Basic Structure Doctrine"],
+    question:"Which amendments require state ratification? Name three examples.",
+    sections:[
+      {label:"Three Types of Amendment",table:{head:["Type","Method","Examples"],rows:[["Simple Majority","Majority of present & voting","Admission of new states, new HCs, citizenship"],["Special Majority","Total membership majority + 2/3 present & voting","Fundamental Rights, DPSPs, judiciary"],["Special Majority + State Ratification","Special majority + ratification by ≥½ State Legislatures","Federal features: RS representation, SC/HC jurisdiction, 7th Schedule"]]}},
+      {label:"Critical Points",content:"Amendment Bill: Can be introduced in <strong>either House</strong>. <strong>No prior President permission</strong> needed. <strong>NO Joint Sitting</strong> for deadlock — both Houses must pass separately. President <strong>must give assent</strong> (no pocket veto). Basic Structure Doctrine (Kesavananda Bharati, 1973): Parliament cannot amend basic structure."},
+    ],
+    trap:"No Joint Sitting for constitutional amendments — ONLY ordinary bills (Art. 108) have Joint Sitting. For amendments, BOTH Houses must pass independently.",
+    summary:"Art. 368: 3 types. No Joint Sitting. No pocket veto for President. Kesavananda Bharati 1973 = <strong>Basic Structure</strong> (cannot be amended). State ratification needed for federal provisions.",
+    tags:["Article 368","Constitutional Amendment","Basic Structure","Kesavananda Bharati"]
+  },
+  {
+    num:"15", cat:"cat-polity", title:"Article 12 & 13 — State Definition & Void Laws",
+    cues:["Other Authorities","Statutory bodies","Custom = law Art.13","Ordinances covered","Private bodies excluded"],
+    question:"Does Article 13 cover 'customs and usages'?",
+    sections:[
+      {label:"Article 12 — Definition of State",content:"Includes: (1) Government & Parliament of India; (2) Government & Legislature of each State; (3) All local or <strong>other authorities</strong> within India or under control of Govt of India. 'Other authorities' = statutory bodies, corporations exercising governmental functions. <em>Private bodies NOT included.</em>"},
+      {label:"Article 13 — Void Laws",content:"'Law' includes: Acts, Ordinances, orders, bye-laws, rules, regulations, notifications, and <strong>customs or usages having force of law</strong>. Laws before Constitution: void to extent of inconsistency. Laws after Constitution: void ab initio."},
+    ],
+    trap:"Custom or usage IS covered under Article 13's definition of 'law.' Ordinances ARE covered. Private conduct is NOT covered under Article 12 — Fundamental Rights apply against State, not private parties.",
+    summary:"Art. 12: 'State' includes statutory bodies, NOT private entities. Art. 13: 'Law' includes <strong>customs, usages, and ordinances</strong>. FRs apply only against State action.",
+    tags:["Article 12","Article 13","Fundamental Rights","Void Laws"]
+  },
+  {
+    num:"16", cat:"cat-polity", title:"Presidential Eligibility, Office of Profit & MP Disqualification",
+    cues:["Article 58 eligibility","35 years age","LS qualified","EC recommends disqualification","Article 102/191"],
+    question:"Who decides MP disqualification — and what is the EC's role?",
+    sections:[
+      {label:"Presidential Eligibility (Art. 58)",content:"Citizen of India · Minimum age: <strong>35 years</strong> · Qualified to be elected as member of <strong>Lok Sabha</strong> · Must NOT hold any office of profit."},
+      {label:"Disqualification Decision",table:{head:["Level","Deciding Authority","Advisor"],rows:[["MP disqualification (LS/RS)","President","Election Commission"],["MLA disqualification","Governor","Election Commission"],["Anti-defection (10th Sch.)","Speaker/Chairman","(Self; no outside body)"]]}},
+    ],
+    trap:"For MP/MLA disqualification under ordinary grounds (Art. 102/191) = President/Governor acts on EC advice. For anti-defection (10th Schedule) = Speaker/Chairman decides — Election Commission NOT involved.",
+    summary:"President eligibility: 35 yrs, Indian citizen, LS-qualified, no office of profit. <strong>MP disqualification: President + EC advice</strong>. Anti-defection: Speaker only.",
+    tags:["Article 58","Office of Profit","Disqualification","10th Schedule","Anti-Defection"]
+  },
+  {
+    num:"17", cat:"cat-polity", title:"Constituent Assembly — Committees & Chairmen",
+    cues:["Drafting Committee Ambedkar","Nehru chaired 2 committees","Patel advisory FR","Rajendra Prasad — Steering","7 members drafting"],
+    question:"How many committees did Nehru chair in the Constituent Assembly?",
+    sections:[
+      {label:"Major Committees",table:{head:["Committee","Chairman"],rows:[["Union Constitution Committee","Jawaharlal Nehru"],["Union Powers Committee","Jawaharlal Nehru"],["Provincial Constitution Committee","Sardar Vallabhbhai Patel"],["Drafting Committee","Dr. B.R. Ambedkar"],["Steering Committee","Dr. Rajendra Prasad"],["Advisory Committee on FRs","Sardar Patel"],["Rules of Procedure Committee","Dr. Rajendra Prasad"]]}},
+      {label:"Drafting Committee — 7 Members",content:"1. Dr. B.R. Ambedkar (Chairman) · 2. N. Gopalaswamy Ayyangar · 3. Alladi Krishnaswami Ayyar · 4. Dr. K.M. Munshi · 5. Syed Mohammad Saadullah · 6. N. Madhava Rau (replaced B.L. Mitter) · 7. T.T. Krishnamachari (replaced D.P. Khaitan)"},
+    ],
+    trap:"Rajendra Prasad = President of Constituent Assembly, NOT a member of the Drafting Committee. Nehru chaired BOTH Union Constitution Committee AND Union Powers Committee. Both Ayyangar AND Alladi Krishnaswami Ayyar were members.",
+    summary:"Nehru = 2 committees. Ambedkar = Drafting Committee (7 members, set up Aug 29, 1947). Patel = Advisory FR + Provincial Constitution. Rajendra Prasad = CA President (not Drafting Committee).",
+    tags:["Constituent Assembly","Drafting Committee","Ambedkar","Nehru"]
+  },
+  {
+    num:"18", cat:"cat-polity", title:"British Acceptance of Constitution-Making Demand",
+    cues:["Cabinet Mission 1946","Cripps 1942 first promise","August Offer 1940","CA first met Dec 9 1946","389 members original"],
+    question:"Which plan ACTUALLY set up the Constituent Assembly?",
+    sections:[
+      {label:"Chronological Order",table:{head:["Proposal","Year","Key Feature"],rows:[["August Offer","1940","First dominion status offer; did NOT accept CA demand"],["Cripps Mission","1942","First EXPLICIT PROMISE of CA after WWII; Congress+ML rejected"],["Cabinet Mission Plan","1946","ACTUALLY SET UP the CA — most significant"],["Mountbatten Plan","1947","Dealt with Partition; CA already existed"]]}},
+      {label:"CA Key Facts",content:"First meeting: <strong>December 9, 1946</strong>. Original members: 389 (reduced to 299 after partition). Duration: 2 years, 11 months, 18 days. Cost: ₹6.4 crore. Also served as Provisional Parliament until 1952 general elections."},
+    ],
+    trap:"Cripps Mission = first promise but NOT implementation. Cabinet Mission = implementation. Members were elected by Provincial Legislative Assemblies (NOT directly by people).",
+    summary:"<strong>Cabinet Mission Plan 1946</strong> = actually created the Constituent Assembly. Cripps 1942 = first explicit promise only. CA first met Dec 9, 1946. 389→299 members after Partition.",
+    tags:["Constituent Assembly","Cabinet Mission","Cripps Mission","1946"]
+  },
+  {
+    num:"19", cat:"cat-polity", title:"Parts of the Indian Constitution — Key Parts",
+    cues:["Part IX-B 97th Amendment","Part XIV-A Tribunals 42nd","Part III FRs Art.12-35","Part XX Art.368","Part IX Panchayats"],
+    question:"Which Amendment added cooperative societies to the Constitution?",
+    sections:[
+      {label:"Key Parts",table:{head:["Part","Subject","Articles"],rows:[["Part III","Fundamental Rights","12–35"],["Part IV","Directive Principles","36–51"],["Part IX","Panchayats","243–243O"],["Part IX-B","Co-operative Societies (97th Amend 2011)","243ZH–243ZT"],["Part XIV-A","Tribunals (42nd Amend 1976)","323A–323B"],["Part XV","Elections","324–329A"],["Part XVIII","Emergency Provisions","352–360"],["Part XX","Amendment of Constitution","368"]]}},
+    ],
+    trap:"Part IX-B (Co-operative Societies) added by 97th Amendment — a very recent addition. Part XIV-A (Tribunals) added by 42nd Amendment — SAME amendment that added Fundamental Duties (Part IVA).",
+    summary:"Part IX-B = cooperatives (<strong>97th Amendment</strong>). Part XIV-A = Tribunals (42nd Amendment). Parts III=FRs, IV=DPSPs, IX=Panchayats, XVIII=Emergency, XX=Amendments.",
+    tags:["Parts of Constitution","97th Amendment","42nd Amendment","Cooperative Societies"]
+  },
+  {
+    num:"20", cat:"cat-polity", title:"Preamble — Objectives & Sources",
+    cues:["SSDR (Socialist Secular added 42nd)","JELF objectives","Irish influence","Liberty not Freedom","Not justiciable"],
+    question:"Was 'Socialist' and 'Secular' in the original Preamble?",
+    sections:[
+      {label:"The Four Objectives",content:"<strong>Justice</strong> — social, economic, political · <strong>Liberty</strong> — of thought, expression, belief, faith, worship · <strong>Equality</strong> — of status and opportunity · <strong>Fraternity</strong> — assuring dignity of individual and unity of nation."},
+      {label:"Preamble Terms",content:"Sovereign · <strong>Socialist</strong> (added 42nd Amendment, 1976) · <strong>Secular</strong> (added 42nd Amendment, 1976) · Democratic · Republic. Source of Preamble language: <strong>Ireland</strong>. Preamble: NOT justiciable but used as interpretive aid (Berubari Union case, Kesavananda Bharati case)."},
+    ],
+    trap:"'Freedom' is NOT listed as a standalone objective in the Preamble — it is subsumed under 'Liberty.' Socialist + Secular ADDED by 42nd Amendment, 1976 — NOT in original 1949 Preamble.",
+    summary:"Preamble: JELF objectives (Justice, Equality, Liberty, Fraternity). Socialist + Secular = <strong>42nd Amendment 1976</strong>. Not justiciable. Borrowed from <strong>Ireland</strong>.",
+    tags:["Preamble","42nd Amendment","Ireland","JELF"]
+  },
+  {
+    num:"21", cat:"cat-polity", title:"Fundamental Rights — Article 21 & Foreign Travel",
+    cues:["Right to travel abroad Art.21","Maneka Gandhi 1978","Art.19(1)(d) domestic","Art.21A education","Right to reputation Art.21"],
+    question:"Which Article protects the right to travel abroad?",
+    sections:[
+      {label:"Article 21 Expansions",content:"Right to life and personal liberty includes: Right to travel abroad (<strong>Maneka Gandhi v. UoI, 1978</strong>) · Right to livelihood · Right to health · Right to privacy · Right to education · Right to speedy trial · Right to reputation (Subramanian Swamy v. UoI, 2016)."},
+      {label:"FR Scope Table",table:{head:["Right","FR?","Article"],rows:[["Right to strike","❌ NO","—"],["Peaceful picketing","✅ YES","19(1)(a)"],["Right to reputation","✅ YES","21"],["Right to free legal aid","✅ YES","21"],["Right to education (6-14 yrs)","✅ YES","21A"],["Right to travel ABROAD","✅ YES","21 (Maneka Gandhi)"],["Right to travel WITHIN India","✅ YES","19(1)(d)"]]}},
+    ],
+    trap:"Right to travel ABROAD = Article 21. Right to travel WITHIN India = Article 19(1)(d). Right to strike = NOT a Fundamental Right (T.K. Rangarajan v. Govt of Tamil Nadu, 2003).",
+    summary:"<strong>Foreign travel = Article 21</strong> (Maneka Gandhi, 1978). Domestic movement = Article 19(1)(d). Right to strike = NOT FR. Right to reputation = Article 21.",
+    tags:["Article 21","Maneka Gandhi","Fundamental Rights","Right to Travel"]
+  },
+  {
+    num:"22", cat:"cat-polity", title:"President's Powers — Bills, Pardon, Executive Action",
+    cues:["Article 72 pardon","Court-martial exclusive","Money Bill no return","Pocket veto","Article 77 executive actions"],
+    question:"Can a Governor pardon a court-martial conviction?",
+    sections:[
+      {label:"President's Pardoning Power (Art. 72)",content:"President can pardon in THREE cases: (1) Offence against <strong>Union law</strong>; (2) Punishment by <strong>Court-Martial</strong> (EXCLUSIVE to President — Governor cannot); (3) <strong>Death sentence</strong>. Types: Pardon, Reprieve, Respite, Remission, Commutation."},
+      {label:"President & Bills (Art. 111)",content:"Can give assent / withhold assent / return for reconsideration (once only). <strong>Money Bills: CANNOT return</strong> — must assent or withhold. <strong>Constitutional Amendment Bills: must give assent</strong> — no pocket veto."},
+    ],
+    trap:"Governor (Art. 161) can pardon State law offences BUT CANNOT pardon court-martial cases — ONLY President can. Money Bills cannot be returned by President.",
+    summary:"President pardons: Union law offences + Court-Martial + Death sentence. <strong>Court-Martial pardon = President only, not Governor.</strong> Money Bills = cannot return. CA Bills = must assent.",
+    tags:["Article 72","Pardoning Power","President Powers","Governor","Court-Martial"]
+  },
+  {
+    num:"23", cat:"cat-polity", title:"Supreme Court — Review, Curative Petition & Jurisdictions",
+    cues:["Article 137 review","Curative = post-review","Rupa Ashok Hurra 2002","Art. 143 advisory not binding","Art. 136 SLP widest"],
+    question:"What are the grounds for filing a Curative Petition?",
+    sections:[
+      {label:"Hierarchy of Remedies",content:"<strong>Review Petition (Art. 137)</strong>: Within 30 days; heard in chambers by same bench. → After dismissal → <strong>Curative Petition</strong> (post-Rupa Ashok Hurra v Ashok Hurra, 2002): No time limit; must be certified by senior advocate; heard by 3 senior-most judges + original bench. Grounds: Violation of natural justice, bias, abuse of process."},
+      {label:"SC Jurisdictions",table:{head:["Jurisdiction","Article","Key Points"],rows:[["Original","131","Centre-State and inter-State disputes; exclusive"],["Appellate","132–136","Appeals from HCs; Art. 136 = SLP (widest power)"],["Advisory","143","President can seek SC opinion; NOT binding on President"],["Review","137","Can review its own judgments; 30-day limit"]]}},
+    ],
+    trap:"Advisory opinion (Art. 143) is NOT binding on President. SC can decline to answer. Original jurisdiction does NOT cover inter-state river disputes (those go to Tribunals under Art. 262).",
+    summary:"<strong>Curative Petition</strong> = after review dismissed; no time limit; from Rupa Ashok Hurra 2002; grounds = natural justice violation. Art. 143 advisory = NOT binding. Art. 136 SLP = widest jurisdiction.",
+    tags:["Article 137","Curative Petition","SC Jurisdiction","SLP","Article 143"]
+  },
+  {
+    num:"24", cat:"cat-polity", title:"Centre-State Legislative Relations — Article 249–253",
+    cues:["Art. 249 RS 2/3 majority","Art. 252 consenting states","Art. 253 international treaty","Art. 250 emergency","7th Schedule"],
+    question:"Under which Article can Parliament legislate on State List items based on States' own request?",
+    sections:[
+      {label:"When Parliament Can Legislate on State List",table:{head:["Basis","Article","Condition"],rows:[["Rajya Sabha Resolution","249","2/3 majority + national interest; valid 1 year (renewable)"],["National Emergency","250","During Art. 352 proclamation"],["States' Request","252","Resolutions by 2+ State Legislatures; law binds only consenting states"],["International Treaty","253","Parliament can legislate on any list for international agreements"],["President's Rule","356","Parliament can legislate for that state"]]}},
+    ],
+    trap:"Under Art. 252, Parliament's law applies ONLY to states that passed the resolution — not all states. Rajya Sabha resolution (Art. 249) does NOT require state consent.",
+    summary:"Art. 249: RS 2/3 vote → 1-yr legislation. Art. 252: States REQUEST → only consenting states bound. Art. 253: International treaties → any list. <strong>Art. 252 example: Prize Competitions Act 1955.</strong>",
+    tags:["Article 249","Article 252","Article 253","Centre-State Relations","7th Schedule"]
+  },
+  {
+    num:"25", cat:"cat-polity", title:"Governor — Reserving Bills & Aid and Advice",
+    cues:["Article 200","Mandatory reservation HC","44th Amendment aid+advice binding","No time limit SC gap","Art. 304 trade restriction"],
+    question:"When is Governor's reservation of a bill for President MANDATORY?",
+    sections:[
+      {label:"Mandatory Reservation Cases",content:"Bill that <strong>derogates High Court powers</strong> (Art. 200 proviso) · Bill imposing restrictions on <strong>trade/commerce in public interest</strong> (Art. 304) · Bill affecting positions of HC judges."},
+      {label:"Aid & Advice",content:"Governor must act on <strong>Council of Ministers' advice</strong> (44th Amendment made binding). Discretionary exceptions: appointment of CM when no clear majority, dissolution of Assembly, etc. No time limit on President to act on reserved bill = significant constitutional gap."},
+    ],
+    trap:"No time limit for President to act on a bill reserved by Governor — this is an unresolved constitutional gap (Kerala Governor controversy). Governor also has no time limit after President's decision.",
+    summary:"Governor MUST reserve bill if it derogates HC powers / restricts trade (Art. 304). Aid + Advice = <strong>binding post-44th Amendment</strong>. No statutory time limit = constitutional gap.",
+    tags:["Article 200","Governor Powers","44th Amendment","Reserved Bills"]
+  },
+
+  // ── HISTORY ──
+  {
+    num:"26", cat:"cat-history", title:"Mauryan Administration — Key Officials",
+    cues:["Samaharta = revenue collection","Sannidhata = treasury","Antahpala = border","Rajukas = district","Arthashastra Kautilya"],
+    question:"Distinguish Samaharta from Sannidhata.",
+    sections:[
+      {label:"Central Officials",table:{head:["Official","Function"],rows:[["Samaharta","Chief Revenue Collector-General — ASSESSMENT + COLLECTION of all revenues"],["Sannidhata","Chief Custodian of Royal Treasury — STORAGE + DISBURSEMENT of revenue"],["Antahpala","Commander of FRONTIER/BORDER forts"],["Rajukas","District officers: land measurement, boundary demarcation; like modern Collectors"],["Yuktas","Subordinate officials assisting Rajukas"],["Pradeshika","Head of district administration (above Rajukas)"],["Sitadhyaksha","Superintendent of Agriculture"],["Sulkaadhyaksha","Superintendent of Customs/Tolls"]]}},
+    ],
+    memory:"Samaharta = SUM up (collect). Sannidhata = STORE (Sannidhi = storehouse). Antahpala = ANTA (end/border).",
+    trap:"Samaharta = collection/assessment (not storage). Sannidhata = storage/disbursement (not collection). Rajukas = LOCAL/district level; Samaharta/Sannidhata = CENTRAL level.",
+    summary:"<strong>Samaharta</strong> = revenue collection. <strong>Sannidhata</strong> = treasury. <strong>Antahpala</strong> = border forts. <strong>Rajukas</strong> = district officers (like Collectors). All from Arthashastra/Indika.",
+    tags:["Mauryan Empire","Arthashastra","Megasthenes","Administration"]
+  },
+  {
+    num:"27", cat:"cat-history", title:"Ashokan Edicts — Locations",
+    cues:["Jaugada = Odisha NOT MP","Kalsi = Uttarakhand NOT Karnataka","Dhauli Odisha","Erragudi AP","Separate Kalinga Edicts"],
+    question:"Which two sites have Separate Kalinga Edicts (NOT regular Major Rock Edicts)?",
+    sections:[
+      {label:"Major Rock Edict Sites",table:{head:["Site","State","Special Feature"],rows:[["Dhauli","Odisha","SEPARATE Kalinga Rock Edict (replaces MRE 11–13); near Kalinga war site"],["Jaugada","Odisha (Ganjam)","2nd SEPARATE Kalinga Edict site"],["Erragudi","Andhra Pradesh (Kurnool)","Southernmost Rock Edict site"],["Kalsi","Uttarakhand (Dehradun)","Northernmost; Brahmi script"],["Girnar","Gujarat","Oldest; first discovered"],["Shahbazgarhi","Pakistan (KPK)","Kharosthi script"],["Mansehra","Pakistan","Kharosthi script"]]}},
+    ],
+    trap:"HIGH FREQUENCY UPSC TRAP: Jaugada is in ODISHA (NOT Madhya Pradesh). Kalsi is in UTTARAKHAND (NOT Karnataka). Dhauli and Jaugada = ONLY TWO sites with Separate Kalinga Edicts.",
+    memory:"Jaugada–Dhauli = OdiSha pair (both Separate Kalinga Edicts). Kalsi = Uttarakhand (not Karnataka). Erragudi = AP = southernmost.",
+    summary:"<strong>Jaugada + Dhauli</strong> = Odisha = only two Separate Kalinga Edict sites. <strong>Kalsi = Uttarakhand</strong>. Erragudi = AP (southernmost). Shahbazgarhi/Mansehra = Pakistan, Kharosthi script.",
+    tags:["Ashoka","Rock Edicts","Mauryan","Kalinga","Kharosthi","Brahmi"]
+  },
+  {
+    num:"28", cat:"cat-history", title:"Buddhism — Schools, Texts & Symbolism",
+    cues:["Theravada conservative","Mahasanghika progressive","Milindapanha Indo-Greek","Nagasena Menander","Gandhara anthropomorphic"],
+    question:"What did the Milindapanha discuss and which Buddhist school is it associated with?",
+    sections:[
+      {label:"Two Early Schools (2nd Buddhist Council, Vaishali, 383 BCE)",table:{head:["Feature","Theravada","Mahasanghika"],rows:[["Meaning","Doctrine of Elders","Great Assembly"],["Nature","Conservative, orthodox","Progressive, liberal"],["Buddha","Historical human","More supramundane/divine"],["Legacy","Seeds of Hinayana","Precursor to Mahayana"],["Canon","Pali Tripitaka","Sanskrit-based texts"]]}},
+      {label:"Milindapanha & Symbolic Representation",content:"<strong>Milindapanha</strong>: Dialogue between King <strong>Menander (Milinda)</strong> and monk <strong>Nagasena</strong>. Associated with <strong>Theravada</strong> (canonical in Burma/SE Asia). Menander = Indo-Greek king (~155–130 BCE). Early Buddhist art = symbolic: footprints, empty seat, Wheel (Dhamma Chakra), Bodhi tree, Stupa. Anthropomorphic Buddha = Gandhara + Mathura schools (Kushana period)."},
+    ],
+    trap:"Madhyama-vyayoga is by BHASA, NOT Bharata. Bharata wrote Natyashastra. Milindapanha = THERAVADA, not Mahayana.",
+    summary:"Theravada = conservative, Pali, Hinayana seeds. Mahasanghika = progressive → Mahayana precursor. <strong>Milindapanha = Theravada, Nagasena + Menander</strong>. Anthropomorphic Buddha = Kushana period.",
+    tags:["Buddhism","Theravada","Mahayana","Milindapanha","Buddhist Art"]
+  },
+  {
+    num:"29", cat:"cat-history", title:"Sacred Ensembles of Hoysalas — UNESCO 2023",
+    cues:["UNESCO 2023","Three sites Karnataka","Soapstone carving","Star-shaped platform","Belur Halebidu Somanathapura"],
+    question:"Name all three Hoysala UNESCO sites and their deities.",
+    sections:[
+      {label:"Three Component Sites",table:{head:["Temple","Location","Deity","Period"],rows:[["Chennakesava Temple","Belur (Hassan dist.)","Vishnu (Keshava)","Built by Vishnuvardhana, 1117 CE"],["Hoysalesvara Temple","Halebidu (Hassan dist.)","Shiva","12th century"],["Keshava Temple","Somanathapura (Mysore dist.)","Vishnu (Keshava)","1268 CE"]]}},
+      {label:"Hoysala Art Features",content:"Star-shaped (stellate) platforms (jagati) · Hyper-realistic, highly detailed sculptures · <strong>Soapstone (chloritic schist)</strong> — softer, allows intricate carving · No large gopurams; horizontal emphasis · Trikuta (three towers) plan at Somanathapura."},
+    ],
+    trap:"Inscribed in 2023 — very recent. All three sites are in Karnataka. Two at Hassan district (Belur + Halebidu), one at Mysore district (Somanathapura).",
+    summary:"Hoysala UNESCO 2023: <strong>Belur (Vishnu) + Halebidu (Shiva) + Somanathapura (Vishnu)</strong>. All Karnataka. Key: soapstone carving, stellate platform, Trikuta. Vishnuvardhana built Belur (1117 CE).",
+    tags:["Hoysala","UNESCO","Medieval India","Karnataka","Art & Architecture"]
+  },
+  {
+    num:"30", cat:"cat-history", title:"Iqta System — Delhi Sultanate",
+    cues:["Iltutmish systematised","Muqti = holder","Fawazil = surplus revenue","Khalisa = crown land","Firoz Tughlaq = hereditary"],
+    question:"How did Firoz Shah Tughlaq change the Iqta system and with what consequence?",
+    sections:[
+      {label:"Key Terms",table:{head:["Term","Meaning"],rows:[["Iqta","Revenue assignment — territory given to noble to collect land revenue"],["Muqti/Iqtadar/Wali","Holder of the Iqta"],["Fawazil","Surplus revenue above maintenance costs — remitted to Sultan's treasury"],["Khalisa","Crown land under direct central control"]]}},
+      {label:"Evolution",content:"Introduced by Muhammad of Ghor; systematised by <strong>Iltutmish (1211–1236)</strong>. Originally <strong>NOT hereditary</strong> — transfers frequent to prevent entrenchment. Under <strong>Alauddin Khalji</strong>: strict accounting + surveying. Under <strong>Firoz Shah Tughlaq (1351–1388)</strong>: Iqtas became <strong>HEREDITARY</strong> → centralisation broke down → decentralisation → sultanate weakened."},
+    ],
+    trap:"The shift from NON-HEREDITARY to HEREDITARY Iqtas under Firoz Shah Tughlaq was a critical turning point that weakened the Delhi Sultanate.",
+    summary:"Iqta = revenue assignment. Iltutmish = systematised. Alauddin = tightened. <strong>Firoz Tughlaq = made hereditary</strong> → caused political fragmentation and decentralisation of sultanate.",
+    tags:["Iqta System","Delhi Sultanate","Iltutmish","Firoz Shah Tughlaq","Medieval India"]
+  },
+  {
+    num:"31", cat:"cat-history", title:"Ancient Sites — Dhamekh Stupa, Barabar Caves, Amaravati",
+    cues:["Dhamekh = First Sermon site","Barabar = oldest rock-cut caves","Ajivikas Ashoka","Amaravati Satavahana","Sarnath"],
+    question:"With which sect did Ashoka associate the Barabar Caves?",
+    sections:[
+      {label:"Ancient Sites",table:{head:["Site","Period","Location","Significance"],rows:[["Dhamekh Stupa","Gupta (~500 CE)","Sarnath, UP","Marks Buddha's First Sermon (Dhammachakra Pravartana); massive cylindrical stupa"],["Barabar Caves","Mauryan (Ashoka)","Jehanabad, Bihar","Oldest rock-cut caves in India; donated to AJIVIKA monks by Ashoka; Lomas Rishi = oldest arched entrance"],["Amaravati Mahastupa","Satavahana (2nd BCE–3rd CE)","Andhra Pradesh","Famous Amaravati marble sculptures; Jataka stories in medallion style; distinct art school"]]}},
+    ],
+    trap:"Dhamekh Stupa ≠ Dhammarajika Stupa (smaller, ruined). Barabar Caves = AJIVIKAS (Makkhali Gosala), NOT Buddhism. Amaravati School = flowing naturalistic figures (distinct from Mathura/Gandhara).",
+    summary:"<strong>Dhamekh Stupa</strong> = First Sermon, Sarnath, Gupta period. <strong>Barabar Caves</strong> = oldest rock-cut caves, Ajivikas, Bihar. <strong>Amaravati</strong> = Satavahana, marble sculptures, Jataka stories.",
+    tags:["Buddhist Architecture","Stupa","Barabar Caves","Ajivikas","Amaravati","Sarnath"]
+  },
+  {
+    num:"32", cat:"cat-history", title:"Ancient Literature — Sanskrit Drama & Authors",
+    cues:["Bhasa = oldest Sanskrit playwright","Natyashastra Bharata Muni","13 plays Bhasa","Navarasas","Patanjali Mahabhashya"],
+    question:"Who authored Natyashastra and what are its key concepts?",
+    sections:[
+      {label:"Authors & Works",table:{head:["Author/Text","Period","Key Works/Role"],rows:[["Bhasa","c. 2nd–3rd CE","Earliest Sanskrit playwright; 13 plays (Madhyama-vyayoga, etc.); rediscovered 1912"],["Bharata Muni","c. 2nd BCE","Natyashastra — foundational treatise on drama, music, dance; concept of NAVARASAS (9 emotions)"],["Patanjali","c. 2nd BCE","Mahabhashya (commentary on Panini's grammar); Yoga Sutras"],["Buddhaghosa","c. 5th CE","Theravada Buddhist; Visuddhimagga (Path of Purification)"]]}},
+    ],
+    trap:"Madhyama-vyayoga is by BHASA, not Bharata Muni. Bharata Muni wrote NATYASHASTRA (theory). Buddhaghosa = Buddhist scholar, not Sanskrit dramatist.",
+    summary:"<strong>Natyashastra = Bharata Muni</strong> (Navarasas, 9 emotions). <strong>Bhasa</strong> = oldest Sanskrit playwright, 13 plays. Patanjali = Mahabhashya. Buddhaghosa = Theravada, Visuddhimagga.",
+    tags:["Sanskrit Literature","Natyashastra","Bharata Muni","Bhasa","Ancient Literature"]
+  },
+
+  // ── ECONOMY ──
+  {
+    num:"33", cat:"cat-economy", title:"IMF Special Drawing Rights (SDR)",
+    cues:["Paper Gold","5 currency basket","Chinese Yuan 2016","Private entities CANNOT hold","Reviewed every 5 years"],
+    question:"Can private entities hold SDRs? What 5 currencies make up the basket?",
+    sections:[
+      {label:"SDR Basket (5 currencies)",table:{head:["Currency","Weight (approx.)"],rows:[["US Dollar","~43.38%"],["Euro","~29.31%"],["Chinese Renminbi (Yuan)","~12.28% (added 2016)"],["Japanese Yen","~7.59%"],["British Pound Sterling","~8.09%"]]}},
+      {label:"Key Facts",content:"SDR = International reserve asset created by IMF (1969). Called <strong>'Paper Gold'</strong>. NOT a currency — cannot be used in private transactions. Basket reviewed <strong>every 5 years</strong>; value calculated DAILY. Only <strong>IMF members + certain prescribed international organisations</strong> can hold SDRs. <em>Private entities CANNOT hold SDRs.</em>"},
+    ],
+    trap:"SDR is NOT a currency and cannot be directly spent. Chinese Yuan included in 2016 as the 5th currency. SDR allocation during COVID (2021) = $650bn — largest ever.",
+    summary:"SDR = Paper Gold, NOT currency. 5-currency basket (USD, EUR, CNY, JPY, GBP). Yuan added <strong>2016</strong>. Private entities CANNOT hold SDRs. Reviewed every 5 years.",
+    tags:["IMF","SDR","International Finance","Paper Gold"]
+  },
+  {
+    num:"34", cat:"cat-economy", title:"New Development Bank (NDB) — BRICS Bank",
+    cues:["Fortaleza 2014","Shanghai HQ","Equal 20% BRICS","55% founding members retain","Dilma Rousseff President"],
+    question:"What voting share protection do founding BRICS members have in NDB?",
+    sections:[
+      {label:"NDB Key Facts",content:"Established: <strong>2014 (Fortaleza Summit)</strong> · Operational: 2015 · HQ: <strong>Shanghai, China</strong> (permanent since 2021) · President (2023–): <strong>Dilma Rousseff</strong> (former Brazil President) · Initial capital: $50bn subscribed; $100bn authorised."},
+      {label:"Voting Structure",content:"Initial 5 founding members (Brazil, Russia, India, China, South Africa) = <strong>equal 20% each</strong>. As membership expands: <strong>founding BRICS must retain ≥55%</strong> total voting power. Non-founding member: cannot exceed 7% voting power. Current membership: 11 countries (Bangladesh, UAE, Uruguay, Egypt, Saudi Arabia added)."},
+    ],
+    trap:"'NDB has equal voting for all members' is only true for the 5 FOUNDING members. New members have smaller, different shares. This contrasts with IMF/World Bank where USA has dominant share.",
+    summary:"NDB: Fortaleza 2014, Shanghai HQ. 5 founders = equal 20% each. <strong>Founders must retain ≥55% as new members join.</strong> Expanded to 11 members. Dilma Rousseff = President.",
+    tags:["NDB","BRICS","International Finance","Development Banks"]
+  },
+  {
+    num:"35", cat:"cat-economy", title:"CBDC vs Cryptocurrency",
+    cues:["Digital Rupee legal tender","Bitcoin 21mn cap","RBI controls supply","No fixed cap CBDC","Pseudonymous crypto"],
+    question:"Does CBDC have a fixed supply cap like Bitcoin?",
+    sections:[
+      {label:"Comparison",table:{head:["Feature","CBDC (Digital Rupee)","Private Crypto (Bitcoin)"],rows:[["Issuer","Reserve Bank of India","Decentralised; no central issuer"],["Legal Tender","✅ YES (RBI Act amendment, 2022)","❌ NOT legal tender in India"],["Backing","Full sovereign guarantee","Market demand only"],["Supply Cap","NO CAP — RBI controls supply","CAPPED (Bitcoin: 21 million)"],["Decentralisation","Centralised (permissioned)","Fully decentralised (public blockchain)"],["Anonymity","Traceable by RBI","Pseudonymous"]]}},
+    ],
+    trap:"Cryptocurrency DOES have supply cap (Bitcoin = 21 million) — fundamental design feature. CBDC does NOT have fixed cap — RBI controls supply. CBDC = fiat digital currency; crypto = NOT fiat.",
+    summary:"CBDC = legal tender, RBI-controlled, NO supply cap. Bitcoin = NOT legal tender, 21mn cap, decentralised. <strong>CBDC amended RBI Act 2022.</strong> Key difference: central control vs decentralisation.",
+    tags:["CBDC","Digital Rupee","Cryptocurrency","Bitcoin","RBI"]
+  },
+  {
+    num:"36", cat:"cat-economy", title:"InvITs — Infrastructure Investment Trusts",
+    cues:["SEBI regulated NOT RBI","80% brownfield assets","90% cash flow distribute","Capital recycling","Individuals not sponsors"],
+    question:"What is the minimum distribution requirement for InvITs?",
+    sections:[
+      {label:"InvIT vs REIT",table:{head:["Feature","InvIT","REIT"],rows:[["Asset type","Infrastructure (roads, power, pipelines)","Real estate (commercial properties)"],["Regulator","SEBI","SEBI"],["Min. distribution","≥90% of net distributable cash flow","≥90% of net distributable income"],["Listing","Mandatory on stock exchanges","Mandatory on stock exchanges"]]}},
+      {label:"Key Rules",content:"Must invest <strong>minimum 80% in completed, revenue-generating (brownfield) assets</strong>. Eligible sponsors: Infrastructure companies with net worth ≥ ₹100 crore. <strong>Individuals CANNOT be sponsors</strong>. Units listed on NSE/BSE. Capital recycling: Developer sells project to InvIT → gets capital → builds new greenfield."},
+    ],
+    trap:"'InvITs are regulated by RBI like NBFCs' → WRONG. InvITs are SEBI-regulated capital market instruments. Individuals cannot be sponsors (corporates + LLPs only).",
+    summary:"InvITs = SEBI regulated. 80% brownfield assets. <strong>90% cash flow distribution mandatory.</strong> Individuals NOT sponsors. Listed on stock exchanges. Enables capital recycling for developers.",
+    tags:["InvIT","SEBI","Infrastructure","Capital Markets","REIT"]
+  },
+  {
+    num:"37", cat:"cat-economy", title:"Financial Markets — Bonds (Zero Coupon, IIBs, Convertible)",
+    cues:["Zero coupon deep discount","IIBs protect principal+interest","Convertible lower coupon","Bond price vs interest rate inverse","G-Sec lowest yield"],
+    question:"What is the inverse relationship between bond prices and interest rates?",
+    sections:[
+      {label:"Bond Types",table:{head:["Bond Type","Key Feature"],rows:[["Zero Coupon","No periodic interest; issued at deep discount; face value at maturity"],["Inflation-Indexed Bonds (IIBs)","BOTH principal AND interest protected against inflation; linked to CPI"],["Convertible Bonds","Can be converted to equity; lower coupon rate (conversion option has value)"],["G-Secs","Sovereign guarantee; lowest risk = lowest yield"],["Junk/High-Yield","High default risk; highest yield to compensate investors"]]}},
+      {label:"Key Concepts",content:"<strong>Bond Price ↔ Interest Rate: INVERSE relationship</strong>. When market rates rise → existing bond prices fall. When market rates fall → bond prices rise. Bankruptcy priority: Secured creditors → Bondholders → Preference shareholders → Equity (last)."},
+    ],
+    trap:"IIBs protect BOTH principal AND interest — not just one. Zero coupon bonds have NO reinvestment risk (no interim coupons). Convertible bonds have LOWER coupon because conversion option has value.",
+    summary:"Bond price vs interest rate = <strong>inverse</strong>. IIBs = CPI-linked, both principal+interest protected. Zero coupon = deep discount, no interest. Convertible = lower coupon + equity option. Liquidation: bondholders before shareholders.",
+    tags:["Bonds","IIBs","Zero Coupon","Convertible Bonds","Capital Markets"]
+  },
+  {
+    num:"38", cat:"cat-economy", title:"Money Market vs Capital Market Instruments",
+    cues:["1 year boundary","T-Bills money market","Dated G-Secs capital market","CP = corporate","CD = bank"],
+    question:"Distinguish between Commercial Paper and Certificate of Deposit.",
+    sections:[
+      {label:"Instruments by Market",table:{head:["Instrument","Market","Issuer","Tenor"],rows:[["Treasury Bills (T-Bills)","Money Market","Govt of India","91/182/364 days"],["Dated G-Secs","Capital Market","Govt of India",">1 year (up to 40 yrs)"],["Commercial Paper (CP)","Money Market","Corporates/NBFCs","7 days–1 year; min ₹5 lakh"],["Certificate of Deposit (CD)","Money Market","Banks, All-India FIs","7 days–1 year"],["Equity Shares","Capital Market","Companies","No maturity"],["Call Money","Money Market","Banks","1 day (overnight)"]]}},
+    ],
+    trap:"Both T-Bills AND Dated G-Secs are issued by Government — but T-Bills (<1yr) = Money Market; Dated G-Secs (>1yr) = Capital Market. CP = corporate; CD = bank. 1 year is the dividing line.",
+    summary:"Money Market: <1 year. Capital Market: >1 year. T-Bills = money market. Dated G-Secs = capital market. <strong>CP = corporates. CD = banks.</strong> Both issued at discount.",
+    tags:["Money Market","Capital Market","T-Bills","Commercial Paper","Certificate of Deposit"]
+  },
+  {
+    num:"39", cat:"cat-economy", title:"FDI vs FPI & Balance of Payments",
+    cues:["FDI ≥10% stake","FPI <10% hot money","DPIIT + RBI regulate FDI","SEBI regulates FPI","Both in Capital Account"],
+    question:"What threshold distinguishes FDI from FPI?",
+    sections:[
+      {label:"FDI vs FPI",table:{head:["Feature","FDI","FPI"],rows:[["Nature","Long-term; management control","Short-term; financial returns"],["Threshold","≥10% equity stake","<10% equity stake"],["Stability","More stable (patient capital)","More volatile (hot money)"],["Purpose","Technology transfer, jobs","Capital gains, dividends"],["Regulation","DPIIT + RBI (FEMA)","SEBI (FPI Regulations) + RBI"],["BoP entry","Capital Account","Capital Account"]]}},
+    ],
+    trap:"Both FDI and FPI are recorded in India's CAPITAL ACCOUNT (BoP). FPI is also called FII (Foreign Institutional Investment) in older literature. Sudden reversal of FPI = current account deficit worsening.",
+    summary:"FDI = ≥10% stake, stable, DPIIT+RBI. FPI = <10% stake, volatile (hot money), SEBI. <strong>Both in Capital Account of Balance of Payments.</strong> FPI reversal = pressure on rupee and CAD.",
+    tags:["FDI","FPI","Balance of Payments","DPIIT","SEBI","Capital Account"]
+  },
+  {
+    num:"40", cat:"cat-economy", title:"G20 — Basics, Membership & Functions",
+    cues:["19 countries + EU + AU (2023)","85% global GDP","1999 founding","No permanent secretariat","NOT financial assistance"],
+    question:"Does G20 provide balance-of-payments financing? Who joined in 2023?",
+    sections:[
+      {label:"G20 Basics",content:"Established: <strong>1999</strong> (Finance Ministers level, post-Asian Financial Crisis). Elevated to Heads of State level: <strong>2008 Washington Summit</strong> (global financial crisis). Composition: <strong>19 countries + EU + African Union (AU)</strong> — AU joined at India's New Delhi Summit 2023. Represents ~85% global GDP, 75% trade, 2/3 population."},
+      {label:"Members — Common Traps",content:"NOT in G20: <strong>Spain</strong> (permanent invitee, not full member), Nigeria (not a member). IN G20: Indonesia ✅, Saudi Arabia ✅, Turkey ✅, Argentina ✅, South Africa ✅."},
+    ],
+    trap:"G20 does NOT provide balance-of-payments financing — that is the IMF's role. G20 has no permanent secretariat — each Presidency hosts for that year. Spain is NOT a full G20 member.",
+    summary:"G20 = 19 countries + EU + <strong>AU (2023)</strong>. Founded 1999. Economic coordination body — does NOT provide BoP financing (IMF does). No permanent secretariat. Spain = invitee only.",
+    tags:["G20","International Finance","African Union","New Delhi Summit 2023"]
+  },
+  {
+    num:"41", cat:"cat-economy", title:"Financial Stability Board (FSB) & Regulatory Sandbox",
+    cues:["FSB 2009 London G20","Basel BIS hosted","Non-binding recommendations","India member (RBI+MoF+SEBI)","Sandbox: live testing"],
+    question:"Is FSB's regulatory authority legally binding?",
+    sections:[
+      {label:"FSB",content:"Established: <strong>2009 G20 London Summit</strong> (successor to Financial Stability Forum). HQ: <strong>Basel, Switzerland</strong> (hosted by BIS). NOT a legal entity — operates under a Charter. Recommendations: <strong>non-binding</strong> (peer pressure leads to adoption). India represented by RBI + Finance Ministry + SEBI."},
+      {label:"Regulatory Sandbox",content:"Controlled, live-testing environment where FinTech firms test products with real customers under relaxed oversight for a limited period. India: RBI Sandbox (2019, payments/lending/KYC), SEBI Sandbox (capital markets), IRDAI Sandbox (InsurTech). Time-bound (6–12 months); limited scope; enhanced monitoring. Does NOT mean permanent exemption."},
+    ],
+    trap:"FSB recommendations are NON-BINDING — it is a monitoring and coordination body, not an enforcement agency. Regulatory Sandbox ≠ permanent regulatory exemption.",
+    summary:"FSB: 2009, Basel, non-binding, India member. Regulatory Sandbox: time-bound live testing. <strong>FSB = monitor + coordinate; does not enforce.</strong> Sandbox = innovation + consumer protection balance.",
+    tags:["FSB","Financial Stability","Regulatory Sandbox","FinTech","RBI"]
+  },
+  {
+    num:"42", cat:"cat-economy", title:"World Bank — IDA vs IBRD",
+    cues:["IDA = poorest countries","Near-zero interest IDA","IBRD = market rates","IDA = donor contributions","India = recipient + contributor"],
+    question:"How is IDA funded, and who does it serve?",
+    sections:[
+      {label:"IDA vs IBRD",table:{head:["Feature","IDA","IBRD"],rows:[["Beneficiaries","Poorest countries (low GNI)","Middle-income + creditworthy low-income"],["Terms","0–1.25% interest; 25–40 yr maturity; grace period","Market-based rates"],["Funding","Donor country contributions (replenished every 3 years)","Capital markets (bonds)"],["Products","Grants + concessional credits","Loans only"]]}},
+    ],
+    trap:"IDA membership requires first being IBRD member (which requires IMF membership). India is BOTH an IDA recipient AND contributor — reflecting its dual status as developing and emerging economy.",
+    summary:"IDA = poorest nations, 0–1.25% interest, funded by donor contributions (replenished every 3 yrs). IBRD = market rates, middle-income. India = <strong>both IDA recipient and contributor.</strong>",
+    tags:["World Bank","IDA","IBRD","Development Finance"]
+  },
+
+  // ── GEOGRAPHY ──
+  {
+    num:"43", cat:"cat-geo", title:"ITCZ, Thermal Equator & Monsoon Trough",
+    cues:["ITCZ shifts northward June-Sept","Thermal equator 10°N","Monsoon trough over Gangetic Plain","Retreating monsoon NE","Coromandel Coast Oct-Dec"],
+    question:"Why is the thermal equator permanently slightly north of the geographic equator?",
+    sections:[
+      {label:"ITCZ & Thermal Equator",content:"ITCZ = low-pressure belt near equator where NE + SE Trade Winds converge. Rising moist air → convectional rainfall (Doldrums). <strong>Thermal Equator</strong> = belt of highest temperature, generally between equator and 10°N. Permanently shifted slightly north due to <strong>larger landmass in Northern Hemisphere</strong> (land heats faster than ocean)."},
+      {label:"Seasonal Shifting",content:"During June–September: Sun moves northward (Uttarayan) → Northern Hemisphere heats → thermal equator shifts north → ITCZ follows. By <strong>June</strong>: ITCZ positioned over <strong>Gangetic Plain</strong> = <strong>monsoon trough</strong> draws SW monsoon winds. Winter: ITCZ shifts south → Retreating Monsoon → NE monsoon rains on <strong>Coromandel Coast</strong>."},
+    ],
+    trap:"ITCZ shift northward is NOT SYMMETRIC — shifts more north in summer (over India's landmass) than south in winter (NH has more land that heats faster).",
+    summary:"Thermal equator = ~10°N (NH has more land). ITCZ follows thermal equator. <strong>June: ITCZ over Gangetic Plain = monsoon trough.</strong> Winter: retreating monsoon → Coromandel Coast (NE monsoon).",
+    tags:["ITCZ","Monsoon","Thermal Equator","Climatology","Coromandel"]
+  },
+  {
+    num:"44", cat:"cat-geo", title:"Coriolis Force & Wind Belts",
+    cues:["Right deflection NH","Left deflection SH","Zero at equator","NE Trade Winds 0-30°N","Horse Latitudes 30°"],
+    question:"Why do tropical cyclones not form within 5° of the equator?",
+    sections:[
+      {label:"Coriolis Force",content:"Apparent force due to Earth's rotation. Deflection: <strong>RIGHT in NH, LEFT in SH</strong> (Ferrel's Law). <strong>ZERO at equator</strong> — increases toward poles (proportional to sin of latitude). Acts perpendicular to motion — changes direction NOT speed."},
+      {label:"Wind Belt Table",table:{head:["Wind Belt","Latitude","Direction","Cause"],rows:[["Trade Winds","0°–30°","Blow toward equator","Subtropical High → Equatorial Low"],["Westerlies","30°–60°","Blow toward poles","Subtropical High → Sub-polar Low"],["Polar Easterlies","60°–90°","Blow toward equator","Polar High → Sub-polar Low"]]}},
+    ],
+    trap:"Tropical cyclones don't form within 5° of equator — insufficient Coriolis force to create rotation. Coriolis = zero at equator. NE Trade Winds deflected by Coriolis from subtropical highs toward equatorial low.",
+    summary:"Coriolis: RIGHT in NH, LEFT in SH, ZERO at equator. Trade winds = subtropical high to equatorial low. <strong>Cyclones can't form within 5° of equator</strong> (no Coriolis). Westerlies = 30°–60°.",
+    tags:["Coriolis Force","Wind Belts","Trade Winds","Climatology","Cyclones"]
+  },
+  {
+    num:"45", cat:"cat-geo", title:"Terrestrial Radiation & Atmosphere Heating",
+    cues:["Long-wave terrestrial radiation","Short-wave solar insolation","GHGs absorb long-wave","Troposphere heated from below","Temperature inversion stratosphere"],
+    question:"Is the atmosphere heated primarily by solar radiation passing through it?",
+    sections:[
+      {label:"Heating Mechanism",content:"Sun emits <strong>short-wave radiation</strong> → passes through atmosphere → absorbed by Earth's surface. Earth re-emits as <strong>long-wave (infrared) terrestrial radiation</strong> → absorbed by lower atmosphere. Key absorbers: <strong>Water vapour (H₂O), CO₂, methane, ozone</strong> (Greenhouse Gases). Result: <strong>Lower atmosphere heated from BELOW, not directly by Sun.</strong>"},
+      {label:"Temperature Profile",content:"Normal lapse rate: <strong>6.5°C per 1000m decrease</strong> in troposphere (temperature decreases with altitude). <strong>Temperature Inversion</strong>: temperature increases with altitude — common in upper stratosphere due to ozone absorbing UV."},
+    ],
+    trap:"Atmosphere is NOT heated directly by solar radiation passing through it — heated by TERRESTRIAL (long-wave) radiation from Earth's surface. This is why surface is warmer than upper atmosphere.",
+    memory:"Sun → Earth surface → Terrestrial radiation → Atmosphere. NOT Sun → Atmosphere directly.",
+    summary:"Atmosphere heated by <strong>long-wave terrestrial radiation</strong> from Earth's surface (not directly by Sun). GHGs (H₂O, CO₂, CH₄) absorb this. Troposphere heated from below; normal lapse rate = 6.5°C/1000m.",
+    tags:["Terrestrial Radiation","Greenhouse Effect","Lapse Rate","Climatology"]
+  },
+  {
+    num:"46", cat:"cat-geo", title:"Temperature Distribution — Annual Range, Albedo, Poles",
+    cues:["Low annual range equator","High annual range poles","Ice albedo 80-90%","Continentality effect","Positive feedback loop"],
+    question:"Why do polar regions have a high annual temperature range?",
+    sections:[
+      {label:"Three Key Statements (all true)",content:"<strong>Statement 1:</strong> Equatorial regions have LOW annual temperature range (Sun overhead year-round; 12hr day constant → little seasonal variation). <strong>Statement 2:</strong> Polar regions have HIGH annual temperature range (6 months day vs 6 months night → extreme seasonal contrast). <strong>Statement 3:</strong> High albedo of polar ice REDUCES temperature (ice/snow reflects 80–90% of incoming solar radiation → less absorption → colder → positive feedback loop: more ice → more reflection → more cooling)."},
+      {label:"Annual Range Rules",content:"Increases with latitude (equator → poles) · Higher over continents than oceans (continentality) · Interior regions > Coastal regions (maritime moderates range)."},
+    ],
+    summary:"Equator = low annual range. Poles = high annual range (6-month day/night extremes). Ice albedo = <strong>80–90%</strong> → positive feedback cooling loop. Continents > oceans in annual range.",
+    tags:["Annual Range","Albedo","Polar Climate","Continentality","Climatology"]
+  },
+  {
+    num:"47", cat:"cat-geo", title:"World Geography — Straits & Waterways",
+    cues:["Bab-el-Mandeb Red Sea-Gulf Aden","Hormuz 20% oil trade","Kerch Black Sea-Azov","Bosphorus Turkey","Houthi attacks"],
+    question:"Which strait connects the Black Sea to the Sea of Azov?",
+    sections:[
+      {label:"Key Straits",table:{head:["Strait","Connects","Strategic Significance"],rows:[["Bab-el-Mandeb","Red Sea ↔ Gulf of Aden","Gateway to Suez; Yemen/Djibouti/Eritrea; Houthi attacks (2023-24)"],["Strait of Hormuz","Persian Gulf ↔ Gulf of Oman","~20% of global oil trade; Iran+Oman"],["Kerch Strait","Black Sea ↔ Sea of Azov","Russia-Ukraine conflict; Crimea Bridge"],["Bosphorus","Black Sea ↔ Sea of Marmara","Turkey (Istanbul); NATO-Russia dynamics"]]}},
+    ],
+    trap:"Bab-el-Mandeb = 'Gate of Grief' — relevant for Operation Prosperity Guardian (US-led) against Houthi attacks. Kerch Strait = Russia built Kerch Bridge to connect mainland Russia to occupied Crimea.",
+    summary:"Bab-el-Mandeb = Suez gateway (Houthi threat). Hormuz = 20% global oil. <strong>Kerch = Black Sea to Sea of Azov</strong> (Russia-Ukraine). Bosphorus = Turkey, NATO dynamics.",
+    tags:["Straits","Geopolitics","Red Sea","Hormuz","Bosphorus","Kerch"]
+  },
+  {
+    num:"48", cat:"cat-geo", title:"Wetlands & River Confluences — India",
+    cues:["Harike = Beas+Sutlej Punjab","Keoladeo = UNESCO+Ramsar","Kolleru = Krishna+Godavari delta","Siberian Crane Keoladeo","Chilika Lake Irrawaddy"],
+    question:"Which Indian bird sanctuary is also a UNESCO World Heritage Site?",
+    sections:[
+      {label:"Key Wetlands",table:{head:["Wetland","Location","Rivers/Feature","Ramsar","Key Species"],rows:[["Harike","Punjab","Confluence: Beas + Sutlej","1990","Indus river dolphin, migratory birds"],["Keoladeo Ghana NP","Rajasthan (Bharatpur)","Artificial — Gambhir + Banganga","Ramsar + UNESCO World Heritage","Siberian Crane (critically endangered winter visitor)"],["Kolleru Lake","Andhra Pradesh","Between Krishna + Godavari deltas","2002","Grey pelicans, painted storks"]]}},
+    ],
+    trap:"Harike = Punjab's ONLY Ramsar site. Keoladeo = ONLY bird sanctuary that is also a UNESCO World Heritage Site. Kolleru = India's largest freshwater lake in natural state.",
+    summary:"Harike = Punjab, Beas+Sutlej, Ramsar 1990. <strong>Keoladeo = Ramsar + UNESCO (only bird sanctuary)</strong>, Siberian Crane. Kolleru = Andhra Pradesh, largest natural freshwater lake.",
+    tags:["Wetlands","Ramsar","Keoladeo","UNESCO","Harike","Kolleru"]
+  },
+  {
+    num:"49", cat:"cat-geo", title:"Coral Reefs — Conditions, Biodiversity & Great Barrier Reef",
+    cues:["Calcium carbonate CaCO3","Zooxanthellae algae","18-30°C temperature","<1% ocean but 25% marine species","Queensland Australia"],
+    question:"What is the symbiotic relationship that sustains coral polyps?",
+    sections:[
+      {label:"Coral Biology",content:"Coral Polyps = tiny animals (Class Anthozoa, Phylum Cnidaria). Secrete <strong>calcium carbonate (CaCO₃) exoskeleton</strong> forming reef. Symbiosis with <strong>zooxanthellae algae</strong> (provides 70–90% of coral's energy via photosynthesis). <em>NOT plants.</em>"},
+      {label:"Growth Conditions",content:"Temperature: <strong>18–30°C</strong> (bleaching above ~30.5°C) · Clear shallow water (sunlight ≤50m depth) · Salinity: 27–40 ppt · Low turbidity · <strong>NOT found in river mouths</strong> (too much freshwater + silt)."},
+      {label:"Significance",content:"Cover <1% of ocean floor but support <strong>~25% of all marine species</strong> — 'rainforests of the sea.' <strong>Great Barrier Reef</strong>: Off Queensland, northeastern Australia — largest coral system (~2,300 km). Threats: coral bleaching, ocean acidification, crown-of-thorns starfish."},
+    ],
+    trap:"Corals are ANIMALS, not plants. They don't photosynthesise — their algae (zooxanthellae) does. Bleaching occurs when algae expelled due to thermal stress (not pollution directly).",
+    summary:"Coral polyps = animals + CaCO₃ + zooxanthellae symbiosis. Bleach above 30.5°C. <1% ocean → <strong>25% marine species</strong>. Great Barrier Reef = Queensland, 2,300km. NOT in river mouths.",
+    tags:["Coral Reefs","Marine Biodiversity","Great Barrier Reef","Zooxanthellae","Ocean Acidification"]
+  },
+  {
+    num:"50", cat:"cat-geo", title:"Africa — Sahel Region & Alliance of Sahel States",
+    cues:["Sahel = south of Sahara","10°N-20°N","Mali Burkina Faso Niger","Alliance Sahel States 2023","ECOWAS withdrawal"],
+    question:"Which three countries formed the Alliance of Sahel States in 2023?",
+    sections:[
+      {label:"Sahel Definition",content:"Semi-arid belt SOUTH of Sahara Desert, stretching from Atlantic Ocean to Red Sea/Horn of Africa. Latitude: ~10°N–20°N. Transition zone between Sahara (north) and savanna/tropical forest (south)."},
+      {label:"Sahel Countries (W to E)",content:"Mauritania → Senegal → <strong>Mali</strong> → <strong>Burkina Faso</strong> → <strong>Niger</strong> → Nigeria (partially) → Chad → Sudan → South Sudan (partially) → Ethiopia → Eritrea."},
+      {label:"2023 Political Events",content:"<strong>Alliance of Sahel States</strong>: Mali + Burkina Faso + Niger formed in 2023 after military coups — withdrew from ECOWAS. Niger coup: July 2023. Sudan: Civil war since April 2023."},
+    ],
+    trap:"Niger ≠ Nigeria. Niger = landlocked, entirely Sahel, military coup 2023. Nigeria = partially Sahel (north), coastal/tropical south, no coup. Alliance of Sahel States = AES (Mali, Burkina Faso, Niger).",
+    summary:"Sahel = 10°N–20°N belt south of Sahara. <strong>Alliance of Sahel States (2023): Mali + Burkina Faso + Niger</strong> — post-coup withdrawal from ECOWAS. Niger ≠ Nigeria (critical UPSC distinction).",
+    tags:["Sahel","Africa","ECOWAS","Niger","Mali","Burkina Faso"]
+  },
+
+  // ── INTERNATIONAL RELATIONS ──
+  {
+    num:"51", cat:"cat-ir", title:"I2U2 — West Asian Quad",
+    cues:["India Israel UAE USA","Economic NOT military","Oct 2021 formation","6 areas Water Energy Transport Space Health Food","Quadripartite forum"],
+    question:"Is I2U2 a military alliance? What are its six cooperation areas?",
+    sections:[
+      {label:"I2U2 Facts",content:"Members: <strong>India, Israel, UAE, United States</strong>. Formed: October 2021 (Foreign Ministers' meeting, Israel). Initially called 'International Forum for Economic Cooperation.' <strong>NOT a military alliance</strong> — economic and technological cooperation grouping."},
+      {label:"Six Areas of Cooperation",content:"<strong>Water · Energy · Transportation · Space · Health · Food Security</strong>. Focus: Practical economic cooperation leveraging complementary strengths of all four nations."},
+    ],
+    trap:"I2U2 is NOT a military alliance — options claiming 'security alliance' or 'military pact' are WRONG. It was initially called 'International Forum for Economic Cooperation' — NOT 'Middle East Quad' (though informally called so).",
+    memory:"I2U2 = 2 I's (India, Israel) + 2 U's (UAE, USA). 6 sectors: Water-Energy-Transport-Space-Health-Food.",
+    summary:"I2U2 = India+Israel+UAE+USA. Formed Oct 2021. <strong>Economic cooperation, NOT military alliance.</strong> 6 areas: Water, Energy, Transportation, Space, Health, Food Security.",
+    tags:["I2U2","West Asia","India-Israel","International Forums","UAE","USA"]
+  },
+  {
+    num:"52", cat:"cat-ir", title:"IMEC — India-Middle East-Europe Economic Corridor",
+    cues:["G20 New Delhi Sept 2023","8 signatories inc USA EU","Ship-to-rail","Hydrogen pipeline","Not through Iran Turkey","Counter to BRI"],
+    question:"Does IMEC pass through Iran or Turkey?",
+    sections:[
+      {label:"IMEC Details",content:"Launched: <strong>G20 Summit, New Delhi, September 2023</strong>. Signatories (8): India, USA, Saudi Arabia, UAE, France, Germany, Italy, European Union. Two Segments: <strong>Eastern Corridor</strong>: India (Mundra/Mumbai) → UAE → Saudi Arabia → Jordan (ship-to-rail). <strong>Northern Corridor</strong>: Jordan/Saudi Arabia → Israel (Haifa) → Sea → Greece (Piraeus) → Europe."},
+      {label:"Components & Geopolitics",content:"Beyond transport: <strong>Electricity grid</strong> interconnection + <strong>Green hydrogen pipeline</strong> + <strong>Undersea digital cable</strong>. Part of G7's PGII (Partnership for Global Infrastructure and Investment) — counter to China's BRI. Enabled by Abraham Accords (UAE-Israel, Bahrain-Israel normalization)."},
+    ],
+    trap:"IMEC uses SHIP-TO-RAIL (not all-land or all-sea). Does NOT pass through Iran or Turkey. Does NOT replace Suez Canal — complements it. Enabled by Abraham Accords (without which Israel involvement impossible).",
+    summary:"IMEC: India→UAE→Saudi→Jordan→Israel (Haifa)→Greece→Europe. <strong>Ship-to-rail + hydrogen pipeline + digital cable.</strong> G20 MoU 2023. Counter to BRI. NOT through Iran/Turkey.",
+    tags:["IMEC","India-Middle East","G20","BRI","Abraham Accords","Green Hydrogen"]
+  },
+  {
+    num:"53", cat:"cat-ir", title:"INSTC, Chabahar Port & Kaladan Project",
+    cues:["INSTC 7200km","Chabahar bypasses Pakistan","Kaladan Kolkata-Mizoram","40% transit time reduction","India-Russia corridor"],
+    question:"What are the three connectivity corridors and what is the unique value of each?",
+    sections:[
+      {label:"Connectivity Projects",table:{head:["Project","Route","Key Feature"],rows:[["INSTC","India → Iran (Chabahar) → Central Asia → Russia","7,200 km; multimodal; reduces India-Russia transit by 40%"],["Chabahar Port","Iran's SE coast, Gulf of Oman","India-developed; bypasses Pakistan; access to Afghanistan/Central Asia"],["Kaladan Project","Kolkata → Myanmar (Sittwe Port) → Mizoram","Sea + river + road; connects NE India to Bay of Bengal"]]}},
+    ],
+    trap:"Chabahar = India's gateway to Afghanistan and Central Asia BYPASSING Pakistan. INSTC = reduces transit time by 40% vs existing routes. Kaladan = connects landlocked NE India to maritime route.",
+    summary:"INSTC = India-Russia via Iran, 7200km, 40% faster. <strong>Chabahar</strong> = India-operated, bypasses Pakistan, Afghanistan access. <strong>Kaladan</strong> = NE India–Bay of Bengal via Myanmar.",
+    tags:["INSTC","Chabahar","Kaladan","Connectivity","Iran","Central Asia","NE India"]
+  },
+  {
+    num:"54", cat:"cat-ir", title:"Operation Prosperity Guardian & Red Sea Crisis",
+    cues:["Houthi attacks 2023-24","US-led OPG Dec 2023","12% global trade Red Sea","Cape of Good Hope +7000km","INS Mormugao India"],
+    question:"What percentage of global trade passes through the Red Sea-Suez route?",
+    sections:[
+      {label:"Red Sea Crisis",content:"Yemen's Houthi rebels (Iran-backed) attacked commercial ships in Red Sea from late 2023, claiming solidarity with Gaza. Used drones, missiles, anti-ship ballistic missiles."},
+      {label:"Operation Prosperity Guardian",content:"US-led multinational maritime security task force (December 2023). Aim: Protect commercial shipping. India sent <strong>INS Mormugao</strong> separately (not officially part of OPG)."},
+      {label:"Strategic Significance",content:"~<strong>12% of global trade</strong> passes through Red Sea–Suez Canal. Disruption → ships reroute around <strong>Cape of Good Hope</strong> (adds ~7,000 km + 2 weeks + higher costs + inflation in importing countries)."},
+    ],
+    summary:"Houthi attacks 2023-24 on Red Sea shipping. <strong>12% global trade</strong> via Red Sea-Suez. Disruption = +7000km via Cape of Good Hope. OPG = US-led task force. India deployed INS Mormugao separately.",
+    tags:["Red Sea","Houthi","Operation Prosperity Guardian","Bab-el-Mandeb","Maritime Security"]
+  },
+  {
+    num:"55", cat:"cat-ir", title:"Djibouti Code of Conduct & Maritime Security",
+    cues:["IMO 2009","Jeddah Amendment 2017","IUU fishing added","20 regional states","3 ISCs Mombasa Sana'a Dubai"],
+    question:"What did the Jeddah Amendment (2017) add to the Djibouti Code?",
+    sections:[
+      {label:"Djibouti Code of Conduct",content:"Established: <strong>January 2009</strong>, under IMO. Purpose: Combat piracy, armed robbery, illicit maritime activity in western Indian Ocean + Gulf of Aden. <strong>Jeddah Amendment (2017)</strong>: Expanded to cover — Human trafficking + <strong>IUU fishing</strong> (Illegal, Unreported, Unregulated) + Weapons trafficking + Terrorism at sea."},
+      {label:"Structure",content:"20 regional States signatories (Djibouti, Somalia, Kenya, Tanzania, Yemen, Oman, Saudi Arabia, etc.). Information Sharing Centres (ISCs): Mombasa, Dar es Salaam, Sana'a, Dubai."},
+    ],
+    trap:"Djibouti Code ≠ UNCLOS (broader law of sea). It is a REGIONAL, VOLUNTARY, NON-BINDING arrangement specific to western Indian Ocean. Response to Somali piracy crisis 2008-2011.",
+    summary:"Djibouti Code 2009 = regional maritime security (piracy). <strong>Jeddah Amendment 2017 added IUU fishing + human trafficking + weapons trafficking.</strong> 20 states. Non-binding. Response to Somali piracy.",
+    tags:["Djibouti Code","IMO","Piracy","IUU Fishing","Maritime Security","Indian Ocean"]
+  },
+  {
+    num:"56", cat:"cat-ir", title:"Artemis Accords & India's Space Policy 2023",
+    cues:["Non-binding principles","Outer Space Treaty 1967","India joined June 2023","62 nations April 2026","IN-SPACe regulator"],
+    question:"Are Artemis Accords a binding treaty? When did India join?",
+    sections:[
+      {label:"Artemis Accords",content:"Non-binding principles for peaceful civil space exploration, anchored in <strong>1967 Outer Space Treaty</strong>. Established: October 2020 (NASA + 7 founding nations). India joined: <strong>June 2023</strong> (PM Modi's US State visit). Current signatories: <strong>62 nations (April 2026)</strong>. Key principles: transparency, interoperability, safety zones, space debris management, space heritage preservation."},
+      {label:"Indian Space Policy 2023",content:"ISRO = think-tank and R&D. <strong>IN-SPACe</strong> = regulatory + authorization body for private players. <strong>NSIL</strong> (NewSpace India Ltd) = commercial arm for technology transfer. FDI: 100% automatic in satellite manufacturing; 74% in launch vehicles."},
+    ],
+    trap:"Artemis Accords = NON-BINDING (not a treaty). China and Russia have NOT signed. Lunar south pole significance = water ice in permanently shadowed craters (Chandrayaan-3's landing site rationale).",
+    summary:"Artemis Accords = non-binding; India joined June 2023; 62 nations. <strong>China + Russia NOT signed.</strong> Indian Space Policy 2023: IN-SPACe = regulator, NSIL = commercial arm, 100% FDI in satellite.",
+    tags:["Artemis Accords","Space Policy","IN-SPACe","ISRO","Chandrayaan-3","Outer Space Treaty"]
+  },
+  {
+    num:"57", cat:"cat-ir", title:"EU Carbon Border Adjustment Mechanism (CBAM)",
+    cues:["CBAM Oct 2023 transitional","Full enforcement Jan 2026","EU-ETS equivalent pricing","Steel aluminium cement","India $5.5bn steel exports EU","WTO compatibility"],
+    question:"Which 6 sectors does CBAM cover?",
+    sections:[
+      {label:"CBAM Details",content:"Purpose: Carbon levy on carbon-intensive EU imports to prevent 'carbon leakage' (companies relocating to avoid EU carbon costs). <strong>Sectors covered: Steel/Iron, Aluminium, Cement, Fertilisers, Electricity, Hydrogen.</strong> Timeline: Transitional phase (reporting only): Oct 2023–Dec 2025. Full enforcement (payments begin): <strong>January 2026</strong>."},
+      {label:"Impact on India",content:"India exports ~$5.5 billion of steel to EU annually. Aluminium + cement exporters face higher compliance costs. India raised WTO compatibility concerns and equity issues (developing vs developed nations). EU-India trade deal (2026) kept CBAM intact; India allowed 1 million MT duty-free steel."},
+    ],
+    trap:"CBAM does NOT ban carbon-intensive products — it prices their embedded carbon to equal EU ETS price. Carbon leakage = companies moving production to avoid EU carbon costs.",
+    summary:"CBAM = carbon levy on EU imports. 6 sectors: Steel, Aluminium, Cement, Fertilisers, Electricity, Hydrogen. Reporting: Oct 2023. <strong>Full payment: Jan 2026.</strong> India concerned about $5.5bn steel exports.",
+    tags:["CBAM","EU","Carbon Tax","Climate Finance","Steel","Carbon Leakage"]
+  },
+  {
+    num:"58", cat:"cat-ir", title:"Energy Transition — India's Targets & Net Zero",
+    cues:["500 GW renewables 2030","Net Zero 2070","PM Surya Ghar 2024","Green Hydrogen 5 MTPA 2030","45% emission intensity reduction"],
+    question:"When is India's Net Zero target? (And the global Paris Agreement target?)",
+    sections:[
+      {label:"India's Key Targets",table:{head:["Target/Scheme","Details"],rows:[["500 GW Renewable by 2030","India's NDC; solar+wind+hydro+nuclear"],["Net Zero by 2070","COP26 Glasgow 2021; India's long-term target"],["Reduce emission intensity by 45%","By 2030 vs 2005 baseline"],["PM Surya Ghar (2024)","1 crore rooftop solar; 300 units/month free electricity"],["Green Hydrogen Mission","5 MTPA production by 2030; SIGHT incentive"],["Forest carbon sink","2.5–3 billion tonnes additional CO₂ sink"]]}},
+    ],
+    trap:"India's Net Zero = 2070 (NOT 2050). Global Paris Agreement target = net zero by 2050. 500 GW target includes ALL renewables (not just solar). India's coal dependency (~70% electricity) ≠ no net zero commitment.",
+    summary:"India: <strong>500 GW renewables by 2030, Net Zero by 2070</strong>. Global Paris = 2050. PM Surya Ghar = 1 crore rooftop solar. Green Hydrogen = 5 MTPA by 2030. Emission intensity –45% by 2030.",
+    tags:["Net Zero","Paris Agreement","COP26","500 GW","Green Hydrogen","PM Surya Ghar"]
+  },
+  {
+    num:"59", cat:"cat-ir", title:"Global Methane Pledge & India's Position",
+    cues:["COP26 Glasgow Nov 2021","30% below 2020 levels by 2030","India did NOT sign","India top 5 emitter","Agricultural methane exemption"],
+    question:"Why did India NOT sign the Global Methane Pledge?",
+    sections:[
+      {label:"Global Methane Pledge",content:"Launched at <strong>COP26, Glasgow, November 2021</strong> (US-EU initiative). Target: Reduce global methane emissions by <strong>at least 30% below 2020 levels by 2030</strong>. Impact: Could prevent 0.2°C of warming by 2050. Signatories: 150+ countries."},
+      {label:"India's Position",content:"<strong>India did NOT sign</strong> — one of few major emitters to decline. India = top 5 global methane emitters. Reason: India's methane primarily from <strong>agriculture</strong> (rice paddies, livestock). Reducing would threaten food security and livelihoods of millions of farmers. NOT a denial of methane's impact — it is equity/food security concern."},
+    ],
+    trap:"India did NOT sign due to food security and equity concerns — not because India denies methane's impact. Agricultural methane reduction disproportionately burdens developing nations.",
+    summary:"Global Methane Pledge: COP26 2021, 30% cut by 2030, 150+ nations. <strong>India did NOT sign — food security + equity concerns</strong> (agricultural methane from rice + livestock). India = top 5 emitter.",
+    tags:["Global Methane Pledge","COP26","India Climate","Agriculture","Food Security"]
+  },
+  {
+    num:"60", cat:"cat-ir", title:"One Health & Data Governance (DFFT)",
+    cues:["WHO+FAO+WOAH+UNEP Quadripartite","Zoonotic diseases","AMR One Health","DFFT Davos 2019 Abe","India DPDP Act 2023"],
+    question:"What are the four organisations championing the One Health approach?",
+    sections:[
+      {label:"One Health",content:"Integrated approach recognising that health of <strong>humans, animals (domestic + wild), and ecosystems are interdependent</strong>. Championed by Quadripartite: <strong>WHO + FAO + WOAH (World Organisation for Animal Health) + UNEP</strong>. Applications: Zoonotic diseases (COVID-19, Ebola, Nipah, Avian Flu) + AMR + Food safety + Climate-driven disease spillover. India: NAP-AMR (National Action Plan on Antimicrobial Resistance)."},
+      {label:"DFFT",content:"Data Free Flow with Trust: Coined by Japanese PM Abe at <strong>Davos 2019</strong>, adopted at <strong>G20 Osaka 2019</strong>. Pillar: Free cross-border data flow + trust (privacy/security) + interoperability. India's response: <strong>Digital Personal Data Protection Act (DPDP) 2023</strong>."},
+    ],
+    summary:"One Health = WHO+FAO+WOAH+UNEP Quadripartite. Zoonotic diseases + AMR + food safety. DFFT = <strong>Abe 2019, Davos → G20 Osaka</strong>. India = DPDP Act 2023 as domestic response.",
+    tags:["One Health","WHO","Zoonotic","AMR","DFFT","Data Governance","DPDP 2023"]
+  },
+
+  // ── SCIENCE & TECHNOLOGY ──
+  {
+    num:"61", cat:"cat-science", title:"India's Three-Stage Nuclear Programme & Thorium",
+    cues:["Homi J. Bhabha 1950s","PHWR Stage 1","Fast Breeder Reactor Stage 2","Thorium NOT fissile","Kalpakkam PFBR"],
+    question:"Why is Thorium not used directly in Stage 1 reactors?",
+    sections:[
+      {label:"Why Thorium?",content:"India has limited uranium but is <strong>one of the largest thorium holders globally</strong> (~25–30% world reserves). Thorium found in <strong>monazite sands</strong> of Kerala, TN, Odisha, Andhra Pradesh coasts. <strong>Thorium is NOT fissile</strong> — cannot sustain nuclear chain reaction directly. Must be transmuted to <strong>Uranium-233 (U-233)</strong> which IS fissile, inside a reactor."},
+      {label:"Three Stages",table:{head:["Stage","Reactor","Fuel","Output"],rows:[["Stage 1","PHWR","Natural Uranium (U-235/U-238)","Electricity + Plutonium-239 by-product"],["Stage 2","Fast Breeder Reactor (FBR)","Plutonium-239 + Thorium-232 blanket","Electricity + U-233 bred from thorium"],["Stage 3","Thermal Breeder (Advanced)","U-233 + Thorium-232","Self-sustaining thorium cycle + electricity"]]}},
+    ],
+    trap:"In Stage 3, reactor can be REFUELLED using only thorium → energy independence. PFBR at Kalpakkam = Stage 2. Large-scale thorium use expected only 2040–2070. Thorium = NOT fissile (cannot be used directly).",
+    summary:"3-stage programme by Homi Bhabha. Stage 1: PHWR + uranium → plutonium. Stage 2: FBR + plutonium → U-233 (from thorium). Stage 3: thorium self-sustaining. <strong>Thorium ≠ fissile; must convert to U-233.</strong>",
+    tags:["Nuclear Programme","Thorium","PHWR","Fast Breeder Reactor","Kalpakkam","PFBR"]
+  },
+  {
+    num:"62", cat:"cat-science", title:"Chandrayaan-3 & India's Space Achievements",
+    cues:["First landing lunar south pole","4th country soft landing","Lander Vikram","Rover Pragyan","Aug 23 2023"],
+    question:"Which countries had successfully soft-landed on Moon before India?",
+    sections:[
+      {label:"Chandrayaan-3 Key Facts",content:"<strong>India = first country to land near lunar south pole</strong>. Fourth country to achieve soft landing on Moon (after USA, USSR, China). Date: <strong>August 23, 2023</strong>. Lander: <strong>Vikram</strong>. Rover: <strong>Pragyan</strong>. Conducted experiments for 14 lunar days (~14 Earth days)."},
+      {label:"Why South Pole?",content:"Permanently shadowed craters near lunar south pole contain <strong>water ice</strong> (confirmed). Water ice = potential resource for future lunar missions (drinking water, oxygen, rocket fuel via electrolysis)."},
+    ],
+    trap:"Chandrayaan-2's lander had FAILED to soft-land (2019). Chandrayaan-3 succeeded. The south pole location is unique — no country had landed there before. Four countries total: USA (1969), USSR, China, India (2023).",
+    summary:"Chandrayaan-3: Aug 23, 2023. India = <strong>first at lunar south pole</strong>; 4th country overall (after USA, USSR, China). Vikram lander + Pragyan rover. South pole = water ice significance.",
+    tags:["Chandrayaan-3","ISRO","Moon","Lunar South Pole","Space Technology"]
+  },
+  {
+    num:"63", cat:"cat-science", title:"Biotechnology — Casgevy, Wolbachia, mRNA",
+    cues:["Casgevy = first CRISPR therapy","Sickle cell + beta-thalassemia","Wolbachia = dengue prevention","Aedes aegypti","mRNA = no live virus"],
+    question:"What disease does Casgevy treat and what technology does it use?",
+    sections:[
+      {label:"Biotechnology Key Facts",table:{head:["Technology","Disease/Use","Key Details"],rows:[["Casgevy","Sickle Cell Disease & Beta-Thalassemia","World's FIRST CRISPR/Cas9 gene therapy; FDA approved Dec 2023; edits BCL11A gene to restore fetal hemoglobin"],["Wolbachia","Dengue prevention","Bacteria introduced into Aedes aegypti mosquitoes; reduces dengue transmission; WHO programme"],["mRNA-1273","COVID-19 (Moderna)","mRNA vaccine — no live virus; instructs cells to make spike protein → immune response"]]}},
+    ],
+    trap:"Casgevy = GENE EDITING (CRISPR); edits existing genome (does not add new genes). Wolbachia = BIOLOGICAL vector control (not a vaccine). mRNA vaccines = no live virus involved.",
+    summary:"Casgevy = world's first CRISPR therapy for sickle cell/thalassemia (FDA 2023). <strong>Wolbachia</strong> = anti-dengue biological control (bacteria in Aedes aegypti). mRNA vaccines = no live virus.",
+    tags:["CRISPR","Casgevy","Wolbachia","mRNA","Biotechnology","Gene Therapy"]
+  },
+  {
+    num:"64", cat:"cat-science", title:"Green Ammonia — Uses & Significance",
+    cues:["Electrolysis + Haber-Bosch","NH3 shipping fuel","Hydrogen carrier","Zero carbon emissions","NOx problem combustion"],
+    question:"Why is green ammonia preferred as a shipping fuel over hydrogen?",
+    sections:[
+      {label:"Green Ammonia Facts",content:"Produced using <strong>renewable energy</strong> via electrolysis of water (green H₂) + Haber-Bosch process combining H₂ with atmospheric N₂ → nearly zero carbon emissions."},
+      {label:"Key Uses",content:"<strong>Shipping fuel</strong>: easier to store/transport than hydrogen; zero direct carbon emissions when used in fuel cells · <strong>Hydrogen carrier</strong>: higher volumetric energy density than compressed H₂ gas · <strong>Fertiliser feedstock</strong>: ammonia = base for nitrogen fertilisers (reducing fossil-fuel-based ammonia reduces agricultural emissions)."},
+    ],
+    trap:"Green ammonia is ideal for SHIPPING and HYDROGEN TRANSPORT — NOT typically described as solution for cement kilns or general thermal boilers. Ammonia combustion releases NOx (nitrogen oxides) — challenge for direct combustion.",
+    summary:"Green ammonia = renewable-energy-produced NH₃. Best uses: <strong>shipping fuel + hydrogen carrier + fertiliser feedstock.</strong> Higher energy density than H₂. Direct combustion problem = NOx emissions.",
+    tags:["Green Ammonia","Hydrogen","Shipping Decarbonization","Haber-Bosch","Clean Energy"]
+  },
+  {
+    num:"65", cat:"cat-science", title:"Carbon Sequestration Methods",
+    cues:["Forest sinks REDD+","CCS geological storage","Coal seam CO2 storage","Deep ocean sediments","Biological pump"],
+    question:"Can CO₂ be stored in coal seams? What is this process called?",
+    sections:[
+      {label:"Sequestration Methods",table:{head:["Method","Explanation","Status"],rows:[["Forest sinks","Trees absorb CO₂; stored in biomass and soil","Primary natural method; core of REDD+"],["Deep ocean sediments","Dissolved CO₂ → carbonate sediment; biological pump (marine organisms sink)","Natural, slow; iron fertilisation experimental"],["CO₂ in coal seams","Enhanced Coal Bed Methane (ECBM) — CO₂ injected into unmineable coal seams, displaces methane","CCS technology — viable for geological storage"],["Geological CCS","CO₂ injected into saline aquifers, depleted oil/gas reservoirs","Most scalable industrial method"]]}},
+    ],
+    trap:"Coal seam CO₂ storage = ECBM (Enhanced Coal Bed Methane) — this is a REAL, viable technology. All methods (forest sinks, deep ocean, coal seams, geological aquifers) are valid sequestration methods.",
+    summary:"4 main carbon sequestration methods: forests (REDD+), deep ocean sediments (natural), coal seams (<strong>ECBM</strong>), geological CCS (saline aquifers). All valid. CCS = most scalable industrial method.",
+    tags:["Carbon Sequestration","CCS","REDD+","ECBM","Climate Change","Coal"]
+  },
+  {
+    num:"66", cat:"cat-science", title:"Basic Science — Neutrinos, Isotopes, Chemical Reactions",
+    cues:["Neutrinos cannot exceed light speed","Hydrogen 3 isotopes","Protium Deuterium Tritium","All reactions involve energy change","OPERA experiment error"],
+    question:"How many naturally occurring isotopes does hydrogen have? Name them.",
+    sections:[
+      {label:"Three Science Statements",content:"<strong>Statement 1:</strong> 'Neutrinos travel faster than light' → <strong>FALSE</strong>. Nothing exceeds light speed (Einstein's Special Relativity). 2011 OPERA experiment claiming superluminal neutrinos = measurement error (loose cable). <strong>Statement 2:</strong> Hydrogen has 3 naturally occurring isotopes → <strong>TRUE</strong>: Protium (¹H, 0 neutrons, 99.98%), Deuterium (²H/D, 1 neutron, 0.02%), Tritium (³H/T, 2 neutrons, radioactive, trace). <strong>Statement 3:</strong> All chemical reactions involve change in energy → <strong>TRUE</strong> (exothermic or endothermic; energy change ΔH is fundamental)."},
+    ],
+    trap:"Only Statements 2 and 3 are correct — Statement 1 is FALSE. UPSC answer: 'Only two statements are correct.' Tritium is naturally occurring (in trace amounts from cosmic ray interaction with atmosphere).",
+    summary:"Neutrinos ≠ faster than light (OPERA error 2011). <strong>Hydrogen = 3 isotopes</strong>: Protium, Deuterium, Tritium. All reactions involve energy change. Statement 1 FALSE; Statements 2+3 TRUE.",
+    tags:["Isotopes","Hydrogen","Neutrinos","Chemical Reactions","Basic Science","OPERA"]
+  },
+  {
+    num:"67", cat:"cat-science", title:"Payment for Ecosystem Services (PES)",
+    cues:["Costa Rica PES model","REDD+ forest payments","CAMPA India","Voluntary + conditional","Buyer + seller structure"],
+    question:"What is the conditionality principle in Payment for Ecosystem Services?",
+    sections:[
+      {label:"PES Definition",content:"Economic instrument where <strong>beneficiaries of ecosystem services pay those who manage and protect ecosystems</strong>. Core principle: Voluntary transaction + defined ecosystem service + minimum one buyer + one seller + <strong>conditionality (payment conditional on service provision)</strong>."},
+      {label:"Examples",content:"<strong>Costa Rica's PES</strong> — government pays farmers to protect forests (watershed, carbon, biodiversity). <strong>India: CAMPA</strong> (Compensatory Afforestation Fund) has PES elements; Green India Mission. <strong>REDD+</strong> = payments to developing countries for forest conservation (global mechanism)."},
+    ],
+    summary:"PES = pay ecosystem stewards to conserve. Key = <strong>conditionality</strong> (payment only if service delivered). Costa Rica = gold standard model. India: CAMPA. Global: REDD+.",
+    tags:["PES","Ecosystem Services","REDD+","CAMPA","Costa Rica","Environmental Economics"]
+  },
+  {
+    num:"68", cat:"cat-science", title:"GM Crops, GEAC & Climate-Resilient Seeds",
+    cues:["Bt Cotton only commercial GM","GEAC under MoEF","Bacillus thuringiensis","GM Mustard DMH-11 pending","Marker-assisted ≠ GM"],
+    question:"Which is the only commercially approved GM crop in India?",
+    sections:[
+      {label:"Bt Crops & GEAC",content:"Bt crops contain genes from <strong>Bacillus thuringiensis</strong> (soil bacteria) producing Cry proteins — toxic to specific insects. <strong>Bt Cotton = only commercially approved GM crop in India (since 2002).</strong> <strong>GEAC</strong> (Genetic Engineering Appraisal Committee) = under Ministry of Environment, Forest & Climate Change. Apex regulatory body for GM crop approval."},
+      {label:"Current Status",content:"No GM food crop has received GEAC clearance for commercial cultivation (as of 2026). <strong>GM Mustard (DMH-11)</strong> — approved by GEAC but awaiting final government approval. Climate-resilient seeds = conventionally bred or marker-assisted varieties — NOT necessarily GM."},
+    ],
+    trap:"Climate-resilient seeds ≠ GM crops. They can be conventionally bred. GEAC is under MoEF (not Agriculture Ministry). GM Mustard cleared by GEAC but NOT yet commercially approved by government.",
+    summary:"Only GM crop commercially approved in India: <strong>Bt Cotton (2002)</strong>. GEAC = regulator under MoEF. GM Mustard = GEAC-approved but pending govt clearance. Marker-assisted breeding ≠ GM.",
+    tags:["Bt Cotton","GEAC","GM Crops","Biotechnology","Agriculture","Bacillus thuringiensis"]
+  },
+  {
+    num:"69", cat:"cat-science", title:"Direct-to-Cell Satellite Technology",
+    cues:["Standard smartphones + LEO satellites","No ground infrastructure","SpaceX Starlink AST SpaceMobile","Low latency 200-2000km","DoT licensing India"],
+    question:"What advantage does Direct-to-Cell have for India's remote areas?",
+    sections:[
+      {label:"Direct-to-Cell",content:"Technology allowing standard smartphones to connect <strong>directly to LEO satellites</strong> without ground infrastructure (no cell towers). Uses modified satellite signals compatible with existing smartphone chipsets. <strong>LEO advantage</strong>: 200–2,000 km altitude → lower latency than GEO (36,000 km). Requires large constellations for continuous coverage."},
+      {label:"India Context",content:"Satellite communication requires licensing under <strong>Department of Telecommunications (DoT)</strong>. Starlink's Direct-to-Cell pending regulatory approval. Governed by IN-SPACe under Space Policy 2023. Significance for India: <strong>disaster management + rural connectivity in zero-telecom-infrastructure areas.</strong>"},
+    ],
+    summary:"Direct-to-Cell = phones ↔ LEO satellites directly, no towers. Key players: SpaceX Starlink, AST SpaceMobile. <strong>Critical for India: disaster relief + remote rural connectivity.</strong> DoT licensing required.",
+    tags:["Direct-to-Cell","Satellite Communication","LEO","Starlink","Connectivity","Space Technology"]
+  },
+  {
+    num:"70", cat:"cat-science", title:"Climatology — High Pressure, Moist Air Density",
+    cues:["Moist air lighter than dry air","Molecular weight 18 vs 28/32","High pressure = clear skies","Descending air warms adiabatically","Subtropical High Horse Latitudes"],
+    question:"Why is moist air lighter (less dense) than dry air?",
+    sections:[
+      {label:"Three Key Statements (all true)",content:"<strong>Statement 1: Moist air lighter than dry air</strong> → TRUE. Water vapour (molecular weight 18) displaces heavier N₂ (28) and O₂ (32), making moist air less dense. <strong>Statement 2: Cold air denser than warm air</strong> → TRUE. Cold air molecules more tightly packed; warm air expands. <strong>Statement 3: High-pressure = clear skies/dry weather</strong> → TRUE. Descending air warms adiabatically → prevents cloud formation."},
+      {label:"Key HP Systems",content:"<strong>ITCZ</strong> (equator) = low pressure → clouds/rain. <strong>Subtropical High</strong> (30°N/S) = descending air, hot deserts (Sahara, Thar, Atacama) at these latitudes. <strong>Polar High</strong> (90°N/S) = cold descending air, ice deserts."},
+    ],
+    trap:"Deserts are at 30°N/S (Subtropical High pressure belt) due to DESCENDING dry air. Warm moist air RISES → LOW pressure → rain. Cold dry air SINKS → HIGH pressure → clear skies.",
+    memory:"RISE = clouds + rain = LOW pressure. SINK = clear skies = HIGH pressure.",
+    summary:"Moist air = lighter (H₂O mol. wt 18 < N₂/O₂). Cold air = denser. High pressure = descending air = <strong>clear skies + deserts at 30°N/S</strong>. ITCZ = low pressure = equatorial rain.",
+    tags:["High Pressure","Moist Air","Subtropical High","Horse Latitudes","Climatology","Deserts"]
+  },
+
+  // ── ECONOMY (continued) ──
+  {
+    num:"71", cat:"cat-economy", title:"South Indian Coinage — Fanam, Pagoda, Kahavanu",
+    cues:["Fanam South India","Pagoda = Varaha Vijayanagara","Gadyana Hoysala Chalukya","Kahavanu = Chola gold","Portuguese renamed"],
+    question:"What Vijayanagara coin did the Portuguese rename as 'Pagoda'?",
+    sections:[
+      {label:"South Indian Coins",table:{head:["Coin","Region/Dynasty","Description"],rows:[["Fanam","Widespread South India","Small gold/copper coin; used by Vijayanagara, Malabar, Portuguese, British EIC"],["Pagoda","Vijayanagara (called Varaha originally)","Gold coin; Portuguese renamed it 'Pagoda' from temple image; Madras Presidency until 1818"],["Gadyana","Hoysala, W. Chalukya","Standard gold coin of Karnataka medieval kingdoms"],["Kahavanu","Chola dynasty","Standard gold coin of Chola Empire"]]}},
+    ],
+    trap:"Pagoda = same coin as VARAHA (Vijayanagara). Portuguese renamed it. The Madras gold coin (Pagoda) was in use until 1818 when British introduced the rupee system.",
+    summary:"Chola = <strong>Kahavanu</strong>. Hoysala/Chalukya = <strong>Gadyana</strong>. Vijayanagara = <strong>Varaha/Pagoda</strong> (Portuguese renamed). Fanam = widespread South India gold/copper coin. Pagoda discontinued 1818.",
+    tags:["South Indian Coins","Vijayanagara","Chola","Hoysala","Medieval Economy","Coinage"]
+  },
+  {
+    num:"72", cat:"cat-economy", title:"Hundi — Medieval Indian Financial Instrument",
+    cues:["Bill of exchange precursor","Darshani = demand","Muddati = term","Shah Jog = reputable person","Shroffs + Seths as bankers"],
+    question:"How did Hundi enable long-distance trade without physical cash transfer?",
+    sections:[
+      {label:"Hundi",content:"Negotiable financial instrument (bill of exchange/promissory note) used for centuries for trade credit and remittances. Functioned like modern cheque or wire transfer — payer issues hundi payable by agent in another city → long-distance trade without moving physical cash. Operated on trust + personal networks (Marwari, Multani, Gujarati merchants)."},
+      {label:"Types",content:"<strong>Darshani Hundi</strong>: Payable on demand/sight (like demand draft). <strong>Muddati/Miadi Hundi</strong>: Payable after fixed period (like term draft). <strong>Shah Jog Hundi</strong>: Payable to a reputable person ('Shah' = respected person)."},
+    ],
+    summary:"Hundi = medieval Indian bill of exchange. Enabled long-distance trade WITHOUT physical cash movement. <strong>Darshani = demand, Muddati = term, Shah Jog = reputable person.</strong> Precursor to modern cheques.",
+    tags:["Hundi","Medieval Finance","Bill of Exchange","Mughal Economy","Shroffs","Trade"]
+  },
+  {
+    num:"73", cat:"cat-economy", title:"Short Selling, Equity Types & MFN Principle",
+    cues:["Short selling borrow+sell","Unlimited loss risk","MFN GATT Article I","India suspended MFN Pakistan 2019","Cyclical stocks boom-bust"],
+    question:"What is the maximum potential loss from short selling?",
+    sections:[
+      {label:"Short Selling",content:"Selling securities the seller does NOT own — by borrowing from broker — with obligation to buy and return later. Mechanics: Borrow 100 shares → sell at ₹500 → price falls to ₹400 → buy back → profit ₹100/share. Risk: If price RISES instead → <strong>unlimited loss potential</strong> (price can theoretically rise infinitely). SEBI permits short selling; naked short selling (without borrowing) prohibited."},
+      {label:"MFN Principle",content:"WTO's MFN (GATT Article I): Give trade favour to one WTO member → must give SAME to ALL. Exceptions: FTAs/Regional blocs (ASEAN, EU), GSP (developing countries), National Security (GATT Art. XXI). India suspended MFN to Pakistan after Pulwama (2019) → raised import tariffs to 200%."},
+      {label:"Equity Types",table:{head:["Type","Characteristics"],rows:[["Blue Chip","Large, stable, consistent dividends; low volatility"],["Growth Stock","High earnings growth; no dividends (reinvests); higher valuation"],["Cyclical","Tied to economic cycles; auto, steel, cement"],["Defensive","Stable regardless of cycle; FMCG, pharma, utilities"],["Penny Stock","Very low price; high speculation; micro-cap; high risk"]]}},
+    ],
+    trap:"Short selling loss = UNLIMITED (price can rise infinitely). Blue chip ≠ Growth stock — blue chip pays dividends; growth stocks typically don't. Cyclical stocks = perform well in expansion, badly in recession.",
+    summary:"Short selling: unlimited downside risk. Blue chip = stable + dividends. Growth = no dividends + reinvest. Cyclical = economy-tied (auto, steel). <strong>MFN = GATT Art. I; India suspended vs Pakistan 2019 (Pulwama).</strong>",
+    tags:["Short Selling","MFN","GATT","Blue Chip","Cyclical Stocks","SEBI"]
+  },
+  {
+    num:"74", cat:"cat-economy", title:"SEZs — Special Economic Zones",
+    cues:["Foreign territory customs","SEZ Act 2005","Export promotion","Domestic sales treated as imports","Infrastructure by developer"],
+    question:"Can SEZ units sell in the domestic market? On what terms?",
+    sections:[
+      {label:"SEZ Key Features",content:"Designated enclaves treated as <strong>foreign territory for trade/customs purposes</strong> under SEZ Act, 2005. Benefits: Income tax exemptions + duty-free import of capital goods + simplified procedures. Focus: Export promotion — primarily for export."},
+      {label:"UPSC Trap Statements",content:"'SEZ units can sell freely in domestic market' → <strong>PARTIALLY WRONG</strong> — domestic sales allowed but treated as IMPORTS (duties apply). 'SEZ has relaxed environmental laws' → <strong>WRONG</strong> — environmental regulations apply equally. 'SEZ provides infrastructure by government' → <strong>CORRECT</strong> — developer (private or govt) provides roads, power, water."},
+    ],
+    trap:"Domestic sales by SEZ units = treated as IMPORTS (attract import duties). Environmental laws apply in SEZs. SEZ = 'foreign territory' only for customs/trade purposes — not actually foreign jurisdiction.",
+    summary:"SEZ = foreign territory for customs, SEZ Act 2005. Domestic sales = <strong>treated as imports (duties apply)</strong>. Environmental laws: APPLY. Infrastructure: developer provides. Focus = export.",
+    tags:["SEZ","Special Economic Zones","Export","Trade Policy","SEZ Act 2005"]
+  },
+  {
+    num:"75", cat:"cat-economy", title:"Attorney General of India — Article 76",
+    cues:["Appointed by President","SC judge-qualified","Right of audience ALL courts","Parliament no vote","Not full-time govt servant"],
+    question:"Can the Attorney General appear in private cases? What restriction applies?",
+    sections:[
+      {label:"AG Key Facts",content:"Appointment: By <strong>President</strong> on advice of Council of Ministers. Qualification: Must be qualified to be SC judge (HC judge for 5 yrs OR HC advocate for 10 yrs OR eminent jurist). Holds office at <strong>pleasure of the President</strong> — no fixed tenure."},
+      {label:"Rights & Limitations",table:{head:["Right/Privilege","Detail"],rows:[["Right of Audience","ALL courts throughout India (not just SC)"],["Parliamentary participation","Can speak in BOTH Houses, joint sittings, committees (if nominated) — CANNOT VOTE"],["Parliamentary Privileges","Same as MPs (Articles 105/194)"],["Private practice","NOT debarred — CAN take private briefs EXCEPT against Govt of India"]]}},
+    ],
+    trap:"AG CAN do private legal practice — he is NOT a full-time government servant. But AG CANNOT advise or hold briefs AGAINST the Government of India. Can speak in Parliament but CANNOT vote.",
+    summary:"AG (Art. 76): Appointed by President, SC-judge-qualified. <strong>Can practise privately but NOT against Govt of India.</strong> Can speak in Parliament, CANNOT vote. Right of audience in ALL courts. Pleasure doctrine = no fixed tenure.",
+    tags:["Attorney General","Article 76","Parliament","Constitutional Offices","SC Qualification"]
+  },
+  {
+    num:"76", cat:"cat-polity", title:"Money Bills, FRs During Emergency & Presidential Election",
+    cues:["Money Bill only Lok Sabha","Art. 19 suspended external emergency","Art. 20 21 CANNOT be suspended","Nominated members NO vote President","Article 54 elected members only"],
+    question:"Can Fundamental Rights be completely abolished during Emergency?",
+    sections:[
+      {label:"Three Classic UPSC Traps",content:"<strong>Statement 1: 'Money Bill can be introduced in Rajya Sabha'</strong> → <strong>FALSE</strong>. Money Bills can be introduced ONLY in Lok Sabha (Art. 110 + 109). Speaker certifies. <strong>Statement 2: 'FRs can be completely abolished during Emergency'</strong> → <strong>FALSE</strong>. Article 19 (six freedoms) = auto-suspended during EXTERNAL Emergency only. <strong>Articles 20 + 21 CANNOT be suspended even during Emergency</strong> (44th Amendment 1978). FRs restricted, not abolished. <strong>Statement 3: 'Nominated RS members vote in Presidential election'</strong> → <strong>FALSE</strong>. Only ELECTED members of Parliament + State Assemblies vote (Art. 54). Nominated members = CANNOT vote."},
+    ],
+    trap:"ALL THREE statements are FALSE — classic UPSC trick. Art. 21 (Right to Life) and Art. 20 (Protection against conviction) CANNOT be suspended even during National Emergency. This is the 44th Amendment's key contribution.",
+    summary:"Money Bill = Lok Sabha only. <strong>Art. 20 + 21 = CANNOT be suspended even during Emergency (44th Amendment 1978).</strong> Presidential election: only ELECTED members vote (nominated members excluded).",
+    tags:["Money Bill","Emergency","Article 20","Article 21","44th Amendment","Presidential Election","Article 54"]
+  },
+];
+
+// ─── RENDER ───
+let currentCat = 'all';
+let currentView = 'grid';
+let allExpanded = false;
+
+function renderNotes(items) {
+  const grid = document.getElementById('notesGrid');
+  const noRes = document.getElementById('noResults');
+  const count = document.getElementById('resultsCount');
+  count.textContent = items.length;
+  if (items.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+  grid.innerHTML = items.map(n => buildCard(n)).join('');
+}
+
+function buildCard(n) {
+  const sectionsHTML = n.sections.map(s => {
+    if (s.table) {
+      const headCells = s.table.head.map(h => `<th>${h}</th>`).join('');
+      const rowCells = s.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+      return `<div class="note-section"><div class="ns-label">${s.label}</div><table class="mini-table"><thead><tr>${headCells}</tr></thead><tbody>${rowCells}</tbody></table></div>`;
+    }
+    return `<div class="note-section"><div class="ns-label">${s.label}</div><div class="ns-content">${s.content}</div></div>`;
+  }).join('');
+
+  const trapHTML = n.trap ? `<div class="trap-box"><div class="trap-label">⚠ UPSC Trap</div>${n.trap}</div>` : '';
+  const memHTML = n.memory ? `<div class="memory-box"><div class="mem-label">✦ Memory Anchor</div>${n.memory}</div>` : '';
+  const tagsHTML = n.tags ? `<div class="tags">${n.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>` : '';
+
+  return `
+  <div class="cornell-card ${n.cat}" id="card-${n.num}" data-cat="${n.cat}" data-text="${n.title.toLowerCase()} ${(n.cues||[]).join(' ').toLowerCase()} ${(n.tags||[]).join(' ').toLowerCase()}">
+    <div class="card-header" onclick="toggleCard('card-${n.num}')">
+      <div class="card-header-left">
+        <span class="topic-num">Q.${n.num}</span>
+        <span class="topic-title">${n.title}</span>
+      </div>
+      <div class="card-meta">
+        <span class="cat-badge">${catLabel(n.cat)}</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="cornell-layout">
+        <div class="cue-col">
+          <div class="cue-label">Cue Column</div>
+          ${(n.cues||[]).map(c=>`<div class="cue-item">${c}</div>`).join('')}
+          ${n.question ? `<div class="cue-question">${n.question}</div>` : ''}
+        </div>
+        <div class="notes-col">
+          ${sectionsHTML}
+          ${trapHTML}
+          ${memHTML}
+        </div>
+      </div>
+      <div class="summary-row">
+        <div class="sum-label">Summary</div>
+        <div class="sum-text">${n.summary} ${tagsHTML}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function catLabel(cat) {
+  const m = {
+    'cat-env':'Environment','cat-agri':'Agriculture','cat-polity':'Polity',
+    'cat-history':'History','cat-economy':'Economy','cat-geo':'Geography',
+    'cat-ir':'Intl. Relations','cat-science':'Science'
+  };
+  return m[cat] || cat;
+}
+
+function toggleCard(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function filterCat(btn, cat) {
+  currentCat = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function filterNotes() {
+  applyFilters();
+}
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = notes.filter(n => {
+    const catMatch = currentCat === 'all' || n.cat === currentCat;
+    const searchMatch = !search ||
+      n.title.toLowerCase().includes(search) ||
+      (n.cues||[]).some(c => c.toLowerCase().includes(search)) ||
+      (n.tags||[]).some(t => t.toLowerCase().includes(search)) ||
+      (n.summary||'').toLowerCase().includes(search) ||
+      (n.sections||[]).some(s => (s.content||'').toLowerCase().includes(search));
+    return catMatch && searchMatch;
+  });
+  renderNotes(filtered);
+}
+
+function setView(v) {
+  currentView = v;
+  const grid = document.getElementById('notesGrid');
+  const gBtn = document.getElementById('gridViewBtn');
+  const lBtn = document.getElementById('listViewBtn');
+  if (v === 'list') {
+    grid.classList.add('list-view');
+    lBtn.classList.add('active'); gBtn.classList.remove('active');
+  } else {
+    grid.classList.remove('list-view');
+    gBtn.classList.add('active'); lBtn.classList.remove('active');
+  }
+}
+
+function expandAll() {
+  allExpanded = !allExpanded;
+  document.querySelectorAll('.cornell-card').forEach(c => {
+    if (allExpanded) c.classList.add('open');
+    else c.classList.remove('open');
+  });
+  document.querySelector('.expand-all').textContent = allExpanded ? 'Collapse All' : 'Expand All';
+}
+
+// Initial render
+renderNotes(notes);
+</script>
+</body>
+</html>
