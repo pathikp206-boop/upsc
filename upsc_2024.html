@@ -1,0 +1,3084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC Master Revision — Cornell Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --ink: #1a1310;
+    --paper: #faf7f2;
+    --cream: #f0ead8;
+    --rust: #b94a2c;
+    --gold: #c9922a;
+    --teal: #2a6b6b;
+    --violet: #5a3e7a;
+    --forest: #2e5e3a;
+    --navy: #1e3a5f;
+    --cue-bg: #f5efe0;
+    --rule: #d4c9a8;
+    --red-line: #c0392b;
+    --tab-h: 44px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: #e8e0d0;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 32px 14px;
+    display: flex; align-items: baseline; gap: 20px;
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+  .site-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+  }
+  .site-header span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: #a89880;
+    letter-spacing: 0.1em;
+  }
+  .fact-badge {
+    margin-left: auto;
+    background: var(--rust);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 3px 10px; border-radius: 2px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── TAB NAV ── */
+  .tab-nav {
+    background: #2a2018;
+    display: flex; flex-wrap: wrap;
+    border-bottom: 2px solid var(--gold);
+    position: sticky; top: 60px; z-index: 99;
+  }
+  .tab-btn {
+    background: none; border: none;
+    color: #a89880;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem; letter-spacing: 0.08em;
+    padding: 0 18px; height: var(--tab-h);
+    cursor: pointer;
+    border-right: 1px solid #3a3020;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: #3a3020; color: var(--paper); }
+  .tab-btn.active {
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 1280px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ── SUBJECT LABEL ── */
+  .subject-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem; font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 3px double var(--rule);
+  }
+  .subject-label em {
+    font-size: 0.75rem; font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+    color: #887755; margin-left: 12px;
+    font-style: normal;
+  }
+
+  /* ── CORNELL PAGE ── */
+  .cornell-page {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* topic header */
+  .topic-header {
+    padding: 10px 20px 8px;
+    border-bottom: 2px solid var(--rule);
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; user-select: none;
+  }
+  .topic-header:hover { background: var(--cream); }
+  .topic-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.63rem;
+    padding: 2px 8px; border-radius: 1px;
+    letter-spacing: 0.1em; font-weight: 600;
+    color: #fff; white-space: nowrap;
+  }
+  .tag-scitech  { background: var(--teal); }
+  .tag-history  { background: #7a3a1e; }
+  .tag-economy  { background: var(--navy); }
+  .tag-env      { background: var(--forest); }
+  .tag-geo      { background: #5a4a2a; }
+  .tag-polity   { background: var(--violet); }
+  .tag-ca       { background: var(--rust); }
+  .tag-bio      { background: #4a6e3a; }
+
+  .topic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    flex: 1;
+  }
+  .toggle-icon {
+    font-size: 0.8rem; color: #887755;
+    transition: transform 0.2s;
+  }
+  .cornell-page.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+  /* Cornell body */
+  .cornell-body {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    grid-template-rows: 1fr auto;
+    min-height: 120px;
+  }
+  .cornell-page.collapsed .cornell-body { display: none; }
+
+  /* Left red-margin line */
+  .cue-col {
+    background: var(--cue-bg);
+    border-right: 2px solid var(--red-line);
+    padding: 16px 14px;
+    position: relative;
+  }
+  .cue-col::after {
+    content: '';
+    position: absolute; right: -1px; top: 0; bottom: 0;
+    width: 1px; background: rgba(192,57,43,0.2);
+  }
+
+  .cue-item {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .cue-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .cue-q {
+    font-size: 0.72rem; font-weight: 600;
+    color: var(--rust);
+    font-family: 'Source Serif 4', serif;
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+  .cue-kw {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: #665544;
+    line-height: 1.6;
+  }
+  .cue-kw span {
+    display: inline-block;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 0 5px; border-radius: 2px;
+    margin: 1px 2px 1px 0;
+  }
+  .cue-trap {
+    background: #fef3cd;
+    border-left: 3px solid var(--gold);
+    padding: 5px 8px;
+    font-size: 0.67rem;
+    color: #664400;
+    margin-top: 6px;
+    border-radius: 0 2px 2px 0;
+  }
+  .cue-correction {
+    background: #fde8e8;
+    border-left: 3px solid var(--rust);
+    padding: 5px 8px;
+    font-size: 0.67rem;
+    color: var(--rust);
+    margin-top: 6px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* Notes column */
+  .notes-col {
+    padding: 16px 20px;
+    background-image: repeating-linear-gradient(
+      transparent, transparent 27px,
+      #ddd4bb 27px, #ddd4bb 28px
+    );
+    background-size: 100% 28px;
+    line-height: 28px;
+  }
+
+  .notes-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--navy);
+    margin: 4px 0 0;
+    line-height: 28px;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+  }
+  .notes-col h4 {
+    font-size: 0.8rem; font-weight: 600;
+    color: var(--teal);
+    margin-top: 0;
+    line-height: 28px;
+  }
+  .notes-col p {
+    font-size: 0.78rem;
+    line-height: 28px;
+    margin: 0;
+  }
+  .notes-col ul {
+    margin: 0; padding-left: 16px;
+    font-size: 0.77rem;
+  }
+  .notes-col ul li {
+    line-height: 28px;
+  }
+
+  /* Inline table */
+  .mini-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.72rem; margin: 0;
+    background: var(--paper);
+  }
+  .mini-table th {
+    background: var(--ink); color: var(--paper);
+    padding: 4px 8px; text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.05em;
+  }
+  .mini-table td {
+    padding: 3px 8px; border-bottom: 1px solid var(--rule);
+    vertical-align: top; line-height: 1.5;
+  }
+  .mini-table tr:nth-child(even) td { background: var(--cream); }
+
+  /* highlight chips */
+  .chip {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0 6px; border-radius: 2px;
+    margin: 0 2px; font-weight: 600;
+    vertical-align: middle;
+  }
+  .chip-yr   { background: #e8f4f8; color: var(--navy); border: 1px solid #b8d8e8; }
+  .chip-art  { background: #fef3e2; color: #8b4513; border: 1px solid #f0c878; }
+  .chip-case { background: #f0e8f8; color: var(--violet); border: 1px solid #c8a8e8; }
+  .chip-pyq  { background: #ffe0e0; color: var(--rust); border: 1px solid var(--rust); }
+  .chip-star { background: var(--gold); color: #fff; }
+
+  .fact-fix {
+    background: #fde8e8;
+    border: 1px solid #f5a0a0;
+    border-radius: 2px;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    color: var(--rust);
+    display: inline-block;
+    margin: 2px 0;
+  }
+  .fact-fix::before { content: "✗ CORRECTION: "; font-weight: 700; }
+
+  /* Summary strip */
+  .summary-strip {
+    grid-column: 1 / -1;
+    background: #2a2018;
+    color: #e0d0b0;
+    padding: 8px 20px;
+    font-size: 0.72rem;
+    font-family: 'Source Serif 4', serif;
+    line-height: 1.5;
+    border-top: 2px solid var(--gold);
+  }
+  .summary-strip strong { color: var(--gold); }
+
+  /* Priority indicator */
+  .priority {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gold);
+    margin-left: auto;
+  }
+
+  /* Grid for 2-col notes layout */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+  }
+  .notes-grid .span2 { grid-column: 1 / -1; }
+
+  /* Divider */
+  .ndiv {
+    border: none;
+    border-top: 1px dashed var(--rule);
+    margin: 2px 0;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+
+  @media (max-width: 760px) {
+    .cornell-body { grid-template-columns: 1fr; }
+    .cue-col { border-right: none; border-bottom: 2px solid var(--red-line); }
+    .notes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>UPSC Master Revision</h1>
+  <span>CORNELL METHOD · ALL GS PAPERS</span>
+  <div class="fact-badge">FACT-CORRECTED 2025</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('scitech')">⚙ Sci-Tech</button>
+  <button class="tab-btn" onclick="showTab('lifesci')">🧬 Life Science</button>
+  <button class="tab-btn" onclick="showTab('env')">🌿 Environment</button>
+  <button class="tab-btn" onclick="showTab('ancienthistory')">🏛 Ancient History</button>
+  <button class="tab-btn" onclick="showTab('medievalmodern')">📜 Medieval/Modern History</button>
+  <button class="tab-btn" onclick="showTab('economy')">💰 Economy</button>
+  <button class="tab-btn" onclick="showTab('geography')">🗺 Geography</button>
+  <button class="tab-btn" onclick="showTab('polity')">⚖ Polity</button>
+  <button class="tab-btn" onclick="showTab('ca')">📰 Current Affairs</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 1 · SCIENCE & TECHNOLOGY
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane active" id="tab-scitech">
+  <div class="subject-label">Science &amp; Technology <em>GS-III · High Priority</em></div>
+
+  <!-- DER -->
+  <div class="cornell-page" id="pg-der">
+    <div class="topic-header" onclick="togglePage('pg-der')">
+      <span class="topic-tag tag-scitech">ENERGY</span>
+      <span class="topic-title">Distributed Energy Resources (DER) &amp; Microgrids</span>
+      <span class="chip chip-pyq">CSP TREND</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">What distinguishes a Microgrid from a VPP?</div>
+          <div class="cue-kw"><span>Microgrid</span><span>VPP</span><span>Island mode</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India scheme for rooftop solar?</div>
+          <div class="cue-kw"><span>PM Surya Ghar</span><span>PM-KUSUM</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Grid integration regulator?</div>
+          <div class="cue-kw"><span>CERC</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Distributed Energy Resources (DER)</h3>
+        <p><b>Definition:</b> Small-scale power generation/storage near point of use — opposite of centralized grid.</p>
+        <p><b>Examples:</b> Rooftop solar, small wind, battery storage, micro-hydro, fuel cells, diesel gensets.</p>
+        <p><b>Key feature:</b> Can operate <i>grid-connected</i> OR <i>island mode</i> (off-grid).</p>
+        <hr class="ndiv">
+        <h4>Key Concepts</h4>
+        <ul>
+          <li><b>Microgrid:</b> Localized DER cluster that can disconnect and function autonomously.</li>
+          <li><b>Virtual Power Plant (VPP):</b> Aggregation of multiple DERs managed centrally via software — behaves like a single large plant.</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Benefits &amp; India Context</h4>
+        <ul>
+          <li>Reduced transmission losses; resilience against grid failures; energy access in remote areas.</li>
+          <li><b>PM-KUSUM:</b> Solar pumps for farmers | <b>PM Surya Ghar Muft Bijli Yojana:</b> Rooftop solar subsidy.</li>
+          <li><b>CERC</b> (Central Electricity Regulatory Commission) governs grid integration norms.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> DERs = decentralized power near usage point. Microgrid = autonomous cluster; VPP = software-aggregated DERs. India promotes via PM-KUSUM &amp; PM Surya Ghar. Regulated by CERC.
+      </div>
+    </div>
+  </div>
+
+  <!-- RTG -->
+  <div class="cornell-page" id="pg-rtg">
+    <div class="topic-header" onclick="togglePage('pg-rtg')">
+      <span class="topic-tag tag-scitech">SPACE / NUCLEAR</span>
+      <span class="topic-title">Radioisotope Thermoelectric Generators (RTGs)</span>
+      <span class="chip chip-pyq">EXAM TRAP</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">RTG vs Nuclear Reactor — key difference?</div>
+          <div class="cue-kw"><span>Passive decay</span><span>No fission chain</span></div>
+          <div class="cue-trap">⚠ RTG ≠ nuclear reactor. RTG uses passive radioactive decay, NOT controlled fission.</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Which isotope? Why preferred?</div>
+          <div class="cue-kw"><span>Pu-238</span><span>87.7yr half-life</span><span>Alpha emitter</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Efficiency? Famous missions?</div>
+          <div class="cue-kw"><span>6–8%</span><span>Voyager</span><span>Perseverance</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Radioisotope Thermoelectric Generator (RTG)</h3>
+        <p><b>Definition:</b> "Nuclear battery" converting heat from radioactive decay directly into electricity via the <i>Seebeck (thermoelectric) effect</i>.</p>
+        <p><b>Fuel:</b> Plutonium-238 (Pu-238) — preferred because: half-life ~87.7 years (longevity); alpha emitter (safe, easily shielded).</p>
+        <p><b>No moving parts</b> → extremely reliable; ideal for deep space where solar panels fail.</p>
+        <hr class="ndiv">
+        <h4>Notable Missions</h4>
+        <table class="mini-table">
+          <tr><th>Mission</th><th>Notes</th></tr>
+          <tr><td>Voyager 1 &amp; 2</td><td>Furthest human-made objects; still powered by RTG</td></tr>
+          <tr><td>Cassini (Saturn)</td><td>RTG-powered; 1997–2017</td></tr>
+          <tr><td>New Horizons (Pluto)</td><td>RTG-powered flyby 2015</td></tr>
+          <tr><td>Curiosity &amp; Perseverance</td><td>MMRTG (Multi-Mission RTG)</td></tr>
+        </table>
+        <p><b>Efficiency:</b> Only ~6–8% (thermodynamic) but unmatched reliability. India (ISRO) exploring nuclear power for deep-space missions.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> RTG = thermoelectric device using Pu-238 decay heat. No fission, no moving parts. ~6–8% efficient. Used on Voyager, Cassini, Mars rovers. Seebeck effect is the operating principle.
+      </div>
+    </div>
+  </div>
+
+  <!-- RADAR -->
+  <div class="cornell-page" id="pg-radar">
+    <div class="topic-header" onclick="togglePage('pg-radar')">
+      <span class="topic-tag tag-scitech">PHYSICS</span>
+      <span class="topic-title">Radar Technology &amp; Remote Sensing</span>
+      <span class="priority">★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Expand RADAR. Principle?</div>
+          <div class="cue-kw"><span>Radio Detection And Ranging</span><span>Doppler</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">What is SAR? Why useful?</div>
+          <div class="cue-kw"><span>Synthetic Aperture Radar</span><span>All-weather imaging</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's SAR satellites?</div>
+          <div class="cue-kw"><span>RISAT-1</span><span>RISAT-2 series</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>RADAR — Radio Detection And Ranging</h3>
+        <p><b>Principle:</b> Transmits microwave pulses → reflect off objects → receiver measures time delay &amp; frequency shift → calculates distance, speed, direction.</p>
+        <ul>
+          <li><b>Doppler Radar:</b> Detects velocity via frequency shift. Used in cyclone tracking &amp; speed guns.</li>
+          <li><b>SAR (Synthetic Aperture Radar):</b> Satellite-based; high-resolution imaging regardless of weather/clouds — critical for flood/crop monitoring.</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Applications</h4>
+        <table class="mini-table">
+          <tr><th>Domain</th><th>Use</th></tr>
+          <tr><td>Defence</td><td>Missile detection, ATC</td></tr>
+          <tr><td>Meteorology</td><td>Cyclone tracking (INSAT-3DR)</td></tr>
+          <tr><td>Remote Sensing</td><td>Crop mapping, flood monitoring</td></tr>
+        </table>
+        <p><b>Frequency bands:</b> L, S, C, X — different wavelengths for different applications. ISRO's <b>RISAT-1, RISAT-2</b> are SAR satellites.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> RADAR = time-delay of reflected microwaves. Doppler detects speed. SAR = all-weather satellite imaging. RISAT series = India's SAR satellites.
+      </div>
+    </div>
+  </div>
+
+  <!-- Hydrogels -->
+  <div class="cornell-page" id="pg-hydrogel">
+    <div class="topic-header" onclick="togglePage('pg-hydrogel')">
+      <span class="topic-tag tag-scitech">BIOTECH / CHEM</span>
+      <span class="topic-title">Hydrogels &amp; Drug Delivery Systems</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Define hydrogel. What makes it "smart"?</div>
+          <div class="cue-kw"><span>3D polymer network</span><span>Stimuli-responsive</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Natural vs Synthetic examples?</div>
+          <div class="cue-kw"><span>Chitosan</span><span>Alginate</span><span>PEG</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Hydrogels</h3>
+        <p><b>Definition:</b> 3D network of hydrophilic polymer chains absorbing large amounts of water while maintaining structure.</p>
+        <p><b>Properties:</b> Biocompatible, soft, tunable porosity. Smart hydrogels respond to pH, temperature, or light.</p>
+        <hr class="ndiv">
+        <h4>Drug Delivery</h4>
+        <ul>
+          <li><b>Controlled release:</b> Drug embedded in matrix; releases slowly over time.</li>
+          <li><b>Targeted delivery:</b> pH at tumor site triggers release from stimuli-responsive hydrogel.</li>
+          <li><b>Wound healing:</b> Maintains moist environment; delivers antibiotics.</li>
+          <li><b>Contact lenses:</b> Soft lenses are hydrogels.</li>
+        </ul>
+        <hr class="ndiv">
+        <p><b>Types:</b> Natural (alginate, chitosan, gelatin) | Synthetic (polyacrylamide, PEG-based).</p>
+        <p><b>Other uses:</b> Soil water retention (agriculture), tissue engineering, biosensors, diapers.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Hydrogel = water-absorbing polymer 3D network. Smart hydrogels respond to stimuli. Key drug delivery via controlled/targeted release. Natural = chitosan/alginate; Synthetic = PEG.
+      </div>
+    </div>
+  </div>
+
+  <!-- FCEV -->
+  <div class="cornell-page" id="pg-fcev">
+    <div class="topic-header" onclick="togglePage('pg-fcev')">
+      <span class="topic-tag tag-scitech">CLEAN ENERGY</span>
+      <span class="topic-title">Hydrogen FCEVs &amp; National Green Hydrogen Mission</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">FCEV byproduct? Reaction principle?</div>
+          <div class="cue-kw"><span>H₂ + O₂ → electricity + H₂O</span><span>PEM Fuel Cell</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">NGHM target &amp; outlay?</div>
+          <div class="cue-kw"><span>5 MT/yr by 2030</span><span>₹19,744 cr</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">FCEV vs BEV — key difference?</div>
+          <div class="cue-kw"><span>Faster refuel</span><span>Longer range</span><span>Infrastructure cost</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Hydrogen Fuel Cell Electric Vehicles (FCEVs)</h3>
+        <p><b>Principle:</b> H₂ + O₂ → electricity + water (ONLY byproduct). PEM Fuel Cell = most common for vehicles.</p>
+        <hr class="ndiv">
+        <table class="mini-table">
+          <tr><th>Feature</th><th>FCEV</th><th>BEV</th></tr>
+          <tr><td>Refuel time</td><td>~5 min</td><td>Hours</td></tr>
+          <tr><td>Range</td><td>Longer</td><td>Shorter</td></tr>
+          <tr><td>Infrastructure</td><td>High cost</td><td>Widespread</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>National Green Hydrogen Mission (2023)</h4>
+        <ul>
+          <li>Target: 5 million tonnes green H₂/year by 2030.</li>
+          <li>Outlay: ₹19,744 crore.</li>
+          <li>Green H₂ = electrolysis using renewable energy → zero-carbon.</li>
+          <li>Key players: NTPC, Indian Oil, HPCL pilots.</li>
+        </ul>
+        <p><b>Challenges:</b> Storage (flammable), infrastructure cost, high electrolysis cost.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> FCEV = H₂ + O₂ → electricity + water. PEM most common. NGHM 2023 targets 5 MT green H₂ by 2030 (₹19,744 cr). FCEV: faster refuel, longer range vs BEV.
+      </div>
+    </div>
+  </div>
+
+  <!-- PSH -->
+  <div class="cornell-page" id="pg-psh">
+    <div class="topic-header" onclick="togglePage('pg-psh')">
+      <span class="topic-tag tag-scitech">ENERGY INFRA</span>
+      <span class="topic-title">Pumped-Storage Hydropower (PSH) — Grid Battery</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Round-trip efficiency of PSH?</div>
+          <div class="cue-kw"><span>70–85%</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Global capacity &amp; share of utility storage?</div>
+          <div class="cue-kw"><span>~160 GW</span><span>~94% of global storage</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's CEA target by 2031-32?</div>
+          <div class="cue-kw"><span>18.93 GW new PSH</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Pumped-Storage Hydropower (PSH)</h3>
+        <p><b>Principle:</b> Off-peak → pump water UP (charging). Peak demand → release water through turbines (discharging). Acts as a giant grid battery.</p>
+        <p><b>Efficiency:</b> ~70–85% round-trip | <b>Global capacity:</b> ~160 GW | ~94% of all utility-scale storage globally.</p>
+        <hr class="ndiv">
+        <h4>India Context</h4>
+        <ul>
+          <li>CEA target: 18.93 GW new PSH by 2031–32.</li>
+          <li>Projects: Tehri (Uttarakhand), Koyna (Maharashtra), Sharavathi (Karnataka).</li>
+          <li>Environmental: Submergence of land, seismic risks, ecosystem disruption.</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Comparison</h4>
+        <table class="mini-table">
+          <tr><th>Type</th><th>Duration</th><th>Status</th></tr>
+          <tr><td>PSH</td><td>Hours–days</td><td>Mature, dominant</td></tr>
+          <tr><td>Li-ion Battery</td><td>Hours</td><td>Growing</td></tr>
+          <tr><td>CAES</td><td>Hours–days</td><td>Emerging</td></tr>
+        </table>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> PSH = gravity-based grid battery. 70–85% efficient. 94% of global utility storage. India targets 18.93 GW by 2031-32. Key projects: Tehri, Koyna, Sharavathi.
+      </div>
+    </div>
+  </div>
+
+  <!-- MBR -->
+  <div class="cornell-page" id="pg-mbr">
+    <div class="topic-header" onclick="togglePage('pg-mbr')">
+      <span class="topic-tag tag-scitech">BIOTECH / ENV</span>
+      <span class="topic-title">Membrane Bioreactors (MBR) — Wastewater Treatment</span>
+      <span class="priority">★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">MBR combines what two processes?</div>
+          <div class="cue-kw"><span>Activated sludge</span><span>Membrane filtration</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Pore size of membrane?</div>
+          <div class="cue-kw"><span>0.04–0.4 micron</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India application?</div>
+          <div class="cue-kw"><span>Namami Gange</span><span>ZLD</span><span>Smart Cities</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Membrane Bioreactor (MBR)</h3>
+        <p><b>Combination:</b> Biological treatment (activated sludge → microbes degrade organics) + Membrane filtration (ultrafiltration/microfiltration) in ONE unit.</p>
+        <p><b>Pore size:</b> 0.04–0.4 microns — removes solids, bacteria, some viruses.</p>
+        <hr class="ndiv">
+        <h4>Advantages vs Conventional Treatment</h4>
+        <ul>
+          <li>Smaller footprint | Higher effluent quality | Lower sludge production.</li>
+          <li>Better pathogen removal | Suitable for water reuse.</li>
+        </ul>
+        <h4>Limitations</h4>
+        <ul>
+          <li>Higher energy consumption | Membrane fouling | High capital cost.</li>
+        </ul>
+        <h4>India Applications</h4>
+        <ul>
+          <li>Namami Gange river rejuvenation | Smart Cities Mission | ZLD (Zero Liquid Discharge) compliance.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> MBR = activated sludge + membrane filtration (0.04–0.4µm). Better quality than conventional, smaller footprint. Used in Namami Gange, Smart Cities, ZLD compliance.
+      </div>
+    </div>
+  </div>
+
+  <!-- Metaverse -->
+  <div class="cornell-page" id="pg-meta">
+    <div class="topic-header" onclick="togglePage('pg-meta')">
+      <span class="topic-tag tag-scitech">DIGITAL TECH</span>
+      <span class="topic-title">Metaverse, VR, AR &amp; Digital Technologies</span>
+      <span class="priority">★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Distinguish VR / AR / MR?</div>
+          <div class="cue-kw"><span>Immersive</span><span>Overlay</span><span>Blend</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Technologies enabling Metaverse?</div>
+          <div class="cue-kw"><span>Blockchain/NFT</span><span>AI</span><span>5G</span><span>Digital twins</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>VR / AR / MR / Metaverse</h3>
+        <table class="mini-table">
+          <tr><th>Tech</th><th>Definition</th><th>Example</th></tr>
+          <tr><td>VR</td><td>Fully immersive digital environment</td><td>Meta Quest, HTC Vive</td></tr>
+          <tr><td>AR</td><td>Digital overlay on real world</td><td>Google Glass, Pokémon Go</td></tr>
+          <tr><td>MR</td><td>Physical + digital blend</td><td>Microsoft HoloLens</td></tr>
+          <tr><td>Metaverse</td><td>Persistent shared 3D social universe</td><td>Meta Horizon</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>Enabling tech:</b> Blockchain (NFT ownership), AI, 5G/6G, Cloud, Digital Twins.</p>
+        <p><b>Applications:</b> Education, healthcare (surgical training), defence simulation, e-commerce, remote work.</p>
+        <p><b>Concerns:</b> Data privacy, addiction, digital divide, cybersecurity, regulation gaps.</p>
+        <p><b>India:</b> No dedicated Metaverse regulation yet; MeitY exploring frameworks.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> VR = immersive; AR = overlay; MR = blend; Metaverse = persistent 3D social universe. Enabled by blockchain, AI, 5G. India: MeitY exploring regulation.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-scitech -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 2 · LIFE SCIENCE
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-lifesci">
+  <div class="subject-label">Life Sciences — Biology, Botany, Ecology <em>GS-III Environment + Science</em></div>
+
+  <!-- Stellar Evolution -->
+  <div class="cornell-page" id="pg-stellar">
+    <div class="topic-header" onclick="togglePage('pg-stellar')">
+      <span class="topic-tag tag-scitech">ASTRONOMY</span>
+      <span class="topic-title">Stellar Evolution — Giants, Dwarfs &amp; Black Holes</span>
+      <span class="priority">★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">What is the Sun's eventual fate?</div>
+          <div class="cue-kw"><span>Red Giant → Planetary Nebula → White Dwarf</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">What mass star becomes a Black Hole?</div>
+          <div class="cue-kw"><span>>20 solar masses</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">H-R Diagram plots what?</div>
+          <div class="cue-kw"><span>Luminosity vs Temperature</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Stellar Evolution Sequence</h3>
+        <table class="mini-table">
+          <tr><th>Stage</th><th>Description</th><th>Example</th></tr>
+          <tr><td>Main Sequence</td><td>H → He fusion in core; stable</td><td>Sun (currently here)</td></tr>
+          <tr><td>Red Giant</td><td>H exhausted; core contracts, shell expands; cooler/redder</td><td>Betelgeuse</td></tr>
+          <tr><td>White Dwarf</td><td>~Earth size; no fusion; cools over time</td><td>Sirius B</td></tr>
+          <tr><td>Neutron Star</td><td>~20 km diameter; incredibly dense; neutrons</td><td>Crab Pulsar</td></tr>
+          <tr><td>Pulsar</td><td>Rotating neutron star emitting radiation beams</td><td>PSR B1919+21</td></tr>
+          <tr><td>Black Hole</td><td>>20 solar masses star; escape velocity > c</td><td>Sagittarius A*</td></tr>
+        </table>
+        <p><b>H-R Diagram:</b> Plots stars by luminosity (y) vs temperature (x). Key stellar classification tool.</p>
+        <p><b>Fusion in Sun:</b> 4H → He (proton-proton chain).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Sun's fate: Red Giant → White Dwarf. Massive stars (>20M☉) → Black Holes. Neutron stars → Pulsars. H-R Diagram = luminosity vs temperature.
+      </div>
+    </div>
+  </div>
+
+  <!-- Vasodilation -->
+  <div class="cornell-page" id="pg-vaso">
+    <div class="topic-header" onclick="togglePage('pg-vaso')">
+      <span class="topic-tag tag-bio">MEDICINE</span>
+      <span class="topic-title">Vasodilation, Nitric Oxide &amp; Cardiovascular Physiology</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Nobel Prize for NO — year &amp; winners?</div>
+          <div class="cue-kw"><span>1998</span><span>Furchgott, Ignarro, Murad</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">NO pathway to vasodilation?</div>
+          <div class="cue-kw"><span>NOS → NO → guanylyl cyclase → cGMP → relaxation</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Medical drugs using NO mechanism?</div>
+          <div class="cue-kw"><span>Sildenafil (Viagra)</span><span>Nitroglycerin</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Nitric Oxide (NO) &amp; Vasodilation</h3>
+        <p><b>Vasodilation:</b> Widening of blood vessels via smooth muscle relaxation → ↓BP, ↑blood flow.</p>
+        <p><b>NO production:</b> Endothelial cells produce NO via enzyme <i>Nitric Oxide Synthase (NOS)</i> from L-arginine.</p>
+        <hr class="ndiv">
+        <h4>Signalling Pathway</h4>
+        <p>NOS → NO (diffuses into smooth muscle) → activates <i>guanylyl cyclase</i> → ↑cGMP → muscle relaxation → vasodilation.</p>
+        <hr class="ndiv">
+        <h4>Medical Significance</h4>
+        <ul>
+          <li><b>Sildenafil (Viagra):</b> Inhibits cGMP breakdown (PDE-5 inhibitor) → sustained relaxation.</li>
+          <li><b>Nitroglycerin:</b> Releases NO → treats angina (chest pain from coronary artery spasm).</li>
+        </ul>
+        <h4>Other roles of NO</h4>
+        <ul>
+          <li>Immune defense (kills pathogens) | Neurotransmission | Platelet aggregation inhibition.</li>
+        </ul>
+        <p><b>Nobel 1998:</b> Furchgott, Ignarro, Murad — discovery of NO as signalling molecule.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> NO = gaseous signalling molecule from L-arginine via NOS. Pathway: NO → cGMP → vasodilation. Sildenafil (inhibits cGMP breakdown), Nitroglycerin (releases NO) both exploit this. Nobel 1998.
+      </div>
+    </div>
+  </div>
+
+  <!-- Insects -->
+  <div class="cornell-page" id="pg-insects">
+    <div class="topic-header" onclick="togglePage('pg-insects')">
+      <span class="topic-tag tag-bio">ZOOLOGY</span>
+      <span class="topic-title">Insects — Cicada, Froghopper &amp; Pond Skater</span>
+      <span class="priority">★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">All three insects belong to which Order?</div>
+          <div class="cue-kw"><span>Hemiptera (true bugs)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Cicada life cycle strategy?</div>
+          <div class="cue-kw"><span>13 or 17 yr (prime numbers)</span><span>Predator avoidance</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">What is "spittle" and why produced?</div>
+          <div class="cue-kw"><span>Froghopper nymph</span><span>Camouflage + moisture</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Insect Comparison — Order Hemiptera</h3>
+        <table class="mini-table">
+          <tr><th>Insect</th><th>Special Feature</th><th>Feeding</th></tr>
+          <tr><td>Cicada</td><td>Loudest insect (120 dB, tymbals); 13/17-yr underground nymph cycle</td><td>Xylem sap from roots/branches</td></tr>
+          <tr><td>Froghopper (Spittlebug)</td><td>Best jumper (70 cm, 100× body); produces frothy "cuckoo spit"</td><td>Plant sap; agricultural pest</td></tr>
+          <tr><td>Pond Skater (Water Strider)</td><td>Walks on water via surface tension; hydrophobic leg hairs</td><td>Insects on water surface</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>Cicada prime cycles:</b> 13 or 17 years — prime numbers reduce overlap with predator cycles → evolutionary advantage.</p>
+        <p><b>Pond Skater:</b> Bioindicator of clean water. Middle legs row, hind legs steer.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> All three = Order Hemiptera. Cicada: loudest, 13/17-yr underground. Froghopper: best jumper, produces spittle. Pond Skater: surface tension walking, clean water indicator.
+      </div>
+    </div>
+  </div>
+
+  <!-- Coevolution / Fig-Wasp -->
+  <div class="cornell-page" id="pg-coevo">
+    <div class="topic-header" onclick="togglePage('pg-coevo')">
+      <span class="topic-tag tag-bio">ECOLOGY</span>
+      <span class="topic-title">Coevolution — Fig &amp; Fig Wasp Mutualism</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Why is fig-fig wasp "obligate mutualism"?</div>
+          <div class="cue-kw"><span>Neither can reproduce without the other</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">What enzyme digests wasp in fig?</div>
+          <div class="cue-kw"><span>Ficin</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Why are figs called keystone species?</div>
+          <div class="cue-kw"><span>Year-round fruiting feeds hundreds of species</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Fig–Fig Wasp: Nature's Most Intimate Mutualism</h3>
+        <p><b>Obligate mutualism:</b> Fig tree (Ficus ~750 spp.) and fig wasp (Agaonidae) — cannot reproduce without each other.</p>
+        <hr class="ndiv">
+        <h4>Life Cycle Process</h4>
+        <ul>
+          <li>Female wasp enters fig (syconium = inside-out flower cluster) through ostiole, often losing wings.</li>
+          <li>Lays eggs in some flowers; pollinates others with carried pollen.</li>
+          <li>She dies inside. Male wasps hatch first → mate with females → tunnel out.</li>
+          <li>Females collect pollen → fly to new fig → cycle continues.</li>
+        </ul>
+        <hr class="ndiv">
+        <p><b>Ficin:</b> Enzyme in fig breaks down wasp bodies — you don't eat wasp remains.</p>
+        <p><b>Specificity:</b> Each fig species has dedicated wasp species (cospeciation).</p>
+        <p><b>India:</b> Ficus benghalensis (Banyan), F. religiosa (Peepal), F. racemosa — all have own wasp partners.</p>
+        <p><b>Keystone species:</b> Figs fruit year-round → sustain hundreds of species during lean seasons.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Fig–wasp = obligate mutualism; neither reproduces alone. Female wasp enters syconium, pollinates, lays eggs, dies. Ficin digests wasp. Each fig species has dedicated wasp. Figs = keystone species.
+      </div>
+    </div>
+  </div>
+
+  <!-- Poisonous species -->
+  <div class="cornell-page" id="pg-poison">
+    <div class="topic-header" onclick="togglePage('pg-poison')">
+      <span class="topic-tag tag-bio">TOXICOLOGY</span>
+      <span class="topic-title">Poisonous Species — Butterflies, Fish &amp; Amphibians</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Venomous vs Poisonous?</div>
+          <div class="cue-kw"><span>Venomous = actively delivers toxin</span><span>Poisonous = passive (eaten/touched)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Pufferfish toxin? Antidote?</div>
+          <div class="cue-kw"><span>Tetrodotoxin (TTX)</span><span>NO antidote</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Most toxic frog? Country of origin?</div>
+          <div class="cue-kw"><span>Phyllobates terribilis</span><span>Colombia</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Poisonous vs Venomous — Key Distinction</h3>
+        <p><b>Venomous:</b> Delivers toxin actively (bite/sting) — snake, bee. <b>Poisonous:</b> Toxic when touched/eaten — passive.</p>
+        <hr class="ndiv">
+        <h4>Poisonous Butterflies</h4>
+        <ul>
+          <li><b>Mechanism:</b> Larvae eat toxic plants → sequester toxins as adults → unpalatable to predators.</li>
+          <li><b>Monarch:</b> Milkweed → cardenolides (cardiac glycosides).</li>
+          <li><b>Plain Tiger (Danaus chrysippus):</b> India's most common poisonous butterfly.</li>
+          <li><b>Müllerian Mimicry:</b> Multiple poisonous species share warning coloration.</li>
+          <li><b>Batesian Mimicry:</b> Non-poisonous mimics poisonous (e.g., Common Mormon mimics Crimson Rose).</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Poisonous Fish &amp; Amphibians</h4>
+        <table class="mini-table">
+          <tr><th>Species</th><th>Toxin</th><th>Note</th></tr>
+          <tr><td>Pufferfish (Fugu)</td><td>Tetrodotoxin (TTX)</td><td>Blocks Na⁺ channels; NO antidote; liver/ovaries/skin toxic</td></tr>
+          <tr><td>Golden Poison Frog</td><td>Batrachotoxin</td><td>Enough to kill 10 humans; wild frogs only (diet-based)</td></tr>
+          <tr><td>Poison Dart Frogs</td><td>Pumiliotoxin, epibatidine</td><td>Toxins from ant/mite diet; captive-bred = non-toxic</td></tr>
+        </table>
+        <p><b>Aposematism:</b> Bright warning colors (red/yellow/blue) signal toxicity.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Poisonous = passive toxicity. Monarch → cardenolides. Plain Tiger = India's poisonous butterfly. Pufferfish TTX = no antidote. Golden Poison Frog (Phyllobates terribilis) most toxic. Captive frogs are non-toxic.
+      </div>
+    </div>
+  </div>
+
+  <!-- Parasitoids -->
+  <div class="cornell-page" id="pg-para">
+    <div class="topic-header" onclick="togglePage('pg-para')">
+      <span class="topic-tag tag-bio">ENTOMOLOGY</span>
+      <span class="topic-title">Parasitoids &amp; Biological Control</span>
+      <span class="priority">★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Parasitoid vs parasite — key difference?</div>
+          <div class="cue-kw"><span>Parasitoid kills host</span><span>Parasite usually doesn't</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Trichogramma used against which pests in India?</div>
+          <div class="cue-kw"><span>Stem borers (sugarcane/rice)</span><span>Cotton bollworms</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Parasitoids &amp; Biological Control</h3>
+        <p><b>Parasitoid:</b> Lives in/on host, ultimately KILLS it (unlike parasite). Lays eggs → larvae consume host → host dies → adult emerges.</p>
+        <p><b>Main orders:</b> Hymenoptera (Ichneumonidae, Braconidae, Chalcididae wasp families), Diptera (Tachinid flies).</p>
+        <hr class="ndiv">
+        <h4>Key Examples</h4>
+        <table class="mini-table">
+          <tr><th>Parasitoid</th><th>Host</th><th>Use</th></tr>
+          <tr><td>Trichogramma wasp</td><td>Insect eggs</td><td>ICAR mass-rears for sugarcane, cotton, rice biocontrol</td></tr>
+          <tr><td>Cotesia (Braconid)</td><td>Caterpillars</td><td>Tobacco hornworm control</td></tr>
+          <tr><td>Chrysoperla (lacewing)</td><td>Aphids, mites</td><td>Vegetable crop biocontrol</td></tr>
+        </table>
+        <p><b>First success (1888):</b> Vedalia Beetle (Rodolia cardinalis) controlled Cottony Cushion Scale on California citrus — classical biocontrol.</p>
+        <p><b>NPV (Nuclear Polyhedrosis Virus):</b> Biopesticide vs Fall Armyworm (Spodoptera) — approved in India.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Parasitoid = kills host (unlike parasite). Main families: Ichneumonidae, Braconidae, Tachinidae. Trichogramma = ICAR biocontrol tool. First biocontrol success: Vedalia beetle (1888).
+      </div>
+    </div>
+  </div>
+
+  <!-- Fabaceae -->
+  <div class="cornell-page" id="pg-fabaceae">
+    <div class="topic-header" onclick="togglePage('pg-fabaceae')">
+      <span class="topic-tag tag-bio">BOTANY / AGRI</span>
+      <span class="topic-title">Leguminosae / Fabaceae — Pulses &amp; Oilseeds</span>
+      <span class="priority">★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Which bacteria fix N₂ in Fabaceae roots?</div>
+          <div class="cue-kw"><span>Rhizobium</span><span>Root nodules</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Kharif vs Rabi pulses?</div>
+          <div class="cue-kw"><span>Kharif: Arhar, Moong, Urad</span><span>Rabi: Gram, Lentil, Pea</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Oilseeds in this family?</div>
+          <div class="cue-kw"><span>Soybean</span><span>Groundnut</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Leguminosae / Fabaceae (Pea Family)</h3>
+        <p><b>Key feature:</b> Nitrogen fixation via symbiotic <i>Rhizobium</i> bacteria in root nodules → improves soil fertility naturally.</p>
+        <hr class="ndiv">
+        <table class="mini-table">
+          <tr><th>Category</th><th>Examples</th></tr>
+          <tr><td>Pulses (Kharif)</td><td>Arhar (Pigeon Pea), Moong, Urad</td></tr>
+          <tr><td>Pulses (Rabi)</td><td>Chickpea (Chana), Lentil (Masoor), Pea</td></tr>
+          <tr><td>Oilseeds</td><td>Soybean, Groundnut (Arachis hypogaea)</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>India:</b> Largest producer AND consumer of pulses globally. MP, Maharashtra, Rajasthan = top states.</p>
+        <p><b>Nutritional:</b> High protein → critical for food security, combating malnutrition.</p>
+        <p><b>Schemes:</b> National Food Security Mission (Pulses).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Fabaceae = nitrogen fixation via Rhizobium. Kharif pulses: Arhar/Moong/Urad. Rabi: Chickpea/Lentil/Pea. Oilseeds: Soybean, Groundnut. India = largest pulse producer + consumer.
+      </div>
+    </div>
+  </div>
+
+  <!-- Flying Fox -->
+  <div class="cornell-page" id="pg-fox">
+    <div class="topic-header" onclick="togglePage('pg-fox')">
+      <span class="topic-tag tag-bio">WILDLIFE</span>
+      <span class="topic-title">Indian Flying Fox &amp; WPA 1972 Schedules</span>
+      <span class="chip chip-pyq">WPA SCHEDULE</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">WPA 1972 Schedule for Flying Fox?</div>
+          <div class="cue-kw"><span>Schedule IV (was Schedule V / Vermin earlier)</span></div>
+          <div class="cue-trap">⚠ Flying Fox moved FROM Schedule V (Vermin) TO Schedule IV — protection now granted.</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">WPA 2022 Amendment?</div>
+          <div class="cue-kw"><span>Schedules I &amp; II merged</span><span>CITES alignment</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Indian Flying Fox (Pteropus giganteus)</h3>
+        <p><b>Classification:</b> Mammal → Chiroptera (bats) → Pteropodidae (fruit bats / megabats).</p>
+        <p><b>Largest bat in India:</b> Wingspan up to 1.5m; strictly frugivorous &amp; nectarivorous (NOT insectivorous).</p>
+        <p><b>Ecological role:</b> Pollinator (nectar transfer) + Seed disperser → critical for forest regeneration. Keystone species.</p>
+        <hr class="ndiv">
+        <h4>WPA 1972 — Schedules (Critical for Prelims)</h4>
+        <table class="mini-table">
+          <tr><th>Schedule</th><th>Category</th><th>Protection</th></tr>
+          <tr><td>I</td><td>Most endangered (Tiger, Elephant, Snow Leopard)</td><td>Highest — absolute</td></tr>
+          <tr><td>II</td><td>Highly protected (Himalayan Black Bear)</td><td>High (merged with I in 2022)</td></tr>
+          <tr><td>IV</td><td>Common species (Flying Fox)</td><td>Moderate penalty</td></tr>
+          <tr><td>V</td><td>Vermin (Rats, Common Crow)</td><td>Can be killed</td></tr>
+          <tr><td>VI</td><td>Protected Plants (Pitcher Plant, Red Vanda)</td><td>Cannot cultivate/trade</td></tr>
+        </table>
+        <p><b>2022 Amendment:</b> Schedules I &amp; II merged; aligned with CITES listings.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Indian Flying Fox = megabat; largest in India; frugivorous; keystone pollinator + seed disperser. Now Schedule IV (moved from Vermin/V). 2022 WPA merged Sch. I &amp; II; aligned with CITES.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-lifesci -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 3 · ENVIRONMENT
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-env">
+  <div class="subject-label">Environment &amp; Ecology <em>GS-III · Very High Priority</em></div>
+
+  <!-- PFAS -->
+  <div class="cornell-page" id="pg-pfas">
+    <div class="topic-header" onclick="togglePage('pg-pfas')">
+      <span class="topic-tag tag-env">POLLUTION</span>
+      <span class="topic-title">PFAS — "Forever Chemicals" &amp; Stockholm Convention</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">What makes PFAS "forever chemicals"?</div>
+          <div class="cue-kw"><span>C–F bond (strongest in chemistry)</span><span>Non-degradable</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">PFOS/PFOA regulated under?</div>
+          <div class="cue-kw"><span>Stockholm Convention (POPs)</span><span>PFOS 2009, PFOA 2019</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Where do firefighting foams fit?</div>
+          <div class="cue-kw"><span>AFFF (Aqueous Film Forming Foam)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>PFAS — Per- and Polyfluoroalkyl Substances</h3>
+        <p><b>~12,000+ synthetic chemicals.</b> Extremely strong C–F bond → resist degradation → "Forever Chemicals".</p>
+        <hr class="ndiv">
+        <h4>Properties &amp; Uses</h4>
+        <table class="mini-table">
+          <tr><th>Property</th><th>Application</th></tr>
+          <tr><td>Water/oil repellent</td><td>Non-stick cookware (Teflon/PTFE), waterproof clothing (Gore-Tex)</td></tr>
+          <tr><td>Heat resistant</td><td>Aerospace, electronics</td></tr>
+          <tr><td>Foam-forming</td><td>AFFF firefighting foam (airports/military)</td></tr>
+          <tr><td>Stain resistant</td><td>Carpets, food packaging</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Health &amp; Environmental Concerns</h4>
+        <ul>
+          <li>Persistence: Accumulate in environment &amp; body over decades.</li>
+          <li>Bioaccumulation: Concentrate up food chain.</li>
+          <li>Health: Thyroid disruption, immune suppression, kidney/testicular cancer, reproductive issues.</li>
+        </ul>
+        <h4>Regulation</h4>
+        <ul>
+          <li>PFOS added to Stockholm Convention (POPs) in 2009; PFOA in 2019.</li>
+          <li>US EPA (2023): Near-zero MCL for PFAS in drinking water.</li>
+          <li>India: No specific PFAS regulation yet; PFAS found in Ganga/industrial groundwater.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> PFAS = 12,000+ synthetic chemicals; C–F bond = indestructible. Found in Teflon, Gore-Tex, AFFF foam. Bioaccumulate; cause cancer, thyroid disruption. PFOS (2009) + PFOA (2019) under Stockholm Convention. India: no specific regulation.
+      </div>
+    </div>
+  </div>
+
+  <!-- Microplastics -->
+  <div class="cornell-page" id="pg-microplastic">
+    <div class="topic-header" onclick="togglePage('pg-microplastic')">
+      <span class="topic-tag tag-env">POLLUTION</span>
+      <span class="topic-title">Microplastics, Chewing Gum &amp; UNEP Plastics Treaty</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Definition of microplastics?</div>
+          <div class="cue-kw"><span>&lt;5mm plastic particles</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's SUP ban — date &amp; items?</div>
+          <div class="cue-kw"><span>July 1, 2022</span><span>19 categories (straws, cutlery &lt;100µm)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Chewing gum's plastic component?</div>
+          <div class="cue-kw"><span>Polyvinyl acetate, polyisobutylene</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Microplastics</h3>
+        <p><b>Definition:</b> Plastic particles &lt;5 mm. <b>Nanoplastics:</b> &lt;1 micron — can penetrate cells.</p>
+        <ul>
+          <li><b>Primary:</b> Manufactured at micro scale — microbeads (cosmetics), nurdles (plastic pellets), synthetic fibers.</li>
+          <li><b>Secondary:</b> Breakdown of larger plastics by UV/weathering.</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Chewing Gum as Plastic Waste</h4>
+        <ul>
+          <li>Modern gum base = synthetic polymers (polyvinyl acetate, polyethylene, polyisobutylene) = PLASTIC.</li>
+          <li>~374 billion pieces/year globally; non-biodegradable; generates microplastics on pavements.</li>
+          <li>Traditional chicle (natural latex from Manilkara zapota) was biodegradable.</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Regulation</h4>
+        <ul>
+          <li>India: Banned 19 categories of Single-Use Plastics (SUPs) from July 1, 2022.</li>
+          <li>UNEP Global Plastics Treaty: Negotiations 2022–2024 for legally binding agreement.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Microplastics &lt;5mm. Primary (microbeads) vs Secondary (breakdown). Chewing gum = plastic (polyvinyl acetate etc.). India banned 19 SUP categories July 2022. UNEP treaty negotiations ongoing.
+      </div>
+    </div>
+  </div>
+
+  <!-- Native vs Exotic -->
+  <div class="cornell-page" id="pg-native">
+    <div class="topic-header" onclick="togglePage('pg-native')">
+      <span class="topic-tag tag-env">BIODIVERSITY</span>
+      <span class="topic-title">Native vs Exotic Species in India — Key Examples</span>
+      <span class="chip chip-pyq">HIGH FREQUENCY PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Is Cashew native to India?</div>
+          <div class="cue-kw"><span>NO — Brazil; Portuguese 16th CE</span></div>
+          <div class="cue-trap">⚠ Cashew, Papaya, Lantana all EXOTIC (introduced). Red Sanders = NATIVE endemic.</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Most invasive plant in Indian forests?</div>
+          <div class="cue-kw"><span>Lantana camara (Central America)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Red Sanders — conservation status?</div>
+          <div class="cue-kw"><span>Native + Endemic (Eastern Ghats, AP)</span><span>CITES Appendix II</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Native vs Exotic Species</h3>
+        <table class="mini-table">
+          <tr><th>Species</th><th>Origin</th><th>Status in India</th></tr>
+          <tr><td>Cashew</td><td>Brazil</td><td>Exotic; introduced by Portuguese 16th CE; naturalized (Goa, Kerala)</td></tr>
+          <tr><td>Papaya</td><td>Mexico/Central America</td><td>Exotic; introduced by Portuguese</td></tr>
+          <tr><td>Red Sanders</td><td>Eastern Ghats, AP</td><td>Native + Endemic; CITES Appendix II</td></tr>
+          <tr><td>Teak</td><td>Western Ghats/Central India</td><td>Native; planted outside range</td></tr>
+          <tr><td>Lantana camara</td><td>Central America</td><td>Worst invasive in Indian forests</td></tr>
+          <tr><td>Water Hyacinth</td><td>South America</td><td>Invasive; "Terror of Bengal"</td></tr>
+          <tr><td>Eucalyptus</td><td>Australia</td><td>Introduced British era; depletes groundwater</td></tr>
+          <tr><td>Prosopis juliflora</td><td>Mexico</td><td>Invasive in Rajasthan arid zones</td></tr>
+        </table>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Cashew + Papaya = Portuguese introduced (exotic). Red Sanders = native endemic, CITES-II. Lantana = worst invasive. Water Hyacinth = "Terror of Bengal". Eucalyptus = introduced, groundwater concern.
+      </div>
+    </div>
+  </div>
+
+  <!-- Megadiverse -->
+  <div class="cornell-page" id="pg-mega">
+    <div class="topic-header" onclick="togglePage('pg-mega')">
+      <span class="topic-tag tag-env">BIODIVERSITY</span>
+      <span class="topic-title">Megadiverse Countries — Brazil, Indonesia, Madagascar</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">How many megadiverse countries?</div>
+          <div class="cue-kw"><span>17 countries</span><span>&gt;70% of world biodiversity</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Wallace Line — significance?</div>
+          <div class="cue-kw"><span>Separates Asian &amp; Australian fauna in Indonesia</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Madagascar — % endemic wildlife?</div>
+          <div class="cue-kw"><span>90%+ endemic</span><span>Lemurs only in Madagascar</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Megadiverse Countries (17 nations — IUCN)</h3>
+        <p><b>Brazil:</b> Amazon rainforest (world's largest; 60% in Brazil); ~15% of all species. Cerrado = world's most biodiverse savanna. Unique fauna: Jaguar, Harpy Eagle, Boto (pink river dolphin), Arapaima.</p>
+        <hr class="ndiv">
+        <p><b>Indonesia:</b> 17,000+ islands → extreme diversity. Wallace Line separates Asian/Australian fauna. Endemic: Komodo Dragon, Sumatran Tiger, Sumatran Orangutan, Pygmy Elephant. Coral Triangle = most diverse marine region.</p>
+        <hr class="ndiv">
+        <p><b>Madagascar:</b> Separated from Africa ~88 million years ago. 90%+ wildlife endemic. Lemurs (&gt;100 spp.) ONLY in Madagascar. Chameleons (50%+ of world's species here). Fossa = top predator. ~90% forest destroyed.</p>
+        <hr class="ndiv">
+        <p><b>India:</b> 4 biodiversity hotspots — Western Ghats, Eastern Himalayas (Indo-Burma), Sundaland (Nicobar), Himalaya.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> 17 megadiverse nations harbor >70% of biodiversity. Brazil = Amazon + Cerrado. Indonesia = Wallace Line, Coral Triangle. Madagascar = 90% endemism, Lemurs only here. India = 4 biodiversity hotspots.
+      </div>
+    </div>
+  </div>
+
+  <!-- SAF -->
+  <div class="cornell-page" id="pg-saf">
+    <div class="topic-header" onclick="togglePage('pg-saf')">
+      <span class="topic-tag tag-env">GREEN ENERGY</span>
+      <span class="topic-title">Sustainable Aviation Fuel (SAF) &amp; ICAO CORSIA</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">SAF carbon reduction potential?</div>
+          <div class="cue-kw"><span>Up to 80% lifecycle CO₂ reduction</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Current max blend with jet fuel?</div>
+          <div class="cue-kw"><span>50% (ASTM standards)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">ICAO mechanism for aviation emissions?</div>
+          <div class="cue-kw"><span>CORSIA</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Sustainable Aviation Fuel (SAF)</h3>
+        <p><b>Definition:</b> Aviation fuel from non-fossil feedstocks. Up to 80% lifecycle CO₂ reduction vs conventional jet fuel.</p>
+        <p><b>Drop-in fuel:</b> Compatible with existing engines; typically up to 50% blend (ASTM standards).</p>
+        <hr class="ndiv">
+        <h4>Feedstocks</h4>
+        <table class="mini-table">
+          <tr><th>Category</th><th>Examples</th></tr>
+          <tr><td>Agricultural residues</td><td>Wheat straw, sugarcane bagasse</td></tr>
+          <tr><td>Waste fats/oils</td><td>Used Cooking Oil (UCO), animal fats</td></tr>
+          <tr><td>Municipal waste</td><td>Non-recyclable MSW</td></tr>
+          <tr><td>Power-to-Liquid</td><td>Green H₂ + CO₂ → synthetic SAF</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Policy Context</h4>
+        <ul>
+          <li><b>CORSIA (ICAO):</b> Carbon Offsetting &amp; Reduction Scheme for International Aviation — SAF = key compliance tool.</li>
+          <li><b>IATA Net Zero 2050:</b> SAF critical to achieve.</li>
+          <li><b>EU mandate:</b> 2% SAF by 2025 → 70% by 2050.</li>
+          <li><b>India:</b> National Biofuel Policy 2018; IndiGo/Air India SAF trial flights; MoPNG roadmap pending.</li>
+          <li><b>Challenge:</b> SAF = 3–8× costlier than conventional jet fuel.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> SAF = 80% lifecycle CO₂ cut; drops in at 50% blend. Feedstocks: agri residues, UCO, MSW, Power-to-Liquid. CORSIA = ICAO aviation offset mechanism. 3-8× costlier = main barrier.
+      </div>
+    </div>
+  </div>
+
+  <!-- Peatlands -->
+  <div class="cornell-page" id="pg-peat">
+    <div class="topic-header" onclick="togglePage('pg-peat')">
+      <span class="topic-tag tag-env">CLIMATE CHANGE</span>
+      <span class="topic-title">Tropical Peatlands &amp; Congo Basin Carbon Storage</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">% land area but % soil carbon for peatlands?</div>
+          <div class="cue-kw"><span>~3% land = ~30% soil carbon</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Congo Basin peat — when discovered?</div>
+          <div class="cue-kw"><span>2017 (Cuvette Centrale)</span><span>~30 billion tonnes C</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Indonesia 2015 fires — CO₂ released?</div>
+          <div class="cue-kw"><span>~1.5–1.75 billion tonnes CO₂</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Tropical Peatlands</h3>
+        <p><b>Peat:</b> Partially decomposed organic matter in waterlogged (anoxic) conditions — prevents decomposition → locks carbon.</p>
+        <p><b>Global significance:</b> ~3% of Earth's land surface BUT ~30% of all soil carbon — twice the carbon in all forests.</p>
+        <hr class="ndiv">
+        <h4>Congo Basin (Cuvette Centrale)</h4>
+        <ul>
+          <li>Fully mapped/discovered in 2017 — largest known tropical peatland complex.</li>
+          <li>Covers ~145,500 km² (DRC + Republic of Congo).</li>
+          <li>Stores ~30 billion tonnes of carbon (= 3 years of global fossil fuel emissions).</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Threats</h4>
+        <ul>
+          <li>Indonesia: Drainage for oil palm plantations → peat fires. 2015 fires: ~1.5–1.75 GT CO₂ (> Germany's annual emissions).</li>
+          <li>Peat fires burn underground for months — very hard to extinguish.</li>
+          <li><b>RAMSAR Convention:</b> Designates important wetlands including peatlands. India: 82 Ramsar sites.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Peatlands = 3% land but 30% soil carbon. Congo Cuvette Centrale (2017) = ~30 GT C. Indonesia peat fires 2015 = 1.5-1.75 GT CO₂. Threats: drainage + fire. RAMSAR protects.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-env -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 4 · ANCIENT HISTORY
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-ancienthistory">
+  <div class="subject-label">Ancient Indian History &amp; Culture <em>GS-I · High Priority</em></div>
+
+  <!-- Sanskrit Drama -->
+  <div class="cornell-page" id="pg-drama">
+    <div class="topic-header" onclick="togglePage('pg-drama')">
+      <span class="topic-tag tag-history">LITERATURE</span>
+      <span class="topic-title">Sanskrit Drama — Bhasa, Kalidasa &amp; Natyashastra</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Who rediscovered Bhasa's plays? Where?</div>
+          <div class="cue-kw"><span>T. Ganapati Shastri</span><span>Kerala, 1912</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Bhasa's masterpiece?</div>
+          <div class="cue-kw"><span>Swapnavasavadatta</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Natyashastra — 9 Rasas?</div>
+          <div class="cue-kw"><span>Shringara Hasya Karuna Raudra Vira Bhayanaka Bibhatsa Adbhuta Shanta</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Bhasa &amp; Sanskrit Drama</h3>
+        <p><b>Bhasa:</b> Earliest significant Sanskrit dramatist; predates Kalidasa (2nd–4th CE). Kalidasa praised him in Malavikagnimitra's prologue. 13 plays discovered by T. Ganapati Shastri in Kerala (1912).</p>
+        <p><b>Notable plays:</b> Swapnavasavadatta (masterpiece), Urubhanga (sympathetic Duryodhana!), Charudatta (precursor to Mricchakatika).</p>
+        <hr class="ndiv">
+        <h4>Major Sanskrit Dramatists</h4>
+        <table class="mini-table">
+          <tr><th>Playwright</th><th>Major Work</th><th>Period</th></tr>
+          <tr><td>Bhasa</td><td>Swapnavasavadatta</td><td>2nd–4th CE</td></tr>
+          <tr><td>Shudraka</td><td>Mricchakatika (Little Clay Cart)</td><td>~4th CE</td></tr>
+          <tr><td>Kalidasa</td><td>Abhijnanasakuntalam, Vikramorvasiyam</td><td>4th–5th CE</td></tr>
+          <tr><td>Harsha</td><td>Ratnavali, Nagananda</td><td>7th CE</td></tr>
+          <tr><td>Vishakhadatta</td><td>Mudrarakshasa, Devichandraguptam</td><td>4th–5th CE</td></tr>
+        </table>
+        <p><b>Abhijnanasakuntalam:</b> Translated by William Jones (1789) — first Sanskrit play to reach Europe.</p>
+        <p><b>Natyashastra</b> by Bharata Muni (2nd BCE–2nd CE): 9 Rasas; foundation of Indian dramaturgy.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Bhasa (2nd–4th CE) = earliest Sanskrit dramatist; Swapnavasavadatta = masterpiece; rediscovered 1912 Kerala. Natyashastra = 9 Rasas. Kalidasa's Shakuntalam = first to reach Europe (Jones 1789).
+      </div>
+    </div>
+  </div>
+
+  <!-- Buddhist Scholars -->
+  <div class="cornell-page" id="pg-buddha-scholars">
+    <div class="topic-header" onclick="togglePage('pg-buddha-scholars')">
+      <span class="topic-tag tag-history">BUDDHISM</span>
+      <span class="topic-title">Buddhist Scholars &amp; India–China Cultural Contacts</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Which Chinese pilgrim stayed during Harsha? Major work?</div>
+          <div class="cue-kw"><span>Xuanzang (Hiuen Tsang)</span><span>Si-yu-ki</span><span>"Prince of Pilgrims"</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Nalanda — who destroyed it?</div>
+          <div class="cue-kw"><span>Bakhtiyar Khilji ~1193 CE</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Who founded Zen Buddhism in China?</div>
+          <div class="cue-kw"><span>Bodhidharma (5th–6th CE)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Chinese Pilgrims to India</h3>
+        <table class="mini-table">
+          <tr><th>Pilgrim</th><th>Period</th><th>Visited During</th><th>Key Work</th></tr>
+          <tr><td>Fa-Hien (Faxian)</td><td>399–414 CE</td><td>Chandragupta II (Gupta)</td><td>Fo-kuo-chi</td></tr>
+          <tr><td>Xuanzang (Hiuen Tsang)</td><td>629–645 CE</td><td>Harsha</td><td>Si-yu-ki ("Prince of Pilgrims")</td></tr>
+          <tr><td>Yijing (I-tsing)</td><td>671–695 CE</td><td>Post-Harsha</td><td>Record of Buddhist Practices</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Indian Scholars to China</h4>
+        <ul>
+          <li><b>Kumarajiva (344–413 CE):</b> Translated Mahayana texts into Chinese; born in Kucha.</li>
+          <li><b>Bodhidharma (5th–6th CE):</b> Traveled to China → founded Chan (Zen) Buddhism.</li>
+          <li><b>Atisha Dipankara (982–1054 CE):</b> Bengali monk; revived Buddhism in Tibet.</li>
+        </ul>
+        <hr class="ndiv">
+        <p><b>Nalanda:</b> International hub 5th–12th CE (Magadha/Bihar). Students from China, Korea, Japan, Java, Sri Lanka. Destroyed by Bakhtiyar Khilji ~1193 CE. UNESCO World Heritage Site 2016.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Fa-Hien (Gupta era), Xuanzang (Harsha era) = key Chinese pilgrims. Bodhidharma = Zen Buddhism founder (India→China). Nalanda: 5th–12th CE international university; destroyed ~1193 CE.
+      </div>
+    </div>
+  </div>
+
+  <!-- Buddha Epithets -->
+  <div class="cornell-page" id="pg-buddha">
+    <div class="topic-header" onclick="togglePage('pg-buddha')">
+      <span class="topic-tag tag-history">BUDDHISM</span>
+      <span class="topic-title">Gautama Buddha — Epithets, Life Events &amp; Core Doctrines</span>
+      <span class="chip chip-pyq">HIGH FREQUENCY</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Four Noble Truths in order?</div>
+          <div class="cue-kw"><span>Dukkha → Samudaya → Nirodha → Magga</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Where was First Sermon? Name?</div>
+          <div class="cue-kw"><span>Sarnath (Deer Park)</span><span>Dhammachakkapavattana</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Tathagata meaning?</div>
+          <div class="cue-kw"><span>"Thus Gone" — attained truth</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Key Events</h3>
+        <table class="mini-table">
+          <tr><th>Event</th><th>Place</th><th>Significance</th></tr>
+          <tr><td>Birth</td><td>Lumbini (Nepal)</td><td>~563 BCE; Ashokan pillar</td></tr>
+          <tr><td>Enlightenment</td><td>Bodh Gaya</td><td>Under Bodhi tree (Peepal, Ficus religiosa)</td></tr>
+          <tr><td>First Sermon</td><td>Sarnath (Deer Park)</td><td>Dhammachakkapavattana — "Turning of Dharma Wheel"</td></tr>
+          <tr><td>Parinirvana (Death)</td><td>Kushinagar</td><td>~483 BCE; age ~80</td></tr>
+        </table>
+        <h4>Key Epithets</h4>
+        <table class="mini-table">
+          <tr><th>Epithet</th><th>Meaning</th></tr>
+          <tr><td>Shakyamuni</td><td>Sage of Shakya clan</td></tr>
+          <tr><td>Tathagata</td><td>"Thus Gone" — attained truth</td></tr>
+          <tr><td>Sugata</td><td>Well-Gone (to bliss)</td></tr>
+          <tr><td>Sarvajña</td><td>Omniscient One</td></tr>
+          <tr><td>Jina</td><td>Conqueror (of desire)</td></tr>
+        </table>
+        <h4>Core Doctrines</h4>
+        <ul>
+          <li><b>4 Noble Truths:</b> Dukkha, Samudaya (craving=cause), Nirodha (end), Magga (path).</li>
+          <li><b>Eightfold Path:</b> Right View, Intention, Speech, Action, Livelihood, Effort, Mindfulness, Concentration.</li>
+          <li><b>3 Marks:</b> Anicca (impermanence), Dukkha (suffering), Anatta (no-self).</li>
+          <li><b>Tripitaka:</b> Vinaya Pitaka + Sutta Pitaka + Abhidhamma Pitaka.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Birth: Lumbini; Enlightenment: Bodh Gaya; 1st Sermon: Sarnath; Death: Kushinagar. 4 Noble Truths: Dukkha→Samudaya→Nirodha→Magga. Tathagata = "Thus Gone". Tripitaka = 3 baskets of texts.
+      </div>
+    </div>
+  </div>
+
+  <!-- Archaeology -->
+  <div class="cornell-page" id="pg-archae">
+    <div class="topic-header" onclick="togglePage('pg-archae')">
+      <span class="topic-tag tag-history">ARCHAEOLOGY</span>
+      <span class="topic-title">Chalcolithic, Megalithic Sites &amp; Ancient Ports</span>
+      <span class="chip chip-pyq">DIRECT PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Largest megalithic site in India?</div>
+          <div class="cue-kw"><span>Hire Benakal (Karnataka)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">World's earliest known dockyard?</div>
+          <div class="cue-kw"><span>Lothal, Gujarat (Harappan)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Indo-Roman trade center — excavated by whom?</div>
+          <div class="cue-kw"><span>Arikamedu</span><span>Mortimer Wheeler</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Chalcolithic Sites (~3000–700 BCE)</h3>
+        <table class="mini-table">
+          <tr><th>Site</th><th>Location</th><th>Key Feature</th></tr>
+          <tr><td>Ahar (Tambavati)</td><td>Rajasthan</td><td>Copper smelting, black-and-red ware</td></tr>
+          <tr><td>Jorwe / Inamgaon</td><td>Maharashtra</td><td>Best excavated Jorwe site; social stratification</td></tr>
+          <tr><td>Chirand</td><td>Bihar</td><td>Bone tools; Neolithic-Chalcolithic overlap</td></tr>
+        </table>
+        <h3>Megalithic Sites (~1500–500 BCE, Iron Age)</h3>
+        <table class="mini-table">
+          <tr><th>Site</th><th>Location</th><th>Significance</th></tr>
+          <tr><td>Brahmagiri</td><td>Karnataka</td><td>Mortimer Wheeler (1947)</td></tr>
+          <tr><td>Adichanallur</td><td>Tamil Nadu</td><td>Iron Age burial urns; gold artifacts; ASI heritage</td></tr>
+          <tr><td>Hire Benakal</td><td>Karnataka</td><td>Largest megalithic site in India</td></tr>
+        </table>
+        <h3>Ancient Ports</h3>
+        <table class="mini-table">
+          <tr><th>Port</th><th>Location</th><th>Significance</th></tr>
+          <tr><td>Lothal</td><td>Gujarat</td><td>Harappan; world's earliest dockyard</td></tr>
+          <tr><td>Arikamedu</td><td>Pondicherry</td><td>Indo-Roman trade; Mortimer Wheeler excavated</td></tr>
+          <tr><td>Kaveripattinam</td><td>Tamil Nadu</td><td>Sangam-era; Silappadikaram</td></tr>
+          <tr><td>Tamluk (Tamralipti)</td><td>West Bengal</td><td>Bengal–SE Asia trade</td></tr>
+        </table>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Chalcolithic = copper tools, painted pottery. Megaliths = large stone burials, Iron Age. Hire Benakal = largest megalithic site. Lothal = world's oldest dockyard. Arikamedu = Indo-Roman center (Wheeler).
+      </div>
+    </div>
+  </div>
+
+  <!-- Vedic Literature -->
+  <div class="cornell-page" id="pg-vedic">
+    <div class="topic-header" onclick="togglePage('pg-vedic')">
+      <span class="topic-tag tag-history">PHILOSOPHY</span>
+      <span class="topic-title">Upanishads, Puranas &amp; Vedic Literature Hierarchy</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Panchalakshana — 5 characteristics of a Purana?</div>
+          <div class="cue-kw"><span>Sarga Pratisarga Vamsha Manvantara Vamshanucharita</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">"Tat Tvam Asi" — which Upanishad?</div>
+          <div class="cue-kw"><span>Chandogya Upanishad</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">3 schools of Vedanta?</div>
+          <div class="cue-kw"><span>Advaita (Shankaracharya)</span><span>Vishishtadvaita (Ramanuja)</span><span>Dvaita (Madhva)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Vedic Literature Hierarchy</h3>
+        <p><b>Shruti (Revealed):</b> 4 Vedas (Rig, Sama, Yajur, Atharva) → Brahmanas → Aranyakas → Upanishads (Vedanta).</p>
+        <p><b>Smriti (Remembered):</b> Vedangas, Upavedas, Puranas, Itihasas, Dharmasutras.</p>
+        <hr class="ndiv">
+        <h4>Key Upanishads</h4>
+        <table class="mini-table">
+          <tr><th>Upanishad</th><th>Associated Veda</th><th>Key Teaching</th></tr>
+          <tr><td>Brihadaranyaka</td><td>Yajurveda</td><td>Largest; Atman-Brahman identity</td></tr>
+          <tr><td>Chandogya</td><td>Samaveda</td><td>"Tat Tvam Asi"</td></tr>
+          <tr><td>Katha</td><td>Yajurveda</td><td>Nachiketa &amp; Yama; nature of Atman</td></tr>
+          <tr><td>Mandukya</td><td>Atharvaveda</td><td>Shortest; 4 states of consciousness; OM</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Vedanta Schools</h4>
+        <table class="mini-table">
+          <tr><th>School</th><th>Philosopher</th><th>Core Idea</th></tr>
+          <tr><td>Advaita</td><td>Shankaracharya (8th CE)</td><td>Brahman = only reality; Atman = Brahman; world = Maya</td></tr>
+          <tr><td>Vishishtadvaita</td><td>Ramanuja (11–12th CE)</td><td>Qualified non-dualism; Bhakti</td></tr>
+          <tr><td>Dvaita</td><td>Madhvacharya (13th CE)</td><td>Brahman &amp; Atman eternally distinct</td></tr>
+        </table>
+        <p><b>Puranas:</b> 18 Mahapuranas. Panchalakshana = 5 features. Bhagavata Purana = most popular (Krishna's life in Book 10).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Shruti: 4 Vedas → Upanishads (Vedanta). "Tat Tvam Asi" = Chandogya. Advaita (Shankara): Atman=Brahman. Puranas = 18 Mahapuranas; Panchalakshana = 5 features. Bhagavata = most popular.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-ancienthistory -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 5 · MEDIEVAL & MODERN HISTORY
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-medievalmodern">
+  <div class="subject-label">Medieval &amp; Modern Indian History <em>GS-I · PYQ Confirmed</em></div>
+
+  <!-- Portuguese -->
+  <div class="cornell-page" id="pg-port">
+    <div class="topic-header" onclick="togglePage('pg-port')">
+      <span class="topic-tag tag-history">MEDIEVAL</span>
+      <span class="topic-title">Portuguese in India &amp; Vijayanagara Relations (CSP 2024 PYQ)</span>
+      <span class="chip chip-pyq">CSP 2024 PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Who gave Portuguese permission for Bhatkal fort?</div>
+          <div class="cue-kw"><span>Krishnadevaraya (1510)</span></div>
+          <div class="cue-trap">⚠ DIRECT 2024 PYQ. Answer: Krishnadevaraya (NOT Narasimha Saluva or Yusuf Adil Shah).</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Why did Krishnadevaraya ally with Portuguese?</div>
+          <div class="cue-kw"><span>Horse trade</span><span>Common enemy (Bijapur)</span><span>Firearms</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Who founded Bijapur Sultanate? Lost Goa to whom?</div>
+          <div class="cue-kw"><span>Yusuf Adil Shah</span><span>Lost Goa to Portuguese 1510</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Portuguese Chronology</h3>
+        <table class="mini-table">
+          <tr><th>Year</th><th>Event</th></tr>
+          <tr><td>1498</td><td>Vasco da Gama lands at Calicut — first direct sea route via Cape of Good Hope</td></tr>
+          <tr><td>1505</td><td>Francisco de Almeida — first Portuguese Viceroy of India (Estado da India)</td></tr>
+          <tr><td>1509</td><td>Albuquerque becomes Governor; begins aggressive expansion</td></tr>
+          <tr><td>1510</td><td>Albuquerque captures Goa from Yusuf Adil Shah (Bijapur); Krishnadevaraya permits Bhatkal fort</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Krishnadevaraya (1509–1529) — Tuluva Dynasty</h4>
+        <ul>
+          <li>Titles: Andhra Bhoja (Telugu patron), Abhinava Bhoja.</li>
+          <li>Defeated Gajapatis (Odisha) and Bijapur Sultanate.</li>
+          <li>Wrote <i>Amuktamalyada</i> (Telugu epic — one of Pancha Prabandhas).</li>
+          <li>Court: Ashtadiggajas — 8 poets; Allasani Peddana = greatest.</li>
+          <li>Portuguese visitors Domingo Paes &amp; Duarte Barbosa described Vijayanagara as "large as Rome".</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Deccan Sultanates (post-Bahmani fragmentation)</h4>
+        <p>Bijapur (Adil Shahi), Ahmednagar (Nizam Shahi), Golconda (Qutb Shahi), Berar (Imad Shahi), Bidar (Barid Shahi).</p>
+        <p><b>Battle of Talikota / Rakshasa-Tangadi (1565):</b> 4 Deccan Sultanates defeated Vijayanagara; Hampi sacked.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> 2024 PYQ: Krishnadevaraya gave Portuguese Bhatkal fort permission (1510) for horse trade + anti-Bijapur alliance. Vasco da Gama 1498; Goa captured from Yusuf Adil Shah (Bijapur). Talikota 1565 = Vijayanagara's end.
+      </div>
+    </div>
+  </div>
+
+  <!-- Land Revenue -->
+  <div class="cornell-page" id="pg-land">
+    <div class="topic-header" onclick="togglePage('pg-land')">
+      <span class="topic-tag tag-history">MODERN HISTORY</span>
+      <span class="topic-title">British Land Revenue Systems — Permanent, Ryotwari, Mahalwari</span>
+      <span class="chip chip-pyq">PERENNIAL PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Permanent Settlement — who, when, where?</div>
+          <div class="cue-kw"><span>Cornwallis 1793</span><span>Bengal, Bihar, Odisha</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Ryotwari — who introduced in Madras/Bombay?</div>
+          <div class="cue-kw"><span>Thomas Munro (Madras)</span><span>Elphinstone (Bombay)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Sunset Law — which system?</div>
+          <div class="cue-kw"><span>Permanent Settlement — land auctioned if revenue not paid by sunset</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Three Land Revenue Systems</h3>
+        <table class="mini-table">
+          <tr><th>Feature</th><th>Permanent Settlement</th><th>Ryotwari</th><th>Mahalwari</th></tr>
+          <tr><td>Introduced by</td><td>Cornwallis</td><td>Munro/Elphinstone</td><td>Holt Mackenzie/Bentinck</td></tr>
+          <tr><td>Year</td><td>1793</td><td>1820/1819</td><td>1822, rev. 1833</td></tr>
+          <tr><td>Area</td><td>Bengal, Bihar, Odisha</td><td>Madras, Bombay, Assam (~51%)</td><td>NW Provinces, Punjab, MP (~30%)</td></tr>
+          <tr><td>Settlement with</td><td>Zamindars</td><td>Individual ryots</td><td>Village community (mahal)</td></tr>
+          <tr><td>Revenue revision</td><td>Never (permanent)</td><td>Every 20–30 yr</td><td>Every 30 yr</td></tr>
+          <tr><td>Revenue share</td><td>10/11 of rental</td><td>45–55% of produce</td><td>66% of rental</td></tr>
+          <tr><td>Area covered</td><td>~19%</td><td>~51%</td><td>~30%</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Impact</h4>
+        <ul>
+          <li>Permanent Settlement → absentee landlordism, rack-renting, Sunset Law, sub-infeudation.</li>
+          <li>Ryotwari → eliminated middlemen but high assessments → Deccan Riots (1875).</li>
+          <li>Mahalwari → preserved village community; headman became mini-zamindar.</li>
+        </ul>
+        <p><b>Post-1947:</b> All three necessitated zamindari abolition, tenancy reforms, land ceiling laws.</p>
+        <p><b>Lord Cornwallis reforms:</b> Cornwallis Code (1793); civil services professionalization; separated revenue &amp; judicial functions.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Permanent (Cornwallis 1793, Bengal): Zamindars, fixed forever. Ryotwari (Munro, Madras): Direct with ryot. Mahalwari (Mackenzie, NW Prov): Village community. Sunset Law = Permanent Settlement. Deccan Riots 1875 = Ryotwari impact.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-medievalmodern -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 6 · ECONOMY
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-economy">
+  <div class="subject-label">Indian &amp; Global Economy <em>GS-III · Very High Priority</em></div>
+
+  <!-- CBDC -->
+  <div class="cornell-page" id="pg-cbdc">
+    <div class="topic-header" onclick="togglePage('pg-cbdc')">
+      <span class="topic-tag tag-economy">RBI / BANKING</span>
+      <span class="topic-title">Digital Rupee (e₹) — India's CBDC</span>
+      <span class="chip chip-pyq">VERY HIGH PRIORITY</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">e₹-W vs e₹-R — difference?</div>
+          <div class="cue-kw"><span>Wholesale (interbank)</span><span>Retail (public use)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">CBDC vs Cryptocurrency?</div>
+          <div class="cue-kw"><span>CBDC = sovereign, stable; Crypto = decentralized, volatile</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">China's CBDC name?</div>
+          <div class="cue-kw"><span>e-CNY (most advanced globally)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Digital Rupee (e₹) — India's CBDC</h3>
+        <p><b>CBDC:</b> Central Bank Digital Currency — digital form of fiat currency, issued and backed by RBI.</p>
+        <ul>
+          <li><b>e₹-W (Wholesale):</b> Interbank settlements; launched Nov 1, 2022.</li>
+          <li><b>e₹-R (Retail):</b> Public use; pilot Dec 1, 2022.</li>
+          <li><b>Technology:</b> Token-based, Distributed Ledger Technology (DLT) — not necessarily full blockchain.</li>
+        </ul>
+        <hr class="ndiv">
+        <table class="mini-table">
+          <tr><th>Feature</th><th>CBDC (e₹)</th><th>Cryptocurrency</th><th>UPI</th></tr>
+          <tr><td>Issuer</td><td>RBI (sovereign)</td><td>Decentralized</td><td>Commercial banks</td></tr>
+          <tr><td>Legal tender</td><td>Yes</td><td>No</td><td>No</td></tr>
+          <tr><td>Volatility</td><td>Stable</td><td>High</td><td>Stable</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>Advantages:</b> Reduced cash handling, financial inclusion, faster cross-border payments, anti-money laundering.</p>
+        <p><b>Risks:</b> Bank disintermediation, cybersecurity, privacy.</p>
+        <p><b>Global:</b> China e-CNY (most advanced); Bahamas Sand Dollar (first live CBDC).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> e₹-W (wholesale, Nov 2022) + e₹-R (retail, Dec 2022). DLT-based, sovereign, legal tender. Unlike crypto = stable + centralized. China e-CNY = most advanced. Risks: bank disintermediation.
+      </div>
+    </div>
+  </div>
+
+  <!-- LAF / Repo -->
+  <div class="cornell-page" id="pg-laf">
+    <div class="topic-header" onclick="togglePage('pg-laf')">
+      <span class="topic-tag tag-economy">MONETARY POLICY</span>
+      <span class="topic-title">LAF, Repo Rate, SDF &amp; RBI's Liquidity Framework</span>
+      <span class="chip chip-pyq">VERY HIGH PRIORITY</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">SDF introduced when? What replaced?</div>
+          <div class="cue-kw"><span>April 2022</span><span>Replaced reverse repo as floor rate</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">LAF Corridor — floor and ceiling?</div>
+          <div class="cue-kw"><span>Floor: SDF rate</span><span>Ceiling: MSF rate</span><span>Middle: Repo</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">MSF — what is it?</div>
+          <div class="cue-kw"><span>Emergency overnight borrowing at Repo + 0.25%</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Liquidity Adjustment Facility (LAF)</h3>
+        <p><b>LAF:</b> RBI's tool for short-term liquidity management in banking system.</p>
+        <hr class="ndiv">
+        <h4>LAF Components</h4>
+        <table class="mini-table">
+          <tr><th>Tool</th><th>Direction</th><th>Collateral</th><th>Role</th></tr>
+          <tr><td>Repo Rate</td><td>RBI lends to banks (overnight)</td><td>G-Secs</td><td>Main policy rate; injects liquidity</td></tr>
+          <tr><td>SDF (Standing Deposit Facility)</td><td>Banks park funds with RBI</td><td>None needed</td><td>Floor rate; absorbs excess liquidity (from Apr 2022)</td></tr>
+          <tr><td>MSF (Marginal Standing Facility)</td><td>Emergency borrowing above LAF limit</td><td>G-Secs</td><td>Ceiling rate = Repo + 0.25%</td></tr>
+        </table>
+        <p><b>LAF Corridor:</b> SDF rate (floor) → Repo (middle policy rate) → MSF rate (ceiling).</p>
+        <hr class="ndiv">
+        <h4>G-Secs, FPIs &amp; NBFCs</h4>
+        <ul>
+          <li><b>G-Secs:</b> T-Bills (short-term), Dated Securities (long-term). RBI issues on behalf of government.</li>
+          <li><b>FPIs (Foreign Portfolio Investors):</b> Replaced FII term. Category I (sovereign funds) → highest trust.</li>
+          <li><b>NBFCs:</b> Companies Act companies doing financial business; no banking license; cannot take demand deposits; regulated by RBI. Scale-based regulation since 2021.</li>
+          <li><b>TREPS:</b> Replaced CBLO in 2018 — Tri-party Repo via CCIL.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> LAF Corridor: SDF (floor, no collateral) → Repo (policy rate, G-Sec collateral) → MSF (ceiling, emergency). SDF replaced reverse repo as floor (April 2022). NBFCs = no demand deposits. TREPS replaced CBLO (2018).
+      </div>
+    </div>
+  </div>
+
+  <!-- Economy Sectors -->
+  <div class="cornell-page" id="pg-sectors">
+    <div class="topic-header" onclick="togglePage('pg-sectors')">
+      <span class="topic-tag tag-economy">NATIONAL INCOME</span>
+      <span class="topic-title">Sectoral Classification, Capital Types &amp; National Income Basics</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">India's GDP share by sector?</div>
+          <div class="cue-kw"><span>Primary ~18%</span><span>Secondary ~28%</span><span>Tertiary ~54%</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Fixed Capital vs Working Capital?</div>
+          <div class="cue-kw"><span>Fixed: Long-term machinery</span><span>Working: Consumed in one cycle</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">GVA vs GDP formula?</div>
+          <div class="cue-kw"><span>GDP = GVA + Taxes - Subsidies</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Sectoral Classification</h3>
+        <table class="mini-table">
+          <tr><th>Sector</th><th>Activities</th><th>GDP Share</th><th>Employment</th></tr>
+          <tr><td>Primary</td><td>Agriculture, fishing, mining</td><td>~18%</td><td>~45–47%</td></tr>
+          <tr><td>Secondary</td><td>Manufacturing, construction</td><td>~28%</td><td>~25%</td></tr>
+          <tr><td>Tertiary</td><td>Services (IT, finance, trade)</td><td>~54%</td><td>~30%</td></tr>
+        </table>
+        <p><b>Agriculture paradox:</b> 18% GDP but 45–47% employment → disguised unemployment.</p>
+        <p><b>India's unique path:</b> Services-led growth (skipped industrialization phase).</p>
+        <hr class="ndiv">
+        <h4>Capital Types</h4>
+        <table class="mini-table">
+          <tr><th>Type</th><th>Fixed Capital</th><th>Working Capital</th></tr>
+          <tr><td>Examples</td><td>Machinery, buildings, vehicles</td><td>Raw materials, fuel, cash</td></tr>
+          <tr><td>Durability</td><td>Long-lasting (depreciated)</td><td>Consumed in one cycle</td></tr>
+          <tr><td>Measure</td><td>GFCF (Gross Fixed Capital Formation)</td><td>Inventory changes</td></tr>
+        </table>
+        <p><b>GFCF:</b> India's ~30–32% of GDP; needs 35%+ for sustained high growth.</p>
+        <p><b>GDP formula:</b> GDP = GVA + Taxes on products − Subsidies on products. Base year: 2011-12.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Primary 18% GDP but 47% employment = disguised unemployment. Services = 54% GDP. Fixed capital = GFCF; Working = inventory. GDP = GVA + Taxes - Subsidies. Base year 2011-12.
+      </div>
+    </div>
+  </div>
+
+  <!-- CSR -->
+  <div class="cornell-page" id="pg-csr">
+    <div class="topic-header" onclick="togglePage('pg-csr')">
+      <span class="topic-tag tag-economy">CORPORATE GOVERNANCE</span>
+      <span class="topic-title">Corporate Social Responsibility (CSR) — Section 135</span>
+      <span class="chip chip-pyq">DIRECT PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">CSR applicability threshold (any ONE criterion)?</div>
+          <div class="cue-kw"><span>Net worth ≥₹500 cr OR Turnover ≥₹1000 cr OR Net profit ≥₹5 cr</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Mandatory spending amount?</div>
+          <div class="cue-kw"><span>2% of avg net profit (preceding 3 years)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's distinction in CSR globally?</div>
+          <div class="cue-kw"><span>FIRST country to mandate CSR by law</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>CSR — Section 135, Companies Act 2013</h3>
+        <p><b>India = first country to mandate CSR by law.</b></p>
+        <p><b>Applicability (ANY ONE):</b> Net worth ≥₹500 cr | Turnover ≥₹1,000 cr | Net profit ≥₹5 cr.</p>
+        <p><b>Spending:</b> 2% of average net profit of preceding 3 years.</p>
+        <p><b>CSR Committee:</b> ≥3 directors including ≥1 independent director.</p>
+        <hr class="ndiv">
+        <h4>Schedule VII Activities</h4>
+        <p>Hunger/poverty eradication, education, gender equality, environmental sustainability, healthcare, rural development, Swachh Bharat, disaster relief.</p>
+        <hr class="ndiv">
+        <h4>Amendment 2020 &amp; 2021</h4>
+        <ul>
+          <li>Unspent CSR → Ongoing projects: Special CSR Unspent Account (spent within 3 years).</li>
+          <li>Other activities: Transfer to PM National Relief Fund within 6 months.</li>
+          <li>2021 Amendment: Non-compliance → imprisonment up to 3 years or fine (PENAL).</li>
+        </ul>
+        <p><b>Reporting:</b> MCA21 portal — mandatory CSR spending disclosure.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> CSR = Sec 135, Companies Act 2013. India = 1st mandated by law. Threshold: net worth ≥₹500cr / turnover ≥₹1000cr / profit ≥₹5cr. Spend 2% of avg net profit. 2021: non-compliance = criminal penalty.
+      </div>
+    </div>
+  </div>
+
+  <!-- TFR / Demographics -->
+  <div class="cornell-page" id="pg-tfr">
+    <div class="topic-header" onclick="togglePage('pg-tfr')">
+      <span class="topic-tag tag-economy">DEMOGRAPHY</span>
+      <span class="topic-title">TFR, Demographic Dividend &amp; Population Indicators</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">India's TFR as per NFHS-5?</div>
+          <div class="cue-kw"><span>2.0 — below replacement level for first time</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Replacement level TFR?</div>
+          <div class="cue-kw"><span>2.1 (accounts for child mortality)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's demographic dividend window?</div>
+          <div class="cue-kw"><span>Open till ~2040</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Total Fertility Rate (TFR)</h3>
+        <p><b>TFR:</b> Average number of children a woman would have over her lifetime under current age-specific rates.</p>
+        <p><b>Replacement Level:</b> 2.1 (slightly above 2 to account for child mortality).</p>
+        <hr class="ndiv">
+        <h4>India's TFR Trend</h4>
+        <table class="mini-table">
+          <tr><th>Year</th><th>TFR</th></tr>
+          <tr><td>1991</td><td>~3.4</td></tr>
+          <tr><td>2001</td><td>~2.9</td></tr>
+          <tr><td>2011</td><td>~2.4</td></tr>
+          <tr><td>2019–21 (NFHS-5)</td><td>2.0 ← Below replacement for first time</td></tr>
+        </table>
+        <p><b>State variation:</b> South India TFR 1.6–1.8 vs North (UP, Bihar) 2.7–3.0.</p>
+        <hr class="ndiv">
+        <h4>Key Demographic Indicators</h4>
+        <table class="mini-table">
+          <tr><th>Indicator</th><th>India Value</th></tr>
+          <tr><td>MMR</td><td>97/100,000 live births (SRS 2018–20)</td></tr>
+          <tr><td>IMR</td><td>28/1,000 live births (SRS 2020)</td></tr>
+          <tr><td>Median Age</td><td>~29 years</td></tr>
+        </table>
+        <p><b>Demographic Dividend:</b> Working-age (15–64) proportionally large → economic growth window. India's window open till ~2040.</p>
+        <p><b>NFHS:</b> National Family Health Survey; conducted by MoHFW; NFHS-5 (2019–21).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> TFR = avg children/woman. Replacement = 2.1. India's NFHS-5 TFR = 2.0 (first time below replacement). South 1.6–1.8 vs North 2.7–3. Demographic dividend open till ~2040. MMR = 97.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-economy -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 7 · GEOGRAPHY
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-geography">
+  <div class="subject-label">Geography — Physical, Indian &amp; World <em>GS-I · High Priority</em></div>
+
+  <!-- Coriolis -->
+  <div class="cornell-page" id="pg-coriolis">
+    <div class="topic-header" onclick="togglePage('pg-coriolis')">
+      <span class="topic-tag tag-geo">CLIMATOLOGY</span>
+      <span class="topic-title">Coriolis Force, Cyclones &amp; Wind Deflection</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Coriolis deflection rule?</div>
+          <div class="cue-kw"><span>Right in NH, Left in SH</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Why no cyclones near equator?</div>
+          <div class="cue-kw"><span>Coriolis = 0 within ~5° of equator</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Cyclone rotation direction?</div>
+          <div class="cue-kw"><span>NH: Anticlockwise | SH: Clockwise</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Coriolis Force</h3>
+        <p><b>Definition:</b> Apparent force due to Earth's rotation; deflects moving objects.</p>
+        <p><b>Rule:</b> Right in Northern Hemisphere; Left in Southern Hemisphere (Ferrel's Law).</p>
+        <p><b>Named after:</b> Gaspard-Gustave de Coriolis (1835).</p>
+        <p><b>Magnitude:</b> Zero at equator → maximum at poles. Proportional to wind speed and sin(latitude).</p>
+        <hr class="ndiv">
+        <h4>Effects</h4>
+        <table class="mini-table">
+          <tr><th>Application</th><th>Effect</th></tr>
+          <tr><td>Trade Winds</td><td>NE trades in NH (deflected right)</td></tr>
+          <tr><td>Cyclones</td><td>Anticlockwise NH; Clockwise SH</td></tr>
+          <tr><td>Ocean Gyres</td><td>Clockwise NH; Anticlockwise SH</td></tr>
+          <tr><td>Jet Streams</td><td>West-to-east flow (Coriolis + pressure)</td></tr>
+          <tr><td>River banks</td><td>Right bank more eroded in NH (Baer's Law)</td></tr>
+        </table>
+        <p><b>Geostrophic Wind:</b> Coriolis balances pressure gradient → wind flows parallel to isobars.</p>
+        <p><b>No cyclones within 5° equator</b> — Coriolis too weak to initiate spin.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Coriolis: deflects right in NH, left in SH. Cyclones: anticlockwise NH, clockwise SH. Zero at equator → no tropical cyclones within 5°. Baer's Law: NH rivers erode right bank more.
+      </div>
+    </div>
+  </div>
+
+  <!-- Troposphere -->
+  <div class="cornell-page" id="pg-tropo">
+    <div class="topic-header" onclick="togglePage('pg-tropo')">
+      <span class="topic-tag tag-geo">ATMOSPHERE</span>
+      <span class="topic-title">Troposphere, Lapse Rate &amp; Jet Streams</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Troposphere thickness at equator vs poles?</div>
+          <div class="cue-kw"><span>Equator 16–18 km vs Poles 6–8 km</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Why thicker at equator?</div>
+          <div class="cue-kw"><span>Intense convection → tropopause pushed higher</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Average lapse rate?</div>
+          <div class="cue-kw"><span>~6.5°C per km (ELR)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Troposphere</h3>
+        <p><b>Contains:</b> ~75–80% of atmospheric mass; virtually all weather; 99% of water vapour.</p>
+        <hr class="ndiv">
+        <h4>Thickness by Latitude</h4>
+        <table class="mini-table">
+          <tr><th>Latitude</th><th>Thickness</th><th>Reason</th></tr>
+          <tr><td>Equator</td><td>16–18 km</td><td>Intense solar heating → vigorous convection</td></tr>
+          <tr><td>Mid-latitudes</td><td>10–12 km</td><td>Moderate convection</td></tr>
+          <tr><td>Poles</td><td>6–8 km</td><td>Cold, dense air; less convection</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>Environmental Lapse Rate (ELR):</b> Average 6.5°C/km decrease with altitude.</p>
+        <p><b>Tropopause:</b> Upper boundary; temperature stops decreasing; "lid" on weather; jet streams here (~10–12 km).</p>
+        <p><b>ITCZ:</b> Inter-Tropical Convergence Zone — intense convection near equator; heavy rainfall.</p>
+        <p><b>Hadley Cell:</b> Large convection cell equator to ~30°; drives trade winds.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Troposphere: 16-18 km equator vs 6-8 km poles (convection-driven difference). ELR = 6.5°C/km. Tropopause = lid on weather + jet streams. ITCZ = equatorial intense convection.
+      </div>
+    </div>
+  </div>
+
+  <!-- Volcanoes -->
+  <div class="cornell-page" id="pg-volc">
+    <div class="topic-header" onclick="togglePage('pg-volc')">
+      <span class="topic-tag tag-geo">GEOMORPHOLOGY</span>
+      <span class="topic-title">Volcanic Eruptions — Types, Materials &amp; Volcanic Winter</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Most explosive eruption type?</div>
+          <div class="cue-kw"><span>Plinian (20+ km ash column)</span><span>Mt. Pinatubo 1991</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">What causes Volcanic Winter?</div>
+          <div class="cue-kw"><span>SO₂ → stratospheric sulphate aerosols → reflects sunlight</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's volcanic significance?</div>
+          <div class="cue-kw"><span>Deccan Traps ~66 million yrs → K-Pg extinction</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Volcanic Eruption Types</h3>
+        <table class="mini-table">
+          <tr><th>Type</th><th>Characteristics</th><th>Example</th></tr>
+          <tr><td>Hawaiian</td><td>Fluid basaltic lava; gentle; lava fountains</td><td>Kilauea, Hawaii</td></tr>
+          <tr><td>Plinian</td><td>Most explosive; 20+ km ash column</td><td>Pinatubo 1991, Vesuvius</td></tr>
+          <tr><td>Pyroclastic flow</td><td>700+ km/h hot gas + ash; most deadly</td><td>—</td></tr>
+          <tr><td>Lahar</td><td>Volcanic mudflow (ash + water)</td><td>—</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Volcanic Gases</h4>
+        <table class="mini-table">
+          <tr><th>Gas</th><th>Significance</th></tr>
+          <tr><td>Water vapour (H₂O)</td><td>Most abundant (50–90%); contributed to early oceans</td></tr>
+          <tr><td>CO₂</td><td>Greenhouse gas; volcanic CO₂ ~0.03% of human emissions</td></tr>
+          <tr><td>SO₂</td><td>→ H₂SO₄ aerosols → Volcanic Winter (0.5–1°C cooling)</td></tr>
+        </table>
+        <p><b>Volcanic Winter:</b> Pinatubo 1991 → SO₂ → stratospheric aerosols → ~0.5°C global cooling for 1–2 years.</p>
+        <p><b>Deccan Traps:</b> ~66 million yrs ago; contributed to K-Pg mass extinction.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Plinian = most explosive (Pinatubo 1991). Pyroclastic flow = 700+ km/h, most deadly. SO₂ → stratospheric aerosols → Volcanic Winter (cooling). Deccan Traps ~66 Ma → K-Pg extinction.
+      </div>
+    </div>
+  </div>
+
+  <!-- Chemical Weathering -->
+  <div class="cornell-page" id="pg-weather">
+    <div class="topic-header" onclick="togglePage('pg-weather')">
+      <span class="topic-tag tag-geo">GEOMORPHOLOGY</span>
+      <span class="topic-title">Chemical Weathering — Carbonation, Hydrolysis &amp; Karst</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Natural rainwater pH? Why?</div>
+          <div class="cue-kw"><span>pH ~5.6 (carbonic acid — CO₂ + H₂O)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Karst features from carbonation?</div>
+          <div class="cue-kw"><span>Sinkholes, dolines, caves, stalactites, stalagmites</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Feldspar → ? via hydrolysis?</div>
+          <div class="cue-kw"><span>Kaolinite (clay mineral)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Chemical Weathering Processes</h3>
+        <table class="mini-table">
+          <tr><th>Process</th><th>Mechanism</th><th>Result</th></tr>
+          <tr><td>Carbonation</td><td>CO₂ + H₂O → H₂CO₃ dissolves limestone</td><td>Karst topography</td></tr>
+          <tr><td>Hydrolysis</td><td>Water reacts with silicates → clay minerals</td><td>Feldspar → Kaolinite</td></tr>
+          <tr><td>Oxidation</td><td>O₂ + iron minerals → iron oxides</td><td>Red/yellow laterite soils</td></tr>
+          <tr><td>Hydration</td><td>Water absorbed into minerals → expansion</td><td>Anhydrite → Gypsum</td></tr>
+          <tr><td>Chelation</td><td>Organic acids dissolve minerals</td><td>Podzol formation</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>Rainwater:</b> pH ~5.6 (carbonic acid) → acid rain (&lt;5.6 from SO₂/NOx) intensifies weathering.</p>
+        <p><b>Karst:</b> Result of limestone carbonation → sinkholes, dolines, caves, stalactites, stalagmites.</p>
+        <p><b>Tropical intensity:</b> Chemical weathering much more intense in hot humid tropics → deep laterite profiles (Western Ghats).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Chemical weathering = composition change. Carbonation (CO₂+H₂O) dissolves limestone → Karst. Hydrolysis (Feldspar→Kaolinite). Oxidation → laterite soils. Tropical heat intensifies all processes.
+      </div>
+    </div>
+  </div>
+
+  <!-- Indian Rivers -->
+  <div class="cornell-page" id="pg-rivers">
+    <div class="topic-header" onclick="togglePage('pg-rivers')">
+      <span class="topic-tag tag-geo">INDIAN GEOGRAPHY</span>
+      <span class="topic-title">Ganga River System — Himalayan Tributaries</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Ganga officially begins where?</div>
+          <div class="cue-kw"><span>Devprayag (Bhagirathi + Alaknanda)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">"Sorrow of Bihar" — which river?</div>
+          <div class="cue-kw"><span>Kosi (shifts course; extreme flooding)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">5 sacred confluences in Uttarakhand?</div>
+          <div class="cue-kw"><span>Panch Prayag: Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag, Devprayag</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Ganga Tributaries</h3>
+        <h4>Left Bank (from Himalayas/Nepal)</h4>
+        <table class="mini-table">
+          <tr><th>River</th><th>Origin</th><th>Joins at</th></tr>
+          <tr><td>Ramganga</td><td>Dudhatoli, Uttarakhand</td><td>Kannauj (UP)</td></tr>
+          <tr><td>Ghaghara (Sarayu)</td><td>Mapchachungo, Tibet</td><td>Chhapra (Bihar)</td></tr>
+          <tr><td>Gandak (Narayani)</td><td>Nepal/Tibet</td><td>Hajipur (Bihar)</td></tr>
+          <tr><td>Kosi</td><td>Nepal Himalayas</td><td>Kursela (Bihar)</td></tr>
+        </table>
+        <h4>Right Bank</h4>
+        <table class="mini-table">
+          <tr><th>River</th><th>Origin</th><th>Joins at</th></tr>
+          <tr><td>Yamuna</td><td>Yamunotri, Uttarkashi</td><td>Prayagraj (Triveni Sangam)</td></tr>
+          <tr><td>Son</td><td>Amarkantak Plateau (MP)</td><td>Patna (Bihar)</td></tr>
+          <tr><td>Chambal</td><td>Mhow, MP (Vindhyas)</td><td>Joins Yamuna at Etawah</td></tr>
+        </table>
+        <p><b>Kosi = "Sorrow of Bihar":</b> Highly braided; shifts course frequently; extreme flooding; originates Nepal.</p>
+        <p><b>Panch Prayag (Uttarakhand):</b> Vishnuprayag → Nandprayag → Karnaprayag → Rudraprayag → Devprayag (Ganga begins).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Ganga = Bhagirathi + Alaknanda at Devprayag. Left bank: Ramganga, Ghaghara, Gandak, Kosi. Right bank: Yamuna (Prayagraj), Son (Patna). Kosi = "Sorrow of Bihar". Panch Prayag = 5 Alaknanda confluences.
+      </div>
+    </div>
+  </div>
+
+  <!-- Indian Waterfalls -->
+  <div class="cornell-page" id="pg-falls">
+    <div class="topic-header" onclick="togglePage('pg-falls')">
+      <span class="topic-tag tag-geo">INDIAN GEOGRAPHY</span>
+      <span class="topic-title">Major Waterfalls of India — Heights &amp; Rivers</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">India's highest waterfall?</div>
+          <div class="cue-kw"><span>Kunchikal Falls (Varahi R., Karnataka) 455m</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's widest waterfall? Nickname?</div>
+          <div class="cue-kw"><span>Chitrakoot Falls (Indravati R., Chhattisgarh)</span><span>"Niagara of India"</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Jog Falls — river and state?</div>
+          <div class="cue-kw"><span>Sharavathi River, Karnataka (253m)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Major Indian Waterfalls</h3>
+        <table class="mini-table">
+          <tr><th>Waterfall</th><th>River</th><th>State</th><th>Height / Note</th></tr>
+          <tr><td>Kunchikal Falls</td><td>Varahi</td><td>Karnataka</td><td>455 m — India's highest</td></tr>
+          <tr><td>Nohkalikai Falls</td><td>Unnamed stream</td><td>Meghalaya</td><td>340 m — India's highest plunge fall</td></tr>
+          <tr><td>Dudhsagar Falls</td><td>Mandovi</td><td>Goa/Karnataka</td><td>310 m — "Sea of Milk"</td></tr>
+          <tr><td>Jog Falls (Gersoppa)</td><td>Sharavathi</td><td>Karnataka</td><td>253 m; 4 cascades: Raja/Rani/Rover/Rocket</td></tr>
+          <tr><td>Chitrakoot Falls</td><td>Indravati</td><td>Chhattisgarh</td><td>29 m height; India's widest; "Niagara of India"</td></tr>
+          <tr><td>Dhuandhar Falls</td><td>Narmada</td><td>MP (Jabalpur)</td><td>"Smoke Cascade"; marble rocks</td></tr>
+          <tr><td>Athirappilly Falls</td><td>Chalakudy</td><td>Kerala</td><td>Also called "Niagara of India"</td></tr>
+          <tr><td>Hundru Falls</td><td>Subarnarekha</td><td>Jharkhand</td><td>98 m</td></tr>
+        </table>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Highest: Kunchikal (455m, Varahi, Karnataka). Widest: Chitrakoot (Indravati, Chhattisgarh) = "Niagara of India". Jog Falls: Sharavathi, 253m, 4 cascades. Dudhsagar = "Sea of Milk".
+      </div>
+    </div>
+  </div>
+
+  <!-- Mountain Types -->
+  <div class="cornell-page" id="pg-mountains">
+    <div class="topic-header" onclick="togglePage('pg-mountains')">
+      <span class="topic-tag tag-geo">GEOMORPHOLOGY</span>
+      <span class="topic-title">Mountain Types — Fold, Block &amp; Volcanic</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Vindhyas and Satpura — what type of mountains?</div>
+          <div class="cue-kw"><span>Block mountains (Horsts)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Aravalli — fold or block? Oldest in India?</div>
+          <div class="cue-kw"><span>Residual/Relict (originally fold; now worn down)</span><span>India's oldest</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Mountain Types</h3>
+        <table class="mini-table">
+          <tr><th>Type</th><th>Formation</th><th>Features</th><th>Examples</th></tr>
+          <tr><td>Fold Mountains</td><td>Plate compression → sedimentary rocks fold upward</td><td>Continuous; young; high; seismically active</td><td>Himalayas (India-Eurasia), Andes (subduction), Alps, Rockies</td></tr>
+          <tr><td>Block Mountains (Horst)</td><td>Tension → faults → central block lifted</td><td>Flat tops; steep fault scarps; older</td><td>Vindhyas, Satpura, Nilgiris (India); Vosges + Black Forest (Europe, Rhine Graben)</td></tr>
+          <tr><td>Volcanic Mountains</td><td>Lava accumulation</td><td>Conical; often explosive</td><td>Mt. Fuji (Japan), Kilimanjaro (Africa)</td></tr>
+          <tr><td>Residual/Relict</td><td>Remnants after erosion</td><td>Low elevation</td><td>Aravalli (India, oldest), Appalachians (USA)</td></tr>
+        </table>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Fold = compression (Himalayas). Block = tension/faults — Vindhyas, Satpura, Nilgiris. Volcanic = lava (Fuji, Kilimanjaro). Aravalli = oldest Indian fold mountains, now residual.
+      </div>
+    </div>
+  </div>
+
+  <!-- Climate Types -->
+  <div class="cornell-page" id="pg-climate">
+    <div class="topic-header" onclick="togglePage('pg-climate')">
+      <span class="topic-tag tag-geo">CLIMATOLOGY</span>
+      <span class="topic-title">Köppen Climate Classification — Key Types</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Marine West Coast vs Humid Subtropical?</div>
+          <div class="cue-kw"><span>Cfb (west coast, cool summer) vs Cfa (east coast, hot summer)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Mediterranean climate: dry when?</div>
+          <div class="cue-kw"><span>Dry hot SUMMER; wet mild WINTER</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Köppen Climate Types (UPSC Key)</h3>
+        <table class="mini-table">
+          <tr><th>Code</th><th>Climate</th><th>Location</th><th>Key Feature</th></tr>
+          <tr><td>Cfb</td><td>Marine West Coast</td><td>West coasts 40–65° (UK, NW Europe)</td><td>Mild all year; uniform rainfall; cool summers</td></tr>
+          <tr><td>Cfa</td><td>Humid Subtropical</td><td>East coasts 20–35° (SE USA, SE China)</td><td>Hot humid summers; mild winters; year-round rain</td></tr>
+          <tr><td>Cs</td><td>Mediterranean</td><td>West coasts 30–45° (California, Mediterranean)</td><td>Dry hot summers; wet mild winters</td></tr>
+          <tr><td>BWh</td><td>Hot Desert</td><td>Subtropics ~25–35° (Sahara, Thar)</td><td>&lt;250mm rain; extreme temps</td></tr>
+          <tr><td>Am</td><td>Monsoon</td><td>South/SE Asia</td><td>Heavy seasonal rainfall; short dry season</td></tr>
+          <tr><td>Af</td><td>Tropical Rainforest</td><td>Equatorial (Amazon, Congo, SE Asia)</td><td>Heavy rain all year; no dry season</td></tr>
+          <tr><td>Dfc</td><td>Subarctic (Taiga)</td><td>50–70°N (Siberia, Canada)</td><td>Short cool summers; very cold winters</td></tr>
+          <tr><td>ET</td><td>Tundra</td><td>Arctic margins</td><td>Very short growing season; permafrost</td></tr>
+        </table>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Cfb (Marine West Coast) = cool, uniform rain; Cfa (Humid Subtropical) = hot humid summers. Cs = dry summer, wet winter. Af = rain year-round. Dfc = Taiga/Subarctic. Tundra = ET.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-geography -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 8 · POLITY
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-polity">
+  <div class="subject-label">Indian Polity &amp; Constitution <em>GS-II · Very High Priority</em></div>
+
+  <!-- Parliament Procedures -->
+  <div class="cornell-page" id="pg-monbill">
+    <div class="topic-header" onclick="togglePage('pg-monbill')">
+      <span class="topic-tag tag-polity">PARLIAMENT</span>
+      <span class="topic-title">Money Bill, Lapsing of Bills &amp; Prorogation vs Dissolution</span>
+      <span class="chip chip-pyq">PERENNIAL PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Which bills lapse on Lok Sabha dissolution?</div>
+          <div class="cue-kw"><span>Ordinary bills pending in LS or sent to RS but not acted</span><span>Money Bills</span></div>
+          <div class="cue-trap">⚠ Constitutional Amendment Bills do NOT lapse. Bills passed and awaiting assent do NOT lapse. Pending in RS (never sent by LS) do NOT lapse.</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Prorogation vs Dissolution — key difference?</div>
+          <div class="cue-kw"><span>Prorogation ends session</span><span>Dissolution ends House</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">How many joint sittings in Indian history?</div>
+          <div class="cue-kw"><span>Only 3: Dowry (1961), Banking (1978), POTA (2002)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Money Bill — Article 110</h3>
+        <ul>
+          <li>Deals only with: taxation, borrowing, Consolidated Fund, Contingency Fund, accounts auditing.</li>
+          <li>Certified by <b>Speaker of Lok Sabha</b> (final; not subject to judicial review per original view).</li>
+          <li>Rajya Sabha's role: Suggest amendments only; must return within 14 days; Lok Sabha can reject suggestions.</li>
+          <li>If RS doesn't return in 14 days → deemed passed.</li>
+        </ul>
+        <hr class="ndiv">
+        <h4>Lapsing of Bills on Dissolution</h4>
+        <table class="mini-table">
+          <tr><th>Bill</th><th>On Dissolution</th></tr>
+          <tr><td>Ordinary Bills pending in LS</td><td>LAPSE</td></tr>
+          <tr><td>Ordinary Bills passed by LS, pending in RS</td><td>LAPSE</td></tr>
+          <tr><td>Bills passed by both Houses, pending assent</td><td>Do NOT lapse</td></tr>
+          <tr><td>Bills pending in RS (never sent by LS)</td><td>Do NOT lapse</td></tr>
+          <tr><td>Constitutional Amendment Bills</td><td>Do NOT lapse</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Adjournment vs Prorogation vs Dissolution</h4>
+        <table class="mini-table">
+          <tr><th>Feature</th><th>Adjournment</th><th>Prorogation</th><th>Dissolution</th></tr>
+          <tr><td>By</td><td>Speaker</td><td>President</td><td>President</td></tr>
+          <tr><td>Effect</td><td>Ends sitting</td><td>Ends session</td><td>Ends LS House</td></tr>
+          <tr><td>RS affected?</td><td>Yes</td><td>Yes</td><td>No (RS permanent)</td></tr>
+        </table>
+        <p><b>Joint Sitting:</b> Only for Ordinary Bills (not Money Bill, CA Bill). Only 3 times in history. Presided by Lok Sabha Speaker.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Money Bill: RS only recommends; 14-day limit; Speaker certifies. Lapse on dissolution: ordinary bills pending. Don't lapse: CA bills, bills with presidential assent pending. Prorogation = session end; Dissolution = House end. Joint sitting: 3 times (1961, 1978, 2002).
+      </div>
+    </div>
+  </div>
+
+  <!-- Amendments -->
+  <div class="cornell-page" id="pg-amend">
+    <div class="topic-header" onclick="togglePage('pg-amend')">
+      <span class="topic-tag tag-polity">CONSTITUTIONAL AMENDMENTS</span>
+      <span class="topic-title">Key Constitutional Amendments &amp; Article 368</span>
+      <span class="chip chip-pyq">HIGH FREQUENCY</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Basic Structure Doctrine — case &amp; year?</div>
+          <div class="cue-kw"><span>Kesavananda Bharati v. Kerala (1973)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Which amendment added "Socialist, Secular" to Preamble?</div>
+          <div class="cue-kw"><span>42nd Amendment (1976)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Amendment adding Right to Education?</div>
+          <div class="cue-kw"><span>86th Amendment 2002 → Article 21A</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Article 368 — Amendment Procedures</h3>
+        <table class="mini-table">
+          <tr><th>Type</th><th>Method</th></tr>
+          <tr><td>Simple majority (not Art. 368)</td><td>Admission of states, abolition of Legislative Councils</td></tr>
+          <tr><td>Special majority</td><td>2/3 members present &amp; voting + majority of total membership</td></tr>
+          <tr><td>Special majority + State ratification</td><td>Federal provisions + ≥50% State Legislatures</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Key Amendments</h4>
+        <table class="mini-table">
+          <tr><th>Amendment</th><th>Year</th><th>Key Provision</th></tr>
+          <tr><td>42nd</td><td>1976</td><td>"Mini-Constitution"; Socialist/Secular in Preamble; Fundamental Duties</td></tr>
+          <tr><td>44th</td><td>1978</td><td>Restored diluted rights; property = legal right (Art. 300A); "armed rebellion" replaces "internal disturbance"</td></tr>
+          <tr><td>52nd</td><td>1985</td><td>Anti-defection (10th Schedule)</td></tr>
+          <tr><td>73rd/74th</td><td>1992</td><td>Panchayati Raj (Part IX) / Municipalities (Part IXA)</td></tr>
+          <tr><td>86th</td><td>2002</td><td>Art. 21A — Right to Education</td></tr>
+          <tr><td>101st</td><td>2016</td><td>GST (Art. 279A — GST Council)</td></tr>
+          <tr><td>106th</td><td>2023</td><td>Nari Shakti Vandan — 33% women's reservation in LS + assemblies</td></tr>
+        </table>
+        <p><b>Basic Structure:</b> Kesavananda Bharati 1973 — Parliament cannot amend basic structure. Features include: federal structure, judicial review, separation of powers, free elections, fundamental rights.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Art. 368: Simple / Special majority / Special + State ratification. 42nd (1976): Socialist/Secular. 44th (1978): restored rights. 86th: Art. 21A (RTE). 101st: GST. 106th: Women's 33% reservation. Kesavananda 1973: Basic Structure can't be amended.
+      </div>
+    </div>
+  </div>
+
+  <!-- Article 21 / Writs -->
+  <div class="cornell-page" id="pg-writs">
+    <div class="topic-header" onclick="togglePage('pg-writs')">
+      <span class="topic-tag tag-polity">FUNDAMENTAL RIGHTS / JUDICIARY</span>
+      <span class="topic-title">Article 21, Right to Privacy &amp; Five Writs</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Puttaswamy judgment — year, bench size?</div>
+          <div class="cue-kw"><span>2017, 9-judge bench, unanimous</span></div>
+          <div class="cue-correction">CORRECTION: The document erroneously says "52-digit Aadhaar" — Aadhaar is 12-digit.</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Writ of Prohibition — when issued? Against whom?</div>
+          <div class="cue-kw"><span>Before judgment (preventive)</span><span>Only against inferior courts/quasi-judicial bodies</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Prohibition vs Certiorari?</div>
+          <div class="cue-kw"><span>Prohibition = preventive (before); Certiorari = curative (after)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Article 21 &amp; Expanded Rights</h3>
+        <p><b>Art. 21:</b> "No person shall be deprived of life or personal liberty except according to procedure established by law."</p>
+        <p><b>Maneka Gandhi (1978):</b> Procedure must be just, fair, reasonable (overturned A.K. Gopalan).</p>
+        <p><b>Puttaswamy (2017):</b> 9-judge bench; privacy = FR under Art. 21; overruled M.P. Sharma (1954), Kharak Singh (1962).</p>
+        <div class="fact-fix">Aadhaar is a 12-digit unique ID (not "52-digit" as some notes may state)</div>
+        <hr class="ndiv">
+        <h4>Five Writs (Art. 32 SC / Art. 226 HC)</h4>
+        <table class="mini-table">
+          <tr><th>Writ</th><th>Meaning</th><th>Against Whom</th><th>Purpose</th></tr>
+          <tr><td>Habeas Corpus</td><td>"Produce the body"</td><td>Anyone detaining</td><td>Release from illegal detention</td></tr>
+          <tr><td>Mandamus</td><td>"We command"</td><td>Public bodies/lower courts</td><td>Compel legal duty</td></tr>
+          <tr><td>Prohibition</td><td>"Forbid"</td><td>Inferior courts only</td><td>Prevent exceeding jurisdiction (BEFORE judgment)</td></tr>
+          <tr><td>Certiorari</td><td>"Be certified"</td><td>Inferior courts only</td><td>Quash order (AFTER judgment)</td></tr>
+          <tr><td>Quo Warranto</td><td>"By what authority"</td><td>Public office holders</td><td>Inquire authority to hold office</td></tr>
+        </table>
+        <p><b>Art. 32 (SC):</b> Only for FRs; itself a FR (B.R. Ambedkar: "heart and soul" of Constitution).</p>
+        <p><b>Art. 226 (HC):</b> Wider — for any legal right, not only FRs.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Art. 21 expanded through case law (Maneka 1978: just/fair/reasonable procedure). Puttaswamy 2017: Privacy = FR (9-judge bench). Aadhaar = 12-digit. Prohibition = preventive (before); Certiorari = curative (after). Both only against inferior courts.
+      </div>
+    </div>
+  </div>
+
+  <!-- Delimitation + 8th Schedule -->
+  <div class="cornell-page" id="pg-8th">
+    <div class="topic-header" onclick="togglePage('pg-8th')">
+      <span class="topic-tag tag-polity">CONSTITUTION</span>
+      <span class="topic-title">Delimitation Commission &amp; Eighth Schedule (22 Languages)</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Current number of 8th Schedule languages?</div>
+          <div class="cue-kw"><span>22 languages</span></div>
+          <div class="cue-correction">CORRECTION: Notes say 6 Classical Languages. As of Oct 2024, India has 11 Classical Languages (Marathi, Pali, Prakrit, Assamese added).</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Which amendment added Konkani/Manipuri/Nepali?</div>
+          <div class="cue-kw"><span>71st Amendment 1992</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Delimitation Commission — whose orders are final?</div>
+          <div class="cue-kw"><span>Its orders = force of law; NOT questionable in any court</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Eighth Schedule — Official Languages</h3>
+        <table class="mini-table">
+          <tr><th>Amendment</th><th>Year</th><th>Languages Added</th></tr>
+          <tr><td>Original</td><td>1950</td><td>14 languages</td></tr>
+          <tr><td>21st Amendment</td><td>1967</td><td>Sindhi (15th)</td></tr>
+          <tr><td>71st Amendment</td><td>1992</td><td>Konkani, Manipuri, Nepali (18th)</td></tr>
+          <tr><td>92nd Amendment</td><td>2003</td><td>Bodo, Dogri, Maithili, Santhali (22nd)</td></tr>
+        </table>
+        <div class="fact-fix">Classical Languages: 11 as of 2024 (Oct 2024: Marathi, Pali, Prakrit, Assamese added to original 6: Tamil, Sanskrit, Telugu, Kannada, Malayalam, Odia)</div>
+        <hr class="ndiv">
+        <h3>Delimitation Commission</h3>
+        <ul>
+          <li><b>Basis:</b> Articles 82 (Lok Sabha) &amp; 170 (State Assemblies).</li>
+          <li><b>Composition:</b> Retired SC judge + CEC + State EC(s).</li>
+          <li><b>Key:</b> Orders = force of law; NOT challengeable in any court.</li>
+          <li><b>Seat freeze:</b> 42nd Amendment (1976) froze at 543; extended by 84th Amendment (2002) till 2026.</li>
+          <li><b>Post-2026 concern:</b> Southern states may lose seats to populous North.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> 8th Schedule: 22 languages. Sindhi (21st, 1967); Konkani/Manipuri/Nepali (71st, 1992); Bodo/Dogri/Maithili/Santhali (92nd, 2003). Classical Languages: 11 (as of 2024). Delimitation: unchallengeably final; seats frozen till 2026.
+      </div>
+    </div>
+  </div>
+
+  <!-- Women's Reservation -->
+  <div class="cornell-page" id="pg-nari">
+    <div class="topic-header" onclick="togglePage('pg-nari')">
+      <span class="topic-tag tag-polity">SOCIAL JUSTICE</span>
+      <span class="topic-title">Nari Shakti Vandan Adhiniyam — 106th Amendment 2023</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Reservation quantum &amp; coverage?</div>
+          <div class="cue-kw"><span>33% in Lok Sabha + State Assemblies + Delhi Assembly</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">When does it take effect?</div>
+          <div class="cue-kw"><span>After next delimitation post-Census (earliest 2029)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">What does it NOT cover?</div>
+          <div class="cue-kw"><span>Rajya Sabha, State Legislative Councils</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Nari Shakti Vandan Adhiniyam (106th Constitutional Amendment 2023)</h3>
+        <p><b>Passed:</b> September 2023 — after 27 years of failed attempts (first bill 1996).</p>
+        <ul>
+          <li><b>Reservation:</b> 33% (1/3) of seats in Lok Sabha + all State Legislative Assemblies + Delhi Assembly.</li>
+          <li><b>SC/ST women:</b> 1/3 of SC/ST reserved seats further reserved for women of those categories.</li>
+          <li><b>When effective:</b> After next delimitation following next Census — earliest 2029, possibly 2034.</li>
+          <li><b>Duration:</b> 15 years initially; Parliament can extend.</li>
+          <li><b>Rotation:</b> Reserved constituencies rotate after each delimitation.</li>
+        </ul>
+        <p><b>Does NOT cover:</b> Rajya Sabha, State Legislative Councils.</p>
+        <p><b>Controversy:</b> No OBC sub-quota within 33% — demanded by SP, BSP, RJD.</p>
+        <hr class="ndiv">
+        <h4>History of Attempts</h4>
+        <p>1996 (HD Deve Gowda — first bill, lapsed) → 1998/99/2002/03/04/08 (all lapsed) → 2010 (passed RS 186-1; lapsed as LS dissolved) → 2023 (PASSED both Houses).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> 106th Amendment 2023: 33% women's reservation in LS + State Assemblies + Delhi. Takes effect after post-Census delimitation (~2029-2034). Duration: 15 years. Does NOT cover RS or State Councils. OBC sub-quota excluded = controversy.
+      </div>
+    </div>
+  </div>
+
+  <!-- Constituent Assembly -->
+  <div class="cornell-page" id="pg-ca">
+    <div class="topic-header" onclick="togglePage('pg-ca')">
+      <span class="topic-tag tag-polity">CONSTITUTIONAL HISTORY</span>
+      <span class="topic-title">Constituent Assembly, GOI Act 1935 &amp; Key Constitutional History</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Who was provisional/pro-tem president of CA?</div>
+          <div class="cue-kw"><span>Dr. Sachchidananda Sinha (Dec 9, 1946 first session)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">GOI Act 1935 — did federation come into force?</div>
+          <div class="cue-kw"><span>NO — Princely States never joined</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Key dates: Adopted vs came into force?</div>
+          <div class="cue-kw"><span>Adopted Nov 26, 1949</span><span>Came into force Jan 26, 1950</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Constituent Assembly</h3>
+        <table class="mini-table">
+          <tr><th>Person</th><th>Role</th></tr>
+          <tr><td>Dr. Sachchidananda Sinha</td><td>Provisional/Pro-tem President (Dec 9, 1946)</td></tr>
+          <tr><td>Dr. Rajendra Prasad</td><td>Permanent President (Dec 11, 1946)</td></tr>
+          <tr><td>Dr. B.R. Ambedkar</td><td>Chairman, Drafting Committee — "Father of Constitution"</td></tr>
+          <tr><td>B.N. Rau</td><td>Constitutional Adviser — prepared first draft</td></tr>
+          <tr><td>Jawaharlal Nehru</td><td>Moved Objectives Resolution (Dec 1946)</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h3>GOI Act 1935 — Key Features</h3>
+        <ul>
+          <li>Three lists: Federal, Provincial, Concurrent.</li>
+          <li>Provincial Autonomy: Elected legislatures; responsible government at provinces.</li>
+          <li>Federal Court established (1937) → precursor to Supreme Court.</li>
+          <li>RBI established under this Act (1935).</li>
+          <li><b>Federation NEVER came into force</b> — Princely States did not join.</li>
+          <li>Dyarchy shifted from provinces (1919 Act) to Centre.</li>
+        </ul>
+        <p><b>India borrowed from 1935:</b> Federal structure, Emergency provisions, PSCs, administrative machinery.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> CA provisional president: Sachchidananda Sinha. Permanent: Rajendra Prasad. Drafting Committee: Ambedkar. Constitution adopted Nov 26 1949; in force Jan 26 1950. GOI 1935: RBI + Federal Court + Provincial Autonomy; federation never implemented.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-polity -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 9 · CURRENT AFFAIRS
+══════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-ca">
+  <div class="subject-label">Current Affairs — Schemes, Defence, Culture <em>GS-II/III + Static mix</em></div>
+
+  <!-- Fighter Aircraft -->
+  <div class="cornell-page" id="pg-fighter">
+    <div class="topic-header" onclick="togglePage('pg-fighter')">
+      <span class="topic-tag tag-ca">DEFENCE TECH</span>
+      <span class="topic-title">Fighter Aircraft Generations — CSP 2024 PYQ</span>
+      <span class="chip chip-pyq">CSP 2024 DIRECT PYQ</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Rafale is which generation?</div>
+          <div class="cue-kw"><span>4.5th generation (NOT 5th)</span></div>
+          <div class="cue-trap">⚠ 2024 PYQ: None of Rafale/MiG-29/Tejas Mk1 are 5th generation.</div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">5 defining features of 5th gen fighter?</div>
+          <div class="cue-kw"><span>Stealth | Supercruise | Internal weapons bay | AESA radar | Sensor fusion</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's 5th gen program?</div>
+          <div class="cue-kw"><span>AMCA (Advanced Medium Combat Aircraft) by ADA + HAL</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Fighter Aircraft Generations</h3>
+        <table class="mini-table">
+          <tr><th>Gen</th><th>Era</th><th>Key Feature</th><th>Examples</th></tr>
+          <tr><td>1st</td><td>1944–53</td><td>Jet propulsion; guns only</td><td>MiG-15, F-86</td></tr>
+          <tr><td>2nd</td><td>1953–60</td><td>Supersonic; early air-to-air missiles</td><td>MiG-21, F-104</td></tr>
+          <tr><td>4th</td><td>1970–90</td><td>Fly-by-wire; advanced avionics</td><td>F-16, MiG-29, Su-30</td></tr>
+          <tr><td>4.5th</td><td>1990–present</td><td>AESA radar; glass cockpit; limited stealth</td><td><b>Rafale</b>, Tejas Mk1A, Eurofighter</td></tr>
+          <tr><td>5th</td><td>2005–present</td><td>Full stealth; supercruise; internal weapons; AESA; sensor fusion</td><td>F-22, F-35, J-20, Su-57</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>India's Fleet</h4>
+        <ul>
+          <li>Current: Rafale (4.5th), Su-30MKI (4th), Tejas (4th/4.5th), Mirage 2000 (4th). MiG-21 fully retired 2024.</li>
+          <li><b>AMCA:</b> India's 5th gen program; CCS approved ₹15,000 cr; first flight expected 2030s.</li>
+          <li>IAF gap: 29 squadrons vs required 42+.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> 2024 PYQ: Rafale = 4.5th gen, MiG-29 = 4th, Tejas Mk1 = 4th — NONE are 5th gen. 5th gen: F-22/F-35/J-20/Su-57. India's 5th gen = AMCA (ADA+HAL). MiG-21 retired 2024.
+      </div>
+    </div>
+  </div>
+
+  <!-- UNESCO WHS -->
+  <div class="cornell-page" id="pg-whs">
+    <div class="topic-header" onclick="togglePage('pg-whs')">
+      <span class="topic-tag tag-ca">UNESCO / CULTURE</span>
+      <span class="topic-title">UNESCO World Heritage Sites 2023 &amp; India's 42nd Site</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">India's 42nd UNESCO WHS?</div>
+          <div class="cue-kw"><span>Hoysala Temples (Belur, Halebidu, Somnathapura) — inscribed 2023</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">India's only Mixed WHS?</div>
+          <div class="cue-kw"><span>Khangchendzonga National Park (Sikkim)</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Difference: WHS vs Intangible Cultural Heritage?</div>
+          <div class="cue-kw"><span>WHS (1972 Convention) = tangible/physical</span><span>ICH (2003 Convention) = practices/traditions</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>UNESCO World Heritage — 2023 Session (Riyadh)</h3>
+        <p>42 new sites inscribed in 2023 (33 cultural + 9 natural) → global total: 1,199 sites in 168 countries.</p>
+        <p><b>India's 42nd:</b> Sacred Ensembles of the Hoysalas (Belur, Halebidu, Somnathapura) — Karnataka. Inscribed 2023.</p>
+        <hr class="ndiv">
+        <h4>India's UNESCO Counts</h4>
+        <table class="mini-table">
+          <tr><th>Type</th><th>Count</th><th>Example</th></tr>
+          <tr><td>Cultural WHS</td><td>34</td><td>Taj Mahal, Ajanta, Hampi</td></tr>
+          <tr><td>Natural WHS</td><td>7</td><td>Kaziranga, Sundarbans, Western Ghats</td></tr>
+          <tr><td>Mixed WHS</td><td>1</td><td>Khangchendzonga NP (Sikkim)</td></tr>
+          <tr><td>ICH inscriptions</td><td>15</td><td>Yoga (2016), Kumbh Mela (2017), Garba (2022)</td></tr>
+        </table>
+        <hr class="ndiv">
+        <h4>Key ICH Inscriptions</h4>
+        <p>Vedic Chanting (2008) | Kutiyattam (2008) | Chhau dance (2010) | Yoga (2016) | Kumbh Mela (2017) | Garba (2022) | Durga Puja (2021).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> India's 42nd WHS = Hoysala temples (2023). Total: 34 Cultural + 7 Natural + 1 Mixed (Khangchendzonga). 15 ICH inscriptions. WHS = 1972 Convention (tangible); ICH = 2003 Convention (practices).
+      </div>
+    </div>
+  </div>
+
+  <!-- Government Schemes -->
+  <div class="cornell-page" id="pg-schemes">
+    <div class="topic-header" onclick="togglePage('pg-schemes')">
+      <span class="topic-tag tag-ca">GOVT SCHEMES</span>
+      <span class="topic-title">PMSMA, PM-SYM, DILRMP &amp; Key Welfare Schemes</span>
+      <span class="priority">★★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">PMSMA — date and what it provides?</div>
+          <div class="cue-kw"><span>9th of every month; free ANC for pregnant women in 2nd/3rd trimester</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">PM-SYM eligibility and pension amount?</div>
+          <div class="cue-kw"><span>Unorganised workers ≤₹15,000/month; ₹3,000/month after 60</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">ULPIN — what is it?</div>
+          <div class="cue-kw"><span>14-digit unique Land Parcel ID (like Aadhaar for land)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>PMSMA — Pradhan Mantri Surakshit Matritva Abhiyan</h3>
+        <ul>
+          <li>Launched: June 2016 | Ministry: MoHFW.</li>
+          <li>Date: <b>9th of every month</b> at designated government health facilities.</li>
+          <li>Beneficiaries: Pregnant women in 2nd &amp; 3rd trimester.</li>
+          <li>Services: Blood/urine tests, ultrasound, BP, IFA/calcium supplements — single window.</li>
+          <li>High-risk: Red sticker on MCP card.</li>
+          <li>PPP: Private OB-GYN specialists volunteer at government facilities.</li>
+        </ul>
+        <hr class="ndiv">
+        <h3>PM-SYM — PM Shram Yogi Maandhan Yojana</h3>
+        <ul>
+          <li>Launched: February 2019 | Ministry: Labour &amp; Employment.</li>
+          <li>Target: Unorganised sector workers with income ≤₹15,000/month.</li>
+          <li>Pension: ₹3,000/month after age 60.</li>
+          <li>Contribution: Worker contributes ₹55–₹200/month; Government matches (1:1).</li>
+          <li>Implementing agency: LIC of India. Registration: via Common Service Centres (CSCs).</li>
+        </ul>
+        <hr class="ndiv">
+        <h3>DILRMP — Digital India Land Records Modernisation Programme</h3>
+        <ul>
+          <li>Ministry: Rural Development. Renamed from NLRMP in 2016.</li>
+          <li>Goal: Move toward Conclusive Land Titling (government-guaranteed title).</li>
+          <li><b>ULPIN:</b> 14-digit alphanumeric Unique Land Parcel Identification Number — "Aadhaar for land".</li>
+          <li><b>SVAMITVA:</b> Drone mapping of Abadi (inhabited) land; property cards for rural households.</li>
+          <li>Cadastral maps: Large-scale maps showing land boundaries, ownership, area — being digitized.</li>
+        </ul>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> PMSMA: 9th every month; free ANC in 2nd/3rd trimester; red sticker for high-risk. PM-SYM: unorganised workers ≤₹15k; ₹3000 pension at 60; LIC implements. DILRMP: land records digitization; ULPIN = 14-digit land Aadhaar; SVAMITVA = drone Abadi mapping.
+      </div>
+    </div>
+  </div>
+
+  <!-- Big Cats -->
+  <div class="cornell-page" id="pg-bigcats">
+    <div class="topic-header" onclick="togglePage('pg-bigcats')">
+      <span class="topic-tag tag-ca">WILDLIFE</span>
+      <span class="topic-title">Big Cats — Lion, Cheetah &amp; Leopard Comparison</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Is Cheetah a "big cat" that roars?</div>
+          <div class="cue-kw"><span>NO — Cheetah cannot roar; purrs like small cat; genus Acinonyx</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Project Cheetah — where? Subspecies?</div>
+          <div class="cue-kw"><span>Kuno NP, MP; African cheetah (A. j. jubatus) from Namibia + S. Africa</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Where are India's only Asiatic Lions?</div>
+          <div class="cue-kw"><span>Gir National Park, Gujarat (~700, 2023 census)</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Big Cats Comparison</h3>
+        <table class="mini-table">
+          <tr><th>Feature</th><th>Lion</th><th>Cheetah</th><th>Leopard</th></tr>
+          <tr><td>Social</td><td>Pride (only social big cat)</td><td>Solitary (males may coalition)</td><td>Solitary</td></tr>
+          <tr><td>Speed</td><td>~60 km/h</td><td>120 km/h (fastest land animal)</td><td>~60 km/h</td></tr>
+          <tr><td>Hunting time</td><td>Dusk/dawn</td><td>Daytime</td><td>Nocturnal</td></tr>
+          <tr><td>Unique trait</td><td>Only social big cat</td><td>Cannot roar; purrs</td><td>Hoists prey into trees</td></tr>
+          <tr><td>India status</td><td>Gir only (Asiatic subspecies)</td><td>Reintroduced (Kuno NP)</td><td>Widespread ~13,000</td></tr>
+          <tr><td>IUCN</td><td>Vulnerable</td><td>Vulnerable</td><td>Vulnerable</td></tr>
+        </table>
+        <hr class="ndiv">
+        <p><b>Project Cheetah:</b> 8 from Namibia (Sept 2022) + 12 from South Africa (Feb 2023) = 20 introduced to Kuno National Park, MP. Controversy: African (jubatus) vs Asiatic subspecies (venaticus from Iran).</p>
+        <p><b>Asiatic Lion:</b> ~700 (2023 census); Gir NP &amp; Sanctuary, Gujarat; IUCN Endangered. Project Lion launched 2020. Proposed second home: Kuno NP (SC directed).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Cheetah = NOT true big cat (can't roar, genus Acinonyx). Project Cheetah: 20 African cheetahs at Kuno NP (2022-23). Asiatic Lion: ~700 at Gir, Gujarat (Endangered). Leopard: most widespread; hoists prey; ~13,000 in India.
+      </div>
+    </div>
+  </div>
+
+  <!-- Jaishankar Books -->
+  <div class="cornell-page" id="pg-books">
+    <div class="topic-header" onclick="togglePage('pg-books')">
+      <span class="topic-tag tag-ca">BOOKS / IR</span>
+      <span class="topic-title">S. Jaishankar — The India Way &amp; Why Bharat Matters</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Key concept from "The India Way"?</div>
+          <div class="cue-kw"><span>Multi-alignment (not non-alignment)</span><span>Strategic autonomy</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Key concept from "Why Bharat Matters"?</div>
+          <div class="cue-kw"><span>India = civilizational state (Bharat)</span><span>Vishwa Mitra</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>The India Way (2020)</h3>
+        <p><b>Author:</b> S. Jaishankar (MEA) | <b>Publisher:</b> HarperCollins India.</p>
+        <p><b>Core thesis:</b> India's foreign policy must be defined by civilizational values, not inherited Western frameworks. Advocates <i>multi-alignment</i> over non-alignment.</p>
+        <p><b>Key themes:</b> Post-COVID world; India-China complexities; Indo-Pacific; Neighbourhood First; India as "leading power" not just "balancing power".</p>
+        <p><b>Framework:</b> Ramayana characters — Danda (power), Sama (persuasion), Bheda (differentiation), Dana (assistance).</p>
+        <hr class="ndiv">
+        <h3>Why Bharat Matters (2024)</h3>
+        <p><b>Publisher:</b> Rupa Publications.</p>
+        <p><b>Core thesis:</b> India's rise = rejuvenation of a civilizational state. Bharat (cultural identity) drives India (modern state).</p>
+        <p><b>Key themes:</b> India as Vishwa Mitra (Friend of World); SAGAR doctrine (Indian Ocean); Neighbourhood First; Global South leadership; Digital infrastructure (UPI, Aadhaar) as foreign policy tools.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> "The India Way" (2020): Multi-alignment, strategic autonomy, post-COVID world order. "Why Bharat Matters" (2024): India as civilizational state, Vishwa Mitra, SAGAR doctrine, Global South. Both by S. Jaishankar (MEA).
+      </div>
+    </div>
+  </div>
+
+  <!-- Sahel / Coups -->
+  <div class="cornell-page" id="pg-sahel">
+    <div class="topic-header" onclick="togglePage('pg-sahel')">
+      <span class="topic-tag tag-ca">INTERNATIONAL AFFAIRS</span>
+      <span class="topic-title">Sahel Region — Coups, AES &amp; Geopolitical Instability</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">AES — which countries? When formed?</div>
+          <div class="cue-kw"><span>Mali + Burkina Faso + Niger (2023)</span><span>Withdrew from ECOWAS Jan 2024</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Root causes of Sahel instability?</div>
+          <div class="cue-kw"><span>Jihadist insurgency (JNIM)</span><span>Climate + resource conflict</span><span>Weak governance</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Sahel Geography</h3>
+        <p><b>Location:</b> Semi-arid transition zone between Sahara (north) and savanna (south) across Africa. 200–600mm rainfall/year.</p>
+        <p><b>Countries:</b> Senegal, Mauritania, Mali, Burkina Faso, Niger, Chad, Sudan, Ethiopia (broadly).</p>
+        <p><b>Desertification:</b> Sahara advancing southward — major environmental challenge.</p>
+        <hr class="ndiv">
+        <h4>Wave of Coups (2020–2023)</h4>
+        <table class="mini-table">
+          <tr><th>Country</th><th>Coup Year</th><th>Key Development</th></tr>
+          <tr><td>Mali</td><td>2020, 2021</td><td>Expelled French forces; invited Wagner Group</td></tr>
+          <tr><td>Burkina Faso</td><td>2022 (twice)</td><td>Expelled French; invited Wagner</td></tr>
+          <tr><td>Niger</td><td>July 2023</td><td>Ousted President Bazoum; expelled French + US</td></tr>
+          <tr><td>Guinea</td><td>September 2021</td><td>Military takeover</td></tr>
+        </table>
+        <p><b>Alliance of Sahel States (AES):</b> Mali + Burkina Faso + Niger formed confederation (2023); withdrew from ECOWAS (January 2024).</p>
+        <p><b>Root causes:</b> JNIM (al-Qaeda affiliate) + ISIS-Sahel insurgency; poverty; climate-driven resource conflict; French military resentment; weak governance.</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Sahel = semi-arid Africa transition zone. Coup wave 2020–23: Mali, Burkina Faso, Niger, Guinea. AES = Mali+BF+Niger (2023); left ECOWAS 2024. Wagner Group replaced French forces. JNIM = al-Qaeda affiliate.
+      </div>
+    </div>
+  </div>
+
+  <!-- Operation Sadbhavana -->
+  <div class="cornell-page" id="pg-sadh">
+    <div class="topic-header" onclick="togglePage('pg-sadh')">
+      <span class="topic-tag tag-ca">DEFENCE / INTERNAL SECURITY</span>
+      <span class="topic-title">Operation Sadbhavana &amp; Military Civic Action Programmes</span>
+      <span class="priority">★★★★</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="cornell-body">
+      <div class="cue-col">
+        <div class="cue-item">
+          <div class="cue-q">Operation Sadbhavana launched when and where?</div>
+          <div class="cue-kw"><span>1998</span><span>J&amp;K, Ladakh, NE states</span></div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-q">Equivalent operation for Northeast?</div>
+          <div class="cue-kw"><span>Operation Samaritan</span></div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <h3>Operation Sadbhavana ("Goodwill")</h3>
+        <p><b>Launched:</b> 1998 | <b>Area:</b> J&amp;K, Ladakh, and NE India.</p>
+        <p><b>Ministry:</b> Ministry of Defence — funded directly, not from Army operational budget.</p>
+        <p><b>Objective:</b> "Win hearts and minds" in terrorism/insurgency-affected areas.</p>
+        <hr class="ndiv">
+        <h4>Key Activities</h4>
+        <table class="mini-table">
+          <tr><th>Domain</th><th>Activities</th></tr>
+          <tr><td>Education</td><td>Army Goodwill Schools (AGS); 7 in Ladakh with 2,200+ students; educational tours</td></tr>
+          <tr><td>Healthcare</td><td>Medical camps, veterinary camps, immunization drives</td></tr>
+          <tr><td>Infrastructure</td><td>Roads, bridges, water supply — handed to state administration</td></tr>
+          <tr><td>Livelihood</td><td>Vocational training for women/youth — tailoring, computer literacy</td></tr>
+          <tr><td>Social Cohesion</td><td>Communal harmony meetings, anti-drug campaigns, sports events</td></tr>
+        </table>
+        <p><b>Companion ops:</b> Operation Samaritan (NE India) | Operation Maitri (Humanitarian abroad — Nepal 2015) | Operation Sankalp (Indian Navy, Gulf of Oman 2019).</p>
+      </div>
+      <div class="summary-strip">
+        <strong>Summary:</strong> Operation Sadbhavana: 1998; J&K + Ladakh + NE; Army Goodwill Schools, healthcare, infrastructure. MoD funded. Companion = Samaritan (NE). "Win hearts and minds" = AFSPA area counter-insurgency doctrine.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-ca -->
+
+</main>
+
+<script>
+  function showTab(name) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function togglePage(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('collapsed');
+  }
+</script>
+
+</body>
+</html>
